@@ -13,13 +13,6 @@
 @implementation MasterViewController
 static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.clearsSelectionOnViewWillAppear = NO;
-        self.preferredContentSize = CGSizeMake(320.0, 600.0);
-    }
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -100,9 +93,9 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = ringtones[indexPath.row];
-        DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setName:object];
+        NSString *ringtone = ringtones[indexPath.row];
+        DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
+        [controller setName:ringtone];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }

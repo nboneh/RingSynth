@@ -43,13 +43,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    [[NSNotificationCenter defaultCenter] addObserver: self
+     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver: self
                                              selector: @selector(enteredBackground:)
                                                  name: @"didEnterBackground"
                                                object: nil];
+    [center addObserver:self selector:@selector(keyboardOnScreen:) name:UIKeyboardDidShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardOffScreen:) name:UIKeyboardDidHideNotification object:nil];
+    
 }
+
 -(void) viewDidAppear:(BOOL)animated{
-    [[UIDevice currentDevice] setValue:
+   [[UIDevice currentDevice] setValue:
      [NSNumber numberWithInteger: UIInterfaceOrientationLandscapeLeft]
                                 forKey:@"orientation"];
     [super viewDidAppear:YES];
@@ -59,21 +64,60 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskLandscape;
-}
+
 
 -(void)enteredBackground:(NSNotification *)notification{
     //Saving file
-    [NSKeyedArchiver archiveRootObject:_detailDescriptionLabel.text toFile:[self getPath:(id) _name]];
+    [self save];
+
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
+    //Tempo should not be larger than 3 digits
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return (newLength > 3) ? NO : YES;
+}
+
+-(void)keyboardOnScreen:(NSNotification *)notification{
+    NSDictionary *info  = notification.userInfo;
+    NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect rawFrame      = [value CGRectValue];
+    CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
+    CGRect frame = _bottomBar.frame;
+    frame.origin.y -= keyboardFrame.size.height;
+    _bottomBar.frame = frame;
+
+}
+
+-(void)keyboardOffScreen:(NSNotification *)notification{
+    NSDictionary *info  = notification.userInfo;
+    NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect rawFrame      = [value CGRectValue];
+    CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
+    CGRect frame = _bottomBar.frame;
+    frame.origin.y += keyboardFrame.size.height;
+    _bottomBar.frame = frame;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch * touch = [touches anyObject];
+    if(touch.phase == UITouchPhaseBegan) {
+            [self.view endEditing:YES];
+    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated
 {
     //View will disappear save music
-    [NSKeyedArchiver archiveRootObject:_detailDescriptionLabel.text toFile:[self getPath:(id) _name]];
+    [self save];
     [super viewWillDisappear:animated];
+}
+
+-(void) save{
+     [NSKeyedArchiver archiveRootObject:_detailDescriptionLabel.text toFile:[self getPath:(id) _name]];
 }
 
 - (NSString *) getPath:(NSString *)fileName
