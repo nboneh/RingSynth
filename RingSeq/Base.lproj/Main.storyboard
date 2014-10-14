@@ -62,6 +62,9 @@
                                                 <segment title="" image="hand"/>
                                                 <segment title="" image="eraser"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="changeEditingMode" destination="JEX-9P-axG" eventType="valueChanged" id="h0p-Yf-dAq"/>
+                                            </connections>
                                         </segmentedControl>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="pUH-Ci-Al0">
@@ -116,8 +119,9 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="accidentalsController" destination="l2t-te-AXT" id="iEx-dl-hzP"/>
+                        <outlet property="accidentalsController" destination="l2t-te-AXT" id="Nt6-P2-FJa"/>
                         <outlet property="bottomBar" destination="0Dk-yD-WIh" id="ir3-kY-HVl"/>
+                        <outlet property="editModeController" destination="R7J-tN-brL" id="ZZk-a3-Oam"/>
                         <outlet property="instrumentController" destination="YOh-jN-MSg" id="RCK-w2-tSp"/>
                     </connections>
                 </viewController>

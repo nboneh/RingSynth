@@ -17,6 +17,11 @@
 
 @implementation DetailViewController
 
+@synthesize bottomBar = _bottomBar;
+@synthesize currentInstrument = _currentInstrument;
+@synthesize currentAccidental = _currentAccidental;
+
+
 #pragma mark - Managing the detail item
 
 - (void)setName:(id)newDetailItem {
@@ -68,7 +73,7 @@
         int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
         Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
         [self.view addSubview:staff];
-        measure = [[Measure alloc] initWithStaff:staff andX:80 andVolumeMeterHeight:35];
+        Measure *measure = [[Measure alloc] initWithStaff:staff andEnv:self andX:80];
         [self.view addSubview:measure];
     }
     firstTimeLoadingSubView = NO;
@@ -80,15 +85,18 @@
 }
 
 -(IBAction)changeInstrument{
-    NSInteger index = [_instrumentController selectedSegmentIndex] -1;
-    if(index >= 0){
-        measure.instrument = [[Assets getInstruments] objectAtIndex:index];
-    }
-
+    int pos = (int)[_instrumentController selectedSegmentIndex] -1;
+    if(pos >= 0)
+        _currentInstrument = [[Assets getInstruments] objectAtIndex:pos];
+    else
+        _currentInstrument = nil;
 }
 -(IBAction)changeAccedintal{
-    measure.accedintal = (int)[_accidentalsController selectedSegmentIndex];
+    _currentAccidental = (Accidental)[_accidentalsController selectedSegmentIndex];
+}
 
+-(IBAction)changeEditingMode{
+    _currentEditMode =(EditMode)[_editModeController selectedSegmentIndex];
 }
 
 -(void)enteredBackground:(NSNotification *)notification{

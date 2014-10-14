@@ -10,6 +10,7 @@
 #import "Instrument.h"
 #import "NoteDescription.h"
 #import "Staff.h"
+#import "DetailViewController.h"
 
 
 @interface Note : UIView
@@ -23,15 +24,15 @@
 
 @interface Measure : UIView{
     int volumeMeterHeight;
+    Note *noteBeingMoved;
 }
-@property Instrument * instrument;
-@property  Accidental accedintal;
+@property DetailViewController * env;
 @property UISlider *volumeSlider;
 @property NSMutableArray *noteHolders;
 @property Staff *staff;
 @property UIView *lineView;
--(id) initWithStaff:(Staff *)staff andX:(int)x andVolumeMeterHeight:(int)volumeHeight;
--(void)turnOnNoteAtPos:(int)pos;
--(void)deleteNoteAtPos:(int)pos;
+-(id) initWithStaff:(Staff *)staff andEnv: (DetailViewController *) env andX:(int)x;
+-(void)turnOnNoteAtY:(int)y;
+-(Note *)deleteNoteIfExistsAtY:(int)y;
 -(void)play;
 @end

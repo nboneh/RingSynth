@@ -73,7 +73,7 @@ static int const NOTES_IN_STAFF = 9;
         _notePlacements = [[NSArray alloc] initWithArray:preNotePlacements];
         
         UIImageView *trebleView =  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"treble"]];
-        trebleView.frame =CGRectMake(0, _spacePerNote * (NOTES_ABOVE_STAFF - 3), frame.size.width/9,_spacePerNote * (NOTES_IN_STAFF +6));
+        trebleView.frame =CGRectMake(0, _spacePerNote * (NOTES_ABOVE_STAFF - 3), frame.size.width/8,_spacePerNote * (NOTES_IN_STAFF +6));
         [self addSubview: trebleView];
 
     }

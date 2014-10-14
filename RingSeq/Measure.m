@@ -7,6 +7,7 @@
 //
 
 #import "Measure.h"
+#import "Assets.h"
 
 @implementation Note
 const int WIDTH = 80;
@@ -46,17 +47,19 @@ const int WIDTH = 80;
 
 @end
 
-@implementation Measure
+@interface Measure()
+-(int) findNoteIfExistsAtY:(int)y;
+@end
 
-@synthesize accedintal = _accedintal;
-@synthesize instrument = _instrument;
--(id) initWithStaff:(Staff *)staff  andX:(int)x andVolumeMeterHeight:(int)volumeMeterHeight_{
+@implementation Measure
+-(id) initWithStaff:(Staff *)staff andEnv: (DetailViewController *) env andX:(int)x{
     self = [super init];
     if(self){
-        _accedintal = natural;
+        _env = env;
         _staff = staff;
-        volumeMeterHeight = volumeMeterHeight_;
-        self.frame = CGRectMake(x, _staff.frame.origin.y,  WIDTH, _staff.frame.size.height + volumeMeterHeight_);
+        ;
+        volumeMeterHeight = (env.bottomBar.frame.origin.y + staff.spacePerNote - (_staff.frame.origin.y  + _staff.frame.size.height));
+        self.frame = CGRectMake(x, _staff.frame.origin.y,  WIDTH, _staff.frame.size.height + volumeMeterHeight);
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, 0, 2,  _staff.frame.size.height -staff.spacePerNote *1.5)];
         [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
         [_lineView setAlpha:0.2f];
@@ -70,8 +73,11 @@ const int WIDTH = 80;
 }
 
 
--(void)turnOnNoteAtPos:(int)pos{
-    if(_instrument){
+-(void)turnOnNoteAtY:(int)y{
+    Instrument *instrument = _env.currentInstrument;
+    int pos = y/self.staff.spacePerNote;
+    
+    if(instrument && pos < [_staff.notePlacements count] ){
         if(!_noteHolders)
             _noteHolders = [[NSMutableArray alloc] init];
         if(!_volumeSlider){
@@ -80,15 +86,15 @@ const int WIDTH = 80;
             [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
             _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
             int sliderWidth = 30;
-            _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -sliderWidth/2 +1 ,  _lineView.frame.size.height -1, sliderWidth, volumeMeterHeight);
+            _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -sliderWidth/2 +1 ,  _lineView.frame.size.height +_staff.spacePerNote/2 , sliderWidth, volumeMeterHeight);
             [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
             [_volumeSlider setValue:0.75f];
             [self addSubview:_volumeSlider];
         }
         [_volumeSlider setHidden:NO];
-
+        
         NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
-        Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:_instrument andAccedintal:_accedintal];
+        Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
         [_noteHolders  addObject: note];
         [self addSubview:note];
     }
@@ -97,9 +103,45 @@ const int WIDTH = 80;
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:self];
-    int pos = location.y/self.staff.spacePerNote;
-    if(pos < [_staff.notePlacements count] )
-        [self turnOnNoteAtPos:pos];
+    int y = location.y;
+    switch(_env.currentEditMode){
+        case insert:
+            [self turnOnNoteAtY:y];
+            break;
+        case modify:
+            ;
+        case erase:
+            [self deleteNoteIfExistsAtY:y];
+    }
 }
 
+-(Note *)deleteNoteIfExistsAtY:(int) y{
+    int index =[self findNoteIfExistsAtY:y];
+    if(index >= 0 && index < [_noteHolders count]){
+        Note *note = [_noteHolders objectAtIndex:index];
+        [note removeFromSuperview];
+        [_noteHolders removeObjectAtIndex:index];
+        return note;
+    }
+    return nil;
+}
+-(void)moveNote:(int) y{
+    int index =[self findNoteIfExistsAtY:y];
+    if(index >= 0 && index < [_noteHolders count]){
+        noteBeingMoved = [_noteHolders objectAtIndex: index];
+        
+    }
+}
+
+-(int)findNoteIfExistsAtY:(int)y{
+    NSInteger size =[_noteHolders count];
+    for(int i = 0; i < size; i++){
+        Note * note = [_noteHolders objectAtIndex:i];
+        int yPos = note.frame.origin.y;
+        if(y >= yPos && y <= yPos + note.frame.size.height)
+            return i;
+        
+    }
+    return -1;
+}
 @end
