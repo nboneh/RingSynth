@@ -7,7 +7,9 @@
 //
 
 #import "DetailViewController.h"
-#import <objc/message.h>
+#import "Assets.h"
+#import "Staff.h"
+#import "Measure.h"
 
 @interface DetailViewController ()
 
@@ -31,11 +33,6 @@
     if (self.name) {
         self.navigationItem.title = _name;
         NSString *text =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
-        if(text == nil)
-            _detailDescriptionLabel.text = _name;
-        else
-            _detailDescriptionLabel.text = text;
-        
     }
 }
 
@@ -50,19 +47,33 @@
                                                object: nil];
     [center addObserver:self selector:@selector(keyboardOnScreen:) name:UIKeyboardDidShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardOffScreen:) name:UIKeyboardDidHideNotification object:nil];
-    
-}
+    NSArray* instruments = [Assets getInstruments];
+    NSInteger size = [instruments count];
+    [_instrumentController removeSegmentAtIndex:0 animated:NO];
+    [_instrumentController removeSegmentAtIndex:0 animated:NO];
+    for(int i = 0; i < size; i++){
+        Instrument *instr = [instruments objectAtIndex:i];
+        [_instrumentController insertSegmentWithTitle:instr.name atIndex:i animated:NO];
+        [_instrumentController setImage:instr.getImage forSegmentAtIndex:i];
+    }
+    [_instrumentController insertSegmentWithTitle:@"Showtime" atIndex:0 animated:NO];
+    [_instrumentController setSelectedSegmentIndex:0];
 
--(void) viewDidAppear:(BOOL)animated{
-   [[UIDevice currentDevice] setValue:
-     [NSNumber numberWithInteger: UIInterfaceOrientationLandscapeLeft]
-                                forKey:@"orientation"];
-    [super viewDidAppear:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)viewDidLayoutSubviews{
+    int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
+    Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
+    [self.view addSubview:staff];
+    Measure *measure = [[Measure alloc] initWithStaff:staff andX:80 andVolumeMeterHeight:35];
+    [measure turnOnNoteAtPos:6 withInstrument:[[Assets getInstruments] objectAtIndex:0] withAccedintal:sharp];
+    [self.view addSubview:measure];
+
 }
 
 
@@ -117,8 +128,9 @@
 }
 
 -(void) save{
-     [NSKeyedArchiver archiveRootObject:_detailDescriptionLabel.text toFile:[self getPath:(id) _name]];
+     [NSKeyedArchiver archiveRootObject:@"" toFile:[self getPath:(id) _name]];
 }
+
 
 - (NSString *) getPath:(NSString *)fileName
 {

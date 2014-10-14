@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RMx-3f-FxP">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
                 <navigationController title="Master" id="RMx-3f-FxP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Pmd-2v-anx">
                         <autoresizingMask key="autoresizingMask"/>
@@ -17,6 +16,7 @@
                         <segue destination="7bK-jq-Zjz" kind="relationship" relationship="rootViewController" id="tsl-Nk-0bq"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-20.266666666666666" y="-596.39999999999975"/>
         </scene>
@@ -32,14 +32,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qoQ-Yw-bKt">
-                                <rect key="frame" x="28" y="83" width="160" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-yD-WIh">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-yD-WIh">
                                 <rect key="frame" x="0.0" y="276" width="568" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="xUO-xL-O3F"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem title="Tempo:" id="obm-cR-TkX">
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,10 +81,26 @@
                                     <barButtonItem systemItem="play" id="kYS-aI-kCl"/>
                                 </items>
                             </toolbar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YOh-jN-MSg">
+                                <rect key="frame" x="16" y="64" width="536" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="hiN-JL-Zet"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="PlayMode"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jph-0e-7ce" firstAttribute="top" secondItem="0Dk-yD-WIh" secondAttribute="bottom" id="1PJ-6C-LkF"/>
+                            <constraint firstItem="jph-0e-7ce" firstAttribute="top" secondItem="0Dk-yD-WIh" secondAttribute="bottom" id="4Ke-TD-5LB"/>
+                            <constraint firstItem="YOh-jN-MSg" firstAttribute="top" secondItem="pgN-ey-F5z" secondAttribute="bottom" id="6ND-Om-R1H"/>
+                            <constraint firstItem="jph-0e-7ce" firstAttribute="top" secondItem="0Dk-yD-WIh" secondAttribute="bottom" id="Bva-sd-kfH"/>
+                            <constraint firstItem="YOh-jN-MSg" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="Idq-IV-aeM"/>
+                            <constraint firstItem="0Dk-yD-WIh" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-16" id="Qn3-n0-fRQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0Dk-yD-WIh" secondAttribute="trailing" constant="-16" id="RDP-SV-Nm1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YOh-jN-MSg" secondAttribute="trailing" id="dsI-pH-viX"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -98,7 +111,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="bottomBar" destination="0Dk-yD-WIh" id="ir3-kY-HVl"/>
-                        <outlet property="detailDescriptionLabel" destination="qoQ-Yw-bKt" id="cOI-p0-maB"/>
+                        <outlet property="instrumentController" destination="YOh-jN-MSg" id="RCK-w2-tSp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>

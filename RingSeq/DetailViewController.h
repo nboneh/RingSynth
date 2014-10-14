@@ -11,8 +11,9 @@
 @interface DetailViewController : UIViewController<UITextFieldDelegate>
 
 @property (strong, nonatomic) id name;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UIToolbar *bottomBar;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *instrumentController;
+
 
 @end
 

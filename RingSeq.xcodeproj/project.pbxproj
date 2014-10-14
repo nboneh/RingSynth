@@ -15,6 +15,11 @@
 		0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC119E70B5F00CED5B4 /* Images.xcassets */; };
 		0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC319E70B5F00CED5B4 /* LaunchScreen.xib */; };
 		0B703ED119E70B5F00CED5B4 /* RingSeqTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703ED019E70B5F00CED5B4 /* RingSeqTests.m */; };
+		0B74952719EB5A870078296B /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952619EB5A870078296B /* Measure.m */; };
+		0B74952B19EB793B0078296B /* Instrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952A19EB793B0078296B /* Instrument.m */; };
+		0B74952E19EB7BA50078296B /* Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952D19EB7BA50078296B /* Assets.m */; };
+		0B74953119EC553C0078296B /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953019EC553C0078296B /* Staff.m */; };
+		0B74953419EC5C570078296B /* NoteDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953319EC5C570078296B /* NoteDescription.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +48,16 @@
 		0B703ECA19E70B5F00CED5B4 /* RingSeqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RingSeqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703ECF19E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703ED019E70B5F00CED5B4 /* RingSeqTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingSeqTests.m; sourceTree = "<group>"; };
+		0B74952519EB5A870078296B /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
+		0B74952619EB5A870078296B /* Measure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measure.m; sourceTree = "<group>"; };
+		0B74952919EB793B0078296B /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
+		0B74952A19EB793B0078296B /* Instrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instrument.m; sourceTree = "<group>"; };
+		0B74952C19EB7BA50078296B /* Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Assets.h; sourceTree = "<group>"; };
+		0B74952D19EB7BA50078296B /* Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Assets.m; sourceTree = "<group>"; };
+		0B74952F19EC553C0078296B /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
+		0B74953019EC553C0078296B /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
+		0B74953219EC5C570078296B /* NoteDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteDescription.h; sourceTree = "<group>"; };
+		0B74953319EC5C570078296B /* NoteDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteDescription.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +99,8 @@
 		0B703EB019E70B5F00CED5B4 /* RingSeq */ = {
 			isa = PBXGroup;
 			children = (
+				0B74952819EB79150078296B /* InstrumentAsset */,
+				0B74951F19EB59AA0078296B /* GridLayout */,
 				0B703EB519E70B5F00CED5B4 /* AppDelegate.h */,
 				0B703EB619E70B5F00CED5B4 /* AppDelegate.m */,
 				0B703EB819E70B5F00CED5B4 /* MasterViewController.h */,
@@ -122,6 +139,30 @@
 				0B703ECF19E70B5F00CED5B4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0B74951F19EB59AA0078296B /* GridLayout */ = {
+			isa = PBXGroup;
+			children = (
+				0B74952519EB5A870078296B /* Measure.h */,
+				0B74952619EB5A870078296B /* Measure.m */,
+				0B74952F19EC553C0078296B /* Staff.h */,
+				0B74953019EC553C0078296B /* Staff.m */,
+			);
+			name = GridLayout;
+			sourceTree = "<group>";
+		};
+		0B74952819EB79150078296B /* InstrumentAsset */ = {
+			isa = PBXGroup;
+			children = (
+				0B74952919EB793B0078296B /* Instrument.h */,
+				0B74952A19EB793B0078296B /* Instrument.m */,
+				0B74952C19EB7BA50078296B /* Assets.h */,
+				0B74952D19EB7BA50078296B /* Assets.m */,
+				0B74953219EC5C570078296B /* NoteDescription.h */,
+				0B74953319EC5C570078296B /* NoteDescription.m */,
+			);
+			name = InstrumentAsset;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,9 +265,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B74953419EC5C570078296B /* NoteDescription.m in Sources */,
 				0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */,
+				0B74952719EB5A870078296B /* Measure.m in Sources */,
 				0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */,
+				0B74952E19EB7BA50078296B /* Assets.m in Sources */,
 				0B703EB419E70B5F00CED5B4 /* main.m in Sources */,
+				0B74952B19EB793B0078296B /* Instrument.m in Sources */,
+				0B74953119EC553C0078296B /* Staff.m in Sources */,
 				0B703EBD19E70B5F00CED5B4 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

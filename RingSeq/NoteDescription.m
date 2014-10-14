@@ -1,0 +1,46 @@
+//
+//  NoteDescription.m
+//  RingSeq
+//
+//  Created by Nir Boneh on 10/13/14.
+//  Copyright (c) 2014 Clouby. All rights reserved.
+//
+
+#import "NoteDescription.h"
+
+@implementation NoteDescription : NSObject
+
+@synthesize accidental = _accedintal;
+@synthesize character = _character;
+@synthesize octave = _octave;
+
+-(id) initWithOctave:(int)octave andChar:(char)character{
+    self = [super init];
+    if(self){
+        self.accidental = natural;
+        self.character = character;
+        self.octave = octave;
+    }
+    return self;
+}
+
+-(void) inc{
+    if(self.character == 'g'){
+        self.character = 'a';
+        self.octave++;
+    }
+    else{
+        self.character++;
+    }
+}
+
+-(void) dec{
+    if(self.character == 'a'){
+        self.character = 'g';
+        self.octave--;
+    }
+    else{
+        self.character--;
+    }
+}
+@end
