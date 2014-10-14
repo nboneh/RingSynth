@@ -8,12 +8,14 @@
 
 #import "Note.h"
 @implementation Note
-const int WIDTH = 80;
+@synthesize instrument = _instrument;
 
 -(id) initWithNotePlacement: (NotePlacement *)placement withInstrument:(Instrument *)instrument andAccedintal:(Accidental)accidental{
     self = [super init];
     if(self){
         _instrument = instrument;
+        _placement =placement;
+        
         _noteDescription = [placement.noteDescs objectAtIndex:accidental];
         _instrView = [[UIImageView alloc] initWithImage:[instrument getImage]];
         [_instrView setTintColor:self.tintColor];
@@ -29,6 +31,7 @@ const int WIDTH = 80;
     }
     return self;
 }
+
 
 -(void)drawAccidental:(Accidental)accidental{
     switch(accidental){
@@ -47,12 +50,6 @@ const int WIDTH = 80;
     }
 }
 
--(void) moveToNotePlacement:(NotePlacement *)placement withAccedintal:(Accidental)accidental{
-     _noteDescription = [placement.noteDescs objectAtIndex:accidental];
-    CGRect frame = [self frame];
-    frame.origin.y = placement.y - _instrView.frame.size.height/2;
-    self.frame = frame;
-}
 
 -(void) playWithVolume:(float)volume{
     

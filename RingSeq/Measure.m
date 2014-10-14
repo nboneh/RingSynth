@@ -12,6 +12,7 @@
 
 @interface Measure()
 -(int) findNoteIfExistsAtY:(int)y;
+-(void)checkViews;
 -(void)moveNoteAtY:(int) y;
 @end
 
@@ -22,7 +23,6 @@ static int const WIDTH = 20;
     if(self){
         _env = env;
         _staff = staff;
-        ;
         volumeMeterHeight = (env.bottomBar.frame.origin.y + staff.spacePerNote - (_staff.frame.origin.y  + _staff.frame.size.height));
         self.frame = CGRectMake(x, _staff.frame.origin.y,  WIDTH, _staff.frame.size.height + volumeMeterHeight);
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, 0, 2,  _staff.frame.size.height -staff.spacePerNote *1.5)];
@@ -38,32 +38,45 @@ static int const WIDTH = 20;
     return self;
 }
 
+-(void)checkViews{
+    if(!_noteHolders)
+        _noteHolders = [[NSMutableArray alloc] init];
+    if(!_volumeSlider){
+        _volumeSlider = [[UISlider alloc] init];
+        [_volumeSlider removeConstraints:_volumeSlider.constraints];
+        [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
+        _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
+        int sliderWidth = 30;
+        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -sliderWidth/2 +1 ,  _lineView.frame.size.height +_staff.spacePerNote/2 , sliderWidth, volumeMeterHeight);
+        [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
+        [_volumeSlider setValue:0.75f];
+        [self addSubview:_volumeSlider];
+    }
+    if(_noteHolders.count >0)
+        [_volumeSlider setHidden:NO];
+    else
+        [_volumeSlider setHidden:YES];
+}
 
 -(void)turnOnNoteAtY:(int)y{
-    Instrument *instrument = _env.currentInstrument;
-    int pos = round(y/(self.staff.spacePerNote + 0.0));
+    Instrument *instrument = nil;
     
-    if(instrument && pos < [_staff.notePlacements count] ){
-        if(!_noteHolders)
-            _noteHolders = [[NSMutableArray alloc] init];
-        if(!_volumeSlider){
-            _volumeSlider = [[UISlider alloc] init];
-            [_volumeSlider removeConstraints:_volumeSlider.constraints];
-            [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
-            _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
-            int sliderWidth = 30;
-            _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -sliderWidth/2 +1 ,  _lineView.frame.size.height +_staff.spacePerNote/2 , sliderWidth, volumeMeterHeight);
-            [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
-            [_volumeSlider setValue:0.75f];
-            [self addSubview:_volumeSlider];
-        }
-        [_volumeSlider setHidden:NO];
-        
-        NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
-        Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
-        [_noteHolders  addObject: note];
-        [self addSubview:note];
-    }
+    if(_env.noteBeingMoved)
+       instrument = _env.noteBeingMoved.instrument;
+    else
+        instrument = _env.currentInstrument;
+    
+    if(!instrument)
+        return;
+    int pos = round(y/(self.staff.spacePerNote + 0.0));
+    if(pos >=  [_staff.notePlacements count]  )
+        return;
+    [self checkViews];
+    
+    NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
+    Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
+    [_noteHolders  addObject: note];
+    [self addSubview:note];
     
 }
 
@@ -75,9 +88,14 @@ static int const WIDTH = 20;
             [self turnOnNoteAtY:y];
             break;
         case modify:
+            //For quick changing of accidental
             [self moveNoteAtY:y];
+            [self turnOnNoteAtY:y];
+            _env.noteBeingMoved = nil;
+            break;
         case nerase:
             [self deleteNoteIfExistsAtY:y];
+            break;
     }
 }
 
@@ -87,6 +105,7 @@ static int const WIDTH = 20;
         Note *note = [_noteHolders objectAtIndex:index];
         [note removeFromSuperview];
         [_noteHolders removeObjectAtIndex:index];
+        [self checkViews];
         return note;
     }
     return nil;
