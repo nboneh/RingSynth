@@ -14,7 +14,6 @@
     self = [super init];
     if(self){
         _instrument = instrument;
-        _placement =placement;
         
         _noteDescription = [placement.noteDescs objectAtIndex:accidental];
         _instrView = [[UIImageView alloc] initWithImage:[instrument getImage]];
@@ -50,6 +49,13 @@
     }
 }
 
+-(void) moveToNotePlacement:(NotePlacement *)placement withAccedintal:(Accidental)accidental{
+     _noteDescription = [placement.noteDescs objectAtIndex:accidental];
+    CGRect frame = [self frame];
+    frame.origin.y = placement.y - _instrView.frame.size.height/2;
+    self.frame = frame;
+    [self drawAccidental:accidental];
+}
 
 -(void) playWithVolume:(float)volume{
     

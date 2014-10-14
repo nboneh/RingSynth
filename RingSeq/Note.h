@@ -16,11 +16,11 @@
 
 @property NoteDescription *noteDescription;
 @property Instrument *instrument;
-@property NotePlacement *placement;
 @property UILabel *accidentalView;
 @property UIImageView *instrView;
 
 -(id) initWithNotePlacement: (NotePlacement *)placement withInstrument:(Instrument *)instrument andAccedintal:(Accidental)accidental;
+-(void) moveToNotePlacement:(NotePlacement *)placement withAccedintal:(Accidental)accidental;
 -(void)drawAccidental:(Accidental)accidental;
 -(void) playWithVolume:(float)volume;
 

@@ -14,6 +14,7 @@
 -(int) findNoteIfExistsAtY:(int)y;
 -(void)checkViews;
 -(void)moveNoteAtY:(int) y;
+-(void)placeNoteAtY:(int)y;
 @end
 
 @implementation Measure
@@ -32,15 +33,13 @@ static int const WIDTH = 20;
         UITapGestureRecognizer *singleFingerTap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
-        
         [self addGestureRecognizer:singleFingerTap];
+        _noteHolders = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 -(void)checkViews{
-    if(!_noteHolders)
-        _noteHolders = [[NSMutableArray alloc] init];
     if(!_volumeSlider){
         _volumeSlider = [[UISlider alloc] init];
         [_volumeSlider removeConstraints:_volumeSlider.constraints];
@@ -59,24 +58,18 @@ static int const WIDTH = 20;
 }
 
 -(void)turnOnNoteAtY:(int)y{
-    Instrument *instrument = nil;
-    
-    if(_env.noteBeingMoved)
-       instrument = _env.noteBeingMoved.instrument;
-    else
-        instrument = _env.currentInstrument;
-    
+   Instrument * instrument = _env.currentInstrument;
     if(!instrument)
         return;
     int pos = round(y/(self.staff.spacePerNote + 0.0));
     if(pos >=  [_staff.notePlacements count]  )
         return;
-    [self checkViews];
-    
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
     Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
     [_noteHolders  addObject: note];
     [self addSubview:note];
+    [self checkViews];
+
     
 }
 
@@ -90,8 +83,7 @@ static int const WIDTH = 20;
         case modify:
             //For quick changing of accidental
             [self moveNoteAtY:y];
-            [self turnOnNoteAtY:y];
-            _env.noteBeingMoved = nil;
+            [self placeNoteAtY:y];
             break;
         case nerase:
             [self deleteNoteIfExistsAtY:y];
@@ -115,6 +107,23 @@ static int const WIDTH = 20;
     if(_env.noteBeingMoved ){
         [_env.noteBeingMoved drawAccidental:_env.currentAccidental];
     }
+}
+-(void)placeNoteAtY:(int) y{
+    if(!_env.noteBeingMoved)
+        return;
+    int pos = round(y/(self.staff.spacePerNote + 0.0));
+    if(pos >=  [_staff.notePlacements count]  )
+        return;
+    [self checkViews];
+    
+    NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
+    [_env.noteBeingMoved moveToNotePlacement:placement withAccedintal:_env.currentAccidental];
+    [_noteHolders  addObject: _env.noteBeingMoved];
+    [self addSubview:_env.noteBeingMoved];
+    [self checkViews];
+    _env.noteBeingMoved = nil;
+
+    
 }
 
 -(int)findNoteIfExistsAtY:(int)y{
