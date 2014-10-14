@@ -10,13 +10,18 @@
 
 @implementation  NotePlacement
 @synthesize y = _y;
-@synthesize noteDesc = _noteDesc;
+@synthesize noteDescs = _noteDescs;
 
 -(id) initWithY:(int) y andNote:(NoteDescription *) noteDesc{
     self = [super init];
     if(self){
         self.y =y;
-        self.noteDesc = noteDesc;
+        NSMutableArray *preNoteDescs = [[NSMutableArray alloc] init];
+        for(int i = 0; i < numOfAccedintals; i++){
+            [preNoteDescs addObject:[[NoteDescription alloc] initWithNoteDescription:noteDesc andAccedintal:i]];
+        }
+        self.noteDescs = [[NSArray alloc] initWithArray:preNoteDescs];
+        
     }
     return self;
 }
@@ -54,7 +59,10 @@ static int const NOTES_IN_STAFF = 9;
                 if( i < NOTES_ABOVE_STAFF || i > (NOTES_ABOVE_STAFF + NOTES_IN_STAFF)){
                     //Outside notes in staff draw dim line
                     [lineView setAlpha:0.1f];
+                  lineView.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"dashedhorz"]];
                     //[lineView setColor]
+                } else {
+                    [lineView setBackgroundColor:[UIColor blackColor]];
                 }
                 [self addSubview:lineView];
             }
@@ -65,7 +73,7 @@ static int const NOTES_IN_STAFF = 9;
         _notePlacements = [[NSArray alloc] initWithArray:preNotePlacements];
         
         UIImageView *trebleView =  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"treble"]];
-        trebleView.frame =CGRectMake(0, _spacePerNote * (NOTES_ABOVE_STAFF - 2), frame.size.width/9,_spacePerNote * (NOTES_IN_STAFF +5));
+        trebleView.frame =CGRectMake(0, _spacePerNote * (NOTES_ABOVE_STAFF - 3), frame.size.width/9,_spacePerNote * (NOTES_IN_STAFF +6));
         [self addSubview: trebleView];
 
     }

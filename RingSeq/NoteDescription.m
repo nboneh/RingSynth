@@ -24,6 +24,16 @@
     return self;
 }
 
+-(id) initWithNoteDescription:(NoteDescription *) desc andAccedintal:(Accidental)accedintal{
+    self = [super init];
+    if(self){
+        self.accidental = accedintal;
+        self.character = desc.character;
+        self.octave = desc.octave;
+    }
+    return self;
+}
+
 -(void) inc{
     if(self.character == 'g'){
         self.character = 'a';

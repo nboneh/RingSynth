@@ -13,7 +13,8 @@
 typedef enum {
     natural = 0,
     sharp = 1,
-    flat = 2
+    flat = 2,
+    numOfAccedintals= 3
 } Accidental;
 
 @property int octave;
@@ -21,6 +22,7 @@ typedef enum {
 @property Accidental accidental;
 
 -(id) initWithOctave:(int)octave andChar:(char)character;
+-(id) initWithNoteDescription:(NoteDescription *) desc andAccedintal:(Accidental)accedintal;
 -(void) inc;
 -(void) dec;
 @end

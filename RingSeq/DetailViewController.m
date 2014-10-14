@@ -58,24 +58,38 @@
     }
     [_instrumentController insertSegmentWithTitle:@"Showtime" atIndex:0 animated:NO];
     [_instrumentController setSelectedSegmentIndex:0];
+    
+    firstTimeLoadingSubView = YES;
 
     
+}
+-(void) viewDidLayoutSubviews{
+    if(firstTimeLoadingSubView) {
+        int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
+        Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
+        [self.view addSubview:staff];
+        measure = [[Measure alloc] initWithStaff:staff andX:80 andVolumeMeterHeight:35];
+        [self.view addSubview:measure];
+    }
+    firstTimeLoadingSubView = NO;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)viewDidLayoutSubviews{
-    int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
-    Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
-    [self.view addSubview:staff];
-    Measure *measure = [[Measure alloc] initWithStaff:staff andX:80 andVolumeMeterHeight:35];
-    [measure turnOnNoteAtPos:6 withInstrument:[[Assets getInstruments] objectAtIndex:0] withAccedintal:sharp];
-    [self.view addSubview:measure];
+
+-(IBAction)changeInstrument{
+    NSInteger index = [_instrumentController selectedSegmentIndex] -1;
+    if(index >= 0){
+        measure.instrument = [[Assets getInstruments] objectAtIndex:index];
+    }
 
 }
+-(IBAction)changeAccedintal{
+    measure.accedintal = (int)[_accidentalsController selectedSegmentIndex];
 
+}
 
 -(void)enteredBackground:(NSNotification *)notification{
     //Saving file

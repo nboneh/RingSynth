@@ -7,12 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Measure.h"
 
-@interface DetailViewController : UIViewController<UITextFieldDelegate>
+@interface DetailViewController : UIViewController<UITextFieldDelegate>{
+    Measure *measure;
+    BOOL firstTimeLoadingSubView;
+}
 
 @property (strong, nonatomic) id name;
 @property (weak, nonatomic) IBOutlet UIToolbar *bottomBar;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *instrumentController;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *accidentalsController;
+
+-(IBAction)changeInstrument;
+-(IBAction)changeAccedintal;
 
 
 @end

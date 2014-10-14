@@ -10,7 +10,7 @@
 #import "NoteDescription.h"
 @interface NotePlacement :NSObject
 @property float y;
-@property NoteDescription *noteDesc;
+@property NSArray *noteDescs;
 -(id) initWithY:(int) y andNote:(NoteDescription *) noteDesc;
 @end
 
