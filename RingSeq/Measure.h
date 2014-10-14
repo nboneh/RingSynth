@@ -11,20 +11,12 @@
 #import "NoteDescription.h"
 #import "Staff.h"
 #import "DetailViewController.h"
+#import "Note.h"
 
 
-@interface Note : UIView
-
-@property NoteDescription *noteDescription;
-@property Instrument *instrument;
--(id) initWithNotePlacement: (NotePlacement *)placement withInstrument:(Instrument *)instrument andAccedintal:(Accidental)accidental;
-
--(void) play;
-@end
 
 @interface Measure : UIView{
     int volumeMeterHeight;
-    Note *noteBeingMoved;
 }
 @property DetailViewController * env;
 @property UISlider *volumeSlider;

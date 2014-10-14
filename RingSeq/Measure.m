@@ -9,49 +9,14 @@
 #import "Measure.h"
 #import "Assets.h"
 
-@implementation Note
-const int WIDTH = 80;
-
--(id) initWithNotePlacement: (NotePlacement *)placement withInstrument:(Instrument *)instrument andAccedintal:(Accidental)accidental{
-    self = [super init];
-    if(self){
-        _instrument = instrument;
-        _noteDescription = [placement.noteDescs objectAtIndex:accidental];
-        UIImageView *instrImage = [[UIImageView alloc] initWithImage:[instrument getImage]];
-        [instrImage setTintColor:self.tintColor];
-        CGRect imageFrame = instrImage.frame;
-        self.frame = CGRectMake(WIDTH/2- imageFrame.size.width/2, placement.y - imageFrame.size.height/2, imageFrame.size.width, imageFrame.size.height);
-        [self addSubview:instrImage];
-        
-        
-        if(_noteDescription.accidental == sharp || _noteDescription.accidental == flat ){
-            CGRect myFrame = self.frame;
-            int width = myFrame.size.width/2;
-            UILabel *accedintalView= [[UILabel alloc] initWithFrame:CGRectMake(-width * .8f,width/2,width,width)];
-            accedintalView.textColor = self.tintColor;
-            [self addSubview:accedintalView];
-            if(_noteDescription.accidental == sharp)
-                accedintalView.text = @"#";
-            else
-                accedintalView.text = @"b";
-            [self addSubview:accedintalView];
-        }
-        [self play];
-        
-    }
-    return self;
-}
--(void) play{
-    
-}
-
-@end
 
 @interface Measure()
 -(int) findNoteIfExistsAtY:(int)y;
+-(void)moveNoteAtY:(int) y;
 @end
 
 @implementation Measure
+static int const WIDTH = 20;
 -(id) initWithStaff:(Staff *)staff andEnv: (DetailViewController *) env andX:(int)x{
     self = [super init];
     if(self){
@@ -67,6 +32,7 @@ const int WIDTH = 80;
         UITapGestureRecognizer *singleFingerTap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
+        
         [self addGestureRecognizer:singleFingerTap];
     }
     return self;
@@ -75,7 +41,7 @@ const int WIDTH = 80;
 
 -(void)turnOnNoteAtY:(int)y{
     Instrument *instrument = _env.currentInstrument;
-    int pos = y/self.staff.spacePerNote;
+    int pos = round(y/(self.staff.spacePerNote + 0.0));
     
     if(instrument && pos < [_staff.notePlacements count] ){
         if(!_noteHolders)
@@ -109,8 +75,8 @@ const int WIDTH = 80;
             [self turnOnNoteAtY:y];
             break;
         case modify:
-            ;
-        case erase:
+            [self moveNoteAtY:y];
+        case nerase:
             [self deleteNoteIfExistsAtY:y];
     }
 }
@@ -125,11 +91,10 @@ const int WIDTH = 80;
     }
     return nil;
 }
--(void)moveNote:(int) y{
-    int index =[self findNoteIfExistsAtY:y];
-    if(index >= 0 && index < [_noteHolders count]){
-        noteBeingMoved = [_noteHolders objectAtIndex: index];
-        
+-(void)moveNoteAtY:(int) y{
+    _env.noteBeingMoved = [self deleteNoteIfExistsAtY:y];
+    if(_env.noteBeingMoved ){
+        [_env.noteBeingMoved drawAccidental:_env.currentAccidental];
     }
 }
 

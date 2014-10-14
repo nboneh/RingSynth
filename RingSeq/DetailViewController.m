@@ -20,6 +20,7 @@
 @synthesize bottomBar = _bottomBar;
 @synthesize currentInstrument = _currentInstrument;
 @synthesize currentAccidental = _currentAccidental;
+@synthesize noteBeingMoved = _noteBeingMoved;
 
 
 #pragma mark - Managing the detail item
@@ -63,7 +64,7 @@
     }
     [_instrumentController insertSegmentWithTitle:@"Showtime" atIndex:0 animated:NO];
     [_instrumentController setSelectedSegmentIndex:0];
-    
+    _noteBeingMoved = nil;
     firstTimeLoadingSubView = YES;
 
     
@@ -93,6 +94,9 @@
 }
 -(IBAction)changeAccedintal{
     _currentAccidental = (Accidental)[_accidentalsController selectedSegmentIndex];
+    
+    if(_noteBeingMoved)
+        [_noteBeingMoved drawAccidental:_currentAccidental];
 }
 
 -(IBAction)changeEditingMode{

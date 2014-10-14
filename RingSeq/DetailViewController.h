@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Instrument.h"
 #import "NoteDescription.h"
+#import "Note.h"
 
 
 @interface DetailViewController : UIViewController<UITextFieldDelegate>{
@@ -18,7 +19,7 @@
 typedef enum {
     insert =0,
     modify = 1,
-    erase = 2
+    nerase = 2
 } EditMode;
 
 @property (strong, nonatomic) id name;
@@ -27,6 +28,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UISegmentedControl *accidentalsController;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *editModeController;
 
+@property Note * noteBeingMoved;
 @property Instrument *currentInstrument;
 @property Accidental currentAccidental;
 @property EditMode currentEditMode;
