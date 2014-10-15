@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
-@interface Assets : NSObject
+@interface Assets : NSObject{
+    SystemSoundID* eraseSounds;
+}
 
 +(NSArray *)getInstruments;
-
++(void) playEraseSound;
 @end

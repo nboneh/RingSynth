@@ -53,4 +53,5 @@
         self.character--;
     }
 }
+
 @end

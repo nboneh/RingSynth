@@ -16,5 +16,6 @@
 
 @interface Staff : UIView
 @property int spacePerNote;
+@property UIImageView *trebleView;
 @property NSArray *notePlacements;
 @end

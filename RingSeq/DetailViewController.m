@@ -1,3 +1,4 @@
+
 //
 //  DetailViewController.m
 //  RingSeq
@@ -20,9 +21,7 @@
 @synthesize bottomBar = _bottomBar;
 @synthesize currentInstrument = _currentInstrument;
 @synthesize currentAccidental = _currentAccidental;
-@synthesize noteBeingMoved = _noteBeingMoved;
-
-
+static const int minTempo =11;
 #pragma mark - Managing the detail item
 
 - (void)setName:(id)newDetailItem {
@@ -46,11 +45,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
-                                             selector: @selector(enteredBackground:)
-                                                 name: @"didEnterBackground"
-                                               object: nil];
+               selector: @selector(enteredBackground:)
+                   name: @"didEnterBackground"
+                 object: nil];
     [center addObserver:self selector:@selector(keyboardOnScreen:) name:UIKeyboardDidShowNotification object:nil];
     [center addObserver:self selector:@selector(keyboardOffScreen:) name:UIKeyboardDidHideNotification object:nil];
     NSArray* instruments = [Assets getInstruments];
@@ -64,9 +63,8 @@
     }
     [_instrumentController insertSegmentWithTitle:@"Showtime" atIndex:0 animated:NO];
     [_instrumentController setSelectedSegmentIndex:0];
-    _noteBeingMoved = nil;
     firstTimeLoadingSubView = YES;
-
+    
     
 }
 -(void) viewDidLayoutSubviews{
@@ -74,8 +72,15 @@
         int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
         Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
         [self.view addSubview:staff];
-        Measure *measure = [[Measure alloc] initWithStaff:staff andEnv:self andX:80];
+        Measure *measure = [[Measure alloc] initWithStaff:staff env:self x:80 andTitle: @"1"];
         [self.view addSubview:measure];
+        Measure *measure2 = [[Measure alloc] initWithStaff:staff env:self x:140 andTitle: @"e"];
+        [self.view addSubview:measure];
+        Measure *measure3 = [[Measure alloc] initWithStaff:staff env:self x:190 andTitle: @"3"];
+
+        [self.view addSubview:measure2];
+          [self.view addSubview:measure3];
+            [self.view bringSubviewToFront: _bottomBar];
     }
     firstTimeLoadingSubView = NO;
 }
@@ -85,28 +90,26 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)changeInstrument{
-    int pos = (int)[_instrumentController selectedSegmentIndex] -1;
+-(IBAction)changeInstrument:(UISegmentedControl *)sender{
+    int pos = (int)[sender selectedSegmentIndex] -1;
     if(pos >= 0)
         _currentInstrument = [[Assets getInstruments] objectAtIndex:pos];
     else
         _currentInstrument = nil;
 }
--(IBAction)changeAccedintal{
-    _currentAccidental = (Accidental)[_accidentalsController selectedSegmentIndex];
-    
-    if(_noteBeingMoved)
-        [_noteBeingMoved drawAccidental:_currentAccidental];
+-(IBAction)changeAccedintal:(UISegmentedControl *)sender{
+    _currentAccidental = (Accidental)[sender selectedSegmentIndex];
+
 }
 
--(IBAction)changeEditingMode{
-    _currentEditMode =(EditMode)[_editModeController selectedSegmentIndex];
+-(IBAction)changeEditingMode:(UISegmentedControl *) sender{
+    _currentEditMode =(EditMode)[sender selectedSegmentIndex];
 }
 
 -(void)enteredBackground:(NSNotification *)notification{
     //Saving file
     [self save];
-
+    
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -126,6 +129,7 @@
     frame.origin.y -= keyboardFrame.size.height;
     _bottomBar.frame = frame;
 
+    
 }
 
 -(void)keyboardOffScreen:(NSNotification *)notification{
@@ -135,14 +139,19 @@
     CGRect rawFrame      = [value CGRectValue];
     CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
     CGRect frame = _bottomBar.frame;
-    frame.origin.y += keyboardFrame.size.height;
+        frame.origin.y += keyboardFrame.size.height;
     _bottomBar.frame = frame;
+    
+    if(_tempoField.text.integerValue < minTempo){
+        _tempoField.text = [@(minTempo) stringValue];
+    }
+       [self.view bringSubviewToFront: _bottomBar];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch * touch = [touches anyObject];
     if(touch.phase == UITouchPhaseBegan) {
-            [self.view endEditing:YES];
+        [self.view endEditing:YES];
     }
 }
 
@@ -154,8 +163,9 @@
 }
 
 -(void) save{
-     [NSKeyedArchiver archiveRootObject:@"" toFile:[self getPath:(id) _name]];
+    [NSKeyedArchiver archiveRootObject:@"" toFile:[self getPath:(id) _name]];
 }
+
 
 
 - (NSString *) getPath:(NSString *)fileName
@@ -164,4 +174,7 @@
     return [path stringByAppendingPathComponent:fileName];
 }
 
+
+
 @end
+

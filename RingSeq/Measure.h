@@ -23,8 +23,9 @@
 @property NSMutableArray *noteHolders;
 @property Staff *staff;
 @property UIView *lineView;
--(id) initWithStaff:(Staff *)staff andEnv: (DetailViewController *) env andX:(int)x;
--(void)turnOnNoteAtY:(int)y;
+-(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
+            andTitle:(NSString *)title;
+-(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note;
 -(Note *)deleteNoteIfExistsAtY:(int)y;
 -(void)play;
 @end

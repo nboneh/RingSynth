@@ -11,17 +11,22 @@
 #import "Staff.h"
 #import "Instrument.h"
 
-@interface Note : UIView
-
+@interface Note : UIView{
+    CGPoint startLocation;
+    BOOL longPressOccured;
+}
 
 @property NoteDescription *noteDescription;
+@property NotePlacement *notePlacement;
 @property Instrument *instrument;
 @property UILabel *accidentalView;
 @property UIImageView *instrView;
+
 
 -(id) initWithNotePlacement: (NotePlacement *)placement withInstrument:(Instrument *)instrument andAccedintal:(Accidental)accidental;
 -(void) moveToNotePlacement:(NotePlacement *)placement withAccedintal:(Accidental)accidental;
 -(void)drawAccidental:(Accidental)accidental;
 -(void) playWithVolume:(float)volume;
+-(BOOL)equals:(Note *)note;
 
 @end

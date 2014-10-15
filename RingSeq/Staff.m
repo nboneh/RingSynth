@@ -31,6 +31,7 @@
 @implementation Staff
 @synthesize notePlacements = _notePlacements;
 @synthesize spacePerNote = _spacePerNote;
+@synthesize trebleView = _trebleView;
 static int const NOTES_BELOW_STAFF= 4;
 static int const NOTES_ABOVE_STAFF =4;
 static int const NOTES_IN_STAFF = 9;
@@ -72,9 +73,9 @@ static int const NOTES_IN_STAFF = 9;
         }
         _notePlacements = [[NSArray alloc] initWithArray:preNotePlacements];
         
-        UIImageView *trebleView =  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"treble"]];
-        trebleView.frame =CGRectMake(0, _spacePerNote * (NOTES_ABOVE_STAFF - 3), frame.size.width/8,_spacePerNote * (NOTES_IN_STAFF +6));
-        [self addSubview: trebleView];
+        _trebleView=  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"treble"]];
+        _trebleView.frame =CGRectMake(0, _spacePerNote * (NOTES_ABOVE_STAFF - 3), frame.size.width/8,_spacePerNote * (NOTES_IN_STAFF +6));
+        [self addSubview: _trebleView];
 
     }
     return self;

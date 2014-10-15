@@ -18,24 +18,21 @@
 
 typedef enum {
     insert =0,
-    modify = 1,
-    nerase = 2
+    nerase = 1
 } EditMode;
 
 @property (strong, nonatomic) id name;
 @property (weak, nonatomic) IBOutlet UIToolbar *bottomBar;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *instrumentController;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *accidentalsController;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *editModeController;
+@property (weak, nonatomic) IBOutlet UITextField *tempoField;
 
-@property Note * noteBeingMoved;
 @property Instrument *currentInstrument;
 @property Accidental currentAccidental;
 @property EditMode currentEditMode;
 
--(IBAction)changeEditingMode;
--(IBAction)changeInstrument;
--(IBAction)changeAccedintal;
+-(IBAction)changeEditingMode:(UISegmentedControl *) sender;
+-(IBAction)changeInstrument:(UISegmentedControl *)sender;
+-(IBAction)changeAccedintal:(UISegmentedControl *)sender;
 
 
 @end

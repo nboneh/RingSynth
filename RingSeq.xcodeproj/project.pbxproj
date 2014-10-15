@@ -21,6 +21,11 @@
 		0B74953119EC553C0078296B /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953019EC553C0078296B /* Staff.m */; };
 		0B74953419EC5C570078296B /* NoteDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953319EC5C570078296B /* NoteDescription.m */; };
 		0B74953719EDAE000078296B /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953619EDAE000078296B /* Note.m */; };
+		0B74953B19EE050E0078296B /* delete1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74953A19EE050E0078296B /* delete1.wav */; };
+		0B74953D19EE051B0078296B /* delete3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74953C19EE051B0078296B /* delete3.wav */; };
+		0B74953F19EE05250078296B /* delete4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74953E19EE05250078296B /* delete4.wav */; };
+		0B74954119EE052D0078296B /* delete2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74954019EE052D0078296B /* delete2.wav */; };
+		0B74954419EEF7300078296B /* Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74954319EEF7300078296B /* Layout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +66,12 @@
 		0B74953319EC5C570078296B /* NoteDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteDescription.m; sourceTree = "<group>"; };
 		0B74953519EDAE000078296B /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		0B74953619EDAE000078296B /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		0B74953A19EE050E0078296B /* delete1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete1.wav; sourceTree = "<group>"; };
+		0B74953C19EE051B0078296B /* delete3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete3.wav; sourceTree = "<group>"; };
+		0B74953E19EE05250078296B /* delete4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete4.wav; sourceTree = "<group>"; };
+		0B74954019EE052D0078296B /* delete2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete2.wav; sourceTree = "<group>"; };
+		0B74954219EEF7300078296B /* Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
+		0B74954319EEF7300078296B /* Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +132,10 @@
 		0B703EB119E70B5F00CED5B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0B74954019EE052D0078296B /* delete2.wav */,
+				0B74953E19EE05250078296B /* delete4.wav */,
+				0B74953C19EE051B0078296B /* delete3.wav */,
+				0B74953A19EE050E0078296B /* delete1.wav */,
 				0B703EB219E70B5F00CED5B4 /* Info.plist */,
 				0B703EB319E70B5F00CED5B4 /* main.m */,
 			);
@@ -153,6 +168,8 @@
 				0B74953019EC553C0078296B /* Staff.m */,
 				0B74953519EDAE000078296B /* Note.h */,
 				0B74953619EDAE000078296B /* Note.m */,
+				0B74954219EEF7300078296B /* Layout.h */,
+				0B74954319EEF7300078296B /* Layout.m */,
 			);
 			name = GridLayout;
 			sourceTree = "<group>";
@@ -250,9 +267,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B74953F19EE05250078296B /* delete4.wav in Resources */,
+				0B74953B19EE050E0078296B /* delete1.wav in Resources */,
 				0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */,
 				0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */,
+				0B74953D19EE051B0078296B /* delete3.wav in Resources */,
 				0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */,
+				0B74954119EE052D0078296B /* delete2.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +295,7 @@
 				0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */,
 				0B74952719EB5A870078296B /* Measure.m in Sources */,
 				0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */,
+				0B74954419EEF7300078296B /* Layout.m in Sources */,
 				0B74952E19EB7BA50078296B /* Assets.m in Sources */,
 				0B74953719EDAE000078296B /* Note.m in Sources */,
 				0B703EB419E70B5F00CED5B4 /* main.m in Sources */,

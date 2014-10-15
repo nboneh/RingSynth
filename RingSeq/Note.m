@@ -14,7 +14,7 @@
     self = [super init];
     if(self){
         _instrument = instrument;
-        
+        _notePlacement =placement;
         _noteDescription = [placement.noteDescs objectAtIndex:accidental];
         _instrView = [[UIImageView alloc] initWithImage:[instrument getImage]];
         [_instrView setTintColor:self.tintColor];
@@ -27,6 +27,7 @@
         _accidentalView.textColor = self.tintColor;
         [self addSubview:_accidentalView];
         [self drawAccidental:_noteDescription.accidental];
+        
     }
     return self;
 }
@@ -35,7 +36,7 @@
 -(void)drawAccidental:(Accidental)accidental{
     switch(accidental){
         case natural:
-             _accidentalView.text = @"";
+            _accidentalView.text = @"";
             break;
         case sharp:
             _accidentalView.text = @"#";
@@ -47,10 +48,18 @@
             break;
             
     }
+    _noteDescription = [_notePlacement.noteDescs objectAtIndex:accidental];
+}
+
+
+-(BOOL)equals:(Note *)note{
+    if( self.noteDescription == note.noteDescription && self.instrument == note.instrument)
+        return YES;
+    return NO;
 }
 
 -(void) moveToNotePlacement:(NotePlacement *)placement withAccedintal:(Accidental)accidental{
-     _noteDescription = [placement.noteDescs objectAtIndex:accidental];
+    _noteDescription = [placement.noteDescs objectAtIndex:accidental];
     CGRect frame = [self frame];
     frame.origin.y = placement.y - _instrView.frame.size.height/2;
     self.frame = frame;
@@ -60,5 +69,26 @@
 -(void) playWithVolume:(float)volume{
     
 }
+- (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
+{
+    // Calculate and store offset, and pop view into front if needed
+    startLocation = [[touches anyObject] locationInView:self];
+    [self.superview bringSubviewToFront:self];
+}
+
+- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+{
+    // Calculate offset
+    CGPoint pt = [[touches anyObject] locationInView:self];
+    float dx = pt.x - startLocation.x;
+    float dy = pt.y - startLocation.y;
+    CGPoint newcenter = CGPointMake(
+                                    self.center.x + dx,
+                                    self.center.y + dy);
+    
+    // Set new location
+    self.center = newcenter;
+}
+
 
 @end
