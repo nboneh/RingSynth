@@ -12,13 +12,13 @@
 
 @interface Instrument : NSObject
 
-@property NSString *name;
-@property UIImage *image;
+@property (readonly)NSString *name;
+@property(readonly) UIImage *image;
+@property(readonly) UIColor *color;
 @property NSDictionary *notes;
 
--(id)initWithName:(NSString *)name andNotes: (NSDictionary *)notes;
+-(id)initWithName:(NSString *)name color: (UIColor *)color andNotes: (NSDictionary *)notes;
 
--(UIImage *)getImage;
 
 -(void) playNote: (NSString *)note;
 

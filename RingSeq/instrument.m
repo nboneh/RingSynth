@@ -10,16 +10,18 @@
 
 @implementation Instrument
 @synthesize name = _name;
--(id)initWithName:(NSString *)name andNotes: (NSDictionary *)notes{
+@synthesize image = _image;
+-(id)initWithName:(NSString *)name color: (UIColor *)color andNotes: (NSDictionary *)notes{
     self = [super init];
     if(self){
-        self.name = name;
-        self.notes =notes;
+        _name = name;
+        _notes =notes;
+        _color = color;
     }
     return self;
 }
 
--(UIImage *)getImage{
+-(UIImage *)image{
     if(_image == nil) {
         _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }

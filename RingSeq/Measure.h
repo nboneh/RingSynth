@@ -26,6 +26,6 @@
 -(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
             andTitle:(NSString *)title;
 -(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note;
--(Note *)deleteNoteIfExistsAtY:(int)y;
+-(Note *)deleteNoteIfExistsAtY:(int)ys;
 -(void)play;
 @end

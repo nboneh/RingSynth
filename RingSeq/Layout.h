@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Staff.h"
 #import "DetailViewController.h"
+#import "Measure.h"
 
 @interface Layout : UIView{
     NSArray *measures;
+    int widthPerMeasure;
 }
 
 
 -(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env;
+-(void) play;
 @end

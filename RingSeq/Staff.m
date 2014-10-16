@@ -49,7 +49,7 @@ static int const NOTES_IN_STAFF = 9;
         
         NSMutableArray *preNotePlacements = [[NSMutableArray alloc] init];
         int y = 0;
-        
+        NSMutableArray *preLines = [[NSMutableArray alloc] init];
         BOOL placeLine = !(NOTES_ABOVE_STAFF % 2);
         for(int i = 0; i < totalNotes; i++){
             [preNotePlacements addObject: [[NotePlacement alloc] initWithY:y  andNote: note ]];
@@ -66,19 +66,29 @@ static int const NOTES_IN_STAFF = 9;
                     [lineView setBackgroundColor:[UIColor blackColor]];
                 }
                 [self addSubview:lineView];
+                [preLines addObject:lineView];
             }
             [note dec];
             y += _spacePerNote;
             placeLine = !placeLine;
         }
+        _lines = [[NSArray alloc] initWithArray:preLines];
         _notePlacements = [[NSArray alloc] initWithArray:preNotePlacements];
-        
         _trebleView=  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"treble"]];
         _trebleView.frame =CGRectMake(0, _spacePerNote * (NOTES_ABOVE_STAFF - 3), frame.size.width/8,_spacePerNote * (NOTES_IN_STAFF +6));
         [self addSubview: _trebleView];
 
     }
     return self;
+}
+-(void) increaseWidthOfLines:(int)width{
+    NSInteger size = [_lines count];
+    for(int i = 0; i <size; i++){
+        UIView *line = [_lines objectAtIndex:i];
+        CGRect lineFrame = line.frame;
+        lineFrame.size.width = width;
+        line.frame = lineFrame;
+    }
 }
 
 @end

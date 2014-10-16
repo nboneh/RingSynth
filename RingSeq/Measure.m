@@ -11,9 +11,8 @@
 
 
 @interface Measure()
--(int) findNoteIfExistsAtY:(int)y;
 -(void)checkViews;
--(void)moveNoteAtY:(int) y;
+-(int) findNoteIfExistsAtY:(int)y;
 @end
 
 @implementation Measure
@@ -26,24 +25,18 @@ static int const titleViewSize =20;
         _env = env;
         _staff = staff;
         volumeMeterHeight = (env.bottomBar.frame.origin.y + staff.spacePerNote - (_staff.frame.origin.y  + _staff.frame.size.height));
-        self.frame = CGRectMake(x, _staff.frame.origin.y,  WIDTH, _staff.frame.size.height + volumeMeterHeight);
-        UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 -titleViewSize/4 ,-titleViewSize, self.frame.size.width, titleViewSize) ];
+        self.frame = CGRectMake(x, 0,  WIDTH, _staff.frame.size.height + volumeMeterHeight);
+        UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 -titleViewSize/2 +1,-titleViewSize, self.frame.size.width, titleViewSize) ];
         [titleView setText:title];
+        titleView.textAlignment = NSTextAlignmentCenter;
         [self addSubview:titleView];
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, 0, 2,  _staff.frame.size.height -staff.spacePerNote *1.5)];
         [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
         NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
         NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:title];
         if([alphaNums isSupersetOfSet:inStringSet] ){
-            if((title.integerValue -1) % 4 == 0){
-                [_lineView setAlpha:0.8f];
-                [titleView setAlpha: 0.8f];
-            }
-            else{
-                [_lineView setAlpha:0.5f];
-                [titleView setAlpha: 0.5f];
-                
-            }
+            [_lineView setAlpha:0.8f];
+            [titleView setAlpha: 0.8f];
         } else{
             [_lineView setAlpha:0.2f];
             [titleView setAlpha: 0.2f];

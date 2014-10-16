@@ -22,9 +22,9 @@ static  SystemSoundID eraseSounds[4];
 static int numOfEraseSounds;
 +(void) initialize{
     NSMutableArray *instrumentMut = [[NSMutableArray alloc] init];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"guitar" andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"drums" andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"saxphone" andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"guitar" color: [UIColor redColor] andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"drums" color:[UIColor greenColor] andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"saxphone" color:[UIColor orangeColor] andNotes:nil]];
     INSTRUMENTS  = [[NSArray alloc]initWithArray:instrumentMut];
     eraseSounds[0] = [Assets loadSound:@"delete1" ofType:@"wav"];
     eraseSounds[1] = [Assets loadSound:@"delete2" ofType:@"wav"];

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Instrument.h"
 #import "NoteDescription.h"
-#import "Note.h"
 
 
 @interface DetailViewController : UIViewController<UITextFieldDelegate>{

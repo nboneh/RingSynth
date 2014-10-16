@@ -10,7 +10,8 @@
 #import "DetailViewController.h"
 #import "Assets.h"
 #import "Staff.h"
-#import "Measure.h"
+#import "Layout.h"
+#import "FullGrid.h"
 
 @interface DetailViewController ()
 
@@ -59,11 +60,15 @@ static const int minTempo =11;
     for(int i = 0; i < size; i++){
         Instrument *instr = [instruments objectAtIndex:i];
         [_instrumentController insertSegmentWithTitle:instr.name atIndex:i animated:NO];
-        [_instrumentController setImage:instr.getImage forSegmentAtIndex:i];
+        [_instrumentController setImage:instr.image forSegmentAtIndex:i];
+       [[[_instrumentController subviews] objectAtIndex:i] setTintColor:instr.color];
     }
     [_instrumentController insertSegmentWithTitle:@"Showtime" atIndex:0 animated:NO];
     [_instrumentController setSelectedSegmentIndex:0];
     firstTimeLoadingSubView = YES;
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
     
     
 }
@@ -71,16 +76,9 @@ static const int minTempo =11;
     if(firstTimeLoadingSubView) {
         int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
         Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
-        [self.view addSubview:staff];
-        Measure *measure = [[Measure alloc] initWithStaff:staff env:self x:80 andTitle: @"1"];
-        [self.view addSubview:measure];
-        Measure *measure2 = [[Measure alloc] initWithStaff:staff env:self x:140 andTitle: @"e"];
-        [self.view addSubview:measure];
-        Measure *measure3 = [[Measure alloc] initWithStaff:staff env:self x:190 andTitle: @"3"];
-
-        [self.view addSubview:measure2];
-          [self.view addSubview:measure3];
-            [self.view bringSubviewToFront: _bottomBar];
+        FullGrid *fullGrid = [[FullGrid alloc] initWithStaff:staff env:self];
+        [self.view addSubview:fullGrid];
+        [self.view bringSubviewToFront: _bottomBar];
     }
     firstTimeLoadingSubView = NO;
 }
@@ -99,7 +97,7 @@ static const int minTempo =11;
 }
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender{
     _currentAccidental = (Accidental)[sender selectedSegmentIndex];
-
+    
 }
 
 -(IBAction)changeEditingMode:(UISegmentedControl *) sender{
@@ -128,7 +126,7 @@ static const int minTempo =11;
     CGRect frame = _bottomBar.frame;
     frame.origin.y -= keyboardFrame.size.height;
     _bottomBar.frame = frame;
-
+    
     
 }
 
@@ -139,13 +137,13 @@ static const int minTempo =11;
     CGRect rawFrame      = [value CGRectValue];
     CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
     CGRect frame = _bottomBar.frame;
-        frame.origin.y += keyboardFrame.size.height;
+    frame.origin.y += keyboardFrame.size.height;
     _bottomBar.frame = frame;
     
     if(_tempoField.text.integerValue < minTempo){
         _tempoField.text = [@(minTempo) stringValue];
     }
-       [self.view bringSubviewToFront: _bottomBar];
+    [self.view bringSubviewToFront: _bottomBar];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

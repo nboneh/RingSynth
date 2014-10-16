@@ -18,4 +18,6 @@
 @property int spacePerNote;
 @property UIImageView *trebleView;
 @property NSArray *notePlacements;
+@property NSArray *lines;
+-(void) increaseWidthOfLines:(int)width;
 @end
