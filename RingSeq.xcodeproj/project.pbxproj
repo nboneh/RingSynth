@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
 		0B39A04919EF853A006B7EA5 /* UIColor+saveColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */; };
+		0B39A04C19F04601006B7EA5 /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Measure.m */; };
 		0B703EB419E70B5F00CED5B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB319E70B5F00CED5B4 /* main.m */; };
 		0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB619E70B5F00CED5B4 /* AppDelegate.m */; };
 		0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB919E70B5F00CED5B4 /* MasterViewController.m */; };
@@ -17,7 +18,7 @@
 		0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC119E70B5F00CED5B4 /* Images.xcassets */; };
 		0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC319E70B5F00CED5B4 /* LaunchScreen.xib */; };
 		0B703ED119E70B5F00CED5B4 /* RingSeqTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703ED019E70B5F00CED5B4 /* RingSeqTests.m */; };
-		0B74952719EB5A870078296B /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952619EB5A870078296B /* Measure.m */; };
+		0B74952719EB5A870078296B /* NotesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952619EB5A870078296B /* NotesHolder.m */; };
 		0B74952B19EB793B0078296B /* Instrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952A19EB793B0078296B /* Instrument.m */; };
 		0B74952E19EB7BA50078296B /* Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952D19EB7BA50078296B /* Assets.m */; };
 		0B74953119EC553C0078296B /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953019EC553C0078296B /* Staff.m */; };
@@ -45,6 +46,8 @@
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
 		0B39A04719EF853A006B7EA5 /* UIColor+saveColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+saveColor.h"; sourceTree = "<group>"; };
 		0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+saveColor.m"; sourceTree = "<group>"; };
+		0B39A04A19F04601006B7EA5 /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
+		0B39A04B19F04601006B7EA5 /* Measure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measure.m; sourceTree = "<group>"; };
 		0B703EAE19E70B5F00CED5B4 /* RingSeq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingSeq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703EB219E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703EB319E70B5F00CED5B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -60,8 +63,8 @@
 		0B703ECA19E70B5F00CED5B4 /* RingSeqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RingSeqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703ECF19E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703ED019E70B5F00CED5B4 /* RingSeqTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingSeqTests.m; sourceTree = "<group>"; };
-		0B74952519EB5A870078296B /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
-		0B74952619EB5A870078296B /* Measure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measure.m; sourceTree = "<group>"; };
+		0B74952519EB5A870078296B /* NotesHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesHolder.h; sourceTree = "<group>"; };
+		0B74952619EB5A870078296B /* NotesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesHolder.m; sourceTree = "<group>"; };
 		0B74952919EB793B0078296B /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
 		0B74952A19EB793B0078296B /* Instrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instrument.m; sourceTree = "<group>"; };
 		0B74952C19EB7BA50078296B /* Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Assets.h; sourceTree = "<group>"; };
@@ -178,8 +181,8 @@
 		0B74951F19EB59AA0078296B /* GridLayout */ = {
 			isa = PBXGroup;
 			children = (
-				0B74952519EB5A870078296B /* Measure.h */,
-				0B74952619EB5A870078296B /* Measure.m */,
+				0B74952519EB5A870078296B /* NotesHolder.h */,
+				0B74952619EB5A870078296B /* NotesHolder.m */,
 				0B74952F19EC553C0078296B /* Staff.h */,
 				0B74953019EC553C0078296B /* Staff.m */,
 				0B74953519EDAE000078296B /* Note.h */,
@@ -188,6 +191,8 @@
 				0B74954319EEF7300078296B /* Layout.m */,
 				0B39A04319EF24BB006B7EA5 /* FullGrid.h */,
 				0B39A04419EF24BB006B7EA5 /* FullGrid.m */,
+				0B39A04A19F04601006B7EA5 /* Measure.h */,
+				0B39A04B19F04601006B7EA5 /* Measure.m */,
 			);
 			name = GridLayout;
 			sourceTree = "<group>";
@@ -311,10 +316,11 @@
 			files = (
 				0B74953419EC5C570078296B /* NoteDescription.m in Sources */,
 				0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */,
-				0B74952719EB5A870078296B /* Measure.m in Sources */,
+				0B74952719EB5A870078296B /* NotesHolder.m in Sources */,
 				0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */,
 				0B74954419EEF7300078296B /* Layout.m in Sources */,
 				0B74952E19EB7BA50078296B /* Assets.m in Sources */,
+				0B39A04C19F04601006B7EA5 /* Measure.m in Sources */,
 				0B74953719EDAE000078296B /* Note.m in Sources */,
 				0B703EB419E70B5F00CED5B4 /* main.m in Sources */,
 				0B74952B19EB793B0078296B /* Instrument.m in Sources */,

@@ -80,9 +80,12 @@ FullGrid *fullGrid;
             int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
             Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
             
-            fullGrid = [[FullGrid alloc] initWithStaff:staff env:self];
+            //fullGrid = [[FullGrid alloc] initWithStaff:staff env:self];
         //}
-        [self.view addSubview:fullGrid];
+        Layout * layout = [[Layout alloc] initWithStaff:staff env:self];
+       // [self.view addSubview:fullGrid];
+        [self.view addSubview:staff];
+        [self.view addSubview:layout];
         [self.view bringSubviewToFront: _bottomBar];
         [self.view bringSubviewToFront:_instrumentController];
     }

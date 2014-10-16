@@ -1,141 +1,140 @@
 //
-//  NoteHolder.m
+//  Measure.m
 //  RingSeq
 //
-//  Created by Nir Boneh on 10/12/14.
+//  Created by Nir Boneh on 10/16/14.
 //  Copyright (c) 2014 Clouby. All rights reserved.
 //
 
 #import "Measure.h"
-#import "Assets.h"
-
-
-@interface Measure()
--(void)checkViews;
--(int) findNoteIfExistsAtY:(int)y;
-@end
+#import "NotesHolder.h"
 
 @implementation Measure
-static int const WIDTH = 20;
-static int const titleViewSize =20;
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
-           andTitle:(NSString *)title{
+
+-(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x withNum:(int)num{
     self = [super init];
     if(self){
         _env = env;
         _staff = staff;
-        volumeMeterHeight = (env.bottomBar.frame.origin.y + staff.spacePerNote - (_staff.frame.origin.y  + _staff.frame.size.height));
-        self.frame = CGRectMake(x, 0,  WIDTH, _staff.frame.size.height + volumeMeterHeight);
-        UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 -titleViewSize/2 +1,-titleViewSize, self.frame.size.width, titleViewSize) ];
-        [titleView setText:title];
-        titleView.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:titleView];
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, 0, 2,  _staff.frame.size.height -staff.spacePerNote *1.5)];
-        [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
-        NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
-        NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:title];
-        if([alphaNums isSupersetOfSet:inStringSet] ){
-            [_lineView setAlpha:0.8f];
-            [titleView setAlpha: 0.8f];
-        } else{
-            [_lineView setAlpha:0.2f];
-            [titleView setAlpha: 0.2f];
-        }
-        [self addSubview:_lineView];
+        _initialNotesHolder = [[NotesHolder alloc] initWithStaff:staff env:env x:0 andTitle:[@(num) stringValue]];
+        self.frame = CGRectMake(x, 0 , _initialNotesHolder.frame.size.width *4 , _initialNotesHolder.frame.size.height);
+        [self addSubview:_initialNotesHolder];
+        _currentSubdivision = quaters;
+        [self changeSubDivision:_currentSubdivision];
+        _initialNotesHolder.titleView.userInteractionEnabled = YES;
         UITapGestureRecognizer *singleFingerTap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
-        [self addGestureRecognizer:singleFingerTap];
+        [_initialNotesHolder.titleView addGestureRecognizer:singleFingerTap];
         
-        
-        
+
     }
     return self;
 }
 
--(void)checkViews{
-    if(!_volumeSlider){
-        _volumeSlider = [[UISlider alloc] init];
-        [_volumeSlider removeConstraints:_volumeSlider.constraints];
-        [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
-        _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
-        int sliderWidth = 30;
-        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -sliderWidth/2 +1 ,  _lineView.frame.size.height +_staff.spacePerNote/2 , sliderWidth, volumeMeterHeight);
-        [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
-        [_volumeSlider setValue:0.75f];
-        [self addSubview:_volumeSlider];
+-(void)changeSubDivision:(Subdivision)subdivision{
+    _currentSubdivision = subdivision;
+    if(_noteHolders == nil)
+        _noteHolders = [[NSMutableArray alloc] init];
+    NotesHolder *notesHolder1;
+    NotesHolder *notesHolder2;
+    NotesHolder *notesHolder3;
+    NSInteger size = _noteHolders.count;
+    if(size > 0)
+        notesHolder1  = [_noteHolders objectAtIndex:0];
+    if(size > 1)
+        notesHolder2  = [_noteHolders objectAtIndex:1];
+    if(size > 2)
+        notesHolder3 = [_noteHolders objectAtIndex:2];
+    int x1;
+    int x2;
+    int x3;
+    [notesHolder1 removeFromSuperview];
+    [notesHolder2 removeFromSuperview];
+    [notesHolder3 removeFromSuperview];
+    CGRect frame ;
+    switch(subdivision){
+        case quaters:
+            break;
+        case sixteenths:
+            x2 = self.frame.size.width/4;
+            x3 = 3*self.frame.size.width/4;
+            
+            if(!notesHolder2){
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"e"];
+                [_noteHolders addObject:notesHolder3];
+            }
+            else
+                notesHolder2.titleView.text = @"e";
+            frame = notesHolder2.frame;
+            frame.origin.x = x2;
+            notesHolder2.frame = frame;
+            
+            if(!notesHolder3){
+                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x3 andTitle:@"a"];
+                [_noteHolders addObject:notesHolder3];
+            }
+            else
+                notesHolder3.titleView.text = @"a";
+            frame = notesHolder3.frame;
+            frame.origin.x = x3;
+            notesHolder3.frame = frame;
+
+            
+            [self addSubview:notesHolder2];
+            [self addSubview:notesHolder3];
+            
+
+        case eighths:
+             x1 = self.frame.size.width/2;
+            if(!notesHolder1){
+                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x1 andTitle:@"&"];
+                [_noteHolders addObject:notesHolder1];
+            }
+            else
+                notesHolder1.titleView.text = @"&";
+            frame = notesHolder1.frame;
+            frame.origin.x = x1;
+            notesHolder1.frame = frame;
+            
+            [self addSubview:notesHolder1];
+            
+            break;
+
+        case triplets:
+            x1 = self.frame.size.width/3;
+            x2 = 2 *(self.frame.size.width/3);
+            if(!notesHolder1){
+                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x1 andTitle:@"trip"];
+                [_noteHolders addObject:notesHolder1];
+            }
+            notesHolder1.titleView.text = @"trip";
+            frame = notesHolder1.frame;
+            frame.origin.x = x1;
+            notesHolder1.frame = frame;
+            
+            if(!notesHolder2){
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"let"];
+                [_noteHolders addObject:notesHolder2];
+            }
+            notesHolder2.titleView.text = @"let";
+            frame = notesHolder2.frame;
+            frame.origin.x = x2;
+            notesHolder2.frame = frame;
+            
+            [self addSubview:notesHolder1];
+            [self addSubview:notesHolder2];
+            break;
+        case numOfSubdivisions:
+            break;
     }
-    if(_noteHolders.count >0)
-        [_volumeSlider setHidden:NO];
-    else
-        [_volumeSlider setHidden:YES];
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:self];
-    int y = location.y;
-    switch(_env.currentEditMode){
-        case insert:
-            [self placeNoteAtY:y fromExistingNote:nil];
-            break;
-        case nerase:
-            if([self deleteNoteIfExistsAtY:y])
-                [Assets playEraseSound];
-            break;
-    }
+    _currentSubdivision++;
+    if(_currentSubdivision > numOfSubdivisions)
+        _currentSubdivision = 0;
+    [self changeSubDivision:_currentSubdivision];
 }
 
-
--(Note *)deleteNoteIfExistsAtY:(int) y{
-    int index =[self findNoteIfExistsAtY:y];
-    if(index >= 0 && index < [_noteHolders count]){
-        Note *note = [_noteHolders objectAtIndex:index];
-        [note removeFromSuperview];
-        [_noteHolders removeObjectAtIndex:index];
-        [self checkViews];
-        return note;
-    }
-    return nil;
-}
-
--(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note {
-    if(!_noteHolders)
-        _noteHolders = [[NSMutableArray alloc] init];
-    Instrument * instrument;
-    if(!note){
-        instrument = _env.currentInstrument;
-        if(!instrument)
-            return;
-    }
-    int pos = round(y/(self.staff.spacePerNote + 0.0));
-    if(pos >=  [_staff.notePlacements count]  )
-        return;
-    NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
-    if(!note)
-        note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
-    //If equals a note that exists do not add
-    NSInteger size =  _noteHolders.count;
-    for(int i = 0; i < size; i++){
-        Note *note2 = [_noteHolders objectAtIndex:i];
-        if([note2 equals:note])
-            return;
-    }
-    [_noteHolders  addObject: note];
-    [self addSubview:note];
-    [self checkViews];
-    
-}
-
-
--(int)findNoteIfExistsAtY:(int)y{
-    NSInteger size =[_noteHolders count];
-    for(int i = 0; i < size; i++){
-        Note * note = [_noteHolders objectAtIndex:i];
-        int yPos = note.frame.origin.y;
-        if(y >= yPos && y <= yPos + note.frame.size.height)
-            return i;
-        
-    }
-    return -1;
-}
 @end

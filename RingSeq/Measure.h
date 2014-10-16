@@ -1,31 +1,34 @@
 //
-//  NoteHolder.h
+//  Measure.h
 //  RingSeq
 //
-//  Created by Nir Boneh on 10/12/14.
+//  Created by Nir Boneh on 10/16/14.
 //  Copyright (c) 2014 Clouby. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "Instrument.h"
-#import "NoteDescription.h"
-#import "Staff.h"
-#import "DetailViewController.h"
-#import "Note.h"
+#import "NotesHolder.h"
+
+@interface Measure : UIView
 
 
+typedef enum {
+    quaters = 0,
+    eighths =1,
+    triplets = 2,
+    sixteenths = 3,
+    numOfSubdivisions = 4
+} Subdivision;
 
-@interface Measure : UIView{
-    int volumeMeterHeight;
-}
 @property DetailViewController * env;
-@property UISlider *volumeSlider;
-@property NSMutableArray *noteHolders;
 @property Staff *staff;
-@property UIView *lineView;
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
-            andTitle:(NSString *)title;
--(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note;
--(Note *)deleteNoteIfExistsAtY:(int)ys;
--(void)play;
+@property Subdivision currentSubdivision;
+@property  int spaceBetweenNoteHolders;
+@property NSMutableArray *noteHolders;
+@property NotesHolder *initialNotesHolder;
+
+-(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x withNum:(int)num;
+
+-(void)changeSubDivision:(Subdivision)subdivision;
+
 @end
