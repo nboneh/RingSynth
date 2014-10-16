@@ -13,7 +13,7 @@
 -(id)initWithStaff:(Staff *)staff env:(DetailViewController *)env{
     self = [super init];
     if(self){
-        UIScrollView *mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,staff.frame.size.width ,staff.frame.size.height)];
+        mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,staff.frame.size.width ,staff.frame.size.height)];
         container = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,staff.frame.size.width ,staff.frame.size.height)];
         [container addSubview:staff];
         mainScroll.scrollEnabled = YES;
@@ -39,6 +39,10 @@
         layers = [[NSArray alloc] initWithArray:preLayers];
         [mainScroll addSubview:container];
         [mainScroll setDelegate:self];
+        //Two Finger scroll
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizePan:)];
+        panGestureRecognizer.maximumNumberOfTouches = 1;
+        [mainScroll addGestureRecognizer:panGestureRecognizer];
         [self addSubview:mainScroll];
         staff.frame = CGRectMake(0, 0, staff.frame.size.width, staff.frame.size.height);
     }
@@ -47,6 +51,14 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return container;
+}
+- (void)recognizePan:(UIPanGestureRecognizer *)recognizer{
+    
+}
+-(void)replay{
+    CGRect frame = CGRectMake(0, 0, mainScroll.frame.size.width, mainScroll.frame.size.height);
+    [mainScroll setZoomScale:1.0f animated:YES];
+    [mainScroll scrollRectToVisible:frame animated:YES];
 }
 
 @end

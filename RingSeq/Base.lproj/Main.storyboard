@@ -81,13 +81,18 @@
                                         </segmentedControl>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HCu-AN-fmA"/>
-                                    <barButtonItem systemItem="reply" id="aVY-vK-OZw"/>
+                                    <barButtonItem systemItem="reply" id="aVY-vK-OZw">
+                                        <connections>
+                                            <action selector="replay" destination="JEX-9P-axG" id="rh2-ok-mAV"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem systemItem="pause" id="cdc-zw-HED"/>
                                     <barButtonItem systemItem="play" id="kYS-aI-kCl"/>
                                 </items>
                             </toolbar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YOh-jN-MSg">
                                 <rect key="frame" x="16" y="64" width="536" height="29"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="hiN-JL-Zet"/>
                                 </constraints>
@@ -95,6 +100,7 @@
                                     <segment title="PlayMode"/>
                                     <segment title="Second"/>
                                 </segments>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="changeInstrument:" destination="JEX-9P-axG" eventType="valueChanged" id="oJA-Az-NfR"/>
                                 </connections>

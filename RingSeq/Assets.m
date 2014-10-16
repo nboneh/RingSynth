@@ -18,13 +18,20 @@
 static NSArray *INSTRUMENTS;
 static int ERASE_SOUND_SIZE = 4;
 static  SystemSoundID eraseSounds[4];
-
-static int numOfEraseSounds;
 +(void) initialize{
     NSMutableArray *instrumentMut = [[NSMutableArray alloc] init];
     [instrumentMut addObject:[[Instrument alloc] initWithName:@"guitar" color: [UIColor redColor] andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"drums" color:[UIColor greenColor] andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"electricguitar" color: [UIColor blueColor] andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"drums" color:[UIColor brownColor] andNotes:nil]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"bass" color:[UIColor greenColor] andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"xylophone" color:[UIColor cyanColor] andNotes:nil]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"trumpet" color:[UIColor yellowColor] andNotes:nil]];
+     [instrumentMut addObject:[[Instrument alloc] initWithName:@"trombone" color:[UIColor magentaColor] andNotes:nil]];
     [instrumentMut addObject:[[Instrument alloc] initWithName:@"saxphone" color:[UIColor orangeColor] andNotes:nil]];
+            [instrumentMut addObject:[[Instrument alloc] initWithName:@"orchestra" color:[UIColor grayColor] andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"highpiano" color:[UIColor purpleColor] andNotes:nil]];
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"lowpiano" color:[UIColor purpleColor] andNotes:nil]];
+
     INSTRUMENTS  = [[NSArray alloc]initWithArray:instrumentMut];
     eraseSounds[0] = [Assets loadSound:@"delete1" ofType:@"wav"];
     eraseSounds[1] = [Assets loadSound:@"delete2" ofType:@"wav"];

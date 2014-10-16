@@ -32,6 +32,7 @@ typedef enum {
 -(IBAction)changeEditingMode:(UISegmentedControl *) sender;
 -(IBAction)changeInstrument:(UISegmentedControl *)sender;
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender;
+-(IBAction)replay;
 
 
 @end

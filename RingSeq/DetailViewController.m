@@ -23,6 +23,8 @@
 @synthesize currentInstrument = _currentInstrument;
 @synthesize currentAccidental = _currentAccidental;
 static const int minTempo =11;
+FullGrid *fullGrid;
+
 #pragma mark - Managing the detail item
 
 - (void)setName:(id)newDetailItem {
@@ -38,7 +40,7 @@ static const int minTempo =11;
     // Update the user interface for the detail item.
     if (self.name) {
         self.navigationItem.title = _name;
-        NSString *text =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
+        fullGrid =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
     }
 }
 
@@ -61,9 +63,9 @@ static const int minTempo =11;
         Instrument *instr = [instruments objectAtIndex:i];
         [_instrumentController insertSegmentWithTitle:instr.name atIndex:i animated:NO];
         [_instrumentController setImage:instr.image forSegmentAtIndex:i];
-       [[[_instrumentController subviews] objectAtIndex:i] setTintColor:instr.color];
+        [[[_instrumentController subviews] objectAtIndex:i] setTintColor:instr.color];
     }
-    [_instrumentController insertSegmentWithTitle:@"Showtime" atIndex:0 animated:NO];
+    [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
     [_instrumentController setSelectedSegmentIndex:0];
     firstTimeLoadingSubView = YES;
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
@@ -74,11 +76,15 @@ static const int minTempo =11;
 }
 -(void) viewDidLayoutSubviews{
     if(firstTimeLoadingSubView) {
-        int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
-        Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
-        FullGrid *fullGrid = [[FullGrid alloc] initWithStaff:staff env:self];
+       // if(!fullGrid){
+            int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
+            Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
+            
+            fullGrid = [[FullGrid alloc] initWithStaff:staff env:self];
+        //}
         [self.view addSubview:fullGrid];
         [self.view bringSubviewToFront: _bottomBar];
+        [self.view bringSubviewToFront:_instrumentController];
     }
     firstTimeLoadingSubView = NO;
 }
@@ -161,10 +167,12 @@ static const int minTempo =11;
 }
 
 -(void) save{
-    [NSKeyedArchiver archiveRootObject:@"" toFile:[self getPath:(id) _name]];
+  //  [NSKeyedArchiver archiveRootObject:fullGrid toFile:[self getPath:(id) _name]];
 }
 
-
+-(IBAction)replay{
+    [fullGrid replay];
+}
 
 - (NSString *) getPath:(NSString *)fileName
 {

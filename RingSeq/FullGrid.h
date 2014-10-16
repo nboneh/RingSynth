@@ -1,6 +1,6 @@
 //
 //  FullGrid.h
-//  RingSeq
+//  l
 //
 //  Created by Nir Boneh on 10/15/14.
 //  Copyright (c) 2014 Clouby. All rights reserved.
@@ -13,9 +13,10 @@
 @interface FullGrid : UIView<UIScrollViewDelegate>{
     NSArray *layers;
     UIView *container;
+    UIScrollView *mainScroll;
 }
 
 -(id)initWithStaff:(Staff *)staff env:(DetailViewController *)env;
-
+-(void)replay;
 -(void)play;
 @end

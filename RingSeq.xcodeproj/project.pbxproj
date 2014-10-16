@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
+		0B39A04919EF853A006B7EA5 /* UIColor+saveColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */; };
 		0B703EB419E70B5F00CED5B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB319E70B5F00CED5B4 /* main.m */; };
 		0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB619E70B5F00CED5B4 /* AppDelegate.m */; };
 		0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB919E70B5F00CED5B4 /* MasterViewController.m */; };
@@ -42,6 +43,8 @@
 /* Begin PBXFileReference section */
 		0B39A04319EF24BB006B7EA5 /* FullGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullGrid.h; sourceTree = "<group>"; };
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
+		0B39A04719EF853A006B7EA5 /* UIColor+saveColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+saveColor.h"; sourceTree = "<group>"; };
+		0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+saveColor.m"; sourceTree = "<group>"; };
 		0B703EAE19E70B5F00CED5B4 /* RingSeq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingSeq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703EB219E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703EB319E70B5F00CED5B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -95,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B39A04619EF8518006B7EA5 /* FileHelp */ = {
+			isa = PBXGroup;
+			children = (
+				0B39A04719EF853A006B7EA5 /* UIColor+saveColor.h */,
+				0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */,
+			);
+			name = FileHelp;
+			sourceTree = "<group>";
+		};
 		0B703EA519E70B5F00CED5B4 = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +128,7 @@
 		0B703EB019E70B5F00CED5B4 /* RingSeq */ = {
 			isa = PBXGroup;
 			children = (
+				0B39A04619EF8518006B7EA5 /* FileHelp */,
 				0B74952819EB79150078296B /* InstrumentAsset */,
 				0B74951F19EB59AA0078296B /* GridLayout */,
 				0B703EB519E70B5F00CED5B4 /* AppDelegate.h */,
@@ -307,6 +320,7 @@
 				0B74952B19EB793B0078296B /* Instrument.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
 				0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */,
+				0B39A04919EF853A006B7EA5 /* UIColor+saveColor.m in Sources */,
 				0B703EBD19E70B5F00CED5B4 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
