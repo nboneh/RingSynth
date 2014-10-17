@@ -15,9 +15,8 @@
 
 
 
-@interface NotesHolder: UIView{
-    int volumeMeterHeight;
-}
+@interface NotesHolder: UIView
+
 @property DetailViewController * env;
 @property UISlider *volumeSlider;
 @property NSMutableArray *noteHolders;
@@ -28,4 +27,6 @@
 -(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note;
 -(Note *)deleteNoteIfExistsAtY:(int)ys;
 -(void)play;
++(int)VOLUME_METER_HEIGHT;
++(int)TITLE_VIEW_HEIGHT;
 @end

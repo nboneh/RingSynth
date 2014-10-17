@@ -40,7 +40,7 @@ FullGrid *fullGrid;
     // Update the user interface for the detail item.
     if (self.name) {
         self.navigationItem.title = _name;
-        fullGrid =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
+       fullGrid =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
     }
 }
 
@@ -72,20 +72,15 @@ FullGrid *fullGrid;
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     
-    
 }
 -(void) viewDidLayoutSubviews{
     if(firstTimeLoadingSubView) {
-       // if(!fullGrid){
-            int startY = _instrumentController.frame.origin.y  + _instrumentController.frame.size.height;
-            Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,startY +20, self.view.frame.size.width, _bottomBar.frame.origin.y - startY-40)];
+    
             
-            //fullGrid = [[FullGrid alloc] initWithStaff:staff env:self];
-        //}
-        Layout * layout = [[Layout alloc] initWithStaff:staff env:self];
-       // [self.view addSubview:fullGrid];
-        [self.view addSubview:staff];
-        [self.view addSubview:layout];
+        fullGrid = [[FullGrid alloc] initWithEnv:self ];
+        [self.view addSubview:fullGrid];
+       // [self.view addSubview:staff];
+        //[self.view addSubview:layout];
         [self.view bringSubviewToFront: _bottomBar];
         [self.view bringSubviewToFront:_instrumentController];
     }

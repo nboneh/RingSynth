@@ -16,8 +16,9 @@
 @end
 
 @implementation NotesHolder
-static int const WIDTH = 30;
-static int const TITLE_VIEW_SIZE =30;
+static int const WIDTH = 40;
+static int const TITLE_VIEW_HEIGHT =30;
+static const int VOLUME_METER_HEIGHT = 30;
 @synthesize titleView = _titleView;
 
 -(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
@@ -26,13 +27,12 @@ static int const TITLE_VIEW_SIZE =30;
     if(self){
         _env = env;
         _staff = staff;
-        volumeMeterHeight = (env.bottomBar.frame.origin.y + staff.spacePerNote - (_staff.frame.origin.y  + _staff.frame.size.height));
-        self.frame = CGRectMake(x, 0,  WIDTH, _staff.frame.size.height + volumeMeterHeight +TITLE_VIEW_SIZE);
-        _titleView = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 -TITLE_VIEW_SIZE/2 ,0,TITLE_VIEW_SIZE, TITLE_VIEW_SIZE) ];
+        self.frame = CGRectMake(x, 0,  WIDTH, _staff.frame.size.height + VOLUME_METER_HEIGHT +TITLE_VIEW_HEIGHT);
+        _titleView = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 -15 ,0,30, TITLE_VIEW_HEIGHT) ];
         [_titleView setText:title];
         _titleView.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleView];
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, TITLE_VIEW_SIZE, 2,  _staff.frame.size.height -staff.spacePerNote *1.5)];
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, TITLE_VIEW_HEIGHT, 2,  _staff.frame.size.height -staff.spacePerNote *2)];
         [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
         NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
         NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:title];
@@ -50,7 +50,6 @@ static int const TITLE_VIEW_SIZE =30;
         [self addGestureRecognizer:singleFingerTap];
         
         
-        
     }
     return self;
 }
@@ -60,9 +59,8 @@ static int const TITLE_VIEW_SIZE =30;
         _volumeSlider = [[UISlider alloc] init];
         [_volumeSlider removeConstraints:_volumeSlider.constraints];
         [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
-        _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
-        int sliderWidth = 30;
-        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -sliderWidth/2 +1 , TITLE_VIEW_SIZE + _lineView.frame.size.height +_staff.spacePerNote/2 , sliderWidth, volumeMeterHeight);
+        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -VOLUME_METER_HEIGHT/2 , TITLE_VIEW_HEIGHT + _lineView.frame.size.height +13, VOLUME_METER_HEIGHT +1 , VOLUME_METER_HEIGHT +1);
+      _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
         [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
         [_volumeSlider setValue:0.75f];
         [self addSubview:_volumeSlider];
@@ -75,7 +73,7 @@ static int const TITLE_VIEW_SIZE =30;
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:self];
-    int y = location.y - TITLE_VIEW_SIZE;
+    int y = location.y - TITLE_VIEW_HEIGHT;
     switch(_env.currentEditMode){
         case insert:
             [self placeNoteAtY:y fromExistingNote:nil];
@@ -123,7 +121,7 @@ static int const TITLE_VIEW_SIZE =30;
             return;
     }
     CGRect frame = note.frame;
-    frame.origin.y += TITLE_VIEW_SIZE;
+    frame.origin.y += TITLE_VIEW_HEIGHT;
     frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
     note.frame = frame;
     [_noteHolders  addObject: note];
@@ -143,5 +141,12 @@ static int const TITLE_VIEW_SIZE =30;
         
     }
     return -1;
+}
+
++(int)VOLUME_METER_HEIGHT{
+    return VOLUME_METER_HEIGHT;
+}
++(int)TITLE_VIEW_HEIGHT{
+    return TITLE_VIEW_HEIGHT;
 }
 @end

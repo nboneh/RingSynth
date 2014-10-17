@@ -23,15 +23,17 @@ static const int NUM_OF_MEASURES = 50;
         for(int i = 0; i < NUM_OF_MEASURES; i++){
             Measure* measure =[[Measure alloc]initWithStaff:staff env:env x:delX withNum:i];
             [preMeasures addObject:measure];
-            if(i == 0)
+            if(i == 0){
                 widthPerMeasure =measure.frame.size.width;
-                
+
+            }
+            
             delX += widthPerMeasure;
             [self addSubview:measure];
         }
         measures = [[NSArray alloc] initWithArray:preMeasures];
 
-        self.frame = CGRectMake(staff.trebleView.frame.size.width, staff.frame.origin.y -20,  widthPerMeasure * NUM_OF_MEASURES, staff.frame.size.height);
+        self.frame = CGRectMake(staff.trebleView.frame.size.width, 0,  widthPerMeasure * NUM_OF_MEASURES,[(Measure *) [measures objectAtIndex:0] frame].size.height);
     }
     return self;
 }

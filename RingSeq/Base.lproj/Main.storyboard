@@ -47,7 +47,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="go"/>
                                             <connections>
                                                 <outlet property="delegate" destination="JEX-9P-axG" id="YdF-oP-nFe"/>
                                             </connections>

@@ -8,13 +8,16 @@
 
 #import "FullGrid.h"
 #import "Assets.h"
+#import "NotesHolder.h"
 
 @implementation FullGrid
--(id)initWithStaff:(Staff *)staff env:(DetailViewController *)env{
+-(id)initWithEnv:(DetailViewController *)env{
     self = [super init];
     if(self){
-        mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,staff.frame.size.width ,staff.frame.size.height)];
-        container = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,staff.frame.size.width ,staff.frame.size.height)];
+        int height = env.bottomBar.frame.origin.y - (env.instrumentController.frame.origin.y + env.instrumentController.frame.size.height);
+        Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,[NotesHolder TITLE_VIEW_HEIGHT], 0, height -[NotesHolder VOLUME_METER_HEIGHT] -[NotesHolder TITLE_VIEW_HEIGHT])];
+        mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width ,height)];
+        container = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,0 ,height)];
         [container addSubview:staff];
         mainScroll.scrollEnabled = YES;
         mainScroll.userInteractionEnabled = YES;
@@ -26,8 +29,8 @@
         for(int i = 0; i < 1; i++){
             Layout *layer = [[Layout alloc] initWithStaff:staff env:env];
             if(i == 0){
-               mainScroll.contentSize = CGSizeMake(layer.frame.size.width +staff.trebleView.frame.size.width ,self.frame.size.height);
-                 self.frame = CGRectMake(0, staff.frame.origin.y , staff.trebleView.frame.size.width + layer.frame.size.width,staff.frame.size.height );
+               mainScroll.contentSize = CGSizeMake(layer.frame.size.width +staff.trebleView.frame.size.width ,height);
+                 self.frame = CGRectMake(0, env.instrumentController.frame.origin.y  + env.instrumentController.frame.size.height , staff.trebleView.frame.size.width + layer.frame.size.width,height );
                 CGRect contFrame = container.frame;
                 contFrame.size.width = staff.trebleView.frame.size.width + layer.frame.size.width;
                 container.frame = contFrame;
@@ -44,7 +47,7 @@
         panGestureRecognizer.maximumNumberOfTouches = 1;
         [mainScroll addGestureRecognizer:panGestureRecognizer];
         [self addSubview:mainScroll];
-        staff.frame = CGRectMake(0, 0, staff.frame.size.width, staff.frame.size.height);
+
     }
     return self;
 }

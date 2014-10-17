@@ -16,7 +16,7 @@
     UIScrollView *mainScroll;
 }
 
--(id)initWithStaff:(Staff *)staff env:(DetailViewController *)env;
+-(id)initWithEnv:(DetailViewController *)env;
 -(void)replay;
 -(void)play;
 @end

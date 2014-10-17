@@ -27,7 +27,7 @@
                                                 action:@selector(handleSingleTap:)];
         [_initialNotesHolder.titleView addGestureRecognizer:singleFingerTap];
         
-
+        
     }
     return self;
 }
@@ -49,9 +49,9 @@
     int x1;
     int x2;
     int x3;
-    [notesHolder1 removeFromSuperview];
-    [notesHolder2 removeFromSuperview];
-    [notesHolder3 removeFromSuperview];
+    [notesHolder1 setHidden:YES];
+    [notesHolder2 setHidden:YES];
+    [notesHolder3 setHidden:YES];
     CGRect frame ;
     switch(subdivision){
         case quaters:
@@ -62,68 +62,82 @@
             
             if(!notesHolder2){
                 notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"e"];
-                [_noteHolders addObject:notesHolder3];
+                [_noteHolders addObject:notesHolder2];
+                [self addSubview:notesHolder2];
             }
-            else
+            else{
                 notesHolder2.titleView.text = @"e";
-            frame = notesHolder2.frame;
-            frame.origin.x = x2;
-            notesHolder2.frame = frame;
+                frame = notesHolder2.frame;
+                frame.origin.x = x2;
+                notesHolder2.frame = frame;
+                [notesHolder2 setHidden: NO];
+            }
             
             if(!notesHolder3){
                 notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x3 andTitle:@"a"];
                 [_noteHolders addObject:notesHolder3];
+                [self addSubview:notesHolder3];
             }
-            else
+            else{
                 notesHolder3.titleView.text = @"a";
-            frame = notesHolder3.frame;
-            frame.origin.x = x3;
-            notesHolder3.frame = frame;
-
+                frame = notesHolder3.frame;
+                frame.origin.x = x3;
+                notesHolder3.frame = frame;
+                [notesHolder3 setHidden:NO];
+            }
             
-            [self addSubview:notesHolder2];
-            [self addSubview:notesHolder3];
             
-
+            
+            
         case eighths:
-             x1 = self.frame.size.width/2;
+            x1 = self.frame.size.width/2;
             if(!notesHolder1){
                 notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x1 andTitle:@"&"];
                 [_noteHolders addObject:notesHolder1];
+                [self addSubview:notesHolder1];
             }
-            else
+            else{
                 notesHolder1.titleView.text = @"&";
-            frame = notesHolder1.frame;
-            frame.origin.x = x1;
-            notesHolder1.frame = frame;
+                frame = notesHolder1.frame;
+                frame.origin.x = x1;
+                notesHolder1.frame = frame;
+                [notesHolder1 setHidden:NO];
+            }
             
-            [self addSubview:notesHolder1];
+            
             
             break;
-
+            
         case triplets:
             x1 = self.frame.size.width/3;
             x2 = 2 *(self.frame.size.width/3);
             if(!notesHolder1){
                 notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x1 andTitle:@"trip"];
                 [_noteHolders addObject:notesHolder1];
+                [self addSubview:notesHolder1];
             }
-            notesHolder1.titleView.text = @"trip";
-            frame = notesHolder1.frame;
-            frame.origin.x = x1;
-            notesHolder1.frame = frame;
+            else{
+                notesHolder1.titleView.text = @"trip";
+                frame = notesHolder1.frame;
+                frame.origin.x = x1;
+                notesHolder1.frame = frame;
+                [notesHolder1 setHidden:NO];
+            }
             
             if(!notesHolder2){
                 notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"let"];
                 [_noteHolders addObject:notesHolder2];
+                [self addSubview:notesHolder2];
             }
-            notesHolder2.titleView.text = @"let";
-            frame = notesHolder2.frame;
-            frame.origin.x = x2;
-            notesHolder2.frame = frame;
+            else{
+                notesHolder2.titleView.text = @"let";
+                frame = notesHolder2.frame;
+                frame.origin.x = x2;
+                notesHolder2.frame = frame;
+                [notesHolder2 setHidden:NO];
+            }
             
-            [self addSubview:notesHolder1];
-            [self addSubview:notesHolder2];
+            
             break;
         case numOfSubdivisions:
             break;
@@ -132,7 +146,7 @@
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     _currentSubdivision++;
-    if(_currentSubdivision > numOfSubdivisions)
+    if(_currentSubdivision >= numOfSubdivisions)
         _currentSubdivision = 0;
     [self changeSubDivision:_currentSubdivision];
 }
