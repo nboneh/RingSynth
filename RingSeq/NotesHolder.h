@@ -27,6 +27,7 @@
 -(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note;
 -(Note *)deleteNoteIfExistsAtY:(int)ys;
 -(void)play;
+-(BOOL)anyNotesInNoteHolder;
 +(int)VOLUME_METER_HEIGHT;
 +(int)TITLE_VIEW_HEIGHT;
 @end

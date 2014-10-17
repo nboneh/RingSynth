@@ -11,7 +11,7 @@
 #import "DetailViewController.h"
 #import "Measure.h"
 
-@interface Layout : UIView{
+@interface Layout : UIView<MeasureDelegate>{
     NSArray *measures;
     int widthPerMeasure;
 }

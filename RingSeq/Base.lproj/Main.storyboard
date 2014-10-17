@@ -53,6 +53,12 @@
                                             </connections>
                                         </textField>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" id="oia-Wn-Urf">
+                                        <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="MgW-cs-sQk">
+                                            <rect key="frame" x="0.0" y="-15" width="69" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </slider>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" id="Bbt-AC-ziO">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="R7J-tN-brL">
                                             <rect key="frame" x="139" y="8" width="123" height="30"/>

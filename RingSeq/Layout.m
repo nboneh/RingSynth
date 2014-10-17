@@ -21,15 +21,15 @@ static const int NUM_OF_MEASURES = 50;
         NSMutableArray *preMeasures = [[NSMutableArray alloc] init];
         int delX =0;
         for(int i = 0; i < NUM_OF_MEASURES; i++){
-            Measure* measure =[[Measure alloc]initWithStaff:staff env:env x:delX withNum:i];
+            Measure* measure =[[Measure alloc]initWithStaff:staff env:env x:delX withNum:i+1];
             [preMeasures addObject:measure];
             if(i == 0){
                 widthPerMeasure =measure.frame.size.width;
-
             }
-            
             delX += widthPerMeasure;
             [self addSubview:measure];
+            [measure setDelegate:self];
+        
         }
         measures = [[NSArray alloc] initWithArray:preMeasures];
 
@@ -40,6 +40,14 @@ static const int NUM_OF_MEASURES = 50;
 
 -(void) play{
     
+}
+-(void)changeSubDivision:(Subdivision)subdivision{
+    NSInteger size = [measures count];
+    for(int i = 0; i < size; i++){
+        Measure* measure = [measures objectAtIndex:i];
+        if(!measure.anyNotesInsubdivision)
+            [measure changeSubDivision:subdivision];
+    }
 }
 
 @end

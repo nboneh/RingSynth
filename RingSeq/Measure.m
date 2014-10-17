@@ -10,6 +10,7 @@
 #import "NotesHolder.h"
 
 @implementation Measure
+@synthesize delegate = _delegate;
 
 -(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x withNum:(int)num{
     self = [super init];
@@ -57,16 +58,16 @@
         case quaters:
             break;
         case sixteenths:
-            x2 = self.frame.size.width/4;
-            x3 = 3*self.frame.size.width/4;
+            x2 = 3*self.frame.size.width/4;
+            x3 = self.frame.size.width/4;
             
             if(!notesHolder2){
-                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"e"];
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"a"];
                 [_noteHolders addObject:notesHolder2];
                 [self addSubview:notesHolder2];
             }
             else{
-                notesHolder2.titleView.text = @"e";
+                notesHolder2.titleView.text = @"a";
                 frame = notesHolder2.frame;
                 frame.origin.x = x2;
                 notesHolder2.frame = frame;
@@ -74,12 +75,12 @@
             }
             
             if(!notesHolder3){
-                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x3 andTitle:@"a"];
+                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x3 andTitle:@"e"];
                 [_noteHolders addObject:notesHolder3];
                 [self addSubview:notesHolder3];
             }
             else{
-                notesHolder3.titleView.text = @"a";
+                notesHolder3.titleView.text = @"e";
                 frame = notesHolder3.frame;
                 frame.origin.x = x3;
                 notesHolder3.frame = frame;
@@ -149,6 +150,18 @@
     if(_currentSubdivision >= numOfSubdivisions)
         _currentSubdivision = 0;
     [self changeSubDivision:_currentSubdivision];
+    if(_delegate)
+        [_delegate changeSubDivision:_currentSubdivision];
+
+}
+-(BOOL)anyNotesInsubdivision{
+    NSInteger size = _noteHolders.count;
+    for(int i =0; i < size; i++){
+        NotesHolder* noteHolder =  [_noteHolders objectAtIndex:i];
+        if([noteHolder anyNotesInNoteHolder])
+            return YES;
+    }
+    return NO;
 }
 
 @end

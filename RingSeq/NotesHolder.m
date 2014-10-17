@@ -73,7 +73,7 @@ static const int VOLUME_METER_HEIGHT = 30;
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:self];
-    int y = location.y - TITLE_VIEW_HEIGHT;
+    int y = location.y;
     switch(_env.currentEditMode){
         case insert:
             [self placeNoteAtY:y fromExistingNote:nil];
@@ -107,6 +107,7 @@ static const int VOLUME_METER_HEIGHT = 30;
         if(!instrument)
             return;
     }
+    y -=TITLE_VIEW_HEIGHT;
     int pos = round(y/(self.staff.spacePerNote + 0.0));
     if(pos >=  [_staff.notePlacements count]  )
         return;
@@ -141,6 +142,10 @@ static const int VOLUME_METER_HEIGHT = 30;
         
     }
     return -1;
+}
+
+-(BOOL)anyNotesInNoteHolder{
+    return [_noteHolders count];
 }
 
 +(int)VOLUME_METER_HEIGHT{
