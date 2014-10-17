@@ -9,6 +9,7 @@
 #import "Note.h"
 @implementation Note
 @synthesize instrument = _instrument;
+@synthesize accidental = _accidental;
 
 -(id) initWithNotePlacement: (NotePlacement *)placement withInstrument:(Instrument *)instrument andAccedintal:(Accidental)accidental{
     self = [super init];
@@ -26,14 +27,15 @@
         _accidentalView= [[UILabel alloc] initWithFrame:CGRectMake(-width * .8f,width/2,width,width)];
         _accidentalView.textColor = instrument.color;
         [self addSubview:_accidentalView];
-        [self drawAccidental:_noteDescription.accidental];
+        [self setAccidental:_noteDescription.accidental];
         
     }
     return self;
 }
 
 
--(void)drawAccidental:(Accidental)accidental{
+-(void)setAccidental:(Accidental)accidental{
+    _accidental =accidental;
     switch(accidental){
         case natural:
             _accidentalView.text = @"";
@@ -53,41 +55,13 @@
 
 
 -(BOOL)equals:(Note *)note{
-    if( self.noteDescription == note.noteDescription && self.instrument == note.instrument)
+    if( self.notePlacement == note.notePlacement && self.instrument == note.instrument)
         return YES;
     return NO;
 }
 
--(void) moveToNotePlacement:(NotePlacement *)placement withAccedintal:(Accidental)accidental{
-    _noteDescription = [placement.noteDescs objectAtIndex:accidental];
-    CGRect frame = [self frame];
-    frame.origin.y = placement.y - _instrView.frame.size.height/2;
-    self.frame = frame;
-    [self drawAccidental:accidental];
-}
-
 -(void) playWithVolume:(float)volume{
     
-}
-- (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
-{
-    // Calculate and store offset, and pop view into front if needed
-    startLocation = [[touches anyObject] locationInView:self];
-    [self.superview bringSubviewToFront:self];
-}
-
-- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
-{
-    // Calculate offset
-    CGPoint pt = [[touches anyObject] locationInView:self];
-    float dx = pt.x - startLocation.x;
-    float dy = pt.y - startLocation.y;
-    CGPoint newcenter = CGPointMake(
-                                    self.center.x + dx,
-                                    self.center.y + dy);
-    
-    // Set new location
-    self.center = newcenter;
 }
 
 

@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DetailViewController.h"
-#import "layout.h"
 
 @interface FullGrid : UIView<UIScrollViewDelegate>{
-    NSArray *layers;
+    NSMutableArray *layers;
     UIView *container;
     UIScrollView *mainScroll;
 }
 
--(id)initWithEnv:(DetailViewController *)env;
 -(void)replay;
 -(void)play;
 @end

@@ -9,29 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "Instrument.h"
 #import "NoteDescription.h"
+#import "FullGrid.h"
 
 
-@interface DetailViewController : UIViewController<UITextFieldDelegate>{
+@interface DetailViewController : UIViewController<UIAlertViewDelegate>{
     BOOL firstTimeLoadingSubView;
 }
 
-typedef enum {
-    insert =0,
-    nerase = 1
-} EditMode;
 
 @property (strong, nonatomic) id name;
+@property (weak, nonatomic) IBOutlet UINavigationItem *topBar;
 @property (weak, nonatomic) IBOutlet UIToolbar *bottomBar;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *instrumentController;
 @property (weak, nonatomic) IBOutlet UITextField *tempoField;
+@property FullGrid* fullGrid;
 
-@property Instrument *currentInstrument;
-@property Accidental currentAccidental;
-@property EditMode currentEditMode;
 
--(IBAction)changeEditingMode:(UISegmentedControl *) sender;
--(IBAction)changeInstrument:(UISegmentedControl *)sender;
--(IBAction)changeAccedintal:(UISegmentedControl *)sender;
+-(IBAction)changeTempo;
 -(IBAction)replay;
 
 

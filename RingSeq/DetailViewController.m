@@ -11,7 +11,6 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
-#import "FullGrid.h"
 
 @interface DetailViewController ()
 
@@ -20,10 +19,8 @@
 @implementation DetailViewController
 
 @synthesize bottomBar = _bottomBar;
-@synthesize currentInstrument = _currentInstrument;
-@synthesize currentAccidental = _currentAccidental;
-static const int minTempo =11;
-FullGrid *fullGrid;
+static const int MIN_TEMPO =11;
+static const int MAX_TEMPO = 500;
 
 #pragma mark - Managing the detail item
 
@@ -40,7 +37,7 @@ FullGrid *fullGrid;
     // Update the user interface for the detail item.
     if (self.name) {
         self.navigationItem.title = _name;
-       fullGrid =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
+       _fullGrid =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
     }
 }
 
@@ -53,20 +50,9 @@ FullGrid *fullGrid;
                selector: @selector(enteredBackground:)
                    name: @"didEnterBackground"
                  object: nil];
-    [center addObserver:self selector:@selector(keyboardOnScreen:) name:UIKeyboardDidShowNotification object:nil];
-    [center addObserver:self selector:@selector(keyboardOffScreen:) name:UIKeyboardDidHideNotification object:nil];
+
     NSArray* instruments = [Assets getInstruments];
     NSInteger size = [instruments count];
-    [_instrumentController removeSegmentAtIndex:0 animated:NO];
-    [_instrumentController removeSegmentAtIndex:0 animated:NO];
-    for(int i = 0; i < size; i++){
-        Instrument *instr = [instruments objectAtIndex:i];
-        [_instrumentController insertSegmentWithTitle:instr.name atIndex:i animated:NO];
-        [_instrumentController setImage:instr.image forSegmentAtIndex:i];
-        [[[_instrumentController subviews] objectAtIndex:i] setTintColor:instr.color];
-    }
-    [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
-    [_instrumentController setSelectedSegmentIndex:0];
     firstTimeLoadingSubView = YES;
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
@@ -77,12 +63,11 @@ FullGrid *fullGrid;
     if(firstTimeLoadingSubView) {
     
             
-        fullGrid = [[FullGrid alloc] initWithEnv:self ];
-        [self.view addSubview:fullGrid];
+        _fullGrid = [[FullGrid alloc] initWithFrame:self.view.frame ];
+        [self.view addSubview:_fullGrid];
        // [self.view addSubview:staff];
         //[self.view addSubview:layout];
         [self.view bringSubviewToFront: _bottomBar];
-        [self.view bringSubviewToFront:_instrumentController];
     }
     firstTimeLoadingSubView = NO;
 }
@@ -92,21 +77,6 @@ FullGrid *fullGrid;
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)changeInstrument:(UISegmentedControl *)sender{
-    int pos = (int)[sender selectedSegmentIndex] -1;
-    if(pos >= 0)
-        _currentInstrument = [[Assets getInstruments] objectAtIndex:pos];
-    else
-        _currentInstrument = nil;
-}
--(IBAction)changeAccedintal:(UISegmentedControl *)sender{
-    _currentAccidental = (Accidental)[sender selectedSegmentIndex];
-    
-}
-
--(IBAction)changeEditingMode:(UISegmentedControl *) sender{
-    _currentEditMode =(EditMode)[sender selectedSegmentIndex];
-}
 
 -(void)enteredBackground:(NSNotification *)notification{
     //Saving file
@@ -114,48 +84,16 @@ FullGrid *fullGrid;
     
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    //Tempo should not be larger than 3 digits
-    NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    return (newLength > 3) ? NO : YES;
+
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
+    NSString *text = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
+                      [NSCharacterSet whitespaceCharacterSet]];
+
+    int newTempo = [text intValue];
+    return newTempo <= MAX_TEMPO && newTempo >= MIN_TEMPO;
 }
 
--(void)keyboardOnScreen:(NSNotification *)notification{
-    NSDictionary *info  = notification.userInfo;
-    NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
-    
-    CGRect rawFrame      = [value CGRectValue];
-    CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
-    CGRect frame = _bottomBar.frame;
-    frame.origin.y -= keyboardFrame.size.height;
-    _bottomBar.frame = frame;
-    
-    
-}
 
--(void)keyboardOffScreen:(NSNotification *)notification{
-    NSDictionary *info  = notification.userInfo;
-    NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
-    
-    CGRect rawFrame      = [value CGRectValue];
-    CGRect keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
-    CGRect frame = _bottomBar.frame;
-    frame.origin.y += keyboardFrame.size.height;
-    _bottomBar.frame = frame;
-    
-    if(_tempoField.text.integerValue < minTempo){
-        _tempoField.text = [@(minTempo) stringValue];
-    }
-    [self.view bringSubviewToFront: _bottomBar];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch * touch = [touches anyObject];
-    if(touch.phase == UITouchPhaseBegan) {
-        [self.view endEditing:YES];
-    }
-}
 
 -(void) viewWillDisappear:(BOOL)animated
 {
@@ -169,15 +107,25 @@ FullGrid *fullGrid;
 }
 
 -(IBAction)replay{
-    [fullGrid replay];
+    [_fullGrid replay];
+}
+-(IBAction)changeTempo{
+    [_tempoField resignFirstResponder];
+    UIAlertView * tempoAlert = [[UIAlertView alloc] initWithTitle:@"Change Tempo" message:@""   delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
+    tempoAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [tempoAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+    [tempoAlert textFieldAtIndex:0].text = _tempoField.text;
+    [tempoAlert show];
 }
 
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    _tempoField.text =  [alertView textFieldAtIndex:0].text;
+}
 - (NSString *) getPath:(NSString *)fileName
 {
     NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     return [path stringByAppendingPathComponent:fileName];
 }
-
 
 
 @end

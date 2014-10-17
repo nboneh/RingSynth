@@ -9,43 +9,45 @@
 #import "FullGrid.h"
 #import "Assets.h"
 #import "NotesHolder.h"
-
 @implementation FullGrid
--(id)initWithEnv:(DetailViewController *)env{
-    self = [super init];
+-(id)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
     if(self){
-        int height = env.bottomBar.frame.origin.y - (env.instrumentController.frame.origin.y + env.instrumentController.frame.size.height);
-        Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,[NotesHolder TITLE_VIEW_HEIGHT], 0, height -[NotesHolder VOLUME_METER_HEIGHT] -[NotesHolder TITLE_VIEW_HEIGHT])];
-        mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width ,height)];
-        container = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,0 ,height)];
+        
+        int instrumentsControlWidth = frame.size.width*0.8f;
+        int instrumentsControlHeight = frame.size.height * 0.2f;
+        UISegmentedControl* instruments = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0,0, instrumentsControlWidth, instrumentsControlHeight)];
+        [instruments setTintColor:[UIColor blackColor]];
+        [instruments insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
+        [instruments insertSegmentWithTitle:@"+" atIndex:1 animated:NO];
+        [self addSubview:instruments];
+        
+        [instruments addTarget:self
+                             action:@selector(instrumentChange:)
+                   forControlEvents:UIControlEventValueChanged];
+        
+        UISegmentedControl* accidentals = [[UISegmentedControl alloc] initWithFrame:CGRectMake(instrumentsControlWidth, 0, frame.size.width - instrumentsControlWidth, instrumentsControlHeight)];
+         [self addSubview:accidentals];
+        [accidentals insertSegmentWithTitle:@"♮" atIndex:0 animated:NO];
+        [accidentals insertSegmentWithTitle:@"#" atIndex:1 animated:NO];
+        [accidentals insertSegmentWithTitle:@"b" atIndex:2 animated:NO];
+        
+        [accidentals addTarget:self
+                        action: @selector(accidentalChange:)
+              forControlEvents:UIControlEventValueChanged];
+        
+        int volumeMeterSpace = frame.size.height/10;
+        int titleSpace = frame.size.height/12;
+        mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,instrumentsControlHeight,frame.size.width,frame.size.height- instrumentsControlHeight )];
+        container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, mainScroll.frame.size.height)];
+        Staff *staff = [[Staff alloc] initWithFrame:CGRectMake(0,titleSpace, frame.size.width, mainScroll.frame.size.height -titleSpace - volumeMeterSpace)];
         [container addSubview:staff];
         mainScroll.scrollEnabled = YES;
-        mainScroll.userInteractionEnabled = YES;
-        mainScroll.clipsToBounds = NO;
-        container.clipsToBounds = NO;
+        //mainScroll.userInteractionEnabled = YES;
         mainScroll.maximumZoomScale = 6.5f;
-        NSInteger size = [[Assets getInstruments] count];
-        NSMutableArray * preLayers = [[NSMutableArray alloc] init];
-        for(int i = 0; i < 1; i++){
-            Layout *layer = [[Layout alloc] initWithStaff:staff env:env];
-            if(i == 0){
-               mainScroll.contentSize = CGSizeMake(layer.frame.size.width +staff.trebleView.frame.size.width ,height);
-                 self.frame = CGRectMake(0, env.instrumentController.frame.origin.y  + env.instrumentController.frame.size.height , staff.trebleView.frame.size.width + layer.frame.size.width,height );
-                CGRect contFrame = container.frame;
-                contFrame.size.width = staff.trebleView.frame.size.width + layer.frame.size.width;
-                container.frame = contFrame;
-                [staff increaseWidthOfLines: (staff.trebleView.frame.size.width + layer.frame.size.width)];
-            }
-            [preLayers addObject:layer];
-            [container addSubview:layer];
-        }
-        layers = [[NSArray alloc] initWithArray:preLayers];
+        mainScroll.minimumZoomScale = 0.5f;
         [mainScroll addSubview:container];
         [mainScroll setDelegate:self];
-        //Two Finger scroll
-        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizePan:)];
-        panGestureRecognizer.maximumNumberOfTouches = 1;
-        [mainScroll addGestureRecognizer:panGestureRecognizer];
         [self addSubview:mainScroll];
 
     }
@@ -58,10 +60,27 @@
 - (void)recognizePan:(UIPanGestureRecognizer *)recognizer{
     
 }
+
 -(void)replay{
     CGRect frame = CGRectMake(0, 0, mainScroll.frame.size.width, mainScroll.frame.size.height);
     [mainScroll setZoomScale:1.0f animated:YES];
     [mainScroll scrollRectToVisible:frame animated:YES];
+}
+
+-(void)handleRotation{
+      //mainScroll.contentSize = CGSizeMake(mainScroll.contentSize.height, mainScroll.contentSize.width);
+    CGRect frame = mainScroll.frame;
+    frame.size.width = mainScroll.frame.size.height;
+       frame.size.height = frame.size.width;
+    mainScroll.frame = frame;
+}
+
+- (void)instrumentChange:(UISegmentedControl *)sender{
+    
+}
+
+- (void)accidentalChange:(UISegmentedControl *)sender{
+    
 }
 
 @end

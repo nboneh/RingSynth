@@ -24,8 +24,7 @@
 @property UIView *lineView;
 @property UILabel *titleView;
 -(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x andTitle:(NSString *)title;
--(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note;
--(Note *)deleteNoteIfExistsAtY:(int)ys;
+-(void)placeNoteAtY:(int)y;
 -(void)play;
 -(BOOL)anyNotesInNoteHolder;
 +(int)VOLUME_METER_HEIGHT;

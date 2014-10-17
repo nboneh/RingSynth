@@ -12,16 +12,15 @@
 
 @interface NotesHolder()
 -(void)checkViews;
--(int) findNoteIfExistsAtY:(int)y;
 @end
 
 @implementation NotesHolder
 static int const WIDTH = 40;
-static int const TITLE_VIEW_HEIGHT =30;
-static const int VOLUME_METER_HEIGHT = 30;
+static int const TITLE_VIEW_HEIGHT =40;
+static const int VOLUME_METER_HEIGHT = 60;
 @synthesize titleView = _titleView;
 
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
+/*-(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
            andTitle:(NSString *)title{
     self = [super init];
     if(self){
@@ -60,7 +59,7 @@ static const int VOLUME_METER_HEIGHT = 30;
         [_volumeSlider removeConstraints:_volumeSlider.constraints];
         [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
         _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -VOLUME_METER_HEIGHT/2 , TITLE_VIEW_HEIGHT + _lineView.frame.size.height +13, VOLUME_METER_HEIGHT +1 , VOLUME_METER_HEIGHT +1);
-      _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
+        _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
         [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
         [_volumeSlider setValue:0.75f];
         [self addSubview:_volumeSlider];
@@ -74,36 +73,35 @@ static const int VOLUME_METER_HEIGHT = 30;
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:self];
     int y = location.y;
-    switch(_env.currentEditMode){
-        case insert:
-            [self placeNoteAtY:y fromExistingNote:nil];
-            break;
-        case nerase:
-            if([self deleteNoteIfExistsAtY:y])
-                [Assets playEraseSound];
-            break;
-    }
+    
+    [self placeNoteAtY:y];
+}
+- (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer  {
+    //Long press to delete
+    [recognizer.view removeFromSuperview];
+    [_noteHolders removeObject:recognizer.view];
+    [self checkViews];
+    [Assets playEraseSound];
+    
+}
+
+- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer  {
+    Note *note = (Note *)recognizer.view;
+    if(note.accidental  < (numOfAccedintals-1))
+        note.accidental++;
+    else
+        note.accidental = 0;
+    
 }
 
 
--(Note *)deleteNoteIfExistsAtY:(int) y{
-    int index =[self findNoteIfExistsAtY:y];
-    if(index >= 0 && index < [_noteHolders count]){
-        Note *note = [_noteHolders objectAtIndex:index];
-        [note removeFromSuperview];
-        [_noteHolders removeObjectAtIndex:index];
-        [self checkViews];
-        return note;
-    }
-    return nil;
-}
 
--(void)placeNoteAtY:(int)y fromExistingNote:(Note*)note {
+-(void)placeNoteAtY:(int)y {
     if(!_noteHolders)
         _noteHolders = [[NSMutableArray alloc] init];
     Instrument * instrument;
-    if(!note){
-        instrument = _env.currentInstrument;
+    if(!instrument){
+       // instrument = _env.currentInstrument;
         if(!instrument)
             return;
     }
@@ -112,8 +110,7 @@ static const int VOLUME_METER_HEIGHT = 30;
     if(pos >=  [_staff.notePlacements count]  )
         return;
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
-    if(!note)
-        note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
+    Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
     //If equals a note that exists do not add
     NSInteger size =  _noteHolders.count;
     for(int i = 0; i < size; i++){
@@ -126,23 +123,23 @@ static const int VOLUME_METER_HEIGHT = 30;
     frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
     note.frame = frame;
     [_noteHolders  addObject: note];
+    UILongPressGestureRecognizer *longPress =
+    [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(handleLongPress:)];
+    [note addGestureRecognizer:longPress];
+    
+    UITapGestureRecognizer *doubleTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(handleDoubleTap:)];
+    doubleTap.numberOfTapsRequired =2;
+    [note addGestureRecognizer:doubleTap];
+
+    
     [self addSubview:note];
     [self checkViews];
     
 }
 
-
--(int)findNoteIfExistsAtY:(int)y{
-    NSInteger size =[_noteHolders count];
-    for(int i = 0; i < size; i++){
-        Note * note = [_noteHolders objectAtIndex:i];
-        int yPos = note.frame.origin.y;
-        if(y >= yPos && y <= yPos + note.frame.size.height)
-            return i;
-        
-    }
-    return -1;
-}
 
 -(BOOL)anyNotesInNoteHolder{
     return [_noteHolders count];
@@ -154,4 +151,5 @@ static const int VOLUME_METER_HEIGHT = 30;
 +(int)TITLE_VIEW_HEIGHT{
     return TITLE_VIEW_HEIGHT;
 }
+@end*/
 @end
