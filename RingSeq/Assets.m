@@ -10,6 +10,7 @@
 #import "Instrument.h"
 #include <stdlib.h>
 #import "ObjectAL.h"
+#import "Drums.h"
 
 @implementation Assets
 static NSArray* ERASE_SOUNDS;
@@ -29,10 +30,10 @@ static NSArray *INSTRUMENTS;
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Acoustic Guitar" color: [UIColor redColor] ]];
         //C4
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Electric Guitar" color: [UIColor blueColor] ]];
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Drums" color:[UIColor brownColor] ]];
+        [instrumentMut addObject:[[Drums alloc] initWithName:@"Drums" color:[UIColor brownColor] ]];
         //C4
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Bass" color:[UIColor greenColor] ]];
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Xylophone" color:[UIColor cyanColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Bell" color:[UIColor cyanColor] ]];
         //C5
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Trumpet" color:[UIColor yellowColor] ]];
         //C3

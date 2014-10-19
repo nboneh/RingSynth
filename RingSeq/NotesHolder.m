@@ -21,11 +21,11 @@
 -(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title{
     self = [super initWithFrame:frame];
     if(self){
-
+        
         _titleViewHeight = staff.frame.origin.y - self.frame.origin.y;
         _volumeMeterHeight = (frame.origin.y + frame.size.height) - (staff.frame.origin.y + staff.frame.size.height);
         _staff = staff;
-
+        
         _titleView = [[UILabel alloc] initWithFrame:CGRectMake(0 ,0,frame.size.width, _titleViewHeight) ];
         [_titleView setText:title];
         _titleView.textAlignment = NSTextAlignmentCenter;
@@ -71,17 +71,21 @@
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:self];
-    int y = location.y;
-    
-    [self placeNoteAtY:y];
+    if([DetailViewController CURRENT_EDIT_MODE] == insert){
+        
+        CGPoint location = [recognizer locationInView:self];
+        int y = location.y;
+        
+        [self placeNoteAtY:y];
+    }
 }
-- (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer  {
-    //Long press to delete
-    [recognizer.view removeFromSuperview];
-    [_notes removeObject:recognizer.view];
-    [self checkViews];
-    [Assets playEraseSound];
+- (void)handleNotePress:(UILongPressGestureRecognizer *)recognizer  {
+    if([DetailViewController CURRENT_EDIT_MODE] == erase){
+        [recognizer.view removeFromSuperview];
+        [_notes removeObject:recognizer.view];
+        [self checkViews];
+        [Assets playEraseSound];
+    }
     
 }
 
@@ -91,9 +95,9 @@
 -(void)placeNoteAtY:(int)y {
     if(!_notes)
         _notes = [[NSMutableArray alloc] init];
-
+    
     if(![DetailViewController CURRENT_INSTRUMENT]){
-            return;
+        return;
     }
     y -=_titleViewHeight;
     int pos = round(y/(self.staff.spacePerNote + 0.0));
@@ -113,15 +117,14 @@
     frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
     note.frame = frame;
     [_notes  addObject: note];
-    UILongPressGestureRecognizer *longPress =
-    [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(handleLongPress:)];
+    UITapGestureRecognizer *longPress =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleNotePress:)];
     [note addGestureRecognizer:longPress];
     
-
+    [self checkViews];
     [note playWithVolume:[_volumeSlider value]];
     [self addSubview:note];
-    [self checkViews];
     
 }
 

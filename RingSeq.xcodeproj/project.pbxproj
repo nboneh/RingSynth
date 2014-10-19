@@ -29,6 +29,80 @@
 		0B74953F19EE05250078296B /* delete4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74953E19EE05250078296B /* delete4.wav */; };
 		0B74954119EE052D0078296B /* delete2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74954019EE052D0078296B /* delete2.wav */; };
 		0B74954419EEF7300078296B /* Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74954319EEF7300078296B /* Layout.m */; };
+		0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7AB60419F21C0D0092F808 /* SlidingSegment.m */; };
+		0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF84919F3287D00F6C176 /* .gitignore */; };
+		0B9AF92B19F3287E00F6C176 /* build_docs.sh in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF84B19F3287D00F6C176 /* build_docs.sh */; };
+		0B9AF92C19F3287E00F6C176 /* ObjectAL-Overview1.eps in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF84D19F3287D00F6C176 /* ObjectAL-Overview1.eps */; };
+		0B9AF92D19F3287E00F6C176 /* ObjectAL-Overview1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF84E19F3287D00F6C176 /* ObjectAL-Overview1.png */; };
+		0B9AF92E19F3287E00F6C176 /* ObjectAL-Overview1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF84F19F3287D00F6C176 /* ObjectAL-Overview1.svg */; };
+		0B9AF92F19F3287E00F6C176 /* ObjectAL-Overview2.eps in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF85019F3287D00F6C176 /* ObjectAL-Overview2.eps */; };
+		0B9AF93019F3287E00F6C176 /* ObjectAL-Overview2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF85119F3287D00F6C176 /* ObjectAL-Overview2.png */; };
+		0B9AF93119F3287E00F6C176 /* ObjectAL-Overview2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF85219F3287D00F6C176 /* ObjectAL-Overview2.svg */; };
+		0B9AF93219F3287E00F6C176 /* LICENSE.ObjectAL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF85519F3287D00F6C176 /* LICENSE.ObjectAL.txt */; };
+		0B9AF93319F3287E00F6C176 /* OALAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF85A19F3287D00F6C176 /* OALAction.m */; };
+		0B9AF93419F3287E00F6C176 /* OALActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF85C19F3287D00F6C176 /* OALActionManager.m */; };
+		0B9AF93519F3287E00F6C176 /* OALAudioActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF85E19F3287D00F6C176 /* OALAudioActions.m */; };
+		0B9AF93619F3287E00F6C176 /* OALUtilityActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF86019F3287D00F6C176 /* OALUtilityActions.m */; };
+		0B9AF93719F3287E00F6C176 /* OALAudioTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF86319F3287D00F6C176 /* OALAudioTrack.m */; };
+		0B9AF93819F3287E00F6C176 /* OALAudioTrackNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF86519F3287D00F6C176 /* OALAudioTrackNotifications.m */; };
+		0B9AF93919F3287E00F6C176 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF86719F3287D00F6C176 /* OALAudioTracks.m */; };
+		0B9AF93A19F3287E00F6C176 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF86919F3287D00F6C176 /* OALSimpleAudio.m */; };
+		0B9AF93B19F3287E00F6C176 /* ALBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF86E19F3287D00F6C176 /* ALBuffer.m */; };
+		0B9AF93C19F3287E00F6C176 /* ALCaptureDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF87019F3287D00F6C176 /* ALCaptureDevice.m */; };
+		0B9AF93D19F3287E00F6C176 /* ALChannelSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF87219F3287D00F6C176 /* ALChannelSource.m */; };
+		0B9AF93E19F3287E00F6C176 /* ALContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF87419F3287D00F6C176 /* ALContext.m */; };
+		0B9AF93F19F3287E00F6C176 /* ALDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF87619F3287D00F6C176 /* ALDevice.m */; };
+		0B9AF94019F3287E00F6C176 /* ALListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF87819F3287D00F6C176 /* ALListener.m */; };
+		0B9AF94119F3287E00F6C176 /* ALSoundSourcePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF87B19F3287D00F6C176 /* ALSoundSourcePool.m */; };
+		0B9AF94219F3287E00F6C176 /* ALSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF87D19F3287D00F6C176 /* ALSource.m */; };
+		0B9AF94319F3287E00F6C176 /* ALWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88019F3287D00F6C176 /* ALWrapper.m */; };
+		0B9AF94419F3287E00F6C176 /* OpenALManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88219F3287D00F6C176 /* OpenALManager.m */; };
+		0B9AF94519F3287E00F6C176 /* OALAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88519F3287D00F6C176 /* OALAudioSession.m */; };
+		0B9AF94619F3287E00F6C176 /* OALSuspendHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88719F3287D00F6C176 /* OALSuspendHandler.m */; };
+		0B9AF94719F3287E00F6C176 /* IOSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88B19F3287D00F6C176 /* IOSVersion.m */; };
+		0B9AF94819F3287E00F6C176 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88C19F3287D00F6C176 /* mach_timing.c */; };
+		0B9AF94919F3287E00F6C176 /* NSMutableArray+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88F19F3287D00F6C176 /* NSMutableArray+WeakReferences.m */; };
+		0B9AF94A19F3287E00F6C176 /* NSMutableDictionary+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF89119F3287D00F6C176 /* NSMutableDictionary+WeakReferences.m */; };
+		0B9AF94B19F3287E00F6C176 /* OALAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF89319F3287D00F6C176 /* OALAudioFile.m */; };
+		0B9AF94C19F3287E00F6C176 /* OALTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF89619F3287D00F6C176 /* OALTools.m */; };
+		0B9AF94D19F3287E00F6C176 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF89D19F3287D00F6C176 /* InfoPlist.strings */; };
+		0B9AF94E19F3287E00F6C176 /* ObjectAL (OSX)-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF89F19F3287D00F6C176 /* ObjectAL (OSX)-Info.plist */; };
+		0B9AF94F19F3287E00F6C176 /* ObjectAL-for-iPhone.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF8A119F3287D00F6C176 /* ObjectAL-for-iPhone.podspec */; };
+		0B9AF95019F3287E00F6C176 /* ObjectAL.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF8A219F3287D00F6C176 /* ObjectAL.pdf */; };
+		0B9AF95119F3287E00F6C176 /* ObjectAL.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF8A319F3287D00F6C176 /* ObjectAL.xcworkspace */; };
+		0B9AF9A319F3287E00F6C176 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF92419F3287E00F6C176 /* README.mdown */; };
+		0B9AF9B519F330EF00F6C176 /* Electric Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9B419F330EF00F6C176 /* Electric Guitar.wav */; };
+		0B9AF9BA19F3389F00F6C176 /* Acoustic Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */; };
+		0B9AF9BC19F338DE00F6C176 /* High Piano.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9BB19F338DE00F6C176 /* High Piano.wav */; };
+		0B9AF9BE19F3390300F6C176 /* Low Piano.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9BD19F3390300F6C176 /* Low Piano.wav */; };
+		0B9AF9C019F33AC900F6C176 /* Trumpet.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */; };
+		0B9AF9C419F33B2500F6C176 /* Saxophone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C319F33B2500F6C176 /* Saxophone.wav */; };
+		0B9AF9C619F33B9D00F6C176 /* Trombone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C519F33B9D00F6C176 /* Trombone.wav */; };
+		0B9AF9C819F33C1E00F6C176 /* Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C719F33C1E00F6C176 /* Bass.wav */; };
+		0B9AF9CA19F33CC200F6C176 /* Orchestra Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C919F33CC200F6C176 /* Orchestra Hit.wav */; };
+		0B9AF9CC19F33F8D00F6C176 /* Gong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9CB19F33F8D00F6C176 /* Gong.wav */; };
+		0B9AF9CE19F33FCC00F6C176 /* Crash1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9CD19F33FCC00F6C176 /* Crash1.wav */; };
+		0B9AF9D219F3405E00F6C176 /* RideCymbal1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9D119F3405E00F6C176 /* RideCymbal1.wav */; };
+		0B9AF9D419F3407200F6C176 /* Crash3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9D319F3407200F6C176 /* Crash3.wav */; };
+		0B9AF9D619F3408200F6C176 /* ClosedHiHat1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9D519F3408200F6C176 /* ClosedHiHat1.wav */; };
+		0B9AF9D819F3409200F6C176 /* OpenHiHat2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9D719F3409200F6C176 /* OpenHiHat2.wav */; };
+		0B9AF9DA19F340AA00F6C176 /* RideCymbal2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9D919F340AA00F6C176 /* RideCymbal2.wav */; };
+		0B9AF9DC19F340C800F6C176 /* OpenHiHat1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9DB19F340C800F6C176 /* OpenHiHat1.wav */; };
+		0B9AF9E019F3412400F6C176 /* Crash2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9DF19F3412400F6C176 /* Crash2.wav */; };
+		0B9AF9E619F3417B00F6C176 /* KickDrum1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9E519F3417B00F6C176 /* KickDrum1.wav */; };
+		0B9AF9E819F3418D00F6C176 /* KickDrum2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9E719F3418D00F6C176 /* KickDrum2.wav */; };
+		0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9E919F341E400F6C176 /* KickDrum3.wav */; };
+		0B9AF9EC19F341FA00F6C176 /* Snare2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9EB19F341FA00F6C176 /* Snare2.wav */; };
+		0B9AF9F019F3422B00F6C176 /* Snare1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9EF19F3422B00F6C176 /* Snare1.wav */; };
+		0B9AF9F219F3426B00F6C176 /* Tom2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F119F3426B00F6C176 /* Tom2.wav */; };
+		0B9AF9F419F3428A00F6C176 /* FloorTom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F319F3428A00F6C176 /* FloorTom.wav */; };
+		0B9AF9F619F3432F00F6C176 /* ClosedHiHat2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F519F3432F00F6C176 /* ClosedHiHat2.wav */; };
+		0B9AF9F819F3436A00F6C176 /* ClosedHiHat3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F719F3436A00F6C176 /* ClosedHiHat3.wav */; };
+		0B9AF9FC19F343D000F6C176 /* Snare3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9FB19F343D000F6C176 /* Snare3.wav */; };
+		0B9AF9FE19F3448700F6C176 /* Tom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9FD19F3448700F6C176 /* Tom.wav */; };
+		0B9AFA0019F344CF00F6C176 /* RideCymbal3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9FF19F344CF00F6C176 /* RideCymbal3.wav */; };
+		0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0219F3455E00F6C176 /* Drums.m */; };
+		0B9AFA0519F347AB00F6C176 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0419F347AB00F6C176 /* Bell.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +112,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0B703EAD19E70B5F00CED5B4;
 			remoteInfo = RingSeq;
+		};
+		0B9AF9A919F3287E00F6C176 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B9AF89919F3287D00F6C176 /* ObjectAL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CBBAB312171D0B84009B955F;
+			remoteInfo = "ObjectAL (iOS)";
+		};
+		0B9AF9AB19F3287E00F6C176 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0B9AF89919F3287D00F6C176 /* ObjectAL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CBBAB33D171D0BC4009B955F;
+			remoteInfo = "ObjectAL (OSX)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -81,6 +169,120 @@
 		0B74954019EE052D0078296B /* delete2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete2.wav; sourceTree = "<group>"; };
 		0B74954219EEF7300078296B /* Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
 		0B74954319EEF7300078296B /* Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layout.m; sourceTree = "<group>"; };
+		0B7AB60319F21C0D0092F808 /* SlidingSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidingSegment.h; sourceTree = "<group>"; };
+		0B7AB60419F21C0D0092F808 /* SlidingSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidingSegment.m; sourceTree = "<group>"; };
+		0B9AF84919F3287D00F6C176 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		0B9AF84B19F3287D00F6C176 /* build_docs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build_docs.sh; sourceTree = "<group>"; };
+		0B9AF84D19F3287D00F6C176 /* ObjectAL-Overview1.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ObjectAL-Overview1.eps"; sourceTree = "<group>"; };
+		0B9AF84E19F3287D00F6C176 /* ObjectAL-Overview1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ObjectAL-Overview1.png"; sourceTree = "<group>"; };
+		0B9AF84F19F3287D00F6C176 /* ObjectAL-Overview1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "ObjectAL-Overview1.svg"; sourceTree = "<group>"; };
+		0B9AF85019F3287D00F6C176 /* ObjectAL-Overview2.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ObjectAL-Overview2.eps"; sourceTree = "<group>"; };
+		0B9AF85119F3287D00F6C176 /* ObjectAL-Overview2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ObjectAL-Overview2.png"; sourceTree = "<group>"; };
+		0B9AF85219F3287D00F6C176 /* ObjectAL-Overview2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "ObjectAL-Overview2.svg"; sourceTree = "<group>"; };
+		0B9AF85419F3287D00F6C176 /* ObjectAL (iOS)-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjectAL (iOS)-Prefix.pch"; sourceTree = "<group>"; };
+		0B9AF85519F3287D00F6C176 /* LICENSE.ObjectAL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.ObjectAL.txt; sourceTree = "<group>"; };
+		0B9AF85819F3287D00F6C176 /* OALAction+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OALAction+Private.h"; sourceTree = "<group>"; };
+		0B9AF85919F3287D00F6C176 /* OALAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAction.h; sourceTree = "<group>"; };
+		0B9AF85A19F3287D00F6C176 /* OALAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAction.m; sourceTree = "<group>"; };
+		0B9AF85B19F3287D00F6C176 /* OALActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALActionManager.h; sourceTree = "<group>"; };
+		0B9AF85C19F3287D00F6C176 /* OALActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALActionManager.m; sourceTree = "<group>"; };
+		0B9AF85D19F3287D00F6C176 /* OALAudioActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioActions.h; sourceTree = "<group>"; };
+		0B9AF85E19F3287D00F6C176 /* OALAudioActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioActions.m; sourceTree = "<group>"; };
+		0B9AF85F19F3287D00F6C176 /* OALUtilityActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALUtilityActions.h; sourceTree = "<group>"; };
+		0B9AF86019F3287D00F6C176 /* OALUtilityActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALUtilityActions.m; sourceTree = "<group>"; };
+		0B9AF86219F3287D00F6C176 /* OALAudioTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioTrack.h; sourceTree = "<group>"; };
+		0B9AF86319F3287D00F6C176 /* OALAudioTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioTrack.m; sourceTree = "<group>"; };
+		0B9AF86419F3287D00F6C176 /* OALAudioTrackNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioTrackNotifications.h; sourceTree = "<group>"; };
+		0B9AF86519F3287D00F6C176 /* OALAudioTrackNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioTrackNotifications.m; sourceTree = "<group>"; };
+		0B9AF86619F3287D00F6C176 /* OALAudioTracks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioTracks.h; sourceTree = "<group>"; };
+		0B9AF86719F3287D00F6C176 /* OALAudioTracks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioTracks.m; sourceTree = "<group>"; };
+		0B9AF86819F3287D00F6C176 /* OALSimpleAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALSimpleAudio.h; sourceTree = "<group>"; };
+		0B9AF86919F3287D00F6C176 /* OALSimpleAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALSimpleAudio.m; sourceTree = "<group>"; };
+		0B9AF86A19F3287D00F6C176 /* ObjectAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectAL.h; sourceTree = "<group>"; };
+		0B9AF86B19F3287D00F6C176 /* ObjectALConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectALConfig.h; sourceTree = "<group>"; };
+		0B9AF86D19F3287D00F6C176 /* ALBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALBuffer.h; sourceTree = "<group>"; };
+		0B9AF86E19F3287D00F6C176 /* ALBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALBuffer.m; sourceTree = "<group>"; };
+		0B9AF86F19F3287D00F6C176 /* ALCaptureDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALCaptureDevice.h; sourceTree = "<group>"; };
+		0B9AF87019F3287D00F6C176 /* ALCaptureDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALCaptureDevice.m; sourceTree = "<group>"; };
+		0B9AF87119F3287D00F6C176 /* ALChannelSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALChannelSource.h; sourceTree = "<group>"; };
+		0B9AF87219F3287D00F6C176 /* ALChannelSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALChannelSource.m; sourceTree = "<group>"; };
+		0B9AF87319F3287D00F6C176 /* ALContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALContext.h; sourceTree = "<group>"; };
+		0B9AF87419F3287D00F6C176 /* ALContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALContext.m; sourceTree = "<group>"; };
+		0B9AF87519F3287D00F6C176 /* ALDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDevice.h; sourceTree = "<group>"; };
+		0B9AF87619F3287D00F6C176 /* ALDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDevice.m; sourceTree = "<group>"; };
+		0B9AF87719F3287D00F6C176 /* ALListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALListener.h; sourceTree = "<group>"; };
+		0B9AF87819F3287D00F6C176 /* ALListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALListener.m; sourceTree = "<group>"; };
+		0B9AF87919F3287D00F6C176 /* ALSoundSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSoundSource.h; sourceTree = "<group>"; };
+		0B9AF87A19F3287D00F6C176 /* ALSoundSourcePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSoundSourcePool.h; sourceTree = "<group>"; };
+		0B9AF87B19F3287D00F6C176 /* ALSoundSourcePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALSoundSourcePool.m; sourceTree = "<group>"; };
+		0B9AF87C19F3287D00F6C176 /* ALSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSource.h; sourceTree = "<group>"; };
+		0B9AF87D19F3287D00F6C176 /* ALSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALSource.m; sourceTree = "<group>"; };
+		0B9AF87E19F3287D00F6C176 /* ALTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALTypes.h; sourceTree = "<group>"; };
+		0B9AF87F19F3287D00F6C176 /* ALWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALWrapper.h; sourceTree = "<group>"; };
+		0B9AF88019F3287D00F6C176 /* ALWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALWrapper.m; sourceTree = "<group>"; };
+		0B9AF88119F3287D00F6C176 /* OpenALManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALManager.h; sourceTree = "<group>"; };
+		0B9AF88219F3287D00F6C176 /* OpenALManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenALManager.m; sourceTree = "<group>"; };
+		0B9AF88419F3287D00F6C176 /* OALAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioSession.h; sourceTree = "<group>"; };
+		0B9AF88519F3287D00F6C176 /* OALAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioSession.m; sourceTree = "<group>"; };
+		0B9AF88619F3287D00F6C176 /* OALSuspendHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALSuspendHandler.h; sourceTree = "<group>"; };
+		0B9AF88719F3287D00F6C176 /* OALSuspendHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALSuspendHandler.m; sourceTree = "<group>"; };
+		0B9AF88919F3287D00F6C176 /* ARCSafe_MemMgmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCSafe_MemMgmt.h; sourceTree = "<group>"; };
+		0B9AF88A19F3287D00F6C176 /* IOSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSVersion.h; sourceTree = "<group>"; };
+		0B9AF88B19F3287D00F6C176 /* IOSVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOSVersion.m; sourceTree = "<group>"; };
+		0B9AF88C19F3287D00F6C176 /* mach_timing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mach_timing.c; sourceTree = "<group>"; };
+		0B9AF88D19F3287D00F6C176 /* mach_timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mach_timing.h; sourceTree = "<group>"; };
+		0B9AF88E19F3287D00F6C176 /* NSMutableArray+WeakReferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+WeakReferences.h"; sourceTree = "<group>"; };
+		0B9AF88F19F3287D00F6C176 /* NSMutableArray+WeakReferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+WeakReferences.m"; sourceTree = "<group>"; };
+		0B9AF89019F3287D00F6C176 /* NSMutableDictionary+WeakReferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+WeakReferences.h"; sourceTree = "<group>"; };
+		0B9AF89119F3287D00F6C176 /* NSMutableDictionary+WeakReferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+WeakReferences.m"; sourceTree = "<group>"; };
+		0B9AF89219F3287D00F6C176 /* OALAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioFile.h; sourceTree = "<group>"; };
+		0B9AF89319F3287D00F6C176 /* OALAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioFile.m; sourceTree = "<group>"; };
+		0B9AF89419F3287D00F6C176 /* OALNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALNotifications.h; sourceTree = "<group>"; };
+		0B9AF89519F3287D00F6C176 /* OALTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALTools.h; sourceTree = "<group>"; };
+		0B9AF89619F3287D00F6C176 /* OALTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALTools.m; sourceTree = "<group>"; };
+		0B9AF89719F3287D00F6C176 /* ObjectALMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectALMacros.h; sourceTree = "<group>"; };
+		0B9AF89819F3287D00F6C176 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		0B9AF89919F3287D00F6C176 /* ObjectAL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = ObjectAL.xcodeproj; sourceTree = "<group>"; };
+		0B9AF89E19F3287D00F6C176 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0B9AF89F19F3287D00F6C176 /* ObjectAL (OSX)-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ObjectAL (OSX)-Info.plist"; sourceTree = "<group>"; };
+		0B9AF8A019F3287D00F6C176 /* ObjectAL (OSX)-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjectAL (OSX)-Prefix.pch"; sourceTree = "<group>"; };
+		0B9AF8A119F3287D00F6C176 /* ObjectAL-for-iPhone.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ObjectAL-for-iPhone.podspec"; sourceTree = "<group>"; };
+		0B9AF8A219F3287D00F6C176 /* ObjectAL.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ObjectAL.pdf; sourceTree = "<group>"; };
+		0B9AF8A319F3287D00F6C176 /* ObjectAL.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = ObjectAL.xcworkspace; sourceTree = "<group>"; };
+		0B9AF92419F3287E00F6C176 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
+		0B9AF9B419F330EF00F6C176 /* Electric Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Electric Guitar.wav"; sourceTree = "<group>"; };
+		0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Acoustic Guitar.wav"; sourceTree = "<group>"; };
+		0B9AF9BB19F338DE00F6C176 /* High Piano.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "High Piano.wav"; sourceTree = "<group>"; };
+		0B9AF9BD19F3390300F6C176 /* Low Piano.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Low Piano.wav"; sourceTree = "<group>"; };
+		0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Trumpet.wav; sourceTree = "<group>"; };
+		0B9AF9C319F33B2500F6C176 /* Saxophone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Saxophone.wav; sourceTree = "<group>"; };
+		0B9AF9C519F33B9D00F6C176 /* Trombone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Trombone.wav; sourceTree = "<group>"; };
+		0B9AF9C719F33C1E00F6C176 /* Bass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bass.wav; sourceTree = "<group>"; };
+		0B9AF9C919F33CC200F6C176 /* Orchestra Hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Orchestra Hit.wav"; sourceTree = "<group>"; };
+		0B9AF9CB19F33F8D00F6C176 /* Gong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gong.wav; sourceTree = "<group>"; };
+		0B9AF9CD19F33FCC00F6C176 /* Crash1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Crash1.wav; sourceTree = "<group>"; };
+		0B9AF9D119F3405E00F6C176 /* RideCymbal1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RideCymbal1.wav; sourceTree = "<group>"; };
+		0B9AF9D319F3407200F6C176 /* Crash3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Crash3.wav; sourceTree = "<group>"; };
+		0B9AF9D519F3408200F6C176 /* ClosedHiHat1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ClosedHiHat1.wav; sourceTree = "<group>"; };
+		0B9AF9D719F3409200F6C176 /* OpenHiHat2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = OpenHiHat2.wav; sourceTree = "<group>"; };
+		0B9AF9D919F340AA00F6C176 /* RideCymbal2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RideCymbal2.wav; sourceTree = "<group>"; };
+		0B9AF9DB19F340C800F6C176 /* OpenHiHat1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = OpenHiHat1.wav; sourceTree = "<group>"; };
+		0B9AF9DF19F3412400F6C176 /* Crash2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Crash2.wav; sourceTree = "<group>"; };
+		0B9AF9E519F3417B00F6C176 /* KickDrum1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = KickDrum1.wav; sourceTree = "<group>"; };
+		0B9AF9E719F3418D00F6C176 /* KickDrum2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = KickDrum2.wav; sourceTree = "<group>"; };
+		0B9AF9E919F341E400F6C176 /* KickDrum3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = KickDrum3.wav; sourceTree = "<group>"; };
+		0B9AF9EB19F341FA00F6C176 /* Snare2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Snare2.wav; sourceTree = "<group>"; };
+		0B9AF9EF19F3422B00F6C176 /* Snare1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Snare1.wav; sourceTree = "<group>"; };
+		0B9AF9F119F3426B00F6C176 /* Tom2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom2.wav; sourceTree = "<group>"; };
+		0B9AF9F319F3428A00F6C176 /* FloorTom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FloorTom.wav; sourceTree = "<group>"; };
+		0B9AF9F519F3432F00F6C176 /* ClosedHiHat2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ClosedHiHat2.wav; sourceTree = "<group>"; };
+		0B9AF9F719F3436A00F6C176 /* ClosedHiHat3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ClosedHiHat3.wav; sourceTree = "<group>"; };
+		0B9AF9FB19F343D000F6C176 /* Snare3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Snare3.wav; sourceTree = "<group>"; };
+		0B9AF9FD19F3448700F6C176 /* Tom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom.wav; sourceTree = "<group>"; };
+		0B9AF9FF19F344CF00F6C176 /* RideCymbal3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RideCymbal3.wav; sourceTree = "<group>"; };
+		0B9AFA0119F3455E00F6C176 /* Drums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drums.h; sourceTree = "<group>"; };
+		0B9AFA0219F3455E00F6C176 /* Drums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drums.m; sourceTree = "<group>"; };
+		0B9AFA0419F347AB00F6C176 /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,13 +303,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B39A04619EF8518006B7EA5 /* FileHelp */ = {
+		0B39A04619EF8518006B7EA5 /* util */ = {
 			isa = PBXGroup;
 			children = (
 				0B39A04719EF853A006B7EA5 /* UIColor+saveColor.h */,
 				0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */,
+				0B7AB60319F21C0D0092F808 /* SlidingSegment.h */,
+				0B7AB60419F21C0D0092F808 /* SlidingSegment.m */,
 			);
-			name = FileHelp;
+			name = util;
 			sourceTree = "<group>";
 		};
 		0B703EA519E70B5F00CED5B4 = {
@@ -131,7 +335,8 @@
 		0B703EB019E70B5F00CED5B4 /* RingSeq */ = {
 			isa = PBXGroup;
 			children = (
-				0B39A04619EF8518006B7EA5 /* FileHelp */,
+				0B9AF84819F3287D00F6C176 /* ObjectAL-for-iPhone */,
+				0B39A04619EF8518006B7EA5 /* util */,
 				0B74952819EB79150078296B /* InstrumentAsset */,
 				0B74951F19EB59AA0078296B /* GridLayout */,
 				0B703EB519E70B5F00CED5B4 /* AppDelegate.h */,
@@ -151,6 +356,37 @@
 		0B703EB119E70B5F00CED5B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0B9AF9DB19F340C800F6C176 /* OpenHiHat1.wav */,
+				0B9AF9D719F3409200F6C176 /* OpenHiHat2.wav */,
+				0B9AF9D519F3408200F6C176 /* ClosedHiHat1.wav */,
+				0B9AF9F519F3432F00F6C176 /* ClosedHiHat2.wav */,
+				0B9AF9F719F3436A00F6C176 /* ClosedHiHat3.wav */,
+				0B9AF9CD19F33FCC00F6C176 /* Crash1.wav */,
+				0B9AF9DF19F3412400F6C176 /* Crash2.wav */,
+				0B9AF9D319F3407200F6C176 /* Crash3.wav */,
+				0B9AF9EF19F3422B00F6C176 /* Snare1.wav */,
+				0B9AF9EB19F341FA00F6C176 /* Snare2.wav */,
+				0B9AF9FB19F343D000F6C176 /* Snare3.wav */,
+				0B9AF9D119F3405E00F6C176 /* RideCymbal1.wav */,
+				0B9AF9D919F340AA00F6C176 /* RideCymbal2.wav */,
+				0B9AF9FF19F344CF00F6C176 /* RideCymbal3.wav */,
+				0B9AF9FD19F3448700F6C176 /* Tom.wav */,
+				0B9AF9F119F3426B00F6C176 /* Tom2.wav */,
+				0B9AF9F319F3428A00F6C176 /* FloorTom.wav */,
+				0B9AF9E519F3417B00F6C176 /* KickDrum1.wav */,
+				0B9AF9E719F3418D00F6C176 /* KickDrum2.wav */,
+				0B9AF9E919F341E400F6C176 /* KickDrum3.wav */,
+				0B9AF9CB19F33F8D00F6C176 /* Gong.wav */,
+				0B9AF9C919F33CC200F6C176 /* Orchestra Hit.wav */,
+				0B9AF9C719F33C1E00F6C176 /* Bass.wav */,
+				0B9AF9C519F33B9D00F6C176 /* Trombone.wav */,
+				0B9AF9C319F33B2500F6C176 /* Saxophone.wav */,
+				0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */,
+				0B9AF9BD19F3390300F6C176 /* Low Piano.wav */,
+				0B9AF9BB19F338DE00F6C176 /* High Piano.wav */,
+				0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */,
+				0B9AFA0419F347AB00F6C176 /* Bell.wav */,
+				0B9AF9B419F330EF00F6C176 /* Electric Guitar.wav */,
 				0B74954019EE052D0078296B /* delete2.wav */,
 				0B74953E19EE05250078296B /* delete4.wav */,
 				0B74953C19EE051B0078296B /* delete3.wav */,
@@ -206,8 +442,185 @@
 				0B74952D19EB7BA50078296B /* Assets.m */,
 				0B74953219EC5C570078296B /* NoteDescription.h */,
 				0B74953319EC5C570078296B /* NoteDescription.m */,
+				0B9AFA0119F3455E00F6C176 /* Drums.h */,
+				0B9AFA0219F3455E00F6C176 /* Drums.m */,
 			);
 			name = InstrumentAsset;
+			sourceTree = "<group>";
+		};
+		0B9AF84819F3287D00F6C176 /* ObjectAL-for-iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF84919F3287D00F6C176 /* .gitignore */,
+				0B9AF84A19F3287D00F6C176 /* ObjectAL */,
+				0B9AF8A119F3287D00F6C176 /* ObjectAL-for-iPhone.podspec */,
+				0B9AF8A219F3287D00F6C176 /* ObjectAL.pdf */,
+				0B9AF8A319F3287D00F6C176 /* ObjectAL.xcworkspace */,
+				0B9AF92419F3287E00F6C176 /* README.mdown */,
+			);
+			path = "ObjectAL-for-iPhone";
+			sourceTree = "<group>";
+		};
+		0B9AF84A19F3287D00F6C176 /* ObjectAL */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF84B19F3287D00F6C176 /* build_docs.sh */,
+				0B9AF84C19F3287D00F6C176 /* diagrams */,
+				0B9AF85319F3287D00F6C176 /* iOS */,
+				0B9AF85519F3287D00F6C176 /* LICENSE.ObjectAL.txt */,
+				0B9AF85619F3287D00F6C176 /* ObjectAL */,
+				0B9AF89919F3287D00F6C176 /* ObjectAL.xcodeproj */,
+				0B9AF89C19F3287D00F6C176 /* OSX */,
+			);
+			path = ObjectAL;
+			sourceTree = "<group>";
+		};
+		0B9AF84C19F3287D00F6C176 /* diagrams */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF84D19F3287D00F6C176 /* ObjectAL-Overview1.eps */,
+				0B9AF84E19F3287D00F6C176 /* ObjectAL-Overview1.png */,
+				0B9AF84F19F3287D00F6C176 /* ObjectAL-Overview1.svg */,
+				0B9AF85019F3287D00F6C176 /* ObjectAL-Overview2.eps */,
+				0B9AF85119F3287D00F6C176 /* ObjectAL-Overview2.png */,
+				0B9AF85219F3287D00F6C176 /* ObjectAL-Overview2.svg */,
+			);
+			path = diagrams;
+			sourceTree = "<group>";
+		};
+		0B9AF85319F3287D00F6C176 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF85419F3287D00F6C176 /* ObjectAL (iOS)-Prefix.pch */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		0B9AF85619F3287D00F6C176 /* ObjectAL */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF85719F3287D00F6C176 /* Actions */,
+				0B9AF86119F3287D00F6C176 /* AudioTrack */,
+				0B9AF86819F3287D00F6C176 /* OALSimpleAudio.h */,
+				0B9AF86919F3287D00F6C176 /* OALSimpleAudio.m */,
+				0B9AF86A19F3287D00F6C176 /* ObjectAL.h */,
+				0B9AF86B19F3287D00F6C176 /* ObjectALConfig.h */,
+				0B9AF86C19F3287D00F6C176 /* OpenAL */,
+				0B9AF88319F3287D00F6C176 /* Session */,
+				0B9AF88819F3287D00F6C176 /* Support */,
+			);
+			path = ObjectAL;
+			sourceTree = "<group>";
+		};
+		0B9AF85719F3287D00F6C176 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF85819F3287D00F6C176 /* OALAction+Private.h */,
+				0B9AF85919F3287D00F6C176 /* OALAction.h */,
+				0B9AF85A19F3287D00F6C176 /* OALAction.m */,
+				0B9AF85B19F3287D00F6C176 /* OALActionManager.h */,
+				0B9AF85C19F3287D00F6C176 /* OALActionManager.m */,
+				0B9AF85D19F3287D00F6C176 /* OALAudioActions.h */,
+				0B9AF85E19F3287D00F6C176 /* OALAudioActions.m */,
+				0B9AF85F19F3287D00F6C176 /* OALUtilityActions.h */,
+				0B9AF86019F3287D00F6C176 /* OALUtilityActions.m */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		0B9AF86119F3287D00F6C176 /* AudioTrack */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF86219F3287D00F6C176 /* OALAudioTrack.h */,
+				0B9AF86319F3287D00F6C176 /* OALAudioTrack.m */,
+				0B9AF86419F3287D00F6C176 /* OALAudioTrackNotifications.h */,
+				0B9AF86519F3287D00F6C176 /* OALAudioTrackNotifications.m */,
+				0B9AF86619F3287D00F6C176 /* OALAudioTracks.h */,
+				0B9AF86719F3287D00F6C176 /* OALAudioTracks.m */,
+			);
+			path = AudioTrack;
+			sourceTree = "<group>";
+		};
+		0B9AF86C19F3287D00F6C176 /* OpenAL */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF86D19F3287D00F6C176 /* ALBuffer.h */,
+				0B9AF86E19F3287D00F6C176 /* ALBuffer.m */,
+				0B9AF86F19F3287D00F6C176 /* ALCaptureDevice.h */,
+				0B9AF87019F3287D00F6C176 /* ALCaptureDevice.m */,
+				0B9AF87119F3287D00F6C176 /* ALChannelSource.h */,
+				0B9AF87219F3287D00F6C176 /* ALChannelSource.m */,
+				0B9AF87319F3287D00F6C176 /* ALContext.h */,
+				0B9AF87419F3287D00F6C176 /* ALContext.m */,
+				0B9AF87519F3287D00F6C176 /* ALDevice.h */,
+				0B9AF87619F3287D00F6C176 /* ALDevice.m */,
+				0B9AF87719F3287D00F6C176 /* ALListener.h */,
+				0B9AF87819F3287D00F6C176 /* ALListener.m */,
+				0B9AF87919F3287D00F6C176 /* ALSoundSource.h */,
+				0B9AF87A19F3287D00F6C176 /* ALSoundSourcePool.h */,
+				0B9AF87B19F3287D00F6C176 /* ALSoundSourcePool.m */,
+				0B9AF87C19F3287D00F6C176 /* ALSource.h */,
+				0B9AF87D19F3287D00F6C176 /* ALSource.m */,
+				0B9AF87E19F3287D00F6C176 /* ALTypes.h */,
+				0B9AF87F19F3287D00F6C176 /* ALWrapper.h */,
+				0B9AF88019F3287D00F6C176 /* ALWrapper.m */,
+				0B9AF88119F3287D00F6C176 /* OpenALManager.h */,
+				0B9AF88219F3287D00F6C176 /* OpenALManager.m */,
+			);
+			path = OpenAL;
+			sourceTree = "<group>";
+		};
+		0B9AF88319F3287D00F6C176 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF88419F3287D00F6C176 /* OALAudioSession.h */,
+				0B9AF88519F3287D00F6C176 /* OALAudioSession.m */,
+				0B9AF88619F3287D00F6C176 /* OALSuspendHandler.h */,
+				0B9AF88719F3287D00F6C176 /* OALSuspendHandler.m */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		0B9AF88819F3287D00F6C176 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF88919F3287D00F6C176 /* ARCSafe_MemMgmt.h */,
+				0B9AF88A19F3287D00F6C176 /* IOSVersion.h */,
+				0B9AF88B19F3287D00F6C176 /* IOSVersion.m */,
+				0B9AF88C19F3287D00F6C176 /* mach_timing.c */,
+				0B9AF88D19F3287D00F6C176 /* mach_timing.h */,
+				0B9AF88E19F3287D00F6C176 /* NSMutableArray+WeakReferences.h */,
+				0B9AF88F19F3287D00F6C176 /* NSMutableArray+WeakReferences.m */,
+				0B9AF89019F3287D00F6C176 /* NSMutableDictionary+WeakReferences.h */,
+				0B9AF89119F3287D00F6C176 /* NSMutableDictionary+WeakReferences.m */,
+				0B9AF89219F3287D00F6C176 /* OALAudioFile.h */,
+				0B9AF89319F3287D00F6C176 /* OALAudioFile.m */,
+				0B9AF89419F3287D00F6C176 /* OALNotifications.h */,
+				0B9AF89519F3287D00F6C176 /* OALTools.h */,
+				0B9AF89619F3287D00F6C176 /* OALTools.m */,
+				0B9AF89719F3287D00F6C176 /* ObjectALMacros.h */,
+				0B9AF89819F3287D00F6C176 /* SynthesizeSingleton.h */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		0B9AF89A19F3287D00F6C176 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF9AA19F3287E00F6C176 /* libObjectAL.a */,
+				0B9AF9AC19F3287E00F6C176 /* ObjectAL.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0B9AF89C19F3287D00F6C176 /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				0B9AF89D19F3287D00F6C176 /* InfoPlist.strings */,
+				0B9AF89F19F3287D00F6C176 /* ObjectAL (OSX)-Info.plist */,
+				0B9AF8A019F3287D00F6C176 /* ObjectAL (OSX)-Prefix.pch */,
+			);
+			path = OSX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,10 +686,17 @@
 			knownRegions = (
 				en,
 				Base,
+				English,
 			);
 			mainGroup = 0B703EA519E70B5F00CED5B4;
 			productRefGroup = 0B703EAF19E70B5F00CED5B4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0B9AF89A19F3287D00F6C176 /* Products */;
+					ProjectRef = 0B9AF89919F3287D00F6C176 /* ObjectAL.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0B703EAD19E70B5F00CED5B4 /* RingSeq */,
@@ -285,18 +705,80 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		0B9AF9AA19F3287E00F6C176 /* libObjectAL.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libObjectAL.a;
+			remoteRef = 0B9AF9A919F3287E00F6C176 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0B9AF9AC19F3287E00F6C176 /* ObjectAL.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ObjectAL.framework;
+			remoteRef = 0B9AF9AB19F3287E00F6C176 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		0B703EAC19E70B5F00CED5B4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */,
+				0B9AF92B19F3287E00F6C176 /* build_docs.sh in Resources */,
+				0B9AF9BC19F338DE00F6C176 /* High Piano.wav in Resources */,
+				0B9AF9CA19F33CC200F6C176 /* Orchestra Hit.wav in Resources */,
+				0B9AF9B519F330EF00F6C176 /* Electric Guitar.wav in Resources */,
+				0B9AF9DA19F340AA00F6C176 /* RideCymbal2.wav in Resources */,
+				0B9AF9F819F3436A00F6C176 /* ClosedHiHat3.wav in Resources */,
+				0B9AF9E019F3412400F6C176 /* Crash2.wav in Resources */,
+				0B9AF9EC19F341FA00F6C176 /* Snare2.wav in Resources */,
 				0B74953F19EE05250078296B /* delete4.wav in Resources */,
+				0B9AF9CE19F33FCC00F6C176 /* Crash1.wav in Resources */,
+				0B9AF93019F3287E00F6C176 /* ObjectAL-Overview2.png in Resources */,
+				0B9AF9E619F3417B00F6C176 /* KickDrum1.wav in Resources */,
 				0B74953B19EE050E0078296B /* delete1.wav in Resources */,
+				0B9AF9F619F3432F00F6C176 /* ClosedHiHat2.wav in Resources */,
+				0B9AF94D19F3287E00F6C176 /* InfoPlist.strings in Resources */,
 				0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */,
+				0B9AF9F019F3422B00F6C176 /* Snare1.wav in Resources */,
+				0B9AF9C019F33AC900F6C176 /* Trumpet.wav in Resources */,
+				0B9AF9C819F33C1E00F6C176 /* Bass.wav in Resources */,
+				0B9AF9BE19F3390300F6C176 /* Low Piano.wav in Resources */,
 				0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */,
+				0B9AF93219F3287E00F6C176 /* LICENSE.ObjectAL.txt in Resources */,
+				0B9AF9C419F33B2500F6C176 /* Saxophone.wav in Resources */,
+				0B9AF9C619F33B9D00F6C176 /* Trombone.wav in Resources */,
+				0B9AF9D619F3408200F6C176 /* ClosedHiHat1.wav in Resources */,
+				0B9AF92D19F3287E00F6C176 /* ObjectAL-Overview1.png in Resources */,
+				0B9AFA0519F347AB00F6C176 /* Bell.wav in Resources */,
+				0B9AF9CC19F33F8D00F6C176 /* Gong.wav in Resources */,
+				0B9AF9FC19F343D000F6C176 /* Snare3.wav in Resources */,
 				0B74953D19EE051B0078296B /* delete3.wav in Resources */,
+				0B9AF9E819F3418D00F6C176 /* KickDrum2.wav in Resources */,
+				0B9AF9D219F3405E00F6C176 /* RideCymbal1.wav in Resources */,
 				0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */,
+				0B9AF95019F3287E00F6C176 /* ObjectAL.pdf in Resources */,
+				0B9AF9D819F3409200F6C176 /* OpenHiHat2.wav in Resources */,
+				0B9AF9DC19F340C800F6C176 /* OpenHiHat1.wav in Resources */,
+				0B9AF92E19F3287E00F6C176 /* ObjectAL-Overview1.svg in Resources */,
+				0B9AF95119F3287E00F6C176 /* ObjectAL.xcworkspace in Resources */,
+				0B9AF92F19F3287E00F6C176 /* ObjectAL-Overview2.eps in Resources */,
 				0B74954119EE052D0078296B /* delete2.wav in Resources */,
+				0B9AF92C19F3287E00F6C176 /* ObjectAL-Overview1.eps in Resources */,
+				0B9AF9D419F3407200F6C176 /* Crash3.wav in Resources */,
+				0B9AF9FE19F3448700F6C176 /* Tom.wav in Resources */,
+				0B9AF93119F3287E00F6C176 /* ObjectAL-Overview2.svg in Resources */,
+				0B9AF94E19F3287E00F6C176 /* ObjectAL (OSX)-Info.plist in Resources */,
+				0B9AF9BA19F3389F00F6C176 /* Acoustic Guitar.wav in Resources */,
+				0B9AF94F19F3287E00F6C176 /* ObjectAL-for-iPhone.podspec in Resources */,
+				0B9AFA0019F344CF00F6C176 /* RideCymbal3.wav in Resources */,
+				0B9AF9F219F3426B00F6C176 /* Tom2.wav in Resources */,
+				0B9AF9F419F3428A00F6C176 /* FloorTom.wav in Resources */,
+				0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,16 +796,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */,
+				0B9AF93619F3287E00F6C176 /* OALUtilityActions.m in Sources */,
+				0B9AF94A19F3287E00F6C176 /* NSMutableDictionary+WeakReferences.m in Sources */,
+				0B9AF93319F3287E00F6C176 /* OALAction.m in Sources */,
+				0B9AF94C19F3287E00F6C176 /* OALTools.m in Sources */,
+				0B9AF93F19F3287E00F6C176 /* ALDevice.m in Sources */,
 				0B74953419EC5C570078296B /* NoteDescription.m in Sources */,
+				0B9AF94819F3287E00F6C176 /* mach_timing.c in Sources */,
+				0B9AF93919F3287E00F6C176 /* OALAudioTracks.m in Sources */,
+				0B9AF93419F3287E00F6C176 /* OALActionManager.m in Sources */,
+				0B9AF93A19F3287E00F6C176 /* OALSimpleAudio.m in Sources */,
+				0B9AF94119F3287E00F6C176 /* ALSoundSourcePool.m in Sources */,
 				0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */,
+				0B9AF93D19F3287E00F6C176 /* ALChannelSource.m in Sources */,
+				0B9AF94519F3287E00F6C176 /* OALAudioSession.m in Sources */,
+				0B9AF94419F3287E00F6C176 /* OpenALManager.m in Sources */,
+				0B9AF93E19F3287E00F6C176 /* ALContext.m in Sources */,
+				0B9AF93719F3287E00F6C176 /* OALAudioTrack.m in Sources */,
 				0B74952719EB5A870078296B /* NotesHolder.m in Sources */,
 				0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */,
+				0B9AF93819F3287E00F6C176 /* OALAudioTrackNotifications.m in Sources */,
 				0B74954419EEF7300078296B /* Layout.m in Sources */,
+				0B9AF93B19F3287E00F6C176 /* ALBuffer.m in Sources */,
+				0B9AF93519F3287E00F6C176 /* OALAudioActions.m in Sources */,
+				0B9AF94919F3287E00F6C176 /* NSMutableArray+WeakReferences.m in Sources */,
+				0B9AF94B19F3287E00F6C176 /* OALAudioFile.m in Sources */,
+				0B9AF94619F3287E00F6C176 /* OALSuspendHandler.m in Sources */,
+				0B9AF93C19F3287E00F6C176 /* ALCaptureDevice.m in Sources */,
 				0B74952E19EB7BA50078296B /* Assets.m in Sources */,
+				0B9AF94319F3287E00F6C176 /* ALWrapper.m in Sources */,
+				0B9AF9A319F3287E00F6C176 /* README.mdown in Sources */,
 				0B39A04C19F04601006B7EA5 /* Measure.m in Sources */,
 				0B74953719EDAE000078296B /* Note.m in Sources */,
 				0B703EB419E70B5F00CED5B4 /* main.m in Sources */,
 				0B74952B19EB793B0078296B /* Instrument.m in Sources */,
+				0B9AF94719F3287E00F6C176 /* IOSVersion.m in Sources */,
+				0B9AF94219F3287E00F6C176 /* ALSource.m in Sources */,
+				0B9AF94019F3287E00F6C176 /* ALListener.m in Sources */,
+				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
 				0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */,
 				0B39A04919EF853A006B7EA5 /* UIColor+saveColor.m in Sources */,
@@ -364,6 +875,14 @@
 				0B703EC419E70B5F00CED5B4 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		0B9AF89D19F3287D00F6C176 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0B9AF89E19F3287D00F6C176 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

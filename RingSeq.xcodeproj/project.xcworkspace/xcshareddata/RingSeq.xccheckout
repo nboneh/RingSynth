@@ -12,6 +12,8 @@
 	<dict>
 		<key>5ED147B1BF61121EE0FE5D77B609DA1DE1B39392</key>
 		<string>https://github.com/nboneh/ringseq.git</string>
+		<key>A21E964CF35F95307B1FB121F2B5F3025ACF2ED9</key>
+		<string>http://github.com/kstenerud/ObjectAL-for-iPhone.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RingSeq.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>5ED147B1BF61121EE0FE5D77B609DA1DE1B39392</key>
 		<string>../..</string>
+		<key>A21E964CF35F95307B1FB121F2B5F3025ACF2ED9</key>
+		<string>../../RingSeq/ObjectAL-for-iPhone</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/nboneh/ringseq.git</string>
@@ -28,6 +32,14 @@
 	<string>5ED147B1BF61121EE0FE5D77B609DA1DE1B39392</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A21E964CF35F95307B1FB121F2B5F3025ACF2ED9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ObjectAL-for-iPhone</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

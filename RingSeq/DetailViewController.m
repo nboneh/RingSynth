@@ -23,7 +23,7 @@ static const int MIN_TEMPO =11;
 static const int MAX_TEMPO = 500;
 static Accidental CURRENT_ACCIDENTAL;
 static Instrument *CURRENT_INSTRUMENT;
-
+static EditMode CURRENT_EDIT_MODE;
 #pragma mark - Managing the detail item
 
 - (void)setName:(id)newDetailItem {
@@ -60,6 +60,7 @@ static Instrument *CURRENT_INSTRUMENT;
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     CURRENT_ACCIDENTAL = natural;
+    CURRENT_EDIT_MODE = insert;
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(orientationDidChange:)
                                                  name: UIApplicationDidChangeStatusBarOrientationNotification
@@ -197,7 +198,7 @@ static Instrument *CURRENT_INSTRUMENT;
         [_fullGrid addLayer];
         [instruments addObject:instrument];
         [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
-        prevSelect =([_instrumentController numberOfSegments] - 1);
+        prevSelect =((int)[_instrumentController numberOfSegments] - 1);
         [self fixSegements];
         [self changeInstruments];
     }
@@ -211,6 +212,10 @@ static Instrument *CURRENT_INSTRUMENT;
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender{
     CURRENT_ACCIDENTAL = (Accidental)[sender selectedSegmentIndex];
     
+}
+
+-(IBAction)changeEditMode:(UISegmentedControl *)sender{
+    CURRENT_EDIT_MODE =(EditMode)[sender selectedSegmentIndex];
 }
 
 
@@ -240,7 +245,7 @@ static Instrument *CURRENT_INSTRUMENT;
         _tempoField.text =  [alertView textFieldAtIndex:0].text;
     else{
         if(buttonIndex == 1){
-            int deleteIndex = [_instrumentController selectedSegmentIndex];
+            int deleteIndex = (int)[_instrumentController selectedSegmentIndex];
             if(prevSelect == deleteIndex)
                 prevSelect = 0;
             else if(deleteIndex <= prevSelect)
@@ -287,6 +292,10 @@ static Instrument *CURRENT_INSTRUMENT;
 
 -(IBAction)pressStop{
     [_fullGrid stop];
+}
+
++(EditMode)CURRENT_EDIT_MODE{
+    return CURRENT_EDIT_MODE;
 }
 
 @end

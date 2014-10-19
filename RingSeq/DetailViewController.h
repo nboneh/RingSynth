@@ -19,6 +19,12 @@
     int prevSelect;
 }
 
+typedef enum {
+    insert,
+    erase
+} EditMode;
+
+
 
 @property (strong, nonatomic) id name;
 
@@ -31,12 +37,14 @@
 -(IBAction)changeTempo;
 -(IBAction)replay;
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender;
+-(IBAction)changeEditMode:(UISegmentedControl *)sender;
 -(IBAction)pressPlay;
 -(IBAction)pressStop;
 @property (weak, nonatomic) IBOutlet UINavigationItem *topBar;
 
 +(Instrument *)CURRENT_INSTRUMENT;
 +(Accidental)CURRENT_ACCIDENTAL;
++(EditMode)CURRENT_EDIT_MODE;
 
 @end
 
