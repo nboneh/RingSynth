@@ -199,10 +199,13 @@ static Instrument *CURRENT_INSTRUMENT;
         [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
         prevSelect =([_instrumentController numberOfSegments] - 1);
         [self fixSegements];
+        [self changeInstruments];
     }
-    else
+    else{
         [_instrumentController setSelectedSegmentIndex:prevSelect];
-    [self changeInstruments];
+        [_fullGrid changeLayer:prevSelect -1];
+    }
+
 }
 
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender{

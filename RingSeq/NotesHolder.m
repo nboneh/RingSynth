@@ -57,7 +57,7 @@
         _volumeSlider = [[UISlider alloc] init];
         [_volumeSlider removeConstraints:_volumeSlider.constraints];
         [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
-        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2 -2 + 2 , _titleViewHeight + _lineView.frame.size.height +12, _volumeMeterHeight-2  , _volumeMeterHeight);
+        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2+2 , _titleViewHeight + _lineView.frame.size.height +12, _volumeMeterHeight-2  , _volumeMeterHeight);
         _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
         [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
         [_volumeSlider setValue:0.75f];
