@@ -184,4 +184,10 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     return [path stringByAppendingPathComponent:fileName];
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return UIInterfaceOrientationLandscapeRight;
+}
+
 @end

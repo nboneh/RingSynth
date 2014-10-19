@@ -12,13 +12,12 @@
 @implementation Measure
 @synthesize delegate = _delegate;
 
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x withNum:(int)num{
-    self = [super init];
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num{
+    self = [super initWithFrame:frame];
     if(self){
-        _env = env;
         _staff = staff;
-        _initialNotesHolder = [[NotesHolder alloc] initWithStaff:staff env:env x:0 andTitle:[@(num) stringValue]];
-        self.frame = CGRectMake(x, 0 , _initialNotesHolder.frame.size.width *4 , _initialNotesHolder.frame.size.height);
+        _widthPerNoteHolder = frame.size.width/3;
+        _initialNotesHolder = [[NotesHolder alloc] initWithStaff:staff  andFrame:CGRectMake(0, 0, _widthPerNoteHolder, self.frame.size.height) andTitle:[@(num) stringValue]];
         [self addSubview:_initialNotesHolder];
         _currentSubdivision = quaters;
         [self changeSubDivision:_currentSubdivision];
@@ -54,6 +53,7 @@
     [notesHolder2 setHidden:YES];
     [notesHolder3 setHidden:YES];
     CGRect frame ;
+    int height = self.frame.size.height;
     switch(subdivision){
         case quaters:
             break;
@@ -62,7 +62,7 @@
             x3 = self.frame.size.width/4;
             
             if(!notesHolder2){
-                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"a"];
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height)andTitle:@"a"];
                 [_noteHolders addObject:notesHolder2];
                 [self addSubview:notesHolder2];
             }
@@ -75,7 +75,7 @@
             }
             
             if(!notesHolder3){
-                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x3 andTitle:@"e"];
+                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height) andTitle:@"e"];
                 [_noteHolders addObject:notesHolder3];
                 [self addSubview:notesHolder3];
             }
@@ -93,7 +93,7 @@
         case eighths:
             x1 = self.frame.size.width/2;
             if(!notesHolder1){
-                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x1 andTitle:@"&"];
+                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"&"];
                 [_noteHolders addObject:notesHolder1];
                 [self addSubview:notesHolder1];
             }
@@ -113,7 +113,7 @@
             x1 = self.frame.size.width/3;
             x2 = 2 *(self.frame.size.width/3);
             if(!notesHolder1){
-                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x1 andTitle:@"trip"];
+                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"trip"];
                 [_noteHolders addObject:notesHolder1];
                 [self addSubview:notesHolder1];
             }
@@ -126,7 +126,7 @@
             }
             
             if(!notesHolder2){
-                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff env:_env x:x2 andTitle:@"let"];
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height) andTitle:@"let"];
                 [_noteHolders addObject:notesHolder2];
                 [self addSubview:notesHolder2];
             }

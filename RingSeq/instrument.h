@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "NoteDescription.h"
 
 
 @interface Instrument : NSObject
@@ -17,9 +18,10 @@
 @property(readonly) UIColor *color;
 @property NSDictionary *notes;
 
--(id)initWithName:(NSString *)name color: (UIColor *)color andNotes: (NSDictionary *)notes;
+-(id)initWithName:(NSString *)name color: (UIColor *)color;
 
 
--(void) playNote: (NSString *)note;
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume;
+-(void)play;
 
 @end

@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface Assets : NSObject{
-    SystemSoundID* eraseSounds;
-}
+@interface Assets : NSObject
 
-+(NSArray *)getInstruments;
++(NSArray *)INSTRUMENTS;
 +(void) playEraseSound;
+
 @end

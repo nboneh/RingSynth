@@ -23,16 +23,14 @@ typedef enum {
 @interface Measure : UIView
 
 
-
-@property DetailViewController * env;
 @property Staff *staff;
 @property Subdivision currentSubdivision;
-@property  int spaceBetweenNoteHolders;
+@property int widthPerNoteHolder;
 @property NSMutableArray *noteHolders;
 @property NotesHolder *initialNotesHolder;
 @property(nonatomic,assign)id delegate;
 
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x withNum:(int)num;
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num;
 
 -(void)changeSubDivision:(Subdivision)subdivision;
 -(BOOL)anyNotesInsubdivision;

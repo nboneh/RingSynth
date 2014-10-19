@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RMx-3f-FxP">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -52,14 +53,36 @@
                                             </connections>
                                         </textField>
                                     </barButtonItem>
+                                    <barButtonItem width="70" style="plain" id="G3s-2d-sVH">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="hG6-gh-sVt">
+                                            <rect key="frame" x="144" y="7" width="70" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="♮"/>
+                                                <segment title="#"/>
+                                                <segment title="b"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="changeAccedintal:" destination="JEX-9P-axG" eventType="valueChanged" id="gnV-aC-SIc"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HCu-AN-fmA"/>
                                     <barButtonItem systemItem="reply" id="aVY-vK-OZw">
                                         <connections>
                                             <action selector="replay" destination="JEX-9P-axG" id="rh2-ok-mAV"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem systemItem="pause" id="cdc-zw-HED"/>
-                                    <barButtonItem systemItem="play" id="kYS-aI-kCl"/>
+                                    <barButtonItem systemItem="pause" id="cdc-zw-HED">
+                                        <connections>
+                                            <action selector="pressStop" destination="JEX-9P-axG" id="2Ou-8h-j53"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="play" id="kYS-aI-kCl">
+                                        <connections>
+                                            <action selector="pressPlay" destination="JEX-9P-axG" id="ufs-xt-biz"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -80,7 +103,7 @@
                     <connections>
                         <outlet property="bottomBar" destination="0Dk-yD-WIh" id="ir3-kY-HVl"/>
                         <outlet property="tempoField" destination="6kP-d4-Gfo" id="Z6Y-oT-U4A"/>
-                        <outlet property="topBar" destination="mOI-FS-AaM" id="v8a-GO-ESd"/>
+                        <outlet property="topBar" destination="mOI-FS-AaM" id="g2P-Z6-OC1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>

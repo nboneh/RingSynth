@@ -7,13 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Layout.h"
+#import "Instrument.h"
 
-@interface FullGrid : UIView<UIScrollViewDelegate>{
+@interface FullGrid : UIScrollView<UIScrollViewDelegate>{
     NSMutableArray *layers;
     UIView *container;
-    UIScrollView *mainScroll;
+    UIActionSheet *newColors;
+    UISegmentedControl* instrumentsController;
+    Staff* staff;
 }
 
 -(void)replay;
--(void)play;
+-(void)handleRotation;
+-(void)changeLayer:(int)index;
+-(void)addLayer;
+-(void)deleteLayerAt:(int)index;
+-(void)playWithTempo:(int)bpm;
+-(void)stop;
+
 @end

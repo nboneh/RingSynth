@@ -39,7 +39,6 @@ static int const NOTES_IN_STAFF = 9;
 -(id)initWithFrame:(CGRect )frame{
     self = [super initWithFrame:frame];
     if(self){
-
         int totalNotes = NOTES_BELOW_STAFF + NOTES_ABOVE_STAFF +NOTES_IN_STAFF;
          _spacePerNote = self.frame.size.height/totalNotes;
 

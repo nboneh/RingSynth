@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Staff.h"
-#import "DetailViewController.h"
 #import "Measure.h"
 
-@interface Layout : UIView<MeasureDelegate>{
+@interface Layout  : UIView<MeasureDelegate>{
     NSArray *measures;
-    int widthPerMeasure;
 }
 
-
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env;
+@property(readonly) float widthPerMeasure;
+-(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures;
 -(void) play;
+
 @end

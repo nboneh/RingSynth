@@ -9,31 +9,29 @@
 #import "Layout.h"
 
 @interface Layout()
--(void)checkViews;
--(NotesHolder *)findMeasureIfExistsAtX:(int)x;
+//-(void)checkViews;
+//-(NotesHolder *)findMeasureIfExistsAtX:(int)x;
 @end
 @implementation Layout
 
-static const int NUM_OF_MEASURES = 50;
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env{
+@synthesize widthPerMeasure = _widthPerMeasure;
+-(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures{
     self = [super init];
     if(self){
         NSMutableArray *preMeasures = [[NSMutableArray alloc] init];
-        int delX =0;
-        for(int i = 0; i < NUM_OF_MEASURES; i++){
-            Measure* measure =[[Measure alloc]initWithStaff:staff env:env x:delX withNum:i+1];
+        int delX =staff.trebleView.frame.size.width;
+         _widthPerMeasure = frame.size.width/4;
+        for(int i = 0; i < numOfMeasures; i++){
+            Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, frame.size.height) andNum:(i+1)];
             [preMeasures addObject:measure];
-            if(i == 0){
-                widthPerMeasure =measure.frame.size.width;
-            }
-            delX += widthPerMeasure;
+            delX += _widthPerMeasure;
             [self addSubview:measure];
             [measure setDelegate:self];
         
         }
         measures = [[NSArray alloc] initWithArray:preMeasures];
 
-        self.frame = CGRectMake(staff.trebleView.frame.size.width, 0,  widthPerMeasure * NUM_OF_MEASURES,[(Measure *) [measures objectAtIndex:0] frame].size.height);
+        self.frame = CGRectMake(0, 0,  _widthPerMeasure * numOfMeasures + staff.trebleView.frame.size.width,frame.size.height);
     }
     return self;
 }

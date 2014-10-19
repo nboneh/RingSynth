@@ -8,6 +8,7 @@
 
 #import "NotesHolder.h"
 #import "Assets.h"
+#import "DetailViewController.h"
 
 
 @interface NotesHolder()
@@ -15,23 +16,21 @@
 @end
 
 @implementation NotesHolder
-static int const WIDTH = 40;
-static int const TITLE_VIEW_HEIGHT =40;
-static const int VOLUME_METER_HEIGHT = 60;
 @synthesize titleView = _titleView;
 
-/*-(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x
-           andTitle:(NSString *)title{
-    self = [super init];
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title{
+    self = [super initWithFrame:frame];
     if(self){
-        _env = env;
+
+        _titleViewHeight = staff.frame.origin.y - self.frame.origin.y;
+        _volumeMeterHeight = (frame.origin.y + frame.size.height) - (staff.frame.origin.y + staff.frame.size.height);
         _staff = staff;
-        self.frame = CGRectMake(x, 0,  WIDTH, _staff.frame.size.height + VOLUME_METER_HEIGHT +TITLE_VIEW_HEIGHT);
-        _titleView = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width/2 -15 ,0,30, TITLE_VIEW_HEIGHT) ];
+
+        _titleView = [[UILabel alloc] initWithFrame:CGRectMake(0 ,0,frame.size.width, _titleViewHeight) ];
         [_titleView setText:title];
         _titleView.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleView];
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, TITLE_VIEW_HEIGHT, 2,  _staff.frame.size.height -staff.spacePerNote *2)];
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, _titleViewHeight, 2,  _staff.frame.size.height -staff.spacePerNote *2)];
         [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
         NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
         NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:title];
@@ -58,13 +57,14 @@ static const int VOLUME_METER_HEIGHT = 60;
         _volumeSlider = [[UISlider alloc] init];
         [_volumeSlider removeConstraints:_volumeSlider.constraints];
         [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
-        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -VOLUME_METER_HEIGHT/2 , TITLE_VIEW_HEIGHT + _lineView.frame.size.height +13, VOLUME_METER_HEIGHT +1 , VOLUME_METER_HEIGHT +1);
+        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2 -2 + 2 , _titleViewHeight + _lineView.frame.size.height +12, _volumeMeterHeight-2  , _volumeMeterHeight);
         _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
         [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
         [_volumeSlider setValue:0.75f];
+        _volumeSlider.maximumValue = 1.0f;
         [self addSubview:_volumeSlider];
     }
-    if(_noteHolders.count >0)
+    if(_notes.count >0)
         [_volumeSlider setHidden:NO];
     else
         [_volumeSlider setHidden:YES];
@@ -79,62 +79,47 @@ static const int VOLUME_METER_HEIGHT = 60;
 - (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer  {
     //Long press to delete
     [recognizer.view removeFromSuperview];
-    [_noteHolders removeObject:recognizer.view];
+    [_notes removeObject:recognizer.view];
     [self checkViews];
     [Assets playEraseSound];
     
 }
 
-- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer  {
-    Note *note = (Note *)recognizer.view;
-    if(note.accidental  < (numOfAccedintals-1))
-        note.accidental++;
-    else
-        note.accidental = 0;
-    
-}
 
 
 
 -(void)placeNoteAtY:(int)y {
-    if(!_noteHolders)
-        _noteHolders = [[NSMutableArray alloc] init];
-    Instrument * instrument;
-    if(!instrument){
-       // instrument = _env.currentInstrument;
-        if(!instrument)
+    if(!_notes)
+        _notes = [[NSMutableArray alloc] init];
+
+    if(![DetailViewController CURRENT_INSTRUMENT]){
             return;
     }
-    y -=TITLE_VIEW_HEIGHT;
+    y -=_titleViewHeight;
     int pos = round(y/(self.staff.spacePerNote + 0.0));
     if(pos >=  [_staff.notePlacements count]  )
         return;
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
-    Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:instrument andAccedintal:_env.currentAccidental];
+    Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:[DetailViewController CURRENT_INSTRUMENT] andAccedintal:[DetailViewController CURRENT_ACCIDENTAL]];
     //If equals a note that exists do not add
-    NSInteger size =  _noteHolders.count;
+    NSInteger size =  _notes.count;
     for(int i = 0; i < size; i++){
-        Note *note2 = [_noteHolders objectAtIndex:i];
+        Note *note2 = [_notes objectAtIndex:i];
         if([note2 equals:note])
             return;
     }
     CGRect frame = note.frame;
-    frame.origin.y += TITLE_VIEW_HEIGHT;
+    frame.origin.y += _volumeMeterHeight;
     frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
     note.frame = frame;
-    [_noteHolders  addObject: note];
+    [_notes  addObject: note];
     UILongPressGestureRecognizer *longPress =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                   action:@selector(handleLongPress:)];
     [note addGestureRecognizer:longPress];
     
-    UITapGestureRecognizer *doubleTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(handleDoubleTap:)];
-    doubleTap.numberOfTapsRequired =2;
-    [note addGestureRecognizer:doubleTap];
 
-    
+    [note playWithVolume:[_volumeSlider value]];
     [self addSubview:note];
     [self checkViews];
     
@@ -142,14 +127,11 @@ static const int VOLUME_METER_HEIGHT = 60;
 
 
 -(BOOL)anyNotesInNoteHolder{
-    return [_noteHolders count];
+    return [_notes count];
 }
-
-+(int)VOLUME_METER_HEIGHT{
-    return VOLUME_METER_HEIGHT;
+-(void)play{
+    for(Note *note in _notes){
+        [note playWithVolume:[_volumeSlider value]];
+    }
 }
-+(int)TITLE_VIEW_HEIGHT{
-    return TITLE_VIEW_HEIGHT;
-}
-@end*/
 @end

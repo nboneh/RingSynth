@@ -9,52 +9,44 @@
 #import "Assets.h"
 #import "Instrument.h"
 #include <stdlib.h>
+#import "ObjectAL.h"
 
-@interface Assets()
-+(SystemSoundID)loadSound:(NSString *)name ofType:(NSString *)type;
-@end
 @implementation Assets
-
+static NSArray* ERASE_SOUNDS;
 static NSArray *INSTRUMENTS;
-static int ERASE_SOUND_SIZE = 4;
-static  SystemSoundID eraseSounds[4];
 +(void) initialize{
-    NSMutableArray *instrumentMut = [[NSMutableArray alloc] init];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"guitar" color: [UIColor redColor] andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"electricguitar" color: [UIColor blueColor] andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"drums" color:[UIColor brownColor] andNotes:nil]];
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"bass" color:[UIColor greenColor] andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"xylophone" color:[UIColor cyanColor] andNotes:nil]];
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"trumpet" color:[UIColor yellowColor] andNotes:nil]];
-     [instrumentMut addObject:[[Instrument alloc] initWithName:@"trombone" color:[UIColor magentaColor] andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"saxphone" color:[UIColor orangeColor] andNotes:nil]];
-            [instrumentMut addObject:[[Instrument alloc] initWithName:@"orchestra" color:[UIColor grayColor] andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"highpiano" color:[UIColor purpleColor] andNotes:nil]];
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"lowpiano" color:[UIColor purpleColor] andNotes:nil]];
-
-    INSTRUMENTS  = [[NSArray alloc]initWithArray:instrumentMut];
-    eraseSounds[0] = [Assets loadSound:@"delete1" ofType:@"wav"];
-    eraseSounds[1] = [Assets loadSound:@"delete2" ofType:@"wav"];
-    eraseSounds[2] = [Assets loadSound:@"delete3" ofType:@"wav"];
-    eraseSounds[3] = [Assets loadSound:@"delete4" ofType:@"wav"];
+    [OALSimpleAudio sharedInstance].allowIpod = NO;
+    
+    // Mute all audio if the silent switch is turned on.
+    [OALSimpleAudio sharedInstance].honorSilentSwitch = YES;
     
 }
 
-+(NSArray *)getInstruments{
++(NSArray *)INSTRUMENTS{
+    if(!INSTRUMENTS){
+        NSMutableArray *instrumentMut = [[NSMutableArray alloc] init];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Acoustic Guitar" color: [UIColor redColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Electric Guitar" color: [UIColor blueColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Drums" color:[UIColor brownColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Bass" color:[UIColor greenColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Xylophone" color:[UIColor cyanColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Trumpet" color:[UIColor yellowColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Trombone" color:[UIColor magentaColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Saxophone" color:[UIColor orangeColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Orchestra Hit" color:[UIColor grayColor] ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"High Piano" color:[UIColor purpleColor]]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Low Piano" color:[UIColor purpleColor] ]];
+        INSTRUMENTS  = [[NSArray alloc]initWithArray:instrumentMut];
+    }
     return INSTRUMENTS;
 }
-+(SystemSoundID)loadSound:(NSString *)name ofType:(NSString *)type{
-    SystemSoundID sound;
-    NSString *pewPewPath = [[NSBundle mainBundle]
-                            pathForResource:name ofType:type];
-    NSURL *pewPewURL = [NSURL fileURLWithPath:pewPewPath];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)pewPewURL, &sound);
-    return sound;
-}
+
 
 +(void) playEraseSound{
-    SystemSoundID sound =eraseSounds[arc4random_uniform(ERASE_SOUND_SIZE)];
-    AudioServicesPlaySystemSound(sound);
+    if(!ERASE_SOUNDS){
+        ERASE_SOUNDS = [[NSArray alloc] initWithObjects:@"delete1.wav", @"delete2.wav", @"delete3.wav",@"delete4.wav", nil];
+    }
+    [[OALSimpleAudio sharedInstance] playEffect:[ERASE_SOUNDS objectAtIndex: arc4random_uniform((int)ERASE_SOUNDS.count)]];
 }
 
 @end

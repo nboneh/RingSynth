@@ -10,23 +10,21 @@
 #import "Instrument.h"
 #import "NoteDescription.h"
 #import "Staff.h"
-#import "DetailViewController.h"
 #import "Note.h"
 
 
 
 @interface NotesHolder: UIView
 
-@property DetailViewController * env;
 @property UISlider *volumeSlider;
-@property NSMutableArray *noteHolders;
+@property NSMutableArray *notes;
 @property Staff *staff;
 @property UIView *lineView;
 @property UILabel *titleView;
--(id) initWithStaff:(Staff *)staff env: (DetailViewController *) env x:(int)x andTitle:(NSString *)title;
+@property int titleViewHeight;
+@property int volumeMeterHeight;
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title;
 -(void)placeNoteAtY:(int)y;
 -(void)play;
 -(BOOL)anyNotesInNoteHolder;
-+(int)VOLUME_METER_HEIGHT;
-+(int)TITLE_VIEW_HEIGHT;
 @end
