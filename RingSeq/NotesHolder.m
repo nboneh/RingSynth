@@ -47,7 +47,6 @@
                                                 action:@selector(handleSingleTap:)];
         [self addGestureRecognizer:singleFingerTap];
         
-        
     }
     return self;
 }
@@ -71,26 +70,36 @@
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    if([DetailViewController CURRENT_EDIT_MODE] == insert){
-        
-        CGPoint location = [recognizer locationInView:self];
-        int y = location.y;
-        
-        [self placeNoteAtY:y];
+    CGPoint location = [recognizer locationInView:self];
+    int y = location.y;
+    switch([DetailViewController CURRENT_EDIT_MODE]){
+        case insert:
+            [self placeNoteAtY:y];
+            break;
+        case erase:
+            [self deleteNoteIfExistsAtY:y];
+            break;
+            
     }
 }
-- (void)handleNotePress:(UILongPressGestureRecognizer *)recognizer  {
-    if([DetailViewController CURRENT_EDIT_MODE] == erase){
-        [recognizer.view removeFromSuperview];
-        [_notes removeObject:recognizer.view];
-        [self checkViews];
-        [Assets playEraseSound];
+
+
+-(Note *)deleteNoteIfExistsAtY:(int) y{
+    NSInteger size =[_notes count];
+    for(int i = 0; i < size; i++){
+        Note * note = [_notes objectAtIndex:i];
+        int yPos = note.frame.origin.y;
+        if(y >= yPos && y <= yPos + note.frame.size.height){
+            Note *note = [_notes objectAtIndex:i];
+            [note removeFromSuperview];
+            [_notes removeObjectAtIndex:i];
+            [self checkViews];
+            [Assets playEraseSound];
+            return note;
+        }
     }
-    
+    return nil;
 }
-
-
-
 
 -(void)placeNoteAtY:(int)y {
     if(!_notes)
@@ -117,17 +126,39 @@
     frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
     note.frame = frame;
     [_notes  addObject: note];
-    UITapGestureRecognizer *longPress =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(handleNotePress:)];
-    [note addGestureRecognizer:longPress];
-    
     [self checkViews];
     [note playWithVolume:[_volumeSlider value]];
     [self addSubview:note];
+    UITapGestureRecognizer *doubleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleDoubleTap:)];
+    [doubleFingerTap setNumberOfTapsRequired:2];
+    [note addGestureRecognizer:doubleFingerTap];
+    
+    UILongPressGestureRecognizer *longPress =
+    [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(longPress:)];
+    [note addGestureRecognizer:longPress];
+    
+}
+- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
+    Note * note = (Note *)recognizer.view;
+    if(note.accidental < (numOfAccedintals -1))
+        note.accidental++;
+    else
+        note.accidental = 0;
+    [note playWithVolume:[_volumeSlider value]];
     
 }
 
+- (void)longPress:(UITapGestureRecognizer *)recognizer {
+    Note * note = (Note *)recognizer.view;
+    [note removeFromSuperview];
+    [_notes removeObject:note];
+    [self checkViews];
+    [Assets playEraseSound];
+    
+}
 
 -(BOOL)anyNotesInNoteHolder{
     return [_notes count];

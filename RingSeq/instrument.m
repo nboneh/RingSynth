@@ -12,11 +12,12 @@
 @implementation Instrument
 @synthesize name = _name;
 @synthesize image = _image;
--(id)initWithName:(NSString *)name color: (UIColor *)color{
+-(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave{
     self = [super init];
     if(self){
         _name = name;
         _color = color;
+        _baseOctave = octave;
     }
     return self;
 }
@@ -29,36 +30,36 @@
 }
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume{
-    float pitch = 0;
+
+    int noteNum = 0;
     switch(note.character){
-        case 'a':
-            pitch = .85f;
-            break;
-        case 'b':
-            pitch = .95f;
-            break;
         case 'c':
-            pitch = 1.0f;
+            noteNum =0;
             break;
         case 'd':
-             pitch = 1.1f;
+            noteNum =2;
             break;
         case 'e':
-             pitch = 1.2f;
+            noteNum = 4;
             break;
         case 'f':
-             pitch = 1.25f;
+            noteNum =5;
             break;
         case 'g':
-             pitch = 1.35f;
+            noteNum =7;
+            break;
+        case 'a':
+            noteNum = 9;
+            break;
+        case 'b':
+            noteNum = 11;
             break;
     }
     if(note.accidental == sharp)
-        pitch += .05f;
+        noteNum++;
     else if(note.accidental == flat)
-        pitch -= .05f;
-    pitch /= (note.octave/4);
-    
+        noteNum--;
+    float   pitch = pow(2,((note.octave-_baseOctave)+ (noteNum/12.0f)));
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name] volume:volume pitch:pitch pan:0.0f loop:NO];
 
     

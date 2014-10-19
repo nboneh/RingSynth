@@ -14,30 +14,34 @@
     if(!_sounds){
         NSDictionary *octave1 = @{@"e":@"Gong.wav",
                                   @"f":@"KickDrum1.wav",
-                                  @"g": @"KickDrum2.wav"};
-        
-        
-        NSDictionary *octave2 =@{ @"a" : @"KickDrum3.wav",
+                                  @"g": @"KickDrum2.wav",
+                                  @"a" : @"KickDrum3.wav",
                                   @"b" :@"FloorTom.wav",
-                                  @"c" :@"Tom.wav",
+                                  @"c" :@"Tom.wav"};
+        
+        
+        NSDictionary *octave2 =@{
                                   @"d":  @"Tom2.wav",
                                   @"e": @"RideCymbal1.wav",
                                   @"f": @"RideCymbal2.wav",
-                                  @"g": @"RideCymbal3.wav"
+                                  @"g": @"RideCymbal3.wav",
+                                  @"a" : @"Snare1.wav",
+                                  @"b" :@"Snare2.wav",
+                                  @"c" :@"Snare3.wav"
+
                                   };
-        NSDictionary *octave3 = @{ @"a"     : @"Snare1.wav",
-                                   @"b" :@"Snare2.wav",
-                                   @"c" :@"Snare3.wav",
+        NSDictionary *octave3 = @{
                                    @"d":  @"Crash1.wav",
                                    @"e":  @"Crash2.wav",
                                    @"f": @"Crash3.wav",
-                                   @"g": @"ClosedHiHat1.wav"
+                                   @"g": @"ClosedHiHat1.wav",
+                                   @"a"     : @"ClosedHiHat2.wav",
+                                   @"b" :@"ClosedHiHat3.wav",
+                                   @"c" :@"OpenHiHat1.wav"
                                    };
         
-        NSDictionary *octave4 = @{ @"a"     : @"ClosedHiHat2.wav",
-                                   @"b" :@"ClosedHiHat3.wav",
-                                   @"c" :@"OpenHiHat1.wav",
-                                   @"d": @"OpenHiHat2.wav",
+        NSDictionary *octave4 = @{
+                                  @"d": @"OpenHiHat2.wav",
                                    };
         _sounds = [[NSArray alloc] initWithObjects:octave1, octave2,octave3, octave4, nil];
         

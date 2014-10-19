@@ -78,7 +78,6 @@
 		0B9AF9C019F33AC900F6C176 /* Trumpet.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */; };
 		0B9AF9C419F33B2500F6C176 /* Saxophone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C319F33B2500F6C176 /* Saxophone.wav */; };
 		0B9AF9C619F33B9D00F6C176 /* Trombone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C519F33B9D00F6C176 /* Trombone.wav */; };
-		0B9AF9C819F33C1E00F6C176 /* Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C719F33C1E00F6C176 /* Bass.wav */; };
 		0B9AF9CA19F33CC200F6C176 /* Orchestra Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9C919F33CC200F6C176 /* Orchestra Hit.wav */; };
 		0B9AF9CC19F33F8D00F6C176 /* Gong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9CB19F33F8D00F6C176 /* Gong.wav */; };
 		0B9AF9CE19F33FCC00F6C176 /* Crash1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9CD19F33FCC00F6C176 /* Crash1.wav */; };
@@ -103,6 +102,7 @@
 		0B9AFA0019F344CF00F6C176 /* RideCymbal3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9FF19F344CF00F6C176 /* RideCymbal3.wav */; };
 		0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0219F3455E00F6C176 /* Drums.m */; };
 		0B9AFA0519F347AB00F6C176 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0419F347AB00F6C176 /* Bell.wav */; };
+		0B9AFA0719F3714C00F6C176 /* Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0619F3714C00F6C176 /* Bass.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,7 +257,6 @@
 		0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Trumpet.wav; sourceTree = "<group>"; };
 		0B9AF9C319F33B2500F6C176 /* Saxophone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Saxophone.wav; sourceTree = "<group>"; };
 		0B9AF9C519F33B9D00F6C176 /* Trombone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Trombone.wav; sourceTree = "<group>"; };
-		0B9AF9C719F33C1E00F6C176 /* Bass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bass.wav; sourceTree = "<group>"; };
 		0B9AF9C919F33CC200F6C176 /* Orchestra Hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Orchestra Hit.wav"; sourceTree = "<group>"; };
 		0B9AF9CB19F33F8D00F6C176 /* Gong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gong.wav; sourceTree = "<group>"; };
 		0B9AF9CD19F33FCC00F6C176 /* Crash1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Crash1.wav; sourceTree = "<group>"; };
@@ -283,6 +282,7 @@
 		0B9AFA0119F3455E00F6C176 /* Drums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drums.h; sourceTree = "<group>"; };
 		0B9AFA0219F3455E00F6C176 /* Drums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drums.m; sourceTree = "<group>"; };
 		0B9AFA0419F347AB00F6C176 /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
+		0B9AFA0619F3714C00F6C176 /* Bass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bass.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,6 +356,7 @@
 		0B703EB119E70B5F00CED5B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0B9AFA0619F3714C00F6C176 /* Bass.wav */,
 				0B9AF9DB19F340C800F6C176 /* OpenHiHat1.wav */,
 				0B9AF9D719F3409200F6C176 /* OpenHiHat2.wav */,
 				0B9AF9D519F3408200F6C176 /* ClosedHiHat1.wav */,
@@ -378,7 +379,6 @@
 				0B9AF9E919F341E400F6C176 /* KickDrum3.wav */,
 				0B9AF9CB19F33F8D00F6C176 /* Gong.wav */,
 				0B9AF9C919F33CC200F6C176 /* Orchestra Hit.wav */,
-				0B9AF9C719F33C1E00F6C176 /* Bass.wav */,
 				0B9AF9C519F33B9D00F6C176 /* Trombone.wav */,
 				0B9AF9C319F33B2500F6C176 /* Saxophone.wav */,
 				0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */,
@@ -746,7 +746,6 @@
 				0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */,
 				0B9AF9F019F3422B00F6C176 /* Snare1.wav in Resources */,
 				0B9AF9C019F33AC900F6C176 /* Trumpet.wav in Resources */,
-				0B9AF9C819F33C1E00F6C176 /* Bass.wav in Resources */,
 				0B9AF9BE19F3390300F6C176 /* Low Piano.wav in Resources */,
 				0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */,
 				0B9AF93219F3287E00F6C176 /* LICENSE.ObjectAL.txt in Resources */,
@@ -759,6 +758,7 @@
 				0B9AF9FC19F343D000F6C176 /* Snare3.wav in Resources */,
 				0B74953D19EE051B0078296B /* delete3.wav in Resources */,
 				0B9AF9E819F3418D00F6C176 /* KickDrum2.wav in Resources */,
+				0B9AFA0719F3714C00F6C176 /* Bass.wav in Resources */,
 				0B9AF9D219F3405E00F6C176 /* RideCymbal1.wav in Resources */,
 				0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */,
 				0B9AF95019F3287E00F6C176 /* ObjectAL.pdf in Resources */,

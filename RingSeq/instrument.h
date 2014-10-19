@@ -17,8 +17,9 @@
 @property(readonly) UIImage *image;
 @property(readonly) UIColor *color;
 @property NSDictionary *notes;
+@property int baseOctave;
 
--(id)initWithName:(NSString *)name color: (UIColor *)color;
+-(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave;
 
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume;

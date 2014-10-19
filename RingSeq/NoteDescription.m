@@ -37,21 +37,23 @@
 -(void) inc{
     if(self.character == 'g'){
         self.character = 'a';
-        self.octave++;
     }
-    else{
+    else
         self.character++;
-    }
+    
+    if(self.character == 'c')
+        self.octave++;
 }
 
 -(void) dec{
+    
     if(self.character == 'a'){
         self.character = 'g';
-        self.octave--;
     }
-    else{
+    else
         self.character--;
-    }
+    if(self.character == 'b')
+        self.octave--;
 }
 
 @end

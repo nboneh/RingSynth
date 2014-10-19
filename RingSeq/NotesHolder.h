@@ -25,6 +25,7 @@
 @property int volumeMeterHeight;
 -(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title;
 -(void)placeNoteAtY:(int)y;
+-(Note *)deleteNoteIfExistsAtY:(int)y;
 -(void)play;
 -(BOOL)anyNotesInNoteHolder;
 @end
