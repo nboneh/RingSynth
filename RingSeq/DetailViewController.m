@@ -177,6 +177,9 @@ static EditMode CURRENT_EDIT_MODE;
             CURRENT_INSTRUMENT = [instruments objectAtIndex:pos];
             [CURRENT_INSTRUMENT play];
         }
+        else {
+            CURRENT_INSTRUMENT = nil;
+        }
         prevSelect = pos+1;
 
     }

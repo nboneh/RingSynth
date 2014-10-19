@@ -25,7 +25,7 @@ typedef enum {
     NSTimer *playTimer;
 }
 
-
+@property int num;
 @property Staff *staff;
 @property Subdivision currentSubdivision;
 @property int widthPerNoteHolder;
@@ -41,5 +41,6 @@ typedef enum {
 -(BOOL)anyNotes;
 -(void)playWithTempo:(int)bpm;
 -(void)stop;
+-(NotesHolder *)findNoteHolderAtX:(int)x;
 
 @end

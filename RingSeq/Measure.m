@@ -11,12 +11,14 @@
 
 @implementation Measure
 @synthesize delegate = _delegate;
+@synthesize num = _num;
 
 -(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num{
     self = [super initWithFrame:frame];
     if(self){
         _staff = staff;
         _widthPerNoteHolder = frame.size.width/3;
+        _num = num;
         _initialNotesHolder = [[NotesHolder alloc] initWithStaff:staff  andFrame:CGRectMake(0, 0, _widthPerNoteHolder, self.frame.size.height) andTitle:[@(num) stringValue]];
         [self addSubview:_initialNotesHolder];
         _currentSubdivision = quaters;
@@ -241,5 +243,26 @@
     [playTimer invalidate];
     playTimer = nil;
 }
+
+-(NotesHolder *)findNoteHolderAtX:(int)x{
+    NSInteger size =[_noteHolders count];
+    for(int i = -1; i < size; i++){
+        NotesHolder *notesHolder;
+        if(i < 0)
+            notesHolder = _initialNotesHolder;
+        else
+            notesHolder = [_noteHolders objectAtIndex:i];
+        int xPos = notesHolder.frame.origin.x;
+        if(x >= xPos && x <= (xPos + _widthPerNoteHolder)){
+            if(!notesHolder.isHidden){
+                return notesHolder;
+            }
+        }
+
+        
+    }
+    return nil;
+}
+
 
 @end

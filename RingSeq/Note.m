@@ -64,5 +64,4 @@
     [self.instrument playNote:self.noteDescription withVolume:volume];
 }
 
-
 @end

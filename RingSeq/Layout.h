@@ -16,9 +16,10 @@
     NSTimer *playTimer;
     int bpm;
 }
-
+@property (readonly)int widthFromFirstMeasure;
 @property(readonly) float widthPerMeasure;
 -(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures;
 -(void)playWithTempo:(int)bpm;
 -(void)stop;
+-(Measure *)findMeasureAtx:(int)x;
 @end

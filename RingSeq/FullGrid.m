@@ -9,6 +9,7 @@
 #import "FullGrid.h"
 #import "Assets.h"
 #import "NotesHolder.h"
+#import  "DetailViewController.h"
 
 static const int NUM_OF_MEASURES = 50;
 @implementation FullGrid
@@ -26,11 +27,17 @@ static const int NUM_OF_MEASURES = 50;
         self.delegate = self;
         [self addSubview:container];
         [self setDelegate:self];
-        container.userInteractionEnabled = NO;
-        /*   [[NSNotificationCenter defaultCenter] addObserver: self
-         selector: @selector(orientationDidChange:)
-         name: UIApplicationDidChangeStatusBarOrientationNotification
-         object: nil];*/
+        UITapGestureRecognizer *singleFingerTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(handleSingleTap:)];
+        
+        [container addGestureRecognizer:singleFingerTap];
+        UILongPressGestureRecognizer *longPress =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                      action:@selector(handleLongPress:)];
+        
+        [container addGestureRecognizer:longPress];
+        
         
     }
     return self;
@@ -59,12 +66,11 @@ static const int NUM_OF_MEASURES = 50;
     if(index < 0){
         for(Layout * layer in layers){
             [layer setAlpha: 1.0f];
+            layer.userInteractionEnabled =NO;
         }
-        container.userInteractionEnabled = NO;
         currentLayer = nil;
     }
     else{
-        container.userInteractionEnabled = YES;
         for(Layout * layer in layers){
             [layer setAlpha: 0.2f];
             layer.userInteractionEnabled =NO;
@@ -92,7 +98,7 @@ static const int NUM_OF_MEASURES = 50;
     [layer removeFromSuperview];
     [layers removeObject:layer];
     if([layers count] == 0){
-      [self changeToWidth:self.frame.size.width];
+        [self changeToWidth:self.frame.size.width];
         
     }
     
@@ -130,7 +136,7 @@ static const int NUM_OF_MEASURES = 50;
             [layer stop];
         }
     }
-
+    
     if([layers count] >0){
         [self.layer removeAllAnimations];
         Layout *layer = [layers objectAtIndex:0];
@@ -144,6 +150,35 @@ static const int NUM_OF_MEASURES = 50;
     container.frame = frame;
     self.contentSize =CGSizeMake(width,self.frame.size.height);
     [staff increaseWidthOfLines:width];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    if([DetailViewController CURRENT_EDIT_MODE] == erase){
+        CGPoint location = [recognizer locationInView:container];
+        [self deleteNoteAtLocation:location];
+    }
+    
+    
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer {
+    CGPoint location = [recognizer locationInView:container];
+    [self deleteNoteAtLocation:location];
+    
+}
+
+-(void)deleteNoteAtLocation:(CGPoint)location{
+    //Global delete mode for all layers instead of a specific one
+    if(!currentLayer){
+        for(Layout * layer in layers){
+            Measure * measure = [layer findMeasureAtx:location.x];
+            if(measure){
+                NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
+                if(noteHolder)
+                    [noteHolder deleteNoteIfExistsAtY:location.y];
+            }
+        }
+    }
 }
 
 @end

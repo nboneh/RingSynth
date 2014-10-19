@@ -61,6 +61,8 @@
         noteNum--;
     float   pitch = pow(2,((note.octave-_baseOctave)+ (noteNum/12.0f)));
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name] volume:volume pitch:pitch pan:0.0f loop:NO];
+    if(volume == 0.0f)
+        [[OALSimpleAudio sharedInstance] stopAllEffects];
 
     
 }

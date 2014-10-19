@@ -13,25 +13,25 @@
 //-(NotesHolder *)findMeasureIfExistsAtX:(int)x;
 @end
 @implementation Layout
-
+@synthesize widthFromFirstMeasure = _widthFromFirstMeasure;
 @synthesize widthPerMeasure = _widthPerMeasure;
 -(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures{
     self = [super init];
     if(self){
         NSMutableArray *preMeasures = [[NSMutableArray alloc] init];
         int delX =staff.trebleView.frame.size.width;
-         _widthPerMeasure = frame.size.width/4;
+        _widthPerMeasure = frame.size.width/4;
         for(int i = 0; i < numOfMeasures; i++){
             Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, frame.size.height) andNum:(i+1)];
             [preMeasures addObject:measure];
             delX += _widthPerMeasure;
             [self addSubview:measure];
             [measure setDelegate:self];
-        
+            
         }
         measures = [[NSArray alloc] initWithArray:preMeasures];
-
-        self.frame = CGRectMake(0, 0,  _widthPerMeasure * numOfMeasures + staff.trebleView.frame.size.width,frame.size.height);
+        _widthFromFirstMeasure = staff.trebleView.frame.size.width;
+        self.frame = CGRectMake(0, 0,  _widthPerMeasure * numOfMeasures + _widthFromFirstMeasure,frame.size.height);
     }
     return self;
 }
@@ -40,10 +40,10 @@
     currentMeasurePlaying = 0;
     bpm = bpm_;
     playTimer =[NSTimer scheduledTimerWithTimeInterval:(60.0f/bpm)
-                                     target:self
-                                   selector:@selector(playMeasure:)
-                                   userInfo:nil
-                                    repeats:YES];
+                                                target:self
+                                              selector:@selector(playMeasure:)
+                                              userInfo:nil
+                                               repeats:YES];
     
 }
 -(void)playMeasure:(NSTimer *)target{
@@ -73,4 +73,10 @@
     }
 }
 
+-(Measure *)findMeasureAtx:(int)x{
+    int pos = (x -_widthFromFirstMeasure)/( _widthPerMeasure);
+    if(pos < [measures count])
+        return[measures objectAtIndex:pos];
+    return nil;
+}
 @end
