@@ -46,7 +46,7 @@
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
         [self addGestureRecognizer:singleFingerTap];
-        
+
     }
     return self;
 }
@@ -168,4 +168,5 @@
         [note playWithVolume:[_volumeSlider value]];
     }
 }
+
 @end

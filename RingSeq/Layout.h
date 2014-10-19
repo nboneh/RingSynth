@@ -12,10 +12,13 @@
 
 @interface Layout  : UIView<MeasureDelegate>{
     NSArray *measures;
+    int currentMeasurePlaying;
+    NSTimer *playTimer;
+    int bpm;
 }
 
 @property(readonly) float widthPerMeasure;
 -(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures;
--(void) play;
-
+-(void)playWithTempo:(int)bpm;
+-(void)stop;
 @end

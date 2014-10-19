@@ -152,7 +152,7 @@
     [self changeSubDivision:_currentSubdivision];
     if(_delegate)
         [_delegate changeSubDivision:_currentSubdivision];
-
+    
 }
 -(BOOL)anyNotesInsubdivision{
     NSInteger size = _noteHolders.count;
@@ -162,6 +162,84 @@
             return YES;
     }
     return NO;
+}
+
+-(BOOL)anyNotes{
+    return [self anyNotesInsubdivision] && [_initialNotesHolder anyNotesInNoteHolder];
+}
+
+-(void)playWithTempo:(int)bpm{
+
+    float time = (60.0f/bpm)/(_currentSubdivision+1);
+    currentPlayingNoteHolder =-1;
+    playTimer =[NSTimer scheduledTimerWithTimeInterval:time
+                                                target:self
+                                              selector:@selector(playNoteHolder:)
+                                              userInfo:nil
+                                               repeats:YES];
+    [ _initialNotesHolder play];
+    [_initialNotesHolder setBackgroundColor:self.tintColor];
+}
+
+-(void)playNoteHolder:(NSTimer *)target{
+    if(currentPlayingNoteHolder < 0){
+        [_initialNotesHolder setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.0f]];
+    }
+    else if(currentPlayingNoteHolder < [_noteHolders count]){
+        NotesHolder* notesHolder = [_noteHolders objectAtIndex:currentPlayingNoteHolder];
+        [notesHolder setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.0f]];
+    } else{
+        [self stop];
+    }
+
+    switch(_currentSubdivision){
+        case quaters:
+            [self stop];
+            return;
+        case sixteenths:
+            switch(currentPlayingNoteHolder){
+                case -1:
+                    currentPlayingNoteHolder = 2;
+                    break;
+                case 2:
+                    currentPlayingNoteHolder = 0;
+                    break;
+                case 0:
+                    currentPlayingNoteHolder = 1;
+                    break;
+                case 1:
+                    [self stop];
+                    return;
+            }
+            break;
+            
+        case eighths:
+            if(currentPlayingNoteHolder >= 0){
+                [self stop];
+                return;
+            }
+             currentPlayingNoteHolder++;
+            break;
+            
+        case triplets:
+            if(currentPlayingNoteHolder >= 1){
+                [self stop];
+                return;
+            }
+            currentPlayingNoteHolder++;
+            break;
+        case numOfSubdivisions:
+            [self stop];
+            return;
+    }
+    NotesHolder* notesHolder = [_noteHolders objectAtIndex:currentPlayingNoteHolder];
+    [notesHolder play];
+    [notesHolder setBackgroundColor:self.tintColor];
+}
+
+-(void)stop{
+    [playTimer invalidate];
+    playTimer = nil;
 }
 
 @end

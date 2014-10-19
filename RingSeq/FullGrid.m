@@ -40,7 +40,6 @@ static const int NUM_OF_MEASURES = 50;
     return container;
 }
 
-
 -(void)replay{
     [self stop];
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
@@ -62,6 +61,7 @@ static const int NUM_OF_MEASURES = 50;
             [layer setAlpha: 1.0f];
         }
         container.userInteractionEnabled = NO;
+        currentLayer = nil;
     }
     else{
         container.userInteractionEnabled = YES;
@@ -69,7 +69,7 @@ static const int NUM_OF_MEASURES = 50;
             [layer setAlpha: 0.2f];
             layer.userInteractionEnabled =NO;
         }
-        Layout *currentLayer = [layers objectAtIndex:index];
+        currentLayer = [layers objectAtIndex:index];
         [currentLayer setAlpha:1.0f];
         currentLayer.userInteractionEnabled = YES;
     }
@@ -100,19 +100,37 @@ static const int NUM_OF_MEASURES = 50;
 }
 
 -(void)playWithTempo:(int)bpm{
+    [self stop];
+    if(currentLayer){
+        [currentLayer playWithTempo:bpm];
+    }
+    else{
+        for(Layout * layer in layers){
+            [layer playWithTempo:bpm];
+        }
+    }
     if([layers count] >0){
         Layout *layer = [layers objectAtIndex:0];
         float widthPerMeasure = layer.widthPerMeasure;
         [self changeToWidth:layer.frame.size.width + self.frame.size.width];
         float time = (60.0/(bpm)) * NUM_OF_MEASURES;
         float end = NUM_OF_MEASURES * widthPerMeasure;
-        [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:time delay:1.0f options:UIViewAnimationOptionCurveLinear animations:^{
             self.contentOffset = CGPointMake(end, 0);
         } completion:^(BOOL success){[self stop];}];
         
     }
 }
 -(void)stop{
+    if(currentLayer){
+        [currentLayer stop];
+    }
+    else{
+        for(Layout * layer in layers){
+            [layer stop];
+        }
+    }
+
     if([layers count] >0){
         [self.layer removeAllAnimations];
         Layout *layer = [layers objectAtIndex:0];

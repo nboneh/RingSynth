@@ -20,7 +20,10 @@ typedef enum {
 @optional
 -(void)changeSubDivision:(Subdivision)subdivision;
 @end
-@interface Measure : UIView
+@interface Measure : UIView{
+    int currentPlayingNoteHolder;
+    NSTimer *playTimer;
+}
 
 
 @property Staff *staff;
@@ -34,5 +37,9 @@ typedef enum {
 
 -(void)changeSubDivision:(Subdivision)subdivision;
 -(BOOL)anyNotesInsubdivision;
+
+-(BOOL)anyNotes;
+-(void)playWithTempo:(int)bpm;
+-(void)stop;
 
 @end

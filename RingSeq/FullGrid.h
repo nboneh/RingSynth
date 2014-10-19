@@ -16,6 +16,7 @@
     UIActionSheet *newColors;
     UISegmentedControl* instrumentsController;
     Staff* staff;
+    Layout *currentLayer;
 }
 
 -(void)replay;

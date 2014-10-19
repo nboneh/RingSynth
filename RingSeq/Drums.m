@@ -16,21 +16,23 @@
                                   @"f":@"KickDrum1.wav",
                                   @"g": @"KickDrum2.wav",
                                   @"a" : @"KickDrum3.wav",
-                                  @"b" :@"FloorTom.wav",
-                                  @"c" :@"Tom.wav"};
+                                  @"b" :@"FloorTom.wav"
+                                };
         
         
         NSDictionary *octave2 =@{
+                                  @"c" :@"Tom.wav",
                                   @"d":  @"Tom2.wav",
                                   @"e": @"RideCymbal1.wav",
                                   @"f": @"RideCymbal2.wav",
                                   @"g": @"RideCymbal3.wav",
                                   @"a" : @"Snare1.wav",
-                                  @"b" :@"Snare2.wav",
-                                  @"c" :@"Snare3.wav"
+                                  @"b" :@"Snare2.wav"
+    
 
                                   };
         NSDictionary *octave3 = @{
+                                   @"c" :@"Snare3.wav",
                                    @"d":  @"Crash1.wav",
                                    @"e":  @"Crash2.wav",
                                    @"f": @"Crash3.wav",
@@ -41,7 +43,8 @@
                                    };
         
         NSDictionary *octave4 = @{
-                                  @"d": @"OpenHiHat2.wav",
+                                     @"c" :@"OpenHiHat1.wav",
+                                  @"d": @"OpenHiHat2.wav"
                                    };
         _sounds = [[NSArray alloc] initWithObjects:octave1, octave2,octave3, octave4, nil];
         

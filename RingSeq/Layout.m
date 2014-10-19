@@ -36,8 +36,33 @@
     return self;
 }
 
--(void) play{
+-(void)playWithTempo:(int)bpm_{
+    currentMeasurePlaying = 0;
+    bpm = bpm_;
+    playTimer =[NSTimer scheduledTimerWithTimeInterval:(60.0f/bpm)
+                                     target:self
+                                   selector:@selector(playMeasure:)
+                                   userInfo:nil
+                                    repeats:YES];
     
+}
+-(void)playMeasure:(NSTimer *)target{
+    if(currentMeasurePlaying < [measures count]){
+        Measure * measure = [measures objectAtIndex:currentMeasurePlaying];
+        [measure playWithTempo:bpm];
+    } else{
+        [self stop];
+    }
+    currentMeasurePlaying++;
+}
+
+-(void)stop{
+    [playTimer invalidate];
+    if(currentMeasurePlaying < [measures count]){
+        Measure * measure = [measures objectAtIndex:currentMeasurePlaying];
+        [measure stop];
+    }
+    playTimer = nil;
 }
 -(void)changeSubDivision:(Subdivision)subdivision{
     NSInteger size = [measures count];
