@@ -18,26 +18,28 @@
 @synthesize widthFromFirstMeasure = _widthFromFirstMeasure;
 @synthesize widthPerMeasure = _widthPerMeasure;
 @synthesize currentMeasurePlaying = _currentMeasurePlaying;
--(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures{
+@synthesize numOfMeasures = _numOfMeasures;
+-(id) initWithStaff:(Staff *)staff_ andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures{
     self = [super init];
     if(self){
-        NSMutableArray *preMeasures = [[NSMutableArray alloc] init];
-                channel =[[ALChannelSource alloc] initWithSources:kDefaultReservedSources];
+        staff = staff_;
+        measures = [[NSMutableArray alloc] init];
+        channel =[[ALChannelSource alloc] initWithSources:kDefaultReservedSources];
         
         _widthFromFirstMeasure = staff.trebleView.frame.size.width;
         int delX =_widthFromFirstMeasure;
         _widthPerMeasure = frame.size.width/4;
         for(int i = 0; i < numOfMeasures; i++){
             Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, frame.size.height) andNum:(i) andChannel:channel];
-            [preMeasures addObject:measure];
+            [measures addObject:measure];
             delX += _widthPerMeasure;
             [self addSubview:measure];
             [measure setDelegate:self];
             
         }
-        measures = [[NSArray alloc] initWithArray:preMeasures];
         self.frame = CGRectMake(0, 0,  _widthPerMeasure * numOfMeasures + _widthFromFirstMeasure,frame.size.height);
         _currentMeasurePlaying = 0;
+        self.clipsToBounds = YES;
     }
     return self;
 }
@@ -61,19 +63,19 @@
             [self stop];
             return;
         }
-            
+        
     }
-        
-        
-        Measure * measure = [measures objectAtIndex:_currentMeasurePlaying];
-        [measure playWithTempo:bpm];
-
+    
+    
+    Measure * measure = [measures objectAtIndex:_currentMeasurePlaying];
+    [measure playWithTempo:bpm];
+    
     _currentMeasurePlaying++;
 }
 
 -(void)stop{
     [playTimer invalidate];
-    if(_currentMeasurePlaying < [measures count]){
+    if(_currentMeasurePlaying < _numOfMeasures){
         Measure * measure = [measures objectAtIndex:_currentMeasurePlaying];
         [measure stop];
     }
@@ -87,6 +89,20 @@
         if(!measure.anyNotesInsubdivision)
             [measure changeSubDivision:subdivision];
     }
+}
+
+-(void)setNumOfMeasures:(int)numOfMeasures{
+    _numOfMeasures = numOfMeasures;
+    CGRect myFrame = self.frame;
+    myFrame.size.width = _widthPerMeasure * numOfMeasures + _widthFromFirstMeasure;
+    self.frame = myFrame;
+    int numOfMeasuresToAdd = numOfMeasures -[measures count];
+    int delX =_widthFromFirstMeasure + numOfMeasuresToAdd*_widthPerMeasure ;
+    for(int i = [measures count]; i < numOfMeasuresToAdd; i++){
+        Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, self.frame.size.height) andNum:(i) andChannel:channel];
+        [measures addObject:measure];
+    }
+        
 }
 
 -(Measure *)findMeasureAtx:(int)x{

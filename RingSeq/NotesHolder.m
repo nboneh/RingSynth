@@ -80,7 +80,7 @@
         case insert:
             [self placeNoteAtY:y];
             break;
-        case erase:
+        case nerase:
             [self deleteNoteIfExistsAtY:y];
             break;
             

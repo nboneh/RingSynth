@@ -22,6 +22,7 @@
     NSTimer *stopPlayingTimer;
 }
 
+@property(nonatomic) int numOfMeasures;
 @property BOOL isPlaying;
 -(void)replay;
 -(void)changeLayer:(int)index;

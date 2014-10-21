@@ -21,6 +21,10 @@
 @synthesize bottomBar = _bottomBar;
 static const int MIN_TEMPO =11;
 static const int MAX_TEMPO = 500;
+
+static const int MIN_BEATS =4;
+static const int MAX_BEATS = 99;
+
 static Accidental CURRENT_ACCIDENTAL;
 static Instrument *CURRENT_INSTRUMENT;
 static EditMode CURRENT_EDIT_MODE;
@@ -97,6 +101,7 @@ static BOOL LOOPING;
     if(!_fullGrid){
         CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
         _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
+        [_fullGrid setNumOfMeasures:[_beatsTextField.text intValue]];
         [self.view addSubview:_fullGrid];
         [self.view bringSubviewToFront: _instrumentController];
         [self.view bringSubviewToFront: _bottomBar];
@@ -144,9 +149,11 @@ static BOOL LOOPING;
     if(alertView.alertViewStyle ==UIAlertViewStylePlainTextInput){
         NSString *text = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
                           [NSCharacterSet whitespaceCharacterSet]];
-        
-        int newTempo = [text intValue];
-        return newTempo <= MAX_TEMPO && newTempo >= MIN_TEMPO;
+        int newValue = [text intValue];
+        if(alertView == tempoAlert)
+            return newValue <= MAX_TEMPO && newValue >= MIN_TEMPO;
+        else if(alertView == beatAlert)
+            return newValue <= MAX_BEATS && newValue >= MIN_BEATS;
     }
     return YES;
 }
@@ -262,8 +269,7 @@ static BOOL LOOPING;
 }
 -(IBAction)changeTempo{
     if(![_fullGrid isPlaying]){
-        [_tempoField resignFirstResponder];
-        UIAlertView * tempoAlert = [[UIAlertView alloc] initWithTitle:@"Change Tempo" message:[NSString stringWithFormat:@"Min tempo: %d Max tempo: %d" ,MIN_TEMPO, MAX_TEMPO]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
+        tempoAlert = [[UIAlertView alloc] initWithTitle:@"Change Tempo" message:[NSString stringWithFormat:@"Max: %d bpm Min: %d bpm" ,MAX_TEMPO, MIN_TEMPO]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
         tempoAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
         [tempoAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
         [tempoAlert textFieldAtIndex:0].text = _tempoField.text;
@@ -272,9 +278,26 @@ static BOOL LOOPING;
     
 }
 
+-(IBAction)changeBeat{
+    if(![_fullGrid isPlaying]){
+        beatAlert = [[UIAlertView alloc] initWithTitle:@"Change Number of Beats" message:[NSString stringWithFormat:@"Max: %d Min: %d" ,MIN_BEATS, MAX_BEATS]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
+        beatAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [beatAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+        [beatAlert textFieldAtIndex:0].text = _beatsTextField.text;
+        [beatAlert show];
+    }
+    
+}
+
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if(alertView.alertViewStyle ==UIAlertViewStylePlainTextInput)
-        _tempoField.text =  [alertView textFieldAtIndex:0].text;
+    if(alertView.alertViewStyle ==UIAlertViewStylePlainTextInput){
+        if(alertView == tempoAlert)
+            _tempoField.text =  [alertView textFieldAtIndex:0].text;
+        else if(alertView == beatAlert){
+            _beatsTextField.text = [alertView textFieldAtIndex:0].text;
+            [_fullGrid setNumOfMeasures: [_beatsTextField.text intValue]];
+        }
+    }
     else{
         if(buttonIndex == 1){
             int deleteIndex = (int)[_instrumentController selectedSegmentIndex];

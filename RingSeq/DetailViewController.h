@@ -17,14 +17,16 @@
     BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;
+    UIAlertView * tempoAlert;
+    UIAlertView *beatAlert;
 }
 
 typedef enum {
     insert,
-    erase
+    nerase
 } EditMode;
 
-
+@property (weak, nonatomic) IBOutlet UITextField *beatsTextField;
 
 @property (strong, nonatomic) id name;
 
@@ -41,6 +43,7 @@ typedef enum {
 -(IBAction)changeEditMode:(UISegmentedControl *)sender;
 -(IBAction)play:(UIBarButtonItem*)sender;
 -(IBAction)loop:(UIBarButtonItem*)sender;
+-(IBAction)changeBeat;
 @property (weak, nonatomic) IBOutlet UINavigationItem *topBar;
 
 +(Instrument *)CURRENT_INSTRUMENT;

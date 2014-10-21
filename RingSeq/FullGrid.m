@@ -11,13 +11,13 @@
 #import "NotesHolder.h"
 #import  "DetailViewController.h"
 #import "ObjectAL.h"
-static const int NUM_OF_MEASURES =10 ;
 @interface FullGrid()
 -(void)stopAnimation;
 -(void)startAnimation;
 @end
 @implementation FullGrid
 @synthesize  isPlaying = _isPlaying;
+@synthesize  numOfMeasures = _numOfMeasures;
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
@@ -94,7 +94,7 @@ static const int NUM_OF_MEASURES =10 ;
 -(void)addLayer{
     if(!layers)
         layers = [[NSMutableArray alloc] init];
-    Layout * layer = [[Layout alloc] initWithStaff:staff andFrame:self.frame andNumOfMeasure:NUM_OF_MEASURES];
+    Layout * layer = [[Layout alloc] initWithStaff:staff andFrame:self.frame andNumOfMeasure:_numOfMeasures];
     [layers addObject:layer];
     [container addSubview:layer];
     if([layers count] == 1){
@@ -138,10 +138,6 @@ static const int NUM_OF_MEASURES =10 ;
         
     }
 }
--(Measure * ) changeCurrentLayerPlaying{
-    
-    return nil;
-}
 -(void)stop{
     [self stopTimers];
     [self setUserInteractionEnabled:YES];
@@ -171,7 +167,7 @@ static const int NUM_OF_MEASURES =10 ;
     float offset = ((measure.frame.origin.x -self.contentOffset.x ) + dist);
     float widthPerMeasure = layer.widthPerMeasure;
     float delay = (offset/widthPerMeasure) *(60.0/bpm);
-    float time = (60.0/(bpm)) * (NUM_OF_MEASURES -measure.num);
+    float time = (60.0/(bpm)) * (_numOfMeasures -measure.num);
     
     stopPlayingTimer = [NSTimer scheduledTimerWithTimeInterval:time  target:self
                                                       selector:@selector(checkIfToStopPlaying)
@@ -180,7 +176,7 @@ static const int NUM_OF_MEASURES =10 ;
     
     
     //The end goes beyond bound so we went to set a trigger to stop the animation when bound are out of reach
-    float end = (NUM_OF_MEASURES ) * widthPerMeasure;
+    float end = (_numOfMeasures ) * widthPerMeasure;
     
     float timeToStopAnim =  time -((60.0/(bpm)) * (dist/layer.widthPerMeasure));
     
@@ -219,7 +215,7 @@ static const int NUM_OF_MEASURES =10 ;
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    if([DetailViewController CURRENT_EDIT_MODE] == erase){
+    if([DetailViewController CURRENT_EDIT_MODE] == nerase){
         CGPoint location = [recognizer locationInView:container];
         [self deleteNoteAtLocation:location];
     }
@@ -261,6 +257,17 @@ static const int NUM_OF_MEASURES =10 ;
     [stopPlayingTimer invalidate];
     stopPlayingTimer = nil;
 }
-
+-(void)setNumOfMeasures:(int)numOfMeasures{
+    _numOfMeasures = numOfMeasures;
+    BOOL firstLayer = YES;
+     for(Layout * layer in layers){
+         [layer setNumOfMeasures:_numOfMeasures];
+         if(firstLayer){
+             [self changeToWidth:layer.frame.size.width];
+             firstLayer = NO;
+         }
+             
+     }
+}
 
 @end

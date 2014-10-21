@@ -76,7 +76,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
-                                                <action selector="changeTempo" destination="JEX-9P-axG" eventType="editingDidBegin" id="byP-oq-zky"/>
+                                                <action selector="changeBeat" destination="JEX-9P-axG" eventType="editingDidBegin" id="lGK-PL-w5W"/>
                                             </connections>
                                         </textField>
                                     </barButtonItem>
@@ -126,6 +126,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="beatsTextField" destination="EH4-Y8-tu7" id="eQV-Rn-xPb"/>
                         <outlet property="bottomBar" destination="0Dk-yD-WIh" id="ir3-kY-HVl"/>
                         <outlet property="playButton" destination="kYS-aI-kCl" id="PUn-zU-XAH"/>
                         <outlet property="tempoField" destination="6kP-d4-Gfo" id="Z6Y-oT-U4A"/>

@@ -70,7 +70,6 @@
 		0B9AF94F19F3287E00F6C176 /* ObjectAL-for-iPhone.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF8A119F3287D00F6C176 /* ObjectAL-for-iPhone.podspec */; };
 		0B9AF95019F3287E00F6C176 /* ObjectAL.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF8A219F3287D00F6C176 /* ObjectAL.pdf */; };
 		0B9AF95119F3287E00F6C176 /* ObjectAL.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF8A319F3287D00F6C176 /* ObjectAL.xcworkspace */; };
-		0B9AF9A319F3287E00F6C176 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF92419F3287E00F6C176 /* README.mdown */; };
 		0B9AF9B519F330EF00F6C176 /* Electric Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9B419F330EF00F6C176 /* Electric Guitar.wav */; };
 		0B9AF9BA19F3389F00F6C176 /* Acoustic Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */; };
 		0B9AF9BC19F338DE00F6C176 /* High Piano.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9BB19F338DE00F6C176 /* High Piano.wav */; };
@@ -250,7 +249,6 @@
 		0B9AF8A119F3287D00F6C176 /* ObjectAL-for-iPhone.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ObjectAL-for-iPhone.podspec"; sourceTree = "<group>"; };
 		0B9AF8A219F3287D00F6C176 /* ObjectAL.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ObjectAL.pdf; sourceTree = "<group>"; };
 		0B9AF8A319F3287D00F6C176 /* ObjectAL.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = ObjectAL.xcworkspace; sourceTree = "<group>"; };
-		0B9AF92419F3287E00F6C176 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
 		0B9AF9B419F330EF00F6C176 /* Electric Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Electric Guitar.wav"; sourceTree = "<group>"; };
 		0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Acoustic Guitar.wav"; sourceTree = "<group>"; };
 		0B9AF9BB19F338DE00F6C176 /* High Piano.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "High Piano.wav"; sourceTree = "<group>"; };
@@ -461,7 +459,6 @@
 				0B9AF8A119F3287D00F6C176 /* ObjectAL-for-iPhone.podspec */,
 				0B9AF8A219F3287D00F6C176 /* ObjectAL.pdf */,
 				0B9AF8A319F3287D00F6C176 /* ObjectAL.xcworkspace */,
-				0B9AF92419F3287E00F6C176 /* README.mdown */,
 			);
 			path = "ObjectAL-for-iPhone";
 			sourceTree = "<group>";
@@ -832,7 +829,6 @@
 				0B9AF93C19F3287E00F6C176 /* ALCaptureDevice.m in Sources */,
 				0B74952E19EB7BA50078296B /* Assets.m in Sources */,
 				0B9AF94319F3287E00F6C176 /* ALWrapper.m in Sources */,
-				0B9AF9A319F3287E00F6C176 /* README.mdown in Sources */,
 				0B39A04C19F04601006B7EA5 /* Measure.m in Sources */,
 				0B74953719EDAE000078296B /* Note.m in Sources */,
 				0B703EB419E70B5F00CED5B4 /* main.m in Sources */,
