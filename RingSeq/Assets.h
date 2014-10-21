@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
 
 @interface Assets : NSObject
 

@@ -17,16 +17,17 @@
 
 @implementation NotesHolder
 @synthesize titleView = _titleView;
+@synthesize lineView = _lineView;
 
--(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title{
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title  andChannel:(  ALChannelSource *)  channel_{
     self = [super initWithFrame:frame];
     if(self){
-        
+        channel = channel_;
         _titleViewHeight = staff.frame.origin.y - self.frame.origin.y;
         _volumeMeterHeight = (frame.origin.y + frame.size.height) - (staff.frame.origin.y + staff.frame.size.height);
         _staff = staff;
         
-        _titleView = [[UILabel alloc] initWithFrame:CGRectMake(0 ,0,frame.size.width, _titleViewHeight) ];
+        _titleView = [[UILabel alloc] initWithFrame:CGRectMake(1 ,0,frame.size.width -1, _titleViewHeight) ];
         [_titleView setText:title];
         _titleView.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleView];
@@ -56,11 +57,14 @@
         _volumeSlider = [[UISlider alloc] init];
         [_volumeSlider removeConstraints:_volumeSlider.constraints];
         [_volumeSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
-        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2+2 , _titleViewHeight + _lineView.frame.size.height +12, _volumeMeterHeight-2  , _volumeMeterHeight);
+        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2+1 , _titleViewHeight + _lineView.frame.size.height +15, _volumeMeterHeight-2  , _volumeMeterHeight);
         _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
         [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
         [_volumeSlider setValue:0.75f];
-        _volumeSlider.maximumValue = 1.0f;
+        _volumeSlider.maximumValue = 1.05f;
+        [_volumeSlider addTarget:self
+                         action:@selector(sliderViewChange:)
+               forControlEvents:UIControlEventValueChanged];
         [self addSubview:_volumeSlider];
     }
     if(_notes.count >0)
@@ -127,7 +131,7 @@
     note.frame = frame;
     [_notes  addObject: note];
     [self checkViews];
-    [note playWithVolume:[_volumeSlider value]];
+    [note playWithVolume:[_volumeSlider value] andChannel:channel];
     [self addSubview:note];
     UITapGestureRecognizer *doubleFingerTap =
     [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -146,7 +150,7 @@
         note.accidental++;
     else
         note.accidental = 0;
-    [note playWithVolume:[_volumeSlider value]];
+    [note playWithVolume:[_volumeSlider value] andChannel:channel];
     
 }
 
@@ -164,7 +168,13 @@
 }
 -(void)play{
     for(Note *note in _notes){
-        [note playWithVolume:[_volumeSlider value]];
+        [note playWithVolume:[_volumeSlider value] andChannel:channel];
+    }
+}
+
+-(void)sliderViewChange:(UISlider *)sender{
+    if ([sender value] > 1.0f) {
+        [sender setValue:1.0f];
     }
 }
 

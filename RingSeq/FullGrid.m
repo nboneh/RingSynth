@@ -10,9 +10,14 @@
 #import "Assets.h"
 #import "NotesHolder.h"
 #import  "DetailViewController.h"
-
-static const int NUM_OF_MEASURES = 50;
+#import "ObjectAL.h"
+static const int NUM_OF_MEASURES =50 ;
+@interface FullGrid()
+-(void)stopAnimation;
+-(void)startAnimation;
+@end
 @implementation FullGrid
+@synthesize  isPlaying = _isPlaying;
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
@@ -24,7 +29,6 @@ static const int NUM_OF_MEASURES = 50;
         self.scrollEnabled = YES;
         //mainScroll.userInteractionEnabled = YES;
         self.maximumZoomScale = 6.5f;
-        self.delegate = self;
         [self addSubview:container];
         [self setDelegate:self];
         UITapGestureRecognizer *singleFingerTap =
@@ -37,6 +41,7 @@ static const int NUM_OF_MEASURES = 50;
                                                       action:@selector(handleLongPress:)];
         
         [container addGestureRecognizer:longPress];
+        _isPlaying = NO;
         
         
     }
@@ -48,25 +53,27 @@ static const int NUM_OF_MEASURES = 50;
 }
 
 -(void)replay{
-    [self stop];
+    [self stopTimers];
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    [self setZoomScale:1.0f animated:YES];
-    [self scrollRectToVisible:frame animated:YES];
+    [self stopAnimation];
+    if(_isPlaying){
+        [self stop];
+        [self setZoomScale:1.0f animated:NO];
+        [self scrollRectToVisible:frame animated:NO];
+        [self playWithTempo:bpm];
+    }else{
+        [self setZoomScale:1.0f animated:YES];
+        [self scrollRectToVisible:frame animated:YES];
+    }
 }
 
--(void)handleRotation{
-    //mainScroll.contentSize = CGSizeMake(mainScroll.contentSize.height, mainScroll.contentSize.width);
-    /*CGRect frame = mainScroll.frame;
-     frame.size.width = mainScroll.frame.size.height;
-     frame.size.height = frame.size.width;
-     mainScroll.frame = frame;*/
-}
 
 -(void)changeLayer:(int)index{
     if(index < 0){
         for(Layout * layer in layers){
             [layer setAlpha: 1.0f];
             layer.userInteractionEnabled =NO;
+            [layer setMuted:NO];
         }
         currentLayer = nil;
     }
@@ -74,10 +81,12 @@ static const int NUM_OF_MEASURES = 50;
         for(Layout * layer in layers){
             [layer setAlpha: 0.2f];
             layer.userInteractionEnabled =NO;
+            [layer setMuted:YES];
         }
         currentLayer = [layers objectAtIndex:index];
         [currentLayer setAlpha:1.0f];
         currentLayer.userInteractionEnabled = YES;
+        [currentLayer setMuted:NO];
     }
     
 }
@@ -105,43 +114,97 @@ static const int NUM_OF_MEASURES = 50;
     [Assets playEraseSound];
 }
 
--(void)playWithTempo:(int)bpm{
-    [self stop];
-    if(currentLayer){
-        [currentLayer playWithTempo:bpm];
-    }
-    else{
-        for(Layout * layer in layers){
-            [layer playWithTempo:bpm];
-        }
-    }
+-(void)playWithTempo:(int)bpm_{
+    [self setUserInteractionEnabled:NO];
+    
+    bpm = bpm_;
     if([layers count] >0){
         Layout *layer = [layers objectAtIndex:0];
-        float widthPerMeasure = layer.widthPerMeasure;
-        [self changeToWidth:layer.frame.size.width + self.frame.size.width];
-        float time = (60.0/(bpm)) * NUM_OF_MEASURES;
-        float end = NUM_OF_MEASURES * widthPerMeasure;
-        [UIView animateWithDuration:time delay:1.0f options:UIViewAnimationOptionCurveLinear animations:^{
-            self.contentOffset = CGPointMake(end, 0);
-        } completion:^(BOOL success){[self stop];}];
+        Measure * measure =[layer findMeasureAtx:(self.contentOffset.x + layer.widthPerMeasure )];
+        [self startAnimation];
+        for(Layout * layer in layers){
+            [layer playWithTempo:bpm fromMeasure:measure.num];
+        }
+        _isPlaying = YES;
+        
+    } else {
+        [self stop];
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStoppedByApp"
+                                                            object: nil
+                                                          userInfo: nil];
         
     }
 }
+-(Measure * ) changeCurrentLayerPlaying{
+    
+    return nil;
+}
 -(void)stop{
-    if(currentLayer){
-        [currentLayer stop];
+    [self stopTimers];
+    [self setUserInteractionEnabled:YES];
+    
+    
+    for(Layout * layer in layers){
+        [layer stop];
     }
-    else{
-        for(Layout * layer in layers){
-            [layer stop];
-        }
+    [self stopAnimation];
+    _isPlaying = NO;
+}
+-(void)stopAnimation{
+    [stopAnimTimer invalidate];
+    stopAnimTimer = nil;
+    if([layers count] >0){
+        CGPoint offset = [self.layer.presentationLayer bounds].origin;
+        [self.layer removeAllAnimations];
+        self.contentOffset = CGPointMake(offset.x, 0);
+    }
+}
+
+-(void)startAnimation{
+    Layout *layer = [layers objectAtIndex:0];
+    Measure * measure =[layer findMeasureAtx:(self.contentOffset.x + layer.widthPerMeasure )];
+    
+    float dist = self.frame.size.width/3;
+    float offset = ((measure.frame.origin.x -self.contentOffset.x ) + dist);
+    float widthPerMeasure = layer.widthPerMeasure;
+    float delay = (offset/widthPerMeasure) *(60.0/bpm);
+    float time = (60.0/(bpm)) * (NUM_OF_MEASURES -measure.num);
+    
+    stopPlayingTimer = [NSTimer scheduledTimerWithTimeInterval:time  target:self
+                                                      selector:@selector(checkIfToStopPlaying)
+                                                      userInfo:nil
+                                                       repeats:NO];
+    
+    
+    //The end goes beyond bound so we went to set a trigger to stop the animation when bound are out of reach
+    float end = (NUM_OF_MEASURES ) * widthPerMeasure;
+    
+    float timeToStopAnim =  time -((60.0/(bpm)) * (dist/layer.widthPerMeasure));
+    
+    stopAnimTimer =[NSTimer scheduledTimerWithTimeInterval:timeToStopAnim
+                                                    target:self
+                                                  selector:@selector(stopAnimation)
+                                                  userInfo:nil
+                                                   repeats:NO];
+    
+    
+    [UIView animateWithDuration:time delay:delay options:UIViewAnimationOptionCurveLinear animations:^{
+        self.contentOffset = CGPointMake(end, 0);
+    } completion:NULL];
+    
+}
+-(void)checkIfToStopPlaying{
+    if(![DetailViewController LOOPING]){
+        [self stop];
+        [self replay];
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStoppedByApp"
+                                                            object: nil
+                                                          userInfo: nil];
+        
+    } else{
+        [self replay];
     }
     
-    if([layers count] >0){
-        [self.layer removeAllAnimations];
-        Layout *layer = [layers objectAtIndex:0];
-        [self changeToWidth:layer.frame.size.width];
-    }
 }
 
 -(void)changeToWidth:(int)width{
@@ -174,11 +237,27 @@ static const int NUM_OF_MEASURES = 50;
             Measure * measure = [layer findMeasureAtx:location.x];
             if(measure){
                 NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
-                if(noteHolder)
-                    [noteHolder deleteNoteIfExistsAtY:location.y];
+                if(noteHolder){
+                    if([noteHolder deleteNoteIfExistsAtY:location.y])
+                        return;
+                }
             }
         }
     }
+}
+-(void)silence{
+    [self stopTimers];
+    [[OALSimpleAudio sharedInstance] stopAllEffects];
+    for(Layout * layer in layers){
+        [layer setMuted:YES];
+    }
+}
+-(void)stopTimers{
+    [stopAnimTimer invalidate];
+    stopAnimTimer = nil;
+    [stopPlayingTimer invalidate];
+    stopPlayingTimer = nil;
+    
 }
 
 @end

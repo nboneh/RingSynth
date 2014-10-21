@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "NoteDescription.h"
+#import "ObjectAL.h"
 
 
 @interface Instrument : NSObject
@@ -22,7 +23,7 @@
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave;
 
 
--(void) playNote: (NoteDescription *)note withVolume:(float)volume;
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel;
 -(void)play;
 
 @end

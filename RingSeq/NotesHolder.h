@@ -11,10 +11,13 @@
 #import "NoteDescription.h"
 #import "Staff.h"
 #import "Note.h"
+#import "ObjectAL.h"
 
 
 
-@interface NotesHolder: UIView
+@interface NotesHolder: UIView {
+    ALChannelSource * channel;
+}
 
 @property UISlider *volumeSlider;
 @property NSMutableArray *notes;
@@ -23,7 +26,7 @@
 @property UILabel *titleView;
 @property int titleViewHeight;
 @property int volumeMeterHeight;
--(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title;
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title  andChannel:(  ALChannelSource *)  channel;
 -(void)placeNoteAtY:(int)y;
 -(Note *)deleteNoteIfExistsAtY:(int)y;
 -(void)play;

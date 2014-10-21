@@ -9,17 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "Staff.h"
 #import "Measure.h"
+#import "ObjectAL.h"
 
 @interface Layout  : UIView<MeasureDelegate>{
     NSArray *measures;
-    int currentMeasurePlaying;
+    int prevMeasure;
     NSTimer *playTimer;
     int bpm;
+    ALChannelSource *channel;
 }
+@property (readonly)int currentMeasurePlaying;
 @property (readonly)int widthFromFirstMeasure;
-@property(readonly) float widthPerMeasure;
+@property(readonly) int widthPerMeasure;
 -(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures;
--(void)playWithTempo:(int)bpm;
+-(void)playWithTempo:(int)bpm fromMeasure:(int)measure;
 -(void)stop;
 -(Measure *)findMeasureAtx:(int)x;
+-(void)setMuted:(BOOL)abool;
 @end

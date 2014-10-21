@@ -13,13 +13,14 @@
 @synthesize delegate = _delegate;
 @synthesize num = _num;
 
--(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num{
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num andChannel:(ALChannelSource *)channel_{
     self = [super initWithFrame:frame];
     if(self){
+                channel = channel_;
         _staff = staff;
         _widthPerNoteHolder = frame.size.width/3;
         _num = num;
-        _initialNotesHolder = [[NotesHolder alloc] initWithStaff:staff  andFrame:CGRectMake(0, 0, _widthPerNoteHolder, self.frame.size.height) andTitle:[@(num) stringValue]];
+        _initialNotesHolder = [[NotesHolder alloc] initWithStaff:staff  andFrame:CGRectMake(0, 0, _widthPerNoteHolder, self.frame.size.height) andTitle:[@(num+ 1) stringValue] andChannel:channel];
         [self addSubview:_initialNotesHolder];
         _currentSubdivision = quaters;
         [self changeSubDivision:_currentSubdivision];
@@ -28,7 +29,6 @@
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
         [_initialNotesHolder.titleView addGestureRecognizer:singleFingerTap];
-        
         
     }
     return self;
@@ -64,7 +64,7 @@
             x3 = self.frame.size.width/4;
             
             if(!notesHolder2){
-                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height)andTitle:@"a"];
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height)andTitle:@"a" andChannel:channel];
                 [_noteHolders addObject:notesHolder2];
                 [self addSubview:notesHolder2];
             }
@@ -77,7 +77,7 @@
             }
             
             if(!notesHolder3){
-                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height) andTitle:@"e"];
+                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height) andTitle:@"e" andChannel:channel];
                 [_noteHolders addObject:notesHolder3];
                 [self addSubview:notesHolder3];
             }
@@ -95,7 +95,7 @@
         case eighths:
             x1 = self.frame.size.width/2;
             if(!notesHolder1){
-                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"&"];
+                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"&" andChannel:channel];
                 [_noteHolders addObject:notesHolder1];
                 [self addSubview:notesHolder1];
             }
@@ -115,7 +115,7 @@
             x1 = self.frame.size.width/3;
             x2 = 2 *(self.frame.size.width/3);
             if(!notesHolder1){
-                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"trip"];
+                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"trip" andChannel:channel];
                 [_noteHolders addObject:notesHolder1];
                 [self addSubview:notesHolder1];
             }
@@ -128,7 +128,7 @@
             }
             
             if(!notesHolder2){
-                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height) andTitle:@"let"];
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height) andTitle:@"let" andChannel:channel];
                 [_noteHolders addObject:notesHolder2];
                 [self addSubview:notesHolder2];
             }
@@ -179,24 +179,37 @@
                                               selector:@selector(playNoteHolder:)
                                               userInfo:nil
                                                repeats:YES];
-    [ _initialNotesHolder play];
-    [_initialNotesHolder setBackgroundColor:self.tintColor];
+    [playTimer fire];
 }
 
 -(void)playNoteHolder:(NSTimer *)target{
+    if(prevNoteHolder){
+        [prevNoteHolder.titleView setTextColor:[UIColor blackColor]];
+    [prevNoteHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
+    }
+
+    NotesHolder* notesHolder;
     if(currentPlayingNoteHolder < 0){
-        [_initialNotesHolder setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.0f]];
+         notesHolder = _initialNotesHolder;
     }
     else if(currentPlayingNoteHolder < [_noteHolders count]){
-        NotesHolder* notesHolder = [_noteHolders objectAtIndex:currentPlayingNoteHolder];
-        [notesHolder setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.0f]];
+         notesHolder = [_noteHolders objectAtIndex:currentPlayingNoteHolder];
     } else{
         [self stop];
     }
+    [ notesHolder play];
+    [notesHolder.titleView setTextColor:self.tintColor];
+    [notesHolder.lineView setBackgroundColor:self.tintColor];
+    prevNoteHolder = notesHolder;
 
     switch(_currentSubdivision){
         case quaters:
-            [self stop];
+            if(currentPlayingNoteHolder >= 0){
+                [self stop];
+                return;
+            }
+            currentPlayingNoteHolder++;
+
             return;
         case sixteenths:
             switch(currentPlayingNoteHolder){
@@ -210,13 +223,16 @@
                     currentPlayingNoteHolder = 1;
                     break;
                 case 1:
+                    currentPlayingNoteHolder = 3;
+                    break;
+                case 3:
                     [self stop];
                     return;
             }
             break;
             
         case eighths:
-            if(currentPlayingNoteHolder >= 0){
+            if(currentPlayingNoteHolder >= 1){
                 [self stop];
                 return;
             }
@@ -224,7 +240,7 @@
             break;
             
         case triplets:
-            if(currentPlayingNoteHolder >= 1){
+            if(currentPlayingNoteHolder >= 2){
                 [self stop];
                 return;
             }
@@ -234,12 +250,16 @@
             [self stop];
             return;
     }
-    NotesHolder* notesHolder = [_noteHolders objectAtIndex:currentPlayingNoteHolder];
-    [notesHolder play];
-    [notesHolder setBackgroundColor:self.tintColor];
 }
 
 -(void)stop{
+    prevNoteHolder = nil;
+    [_initialNotesHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
+    [_initialNotesHolder.titleView setTextColor:[UIColor blackColor]];
+    for(NotesHolder * notesHolder in _noteHolders){
+        [notesHolder.titleView setTextColor:[UIColor blackColor]];
+        [notesHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
+    }
     [playTimer invalidate];
     playTimer = nil;
 }

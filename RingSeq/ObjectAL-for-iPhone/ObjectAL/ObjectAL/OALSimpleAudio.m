@@ -33,8 +33,7 @@
 #import "OALAudioSession.h"
 #import "OpenALManager.h"
 
-// By default, reserve all 32 sources.
-#define kDefaultReservedSources 32
+
 
 #pragma mark -
 #pragma mark Private Methods

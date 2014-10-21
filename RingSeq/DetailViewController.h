@@ -33,18 +33,19 @@ typedef enum {
 @property  SlidingSegment *instrumentController;
 @property FullGrid* fullGrid;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
 
 -(IBAction)changeTempo;
 -(IBAction)replay;
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender;
 -(IBAction)changeEditMode:(UISegmentedControl *)sender;
--(IBAction)pressPlay;
--(IBAction)pressStop;
+-(IBAction)play:(UIBarButtonItem*)sender;
+-(IBAction)loop:(UIBarButtonItem*)sender;
 @property (weak, nonatomic) IBOutlet UINavigationItem *topBar;
 
 +(Instrument *)CURRENT_INSTRUMENT;
 +(Accidental)CURRENT_ACCIDENTAL;
 +(EditMode)CURRENT_EDIT_MODE;
-
++(BOOL)LOOPING;
 @end
 

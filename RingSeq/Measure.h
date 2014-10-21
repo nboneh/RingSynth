@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NotesHolder.h"
+#import "ObjectAL.h"
 
 typedef enum {
     quaters = 0,
@@ -23,6 +24,8 @@ typedef enum {
 @interface Measure : UIView{
     int currentPlayingNoteHolder;
     NSTimer *playTimer;
+    ALChannelSource *channel;
+    NotesHolder *prevNoteHolder;
 }
 
 @property int num;
@@ -33,7 +36,7 @@ typedef enum {
 @property NotesHolder *initialNotesHolder;
 @property(nonatomic,assign)id delegate;
 
--(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num;
+-(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num andChannel:(ALChannelSource *)channel;
 
 -(void)changeSubDivision:(Subdivision)subdivision;
 -(BOOL)anyNotesInsubdivision;

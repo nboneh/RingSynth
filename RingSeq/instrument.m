@@ -7,7 +7,6 @@
 //
 
 #import "Instrument.h"
-#import "ObjectAL.h"
 
 @implementation Instrument
 @synthesize name = _name;
@@ -29,8 +28,9 @@
     return _image;
 }
 
--(void) playNote: (NoteDescription *)note withVolume:(float)volume{
-
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
+    ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
+   [OALSimpleAudio sharedInstance].channel = channel;
     int noteNum = 0;
     switch(note.character){
         case 'c':
@@ -60,9 +60,14 @@
     else if(note.accidental == flat)
         noteNum--;
     float   pitch = pow(2,((note.octave-_baseOctave)+ (noteNum/12.0f)));
+      [channel setVolume:volume];
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name] volume:volume pitch:pitch pan:0.0f loop:NO];
     if(volume == 0.0f)
         [[OALSimpleAudio sharedInstance] stopAllEffects];
+    
+
+    
+    [OALSimpleAudio sharedInstance].channel = mainChannel;
 
     
 }

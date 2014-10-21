@@ -22,7 +22,7 @@
 
 
 -(id) initWithNotePlacement: (NotePlacement *)placement withInstrument:(Instrument *)instrument andAccedintal:(Accidental)accidental;
--(void) playWithVolume:(float)volume;
+-(void) playWithVolume:(float)volume andChannel:(ALChannelSource *)channel;
 -(BOOL)equals:(Note *)note;
 
 @end

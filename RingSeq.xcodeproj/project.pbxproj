@@ -103,6 +103,7 @@
 		0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0219F3455E00F6C176 /* Drums.m */; };
 		0B9AFA0519F347AB00F6C176 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0419F347AB00F6C176 /* Bell.wav */; };
 		0B9AFA0719F3714C00F6C176 /* Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0619F3714C00F6C176 /* Bass.wav */; };
+		0B9AFA0A19F6087200F6C176 /* NonEditableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +284,8 @@
 		0B9AFA0219F3455E00F6C176 /* Drums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drums.m; sourceTree = "<group>"; };
 		0B9AFA0419F347AB00F6C176 /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
 		0B9AFA0619F3714C00F6C176 /* Bass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bass.wav; sourceTree = "<group>"; };
+		0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonEditableTextField.h; sourceTree = "<group>"; };
+		0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonEditableTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +313,8 @@
 				0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */,
 				0B7AB60319F21C0D0092F808 /* SlidingSegment.h */,
 				0B7AB60419F21C0D0092F808 /* SlidingSegment.m */,
+				0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */,
+				0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -811,6 +816,7 @@
 				0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */,
 				0B9AF93D19F3287E00F6C176 /* ALChannelSource.m in Sources */,
 				0B9AF94519F3287E00F6C176 /* OALAudioSession.m in Sources */,
+				0B9AFA0A19F6087200F6C176 /* NonEditableTextField.m in Sources */,
 				0B9AF94419F3287E00F6C176 /* OpenALManager.m in Sources */,
 				0B9AF93E19F3287E00F6C176 /* ALContext.m in Sources */,
 				0B9AF93719F3287E00F6C176 /* OALAudioTrack.m in Sources */,

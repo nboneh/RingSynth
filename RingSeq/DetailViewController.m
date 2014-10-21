@@ -24,6 +24,7 @@ static const int MAX_TEMPO = 500;
 static Accidental CURRENT_ACCIDENTAL;
 static Instrument *CURRENT_INSTRUMENT;
 static EditMode CURRENT_EDIT_MODE;
+static BOOL LOOPING;
 #pragma mark - Managing the detail item
 
 - (void)setName:(id)newDetailItem {
@@ -53,6 +54,16 @@ static EditMode CURRENT_EDIT_MODE;
                    name: @"didEnterBackground"
                  object: nil];
     
+    [center addObserver: self
+               selector: @selector(willEnterForeground:)
+                   name: @"willEnterForeground"
+                 object: nil];
+    [center addObserver: self
+               selector: @selector(musicStoppedByApp:)
+                   name: @"musicStoppedByApp"
+                 object: nil];
+    
+    
     //NSArray* instruments = [Assets getInstruments];
     //NSInteger size = [instruments count];
     firstTimeLoadingSubView = YES;
@@ -61,10 +72,6 @@ static EditMode CURRENT_EDIT_MODE;
     }
     CURRENT_ACCIDENTAL = natural;
     CURRENT_EDIT_MODE = insert;
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(orientationDidChange:)
-                                                 name: UIApplicationDidChangeStatusBarOrientationNotification
-                                               object: nil];
     int width = [[UIScreen mainScreen] bounds].size.width/10 ;
     _instrumentController = [[SlidingSegment alloc] initWithFrame:CGRectMake(0,0,width,30)];
     [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
@@ -82,16 +89,17 @@ static EditMode CURRENT_EDIT_MODE;
     
     [self.view addSubview:_instrumentController];
     [self fixSegements];
+    LOOPING = NO;
 }
 -(void) viewDidLayoutSubviews{
     if(!_fullGrid){
         CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
         _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
         [self.view addSubview:_fullGrid];
+        [self.view bringSubviewToFront: _instrumentController];
+        [self.view bringSubviewToFront: _bottomBar];
     }
     
-    [self.view bringSubviewToFront: _instrumentController];
-    [self.view bringSubviewToFront: _bottomBar];
     
 }
 
@@ -100,11 +108,33 @@ static EditMode CURRENT_EDIT_MODE;
     // Dispose of any resources that can be recreated.
 }
 
-
 -(void)enteredBackground:(NSNotification *)notification{
     //Saving file
     [self save];
+    //Stoping sound
+    [_fullGrid stop];
+    [_fullGrid silence];
+    [_playButton setImage:[UIImage imageNamed:@"play"]];
     
+}
+
+-(void)musicStoppedByApp:(NSNotification *)notification{
+    [_playButton setImage:[UIImage imageNamed:@"play"]];
+    
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    //View will disappear save music
+    [self save];
+    [_fullGrid silence];
+    [super viewWillDisappear:animated];
+}
+
+
+-(void)willEnterForeground:(NSNotification *)notification{
+    //Unsilence the grid
+    [_fullGrid changeLayer:(_instrumentController.selectedSegmentIndex -1)];
 }
 
 
@@ -120,13 +150,6 @@ static EditMode CURRENT_EDIT_MODE;
 }
 
 
-
--(void) viewWillDisappear:(BOOL)animated
-{
-    //View will disappear save music
-    [self save];
-    [super viewWillDisappear:animated];
-}
 
 -(void) save{
     //  [NSKeyedArchiver archiveRootObject:fullGrid toFile:[self getPath:(id) _name]];
@@ -175,13 +198,14 @@ static EditMode CURRENT_EDIT_MODE;
         [_fullGrid changeLayer:(pos)];
         if(pos >=  0){
             CURRENT_INSTRUMENT = [instruments objectAtIndex:pos];
-            [CURRENT_INSTRUMENT play];
+            if(![_fullGrid isPlaying])
+                [CURRENT_INSTRUMENT play];
         }
         else {
             CURRENT_INSTRUMENT = nil;
         }
         prevSelect = pos+1;
-
+        
     }
     
 }
@@ -209,7 +233,7 @@ static EditMode CURRENT_EDIT_MODE;
         [_instrumentController setSelectedSegmentIndex:prevSelect];
         [_fullGrid changeLayer:prevSelect -1];
     }
-
+    
 }
 
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender{
@@ -235,12 +259,15 @@ static EditMode CURRENT_EDIT_MODE;
     [_fullGrid replay];
 }
 -(IBAction)changeTempo{
-    [_tempoField resignFirstResponder];
-    UIAlertView * tempoAlert = [[UIAlertView alloc] initWithTitle:@"Change Tempo" message:@""   delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
-    tempoAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [tempoAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
-    [tempoAlert textFieldAtIndex:0].text = _tempoField.text;
-    [tempoAlert show];
+    if(![_fullGrid isPlaying]){
+        [_tempoField resignFirstResponder];
+        UIAlertView * tempoAlert = [[UIAlertView alloc] initWithTitle:@"Change Tempo" message:[NSString stringWithFormat:@"Min tempo: %d Max tempo: %d" ,MIN_TEMPO, MAX_TEMPO]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
+        tempoAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [tempoAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+        [tempoAlert textFieldAtIndex:0].text = _tempoField.text;
+        [tempoAlert show];
+    }
+    
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
@@ -253,8 +280,8 @@ static EditMode CURRENT_EDIT_MODE;
                 prevSelect = 0;
             else if(deleteIndex <= prevSelect)
                 prevSelect--;
-
-
+            
+            
             [_fullGrid deleteLayerAt:(int)(deleteIndex-1)];
             [instruments removeObjectAtIndex:(deleteIndex-1)];
             CGRect frame  =_instrumentController.frame;
@@ -267,9 +294,9 @@ static EditMode CURRENT_EDIT_MODE;
             [_instrumentController setSelectedSegmentIndex:(prevSelect)];
             if((prevSelect -1)>0)
                 CURRENT_INSTRUMENT = [instruments objectAtIndex: prevSelect-1 ];
-
+            
             [self fixSegements];
-            }
+        }
     }
     
 }
@@ -278,27 +305,37 @@ static EditMode CURRENT_EDIT_MODE;
     NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     return [path stringByAppendingPathComponent:fileName];
 }
-- (void) orientationDidChange: (NSNotification *) note
-{
-    [self fixSegements];
-    
-}
 -(void)fixSegements{
     _instrumentController.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - _instrumentController.frame.size.width/2, [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.toolbar.frame.size.height
                                              , _instrumentController.frame.size.width, _instrumentController.frame.size.height);
     _instrumentController.tintColor = [UIColor blackColor];
 }
 
--(IBAction)pressPlay{
-    [_fullGrid playWithTempo:[_tempoField.text intValue]];
+-(IBAction)play:(UIBarButtonItem*)sender{
+    if(_fullGrid.isPlaying){
+        [sender setImage:[UIImage imageNamed:@"play"]];
+          [_fullGrid stop];
+    }
+    else{
+        [sender setImage:[UIImage imageNamed:@"pause"]];
+         [_fullGrid playWithTempo:[_tempoField.text intValue]];
+    }
 }
 
--(IBAction)pressStop{
-    [_fullGrid stop];
+-(IBAction)loop:(UIBarButtonItem*)sender{
+    LOOPING = !LOOPING;
+    if(LOOPING)
+        [sender setImage:[UIImage imageNamed:@"loop"]];
+    else
+        [sender setImage:[UIImage imageNamed:@"noloop"]];
+    
 }
 
 +(EditMode)CURRENT_EDIT_MODE{
     return CURRENT_EDIT_MODE;
+}
++(BOOL)LOOPING{
+    return LOOPING;
 }
 
 @end

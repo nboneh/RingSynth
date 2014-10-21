@@ -37,6 +37,8 @@
 
 
 #pragma mark OALSimpleAudio
+// By default, reserve all 32 sources.
+#define kDefaultReservedSources 32
 
 /**
  * A simpler interface to the ObjectAL sound library. This singleton can be
@@ -145,7 +147,7 @@
 /** The channel source used by OALSimpleAudio.
  * Only mess with this if you know what you are doing!
  */
-@property(nonatomic,readonly,retain) ALChannelSource* channel;
+@property(nonatomic,retain) ALChannelSource* channel;
 
 /** Background audio URL */
 @property(nonatomic,readonly,retain) NSURL* backgroundTrackURL;

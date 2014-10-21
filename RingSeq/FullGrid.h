@@ -17,14 +17,18 @@
     UISegmentedControl* instrumentsController;
     Staff* staff;
     Layout *currentLayer;
+    int bpm;
+    NSTimer *stopAnimTimer;
+    NSTimer *stopPlayingTimer;
 }
 
+@property BOOL isPlaying;
 -(void)replay;
--(void)handleRotation;
 -(void)changeLayer:(int)index;
 -(void)addLayer;
 -(void)deleteLayerAt:(int)index;
 -(void)playWithTempo:(int)bpm;
 -(void)stop;
+-(void)silence;
 
 @end

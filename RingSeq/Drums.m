@@ -10,7 +10,10 @@
 #import "ObjectAL.h"
 @implementation Drums
 
--(void) playNote: (NoteDescription *)note withVolume:(float)volume{
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
+    ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
+    [OALSimpleAudio sharedInstance].channel = channel;
+
     if(!_sounds){
         NSDictionary *octave1 = @{@"e":@"Gong.wav",
                                   @"f":@"KickDrum1.wav",
@@ -54,8 +57,17 @@
         pitch += .1f;
     else if(note.accidental == flat)
         pitch -= .1f;
+    if(volume == 0.0f)
+        [[OALSimpleAudio sharedInstance] stopAllEffects];
     NSString *drum =[(NSDictionary *)[_sounds objectAtIndex:(note.octave -3)] objectForKey:[NSString stringWithFormat:@"%c",(note.character) ]];
+      [channel setVolume:volume];
     [[OALSimpleAudio sharedInstance] playEffect:drum volume:volume pitch:pitch pan:0.0f loop:NO];
+    if(volume == 0.0f)
+        [[OALSimpleAudio sharedInstance] stopAllEffects];
+    
+    [OALSimpleAudio sharedInstance].channel = mainChannel;
+    
+
 }
 
 
