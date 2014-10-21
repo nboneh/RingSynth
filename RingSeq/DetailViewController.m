@@ -48,6 +48,7 @@ static BOOL LOOPING;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
                selector: @selector(enteredBackground:)
@@ -92,6 +93,7 @@ static BOOL LOOPING;
     LOOPING = NO;
 }
 -(void) viewDidLayoutSubviews{
+    
     if(!_fullGrid){
         CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
         _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
@@ -128,13 +130,14 @@ static BOOL LOOPING;
     //View will disappear save music
     [self save];
     [_fullGrid silence];
+    [_fullGrid fixFrame];
     [super viewWillDisappear:animated];
 }
 
 
 -(void)willEnterForeground:(NSNotification *)notification{
     //Unsilence the grid
-    [_fullGrid changeLayer:(_instrumentController.selectedSegmentIndex -1)];
+    [_fullGrid changeLayer:(int)(_instrumentController.selectedSegmentIndex -1)];
 }
 
 
@@ -314,11 +317,11 @@ static BOOL LOOPING;
 -(IBAction)play:(UIBarButtonItem*)sender{
     if(_fullGrid.isPlaying){
         [sender setImage:[UIImage imageNamed:@"play"]];
-          [_fullGrid stop];
+        [_fullGrid stop];
     }
     else{
         [sender setImage:[UIImage imageNamed:@"pause"]];
-         [_fullGrid playWithTempo:[_tempoField.text intValue]];
+        [_fullGrid playWithTempo:[_tempoField.text intValue]];
     }
 }
 

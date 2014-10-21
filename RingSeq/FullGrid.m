@@ -11,7 +11,7 @@
 #import "NotesHolder.h"
 #import  "DetailViewController.h"
 #import "ObjectAL.h"
-static const int NUM_OF_MEASURES =50 ;
+static const int NUM_OF_MEASURES =10 ;
 @interface FullGrid()
 -(void)stopAnimation;
 -(void)startAnimation;
@@ -42,6 +42,7 @@ static const int NUM_OF_MEASURES =50 ;
         
         [container addGestureRecognizer:longPress];
         _isPlaying = NO;
+
         
         
     }
@@ -257,7 +258,7 @@ static const int NUM_OF_MEASURES =50 ;
     stopAnimTimer = nil;
     [stopPlayingTimer invalidate];
     stopPlayingTimer = nil;
-    
 }
+
 
 @end
