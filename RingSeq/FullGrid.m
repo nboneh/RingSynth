@@ -120,6 +120,8 @@ static const int NUM_OF_MEASURES =10 ;
     
     bpm = bpm_;
     if([layers count] >0){
+        [self setZoomScale:1.0f animated:NO];
+
         Layout *layer = [layers objectAtIndex:0];
         Measure * measure =[layer findMeasureAtx:(self.contentOffset.x + layer.widthPerMeasure )];
         [self startAnimation];

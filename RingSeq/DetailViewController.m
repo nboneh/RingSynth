@@ -130,7 +130,6 @@ static BOOL LOOPING;
     //View will disappear save music
     [self save];
     [_fullGrid silence];
-    [_fullGrid fixFrame];
     [super viewWillDisappear:animated];
 }
 
