@@ -280,7 +280,7 @@ static BOOL LOOPING;
 
 -(IBAction)changeBeat{
     if(![_fullGrid isPlaying]){
-        beatAlert = [[UIAlertView alloc] initWithTitle:@"Change Number of Beats" message:[NSString stringWithFormat:@"Max: %d Min: %d" ,MIN_BEATS, MAX_BEATS]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
+        beatAlert = [[UIAlertView alloc] initWithTitle:@"Change Number of Beats" message:[NSString stringWithFormat:@"Max: %d Min: %d" ,MAX_BEATS, MIN_BEATS]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
         beatAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
         [beatAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
         [beatAlert textFieldAtIndex:0].text = _beatsTextField.text;

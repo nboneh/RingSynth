@@ -96,11 +96,13 @@
     CGRect myFrame = self.frame;
     myFrame.size.width = _widthPerMeasure * numOfMeasures + _widthFromFirstMeasure;
     self.frame = myFrame;
-    int numOfMeasuresToAdd = numOfMeasures -[measures count];
-    int delX =_widthFromFirstMeasure + numOfMeasuresToAdd*_widthPerMeasure ;
-    for(int i = [measures count]; i < numOfMeasuresToAdd; i++){
+     int newSize =[measures count] + numOfMeasures;
+    int delX =_widthFromFirstMeasure + [measures count]*(_widthPerMeasure) ;
+    for(int i = (int)[measures count]; i < newSize; i++){
         Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, self.frame.size.height) andNum:(i) andChannel:channel];
         [measures addObject:measure];
+        [self addSubview:measure];
+        delX += _widthPerMeasure;
     }
         
 }
