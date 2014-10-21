@@ -69,14 +69,16 @@ static BOOL LOOPING;
                  object: nil];
     
     
-    //NSArray* instruments = [Assets getInstruments];
-    //NSInteger size = [instruments count];
-    firstTimeLoadingSubView = YES;
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
+    
+     firstTimeLoadingSubView = YES;
+    CURRENT_INSTRUMENT = nil;
     CURRENT_ACCIDENTAL = natural;
     CURRENT_EDIT_MODE = insert;
+    LOOPING = NO;
+    
     int width = [[UIScreen mainScreen] bounds].size.width/10 ;
     _instrumentController = [[SlidingSegment alloc] initWithFrame:CGRectMake(0,0,width,30)];
     [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
@@ -94,8 +96,8 @@ static BOOL LOOPING;
     
     [self.view addSubview:_instrumentController];
     [self fixSegements];
-    LOOPING = NO;
 }
+
 -(void) viewDidLayoutSubviews{
     
     if(!_fullGrid){
