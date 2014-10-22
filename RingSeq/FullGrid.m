@@ -273,4 +273,23 @@
      }
 }
 
+-(NSArray*)createSaveFile{
+    NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
+    for(int i = 0; i < [layers count]; i++){
+        [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
+    }
+    return [[NSArray alloc] initWithArray:preSaveFile];
+}
+
+-(void)loadSaveFile:(NSArray *)saveFile{
+    NSInteger size = saveFile.count;
+    for(int i = 0; i < size; i++){
+        [self addLayer];
+        Layout *layer = [layers objectAtIndex:i];
+        [layer loadSaveFile:[saveFile objectAtIndex:i]];
+    }
+    [self changeLayer:-1];
+}
+
+
 @end

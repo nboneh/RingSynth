@@ -31,5 +31,6 @@
 -(void)playWithTempo:(int)bpm;
 -(void)stop;
 -(void)silence;
-
+-(NSArray*)createSaveFile;
+-(void)loadSaveFile:(NSArray *)saveFile;
 @end

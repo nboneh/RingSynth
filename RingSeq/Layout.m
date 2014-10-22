@@ -121,4 +121,19 @@
         [channel stop];
 }
 
+
+-(NSArray*)createSaveFile{
+    NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
+    for(int i = 0; i < _numOfMeasures; i++){
+        [preSaveFile addObject:[(Measure *)[measures objectAtIndex:i] createSaveFile] ];
+    }
+    return [[NSArray alloc] initWithArray:preSaveFile];
+}
+
+-(void)loadSaveFile:(NSArray *)saveFile{
+    NSInteger size = saveFile.count;
+    for(int i = 0; i < size; i++){
+        [(Measure *)[measures objectAtIndex:i] loadSaveFile:[saveFile objectAtIndex:i]];
+    }
+}
 @end

@@ -49,9 +49,9 @@
         notesHolder2  = [_noteHolders objectAtIndex:2];
     if(size > 3)
         notesHolder3 = [_noteHolders objectAtIndex:3];
-    int x1;
-    int x2;
-    int x3;
+    int x1 =0;
+    int x2=0;
+    int x3 =0;
     [notesHolder1 setHidden:YES];
     [notesHolder2 setHidden:YES];
     [notesHolder3 setHidden:YES];
@@ -61,37 +61,6 @@
         case quaters:
             break;
         case sixteenths:
-            x2 = 3*self.frame.size.width/4;
-            x3 = self.frame.size.width/4;
-            
-            if(!notesHolder2){
-                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height)andTitle:@"a" andChannel:channel];
-                [_noteHolders addObject:notesHolder2];
-                [self addSubview:notesHolder2];
-            }
-            else{
-                notesHolder2.titleView.text = @"a";
-                frame = notesHolder2.frame;
-                frame.origin.x = x2;
-                notesHolder2.frame = frame;
-                [notesHolder2 setHidden: NO];
-            }
-            
-            if(!notesHolder3){
-                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height) andTitle:@"e" andChannel:channel];
-                [_noteHolders addObject:notesHolder3];
-                [self addSubview:notesHolder3];
-            }
-            else{
-                notesHolder3.titleView.text = @"e";
-                frame = notesHolder3.frame;
-                frame.origin.x = x3;
-                notesHolder3.frame = frame;
-                [notesHolder3 setHidden:NO];
-            }
-            
-            
-            
             
         case eighths:
             x1 = self.frame.size.width/2;
@@ -109,6 +78,37 @@
             }
             
             
+            if(_currentSubdivision == eighths)
+                break;
+            
+            x2 = 3*self.frame.size.width/4;
+            x3 = self.frame.size.width/4;
+            
+            if(!notesHolder2){
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height)andTitle:@"a" andChannel:channel];
+                [_noteHolders addObject:notesHolder2];
+                [self addSubview:notesHolder2];
+            }
+            else{
+                notesHolder2.titleView.text = @"a";
+                frame = notesHolder2.frame;
+                frame.origin.x = x2;
+                notesHolder2.frame = frame;
+                [notesHolder2 setHidden: NO];
+            }
+
+            if(!notesHolder3){
+                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height) andTitle:@"e" andChannel:channel];
+                [_noteHolders addObject:notesHolder3 ];
+                [self addSubview:notesHolder3];
+            }
+            else{
+                notesHolder3.titleView.text = @"e";
+                frame = notesHolder3.frame;
+                frame.origin.x = x3;
+                notesHolder3.frame = frame;
+                [notesHolder3 setHidden:NO];
+            }
             
             break;
             
@@ -278,23 +278,21 @@
     return nil;
 }
 -(NSDictionary*)createSaveFile{
-    
     NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
     [preSaveFile setValue:[NSNumber numberWithInt:self.currentSubdivision] forKey:@"subdivision"];
     NSMutableArray*preSaveNoteHolders = [[NSMutableArray alloc] init];
-    for(NotesHolder*notesHolder in _noteHolders ){
-        NSMutableDictionary *preSaveNoteHolder = [[NSMutableDictionary alloc] init];
-        [preSaveNoteHolder setValue: notesHolder.titleView.text forKey:@"title"];
-        [preSaveNoteHolder setValue: [notesHolder createSaveFile] forKey:@"notesholdersave"];
-        [preSaveNoteHolders addObject:preSaveNoteHolder];
+    for(int i = 0; i<  (_currentSubdivision +1); i++){
+        [preSaveNoteHolders addObject:[[_noteHolders objectAtIndex:i] createSaveFile]];
     }
     [preSaveFile setValue:[[NSArray alloc] initWithArray:preSaveNoteHolders] forKey:@"notesholders"];
     return [[NSDictionary alloc] initWithDictionary:preSaveFile];
-    
-    
 }
 
 -(void)loadSaveFile:(NSDictionary *)saveFile{
-    
+    [self changeSubDivision:[[saveFile objectForKey:@"subdivision"] intValue]];
+    NSArray * loadNotesHolders = [saveFile objectForKey:@"notesholders"];
+    for(int i =0; i < [loadNotesHolders count]; i++){
+        [[_noteHolders objectAtIndex:i] loadSaveFile:[loadNotesHolders objectAtIndex:i]];
+    }
 }
 @end

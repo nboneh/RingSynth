@@ -28,4 +28,6 @@
 -(void)stop;
 -(Measure *)findMeasureAtx:(int)x;
 -(void)setMuted:(BOOL)abool;
+-(NSArray*)createSaveFile;
+-(void)loadSaveFile:(NSArray *)saveFile;
 @end

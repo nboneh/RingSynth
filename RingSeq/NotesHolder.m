@@ -181,8 +181,8 @@
 }
 
 -(NSDictionary*)createSaveFile{
+    NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
     if([_notes count] >0){
-        NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
         [preSaveFile setValue:[NSNumber numberWithFloat:_volumeSlider.value] forKey:@"volume"];
         NSMutableArray*preSaveNotes = [[NSMutableArray alloc] init];
         for(Note*note in _notes ){
@@ -193,27 +193,30 @@
             [preSaveNotes addObject:preSaveNote];
         }
         [preSaveFile setValue:[[NSArray alloc] initWithArray:preSaveNotes] forKey:@"notes"];
-        return [[NSDictionary alloc] initWithDictionary:preSaveFile];
     }
-    return nil;
+    return [[NSDictionary alloc] initWithDictionary:preSaveFile];
 }
 
 -(void)loadSaveFile:(NSDictionary *)saveFile{
-    _volumeSlider.value = [[saveFile objectForKey:@"volume"] floatValue];
-    NSArray *loadNotes = [saveFile objectForKey:@"notes"];
-    for(NSDictionary * noteDict in loadNotes){
-        Note*note = [[Note alloc] initWithNotePlacement:[_staff.notePlacements objectAtIndex:[[noteDict objectForKey:@"noteplacement"] intValue]]
-            withInstrument:[[Assets INSTRUMENTS] objectAtIndex:[[noteDict objectForKey:@"instrument"] intValue]] andAccedintal:[[noteDict  objectForKey:@"accidental"] intValue]];
-        if(!_notes){
-            _notes = [[NSMutableArray alloc] init];
+    if([saveFile objectForKey:@"volume" ]){
+        NSArray *loadNotes = [saveFile objectForKey:@"notes"];
+        for(NSDictionary * noteDict in loadNotes){
+            Note*note = [[Note alloc] initWithNotePlacement:[_staff.notePlacements objectAtIndex:[[noteDict objectForKey:@"noteplacement"] intValue]]
+                                             withInstrument:[[Assets INSTRUMENTS] objectAtIndex:[[noteDict objectForKey:@"instrument"] intValue]] andAccedintal:[[noteDict  objectForKey:@"accidental"] intValue]];
+            if(!_notes){
+                _notes = [[NSMutableArray alloc] init];
+            }
+            CGRect frame = note.frame;
+            frame.origin.y += _volumeMeterHeight;
+            frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
+            note.frame = frame;
+
+            [_notes addObject:note];
+            [self addSubview:note];
         }
-        [_notes addObject:note];
-        [self addSubview:note];
+        [self checkViews];
+
+         _volumeSlider.value = [[saveFile objectForKey:@"volume"] floatValue];
     }
 }
-
-
-
-
-
 @end

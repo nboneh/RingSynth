@@ -54,6 +54,7 @@ static BOOL LOOPING;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    firstTimeLoadingSubView = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
@@ -97,19 +98,20 @@ static BOOL LOOPING;
     [_instrumentController addGestureRecognizer:longpress];
     
     [self.view addSubview:_instrumentController];
-    [self load];
     [self fixSegements];
 }
 
 -(void) viewDidLayoutSubviews{
-    if(!_fullGrid){
+    if(firstTimeLoadingSubView){
         CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
         _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
         [_fullGrid setNumOfMeasures:[_beatsTextField.text intValue]];
         [self.view addSubview:_fullGrid];
         [self.view bringSubviewToFront: _instrumentController];
         [self.view bringSubviewToFront: _bottomBar];
+        [self load];
     }
+    firstTimeLoadingSubView = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,22 +173,23 @@ static BOOL LOOPING;
         [saveInstruments addObject:[NSNumber numberWithInt:(int)[[Assets INSTRUMENTS] indexOfObject:instrument]]];
     }
     [preSaveFile setValue:[[NSArray alloc] initWithArray:saveInstruments] forKey:@"instruments"];
-    [preSaveFile setValue:_fullGrid forKey:@"fullGrid"];
+    [preSaveFile setValue:[_fullGrid createSaveFile] forKey:@"fullGrid"];
     NSDictionary *saveFile = [[NSDictionary alloc] initWithDictionary:preSaveFile];
     [NSKeyedArchiver archiveRootObject:saveFile toFile:[self getPath:(id) _name]];
 }
 -(void)load{
-    NSDictionary *load =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id) _name]];
-    if(load){
-        _tempoField.text =[load objectForKey:@"tempo"];
-        _beatsTextField.text = [load objectForKey:@"beats"];
-        NSArray *loadInstruments= [load objectForKey:@"instruments"];
+    NSDictionary *saveFile =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id) _name]];
+    if(saveFile){
+        _tempoField.text =[saveFile objectForKey:@"tempo"];
+        _beatsTextField.text = [saveFile objectForKey:@"beats"];
+        NSArray *loadInstruments= [saveFile objectForKey:@"instruments"];
         for(NSNumber * num in loadInstruments){
             Instrument* instrument =[[Assets INSTRUMENTS] objectAtIndex:[num intValue]];
             [self addInstrument:instrument fromLoad:YES];
         }
-        
-        _fullGrid = [load objectForKey:@"fullGrid"];
+        [_instrumentController setSelectedSegmentIndex:0];
+        [_fullGrid setNumOfMeasures:[_beatsTextField.text intValue]];
+        [_fullGrid loadSaveFile:[saveFile objectForKey:@"fullGrid"]];
         [self.view addSubview:_fullGrid];
     }
 }
