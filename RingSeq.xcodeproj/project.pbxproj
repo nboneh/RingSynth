@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
-		0B39A04919EF853A006B7EA5 /* UIColor+saveColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */; };
 		0B39A04C19F04601006B7EA5 /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Measure.m */; };
+		0B48212419F714C200FAA167 /* SaveFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B48212319F714C200FAA167 /* SaveFile.m */; };
 		0B703EB419E70B5F00CED5B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB319E70B5F00CED5B4 /* main.m */; };
 		0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB619E70B5F00CED5B4 /* AppDelegate.m */; };
 		0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB919E70B5F00CED5B4 /* MasterViewController.m */; };
@@ -132,10 +132,10 @@
 /* Begin PBXFileReference section */
 		0B39A04319EF24BB006B7EA5 /* FullGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullGrid.h; sourceTree = "<group>"; };
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
-		0B39A04719EF853A006B7EA5 /* UIColor+saveColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+saveColor.h"; sourceTree = "<group>"; };
-		0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+saveColor.m"; sourceTree = "<group>"; };
 		0B39A04A19F04601006B7EA5 /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
 		0B39A04B19F04601006B7EA5 /* Measure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measure.m; sourceTree = "<group>"; };
+		0B48212219F714C200FAA167 /* SaveFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveFile.h; sourceTree = "<group>"; };
+		0B48212319F714C200FAA167 /* SaveFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveFile.m; sourceTree = "<group>"; };
 		0B703EAE19E70B5F00CED5B4 /* RingSeq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingSeq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703EB219E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703EB319E70B5F00CED5B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -307,12 +307,12 @@
 		0B39A04619EF8518006B7EA5 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				0B39A04719EF853A006B7EA5 /* UIColor+saveColor.h */,
-				0B39A04819EF853A006B7EA5 /* UIColor+saveColor.m */,
 				0B7AB60319F21C0D0092F808 /* SlidingSegment.h */,
 				0B7AB60419F21C0D0092F808 /* SlidingSegment.m */,
 				0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */,
 				0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */,
+				0B48212219F714C200FAA167 /* SaveFile.h */,
+				0B48212319F714C200FAA167 /* SaveFile.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -806,6 +806,7 @@
 				0B9AF93F19F3287E00F6C176 /* ALDevice.m in Sources */,
 				0B74953419EC5C570078296B /* NoteDescription.m in Sources */,
 				0B9AF94819F3287E00F6C176 /* mach_timing.c in Sources */,
+				0B48212419F714C200FAA167 /* SaveFile.m in Sources */,
 				0B9AF93919F3287E00F6C176 /* OALAudioTracks.m in Sources */,
 				0B9AF93419F3287E00F6C176 /* OALActionManager.m in Sources */,
 				0B9AF93A19F3287E00F6C176 /* OALSimpleAudio.m in Sources */,
@@ -839,7 +840,6 @@
 				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
 				0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */,
-				0B39A04919EF853A006B7EA5 /* UIColor+saveColor.m in Sources */,
 				0B703EBD19E70B5F00CED5B4 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

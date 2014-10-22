@@ -46,4 +46,7 @@ typedef enum {
 -(void)stop;
 -(NotesHolder *)findNoteHolderAtX:(int)x;
 
+-(NSDictionary*)createSaveFile;
+-(void)loadSaveFile:(NSDictionary *)saveFile;
+
 @end

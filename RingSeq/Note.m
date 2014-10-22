@@ -18,7 +18,7 @@
         _notePlacement =placement;
         _noteDescription = [placement.noteDescs objectAtIndex:accidental];
         _instrView = [[UIImageView alloc] initWithImage:[instrument image]];
-    [_instrView setTintColor:instrument.color];
+        [_instrView setTintColor:instrument.color];
         CGRect imageFrame = _instrView.frame;
         self.frame = CGRectMake(0, placement.y - imageFrame.size.height, imageFrame.size.width, imageFrame.size.height);
         [self addSubview:_instrView];

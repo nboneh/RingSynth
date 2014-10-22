@@ -31,4 +31,6 @@
 -(Note *)deleteNoteIfExistsAtY:(int)y;
 -(void)play;
 -(BOOL)anyNotesInNoteHolder;
+-(NSDictionary*)createSaveFile;
+-(void)loadSaveFile:(NSDictionary *)saveFile;
 @end

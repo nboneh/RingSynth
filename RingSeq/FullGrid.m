@@ -58,7 +58,11 @@
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self stopAnimation];
     if(_isPlaying){
-        [self stop];
+        
+        for(Layout * layer in layers){
+            [layer stop];
+        }
+        [self stopAnimation];
         [self setZoomScale:1.0f animated:NO];
         [self scrollRectToVisible:frame animated:NO];
         [self playWithTempo:bpm];
@@ -116,10 +120,10 @@
 }
 
 -(void)playWithTempo:(int)bpm_{
-    [self setUserInteractionEnabled:NO];
     
     bpm = bpm_;
-    if([layers count] >0){
+    if([layers count] >0  && ![self isZooming] && ![self isDragging] && ![self isDecelerating]){
+            [self setUserInteractionEnabled:NO];
         [self setZoomScale:1.0f animated:NO];
 
         Layout *layer = [layers objectAtIndex:0];
@@ -131,11 +135,9 @@
         _isPlaying = YES;
         
     } else {
-        [self stop];
-        [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStoppedByApp"
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
                                                             object: nil
                                                           userInfo: nil];
-        
     }
 }
 -(void)stop{
@@ -148,6 +150,11 @@
     }
     [self stopAnimation];
     _isPlaying = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
+                                                        object: nil
+                                                      userInfo: nil];
+    
+
 }
 -(void)stopAnimation{
     [stopAnimTimer invalidate];
@@ -196,10 +203,6 @@
     if(![DetailViewController LOOPING]){
         [self stop];
         [self replay];
-        [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStoppedByApp"
-                                                            object: nil
-                                                          userInfo: nil];
-        
     } else{
         [self replay];
     }

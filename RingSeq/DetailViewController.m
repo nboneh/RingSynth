@@ -11,9 +11,11 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
+#import "SaveFile.h"
 
 @interface DetailViewController ()
 -(void)fixSegements;
+-(void)addInstrument:(Instrument *)instrument fromLoad:(BOOL)load;
 @end
 
 @implementation DetailViewController
@@ -64,8 +66,8 @@ static BOOL LOOPING;
                    name: @"willEnterForeground"
                  object: nil];
     [center addObserver: self
-               selector: @selector(musicStoppedByApp:)
-                   name: @"musicStoppedByApp"
+               selector: @selector(musicStopped:)
+                   name: @"musicStopped"
                  object: nil];
     
     
@@ -73,7 +75,7 @@ static BOOL LOOPING;
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     
-     firstTimeLoadingSubView = YES;
+    firstTimeLoadingSubView = YES;
     CURRENT_INSTRUMENT = nil;
     CURRENT_ACCIDENTAL = natural;
     CURRENT_EDIT_MODE = insert;
@@ -95,11 +97,11 @@ static BOOL LOOPING;
     [_instrumentController addGestureRecognizer:longpress];
     
     [self.view addSubview:_instrumentController];
+    [self load];
     [self fixSegements];
 }
 
 -(void) viewDidLayoutSubviews{
-    
     if(!_fullGrid){
         CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
         _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
@@ -108,8 +110,6 @@ static BOOL LOOPING;
         [self.view bringSubviewToFront: _instrumentController];
         [self.view bringSubviewToFront: _bottomBar];
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,16 +118,15 @@ static BOOL LOOPING;
 }
 
 -(void)enteredBackground:(NSNotification *)notification{
-    //Saving file
-    [self save];
     //Stoping sound
     [_fullGrid stop];
     [_fullGrid silence];
     [_playButton setImage:[UIImage imageNamed:@"play"]];
-    
+    //Saving file
+    [self save];
 }
 
--(void)musicStoppedByApp:(NSNotification *)notification{
+-(void)musicStopped:(NSNotification *)notification{
     [_playButton setImage:[UIImage imageNamed:@"play"]];
     
 }
@@ -135,8 +134,9 @@ static BOOL LOOPING;
 -(void) viewWillDisappear:(BOOL)animated
 {
     //View will disappear save music
-    [self save];
+    [_fullGrid stop];
     [_fullGrid silence];
+    [self save];
     [super viewWillDisappear:animated];
 }
 
@@ -163,11 +163,38 @@ static BOOL LOOPING;
 
 
 -(void) save{
-    //  [NSKeyedArchiver archiveRootObject:fullGrid toFile:[self getPath:(id) _name]];
+    NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
+    [preSaveFile setValue:_tempoField.text  forKey:@"tempo"];
+    [preSaveFile setValue: _beatsTextField.text forKey:@"beats"];
+    NSMutableArray *saveInstruments = [[NSMutableArray alloc] init];
+    for(Instrument * instrument in instruments){
+        [saveInstruments addObject:[NSNumber numberWithInt:(int)[[Assets INSTRUMENTS] indexOfObject:instrument]]];
+    }
+    [preSaveFile setValue:[[NSArray alloc] initWithArray:saveInstruments] forKey:@"instruments"];
+    [preSaveFile setValue:_fullGrid forKey:@"fullGrid"];
+    NSDictionary *saveFile = [[NSDictionary alloc] initWithDictionary:preSaveFile];
+    [NSKeyedArchiver archiveRootObject:saveFile toFile:[self getPath:(id) _name]];
 }
+-(void)load{
+    NSDictionary *load =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id) _name]];
+    if(load){
+        _tempoField.text =[load objectForKey:@"tempo"];
+        _beatsTextField.text = [load objectForKey:@"beats"];
+        NSArray *loadInstruments= [load objectForKey:@"instruments"];
+        for(NSNumber * num in loadInstruments){
+            Instrument* instrument =[[Assets INSTRUMENTS] objectAtIndex:[num intValue]];
+            [self addInstrument:instrument fromLoad:YES];
+        }
+        
+        _fullGrid = [load objectForKey:@"fullGrid"];
+        [self.view addSubview:_fullGrid];
+    }
+}
+
 
 - (void)longPress:(UILongPressGestureRecognizer *)recognizer{
     if(recognizer.state == UIGestureRecognizerStateEnded ){
+        [_fullGrid stop];
         CGPoint translate = [recognizer locationInView:_instrumentController];
         int selectedIndex =((translate.x/_instrumentController.frame.size.width) * [_instrumentController numberOfSegments]);
         if(selectedIndex > 0 && selectedIndex < ([_instrumentController numberOfSegments]  -1)){
@@ -197,6 +224,7 @@ static BOOL LOOPING;
 -(void)changeInstruments{
     int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
     if(pos == ([_instrumentController numberOfSegments] -2)){
+        [_fullGrid stop];
         UIActionSheet *newInstruments = [[UIActionSheet alloc] initWithTitle:@"New instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
         for (Instrument *inst in [Assets INSTRUMENTS]) {
             [newInstruments addButtonWithTitle:inst.name];
@@ -222,22 +250,11 @@ static BOOL LOOPING;
 }
 - (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex != popup.cancelButtonIndex){
-        if(!instruments)
-            instruments = [[NSMutableArray alloc] init];
-        int pos =(int)[_instrumentController numberOfSegments] -1;
-        CGRect frame  =_instrumentController.frame;
-        int add = frame.size.width/[_instrumentController numberOfSegments];
-        frame.size.width += add;
-        _instrumentController.frame = frame;
         Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
-        [_instrumentController insertSegmentWithImage:instrument.image atIndex:pos animated:YES];
-        [_instrumentController setSelectedSegmentIndex:pos];
-        [[[_instrumentController subviews] objectAtIndex:pos] setTintColor:instrument.color];
-        [_fullGrid addLayer];
-        [instruments addObject:instrument];
+        [self addInstrument:instrument fromLoad:NO];
         [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
         prevSelect =((int)[_instrumentController numberOfSegments] - 1);
-        [self fixSegements];
+        [_fullGrid addLayer];
         [self changeInstruments];
     }
     else{
@@ -245,6 +262,25 @@ static BOOL LOOPING;
         [_fullGrid changeLayer:prevSelect -1];
     }
     
+}
+
+-(void)addInstrument:(Instrument *)instrument fromLoad:(BOOL)load{
+    if(!instruments)
+        instruments = [[NSMutableArray alloc] init];
+    int pos =(int)[_instrumentController numberOfSegments] -1;
+    CGRect frame  =_instrumentController.frame;
+    int add = frame.size.width/[_instrumentController numberOfSegments];
+    frame.size.width += add;
+    _instrumentController.frame = frame;
+    [_instrumentController insertSegmentWithImage:instrument.image atIndex:pos animated:YES];
+    [_instrumentController setSelectedSegmentIndex:pos];
+    if(load)
+        [[[_instrumentController subviews] objectAtIndex:1] setTintColor:instrument.color];
+    else
+        [[[_instrumentController subviews] objectAtIndex:pos] setTintColor:instrument.color];
+    
+    [instruments addObject:instrument];
+    [self fixSegements];
 }
 
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender{
@@ -270,24 +306,24 @@ static BOOL LOOPING;
     [_fullGrid replay];
 }
 -(IBAction)changeTempo{
-    if(![_fullGrid isPlaying]){
-        tempoAlert = [[UIAlertView alloc] initWithTitle:@"Change Tempo" message:[NSString stringWithFormat:@"Max: %d bpm Min: %d bpm" ,MAX_TEMPO, MIN_TEMPO]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
-        tempoAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        [tempoAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
-        [tempoAlert textFieldAtIndex:0].text = _tempoField.text;
-        [tempoAlert show];
-    }
+    [_fullGrid stop];
+    tempoAlert = [[UIAlertView alloc] initWithTitle:@"Change Tempo" message:[NSString stringWithFormat:@"Min: %d bpm Max: %d bpm" ,MIN_TEMPO, MAX_TEMPO]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
+    tempoAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [tempoAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+    [tempoAlert textFieldAtIndex:0].text = _tempoField.text;
+    [tempoAlert show];
     
 }
 
 -(IBAction)changeBeat{
-    if(![_fullGrid isPlaying]){
-        beatAlert = [[UIAlertView alloc] initWithTitle:@"Change Number of Beats" message:[NSString stringWithFormat:@"Max: %d Min: %d" ,MAX_BEATS, MIN_BEATS]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
-        beatAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        [beatAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
-        [beatAlert textFieldAtIndex:0].text = _beatsTextField.text;
-        [beatAlert show];
-    }
+    [_fullGrid stop];
+    
+    beatAlert = [[UIAlertView alloc] initWithTitle:@"Change Number of Beats" message:[NSString stringWithFormat:@"Min: %d beats Max: %d beats" ,MIN_BEATS, MAX_BEATS]     delegate:self cancelButtonTitle:nil otherButtonTitles:@"Change", nil];
+    beatAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [beatAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+    [beatAlert textFieldAtIndex:0].text = _beatsTextField.text;
+    [beatAlert show];
+    
     
 }
 
@@ -340,7 +376,6 @@ static BOOL LOOPING;
 
 -(IBAction)play:(UIBarButtonItem*)sender{
     if(_fullGrid.isPlaying){
-        [sender setImage:[UIImage imageNamed:@"play"]];
         [_fullGrid stop];
     }
     else{

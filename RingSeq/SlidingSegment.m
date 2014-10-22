@@ -17,7 +17,6 @@
         [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(panInstruments:)];
         [self addGestureRecognizer:panInstruments];
-        
     }
     return self;
 }

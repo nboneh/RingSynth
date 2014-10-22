@@ -25,6 +25,7 @@
         staff = staff_;
         measures = [[NSMutableArray alloc] init];
         channel =[[ALChannelSource alloc] initWithSources:kDefaultReservedSources];
+        _numOfMeasures = numOfMeasures;
         
         _widthFromFirstMeasure = staff.trebleView.frame.size.width;
         int delX =_widthFromFirstMeasure;
@@ -56,7 +57,7 @@
     
 }
 -(void)playMeasure:(NSTimer *)target{
-    if(_currentMeasurePlaying >= [measures count]){
+    if(_currentMeasurePlaying >= _numOfMeasures){
         if([DetailViewController LOOPING])
             _currentMeasurePlaying = 0;
         else{
@@ -83,7 +84,7 @@
     _currentMeasurePlaying = 0;
 }
 -(void)changeSubDivision:(Subdivision)subdivision{
-    NSInteger size = [measures count];
+    NSInteger size = _numOfMeasures ;
     for(int i = 0; i < size; i++){
         Measure* measure = [measures objectAtIndex:i];
         if(!measure.anyNotesInsubdivision)
@@ -96,13 +97,13 @@
     CGRect myFrame = self.frame;
     myFrame.size.width = _widthPerMeasure * numOfMeasures + _widthFromFirstMeasure;
     self.frame = myFrame;
-     int newSize =[measures count] + numOfMeasures;
     int delX =_widthFromFirstMeasure + [measures count]*(_widthPerMeasure) ;
-    for(int i = (int)[measures count]; i < newSize; i++){
+    for(int i = (int)[measures count]; i < numOfMeasures; i++){
         Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, self.frame.size.height) andNum:(i) andChannel:channel];
         [measures addObject:measure];
         [self addSubview:measure];
         delX += _widthPerMeasure;
+        [measure setDelegate:self];
     }
         
 }

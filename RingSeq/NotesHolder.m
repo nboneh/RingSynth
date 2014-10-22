@@ -32,6 +32,8 @@
         _titleView.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleView];
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, _titleViewHeight, 2,  _staff.frame.size.height -staff.spacePerNote *2)];
+        
+        
         [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
         NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
         NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:title];
@@ -47,7 +49,7 @@
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(handleSingleTap:)];
         [self addGestureRecognizer:singleFingerTap];
-
+        
     }
     return self;
 }
@@ -63,8 +65,8 @@
         [_volumeSlider setValue:0.75f];
         _volumeSlider.maximumValue = 1.05f;
         [_volumeSlider addTarget:self
-                         action:@selector(sliderViewChange:)
-               forControlEvents:UIControlEventValueChanged];
+                          action:@selector(sliderViewChange:)
+                forControlEvents:UIControlEventValueChanged];
         [self addSubview:_volumeSlider];
     }
     if(_notes.count >0)
@@ -140,7 +142,7 @@
     [note addGestureRecognizer:doubleFingerTap];
     UILongPressGestureRecognizer *longPress =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(longPress:)];
+                                                  action:@selector(longPress:)];
     [note addGestureRecognizer:longPress];
     
 }
@@ -175,6 +177,38 @@
 -(void)sliderViewChange:(UISlider *)sender{
     if ([sender value] > 1.0f) {
         [sender setValue:1.0f];
+    }
+}
+
+-(NSDictionary*)createSaveFile{
+    if([_notes count] >0){
+        NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
+        [preSaveFile setValue:[NSNumber numberWithFloat:_volumeSlider.value] forKey:@"volume"];
+        NSMutableArray*preSaveNotes = [[NSMutableArray alloc] init];
+        for(Note*note in _notes ){
+            NSMutableDictionary *preSaveNote = [[NSMutableDictionary alloc] init];
+            [preSaveNote setValue:[NSNumber numberWithInt:(int)[[Assets INSTRUMENTS] indexOfObject:note.instrument]] forKey:@"instrument"];
+            [preSaveNote setValue:[NSNumber numberWithInt:(int)[_staff.notePlacements indexOfObject:note.notePlacement]] forKey:@"noteplacement"];
+            [preSaveNote setValue:[NSNumber numberWithInt: note.accidental] forKey:@"accidental"];
+            [preSaveNotes addObject:preSaveNote];
+        }
+        [preSaveFile setValue:[[NSArray alloc] initWithArray:preSaveNotes] forKey:@"notes"];
+        return [[NSDictionary alloc] initWithDictionary:preSaveFile];
+    }
+    return nil;
+}
+
+-(void)loadSaveFile:(NSDictionary *)saveFile{
+    _volumeSlider.value = [[saveFile objectForKey:@"volume"] floatValue];
+    NSArray *loadNotes = [saveFile objectForKey:@"notes"];
+    for(NSDictionary * noteDict in loadNotes){
+        Note*note = [[Note alloc] initWithNotePlacement:[_staff.notePlacements objectAtIndex:[[noteDict objectForKey:@"noteplacement"] intValue]]
+            withInstrument:[[Assets INSTRUMENTS] objectAtIndex:[[noteDict objectForKey:@"instrument"] intValue]] andAccedintal:[[noteDict  objectForKey:@"accidental"] intValue]];
+        if(!_notes){
+            _notes = [[NSMutableArray alloc] init];
+        }
+        [_notes addObject:note];
+        [self addSubview:note];
     }
 }
 

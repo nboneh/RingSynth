@@ -23,7 +23,7 @@
 
 -(UIImage *)image{
     if(_image == nil) {
-        _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+       _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return _image;
 }
