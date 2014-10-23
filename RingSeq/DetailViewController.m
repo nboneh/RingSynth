@@ -11,6 +11,7 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
+#import "lame.h"
 
 @interface DetailViewController ()
 -(void)fixSegements;
@@ -393,6 +394,17 @@ static BOOL LOOPING;
     else
         [sender setImage:[UIImage imageNamed:@"noloop"]];
     
+}
+
+-(IBAction)exportMusic{
+    @try {
+        int read, write;
+        lame_t lame = lame_init();
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",[exception description]);
+    }
 }
 
 +(EditMode)CURRENT_EDIT_MODE{

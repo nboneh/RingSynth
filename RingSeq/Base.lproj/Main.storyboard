@@ -121,7 +121,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="dar-5b-x6U"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="dar-5b-x6U">
+                            <connections>
+                                <action selector="exportMusic" destination="JEX-9P-axG" id="ETl-pD-z2X"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

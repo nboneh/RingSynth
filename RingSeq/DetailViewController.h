@@ -44,6 +44,7 @@ typedef enum {
 -(IBAction)play:(UIBarButtonItem*)sender;
 -(IBAction)loop:(UIBarButtonItem*)sender;
 -(IBAction)changeBeat;
+-(IBAction)exportMusic;
 @property (weak, nonatomic) IBOutlet UINavigationItem *topBar;
 
 +(Instrument *)CURRENT_INSTRUMENT;

@@ -46,6 +46,7 @@
 }
 
 -(void)playWithTempo:(int)bpm_ fromMeasure:(int)measure{
+ 
     _currentMeasurePlaying = measure ;
     bpm = bpm_;
     playTimer =[NSTimer scheduledTimerWithTimeInterval:(60.0f/bpm)
@@ -76,11 +77,10 @@
 
 -(void)stop{
     [playTimer invalidate];
-    if(_currentMeasurePlaying < _numOfMeasures){
-        Measure * measure = [measures objectAtIndex:_currentMeasurePlaying];
+     playTimer = nil;
+    for(Measure * measure in measures){
         [measure stop];
     }
-    playTimer = nil;
     _currentMeasurePlaying = 0;
 }
 -(void)changeSubDivision:(Subdivision)subdivision{
@@ -97,7 +97,7 @@
     CGRect myFrame = self.frame;
     myFrame.size.width = _widthPerMeasure * numOfMeasures + _widthFromFirstMeasure;
     self.frame = myFrame;
-    int delX =_widthFromFirstMeasure + [measures count]*(_widthPerMeasure) ;
+    int delX =_widthFromFirstMeasure + (int)[measures count]*(_widthPerMeasure) ;
     for(int i = (int)[measures count]; i < numOfMeasures; i++){
         Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, self.frame.size.height) andNum:(i) andChannel:channel];
         [measures addObject:measure];

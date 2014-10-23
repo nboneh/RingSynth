@@ -172,7 +172,6 @@
 }
 
 -(void)playWithTempo:(int)bpm{
-    
     float time = (60.0f/bpm)/(_currentSubdivision+1);
     currentPlayingNoteHolder =0;
     playTimer =[NSTimer scheduledTimerWithTimeInterval:time
@@ -252,13 +251,13 @@
 }
 
 -(void)stop{
+    [playTimer invalidate];
+    playTimer = nil;
     prevNoteHolder = nil;
     for(NotesHolder * notesHolder in _noteHolders){
         [notesHolder.titleView setTextColor:[UIColor blackColor]];
         [notesHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
     }
-    [playTimer invalidate];
-    playTimer = nil;
 }
 
 -(NotesHolder *)findNoteHolderAtX:(int)x{
