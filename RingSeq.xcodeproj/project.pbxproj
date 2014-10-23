@@ -91,17 +91,17 @@
 		0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9E919F341E400F6C176 /* KickDrum3.wav */; };
 		0B9AF9EC19F341FA00F6C176 /* Snare2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9EB19F341FA00F6C176 /* Snare2.wav */; };
 		0B9AF9F019F3422B00F6C176 /* Snare1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9EF19F3422B00F6C176 /* Snare1.wav */; };
-		0B9AF9F219F3426B00F6C176 /* Tom2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F119F3426B00F6C176 /* Tom2.wav */; };
+		0B9AF9F219F3426B00F6C176 /* Tom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F119F3426B00F6C176 /* Tom.wav */; };
 		0B9AF9F419F3428A00F6C176 /* FloorTom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F319F3428A00F6C176 /* FloorTom.wav */; };
 		0B9AF9F619F3432F00F6C176 /* ClosedHiHat2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F519F3432F00F6C176 /* ClosedHiHat2.wav */; };
 		0B9AF9F819F3436A00F6C176 /* ClosedHiHat3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9F719F3436A00F6C176 /* ClosedHiHat3.wav */; };
 		0B9AF9FC19F343D000F6C176 /* Snare3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9FB19F343D000F6C176 /* Snare3.wav */; };
-		0B9AF9FE19F3448700F6C176 /* Tom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9FD19F3448700F6C176 /* Tom.wav */; };
 		0B9AFA0019F344CF00F6C176 /* RideCymbal3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF9FF19F344CF00F6C176 /* RideCymbal3.wav */; };
 		0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0219F3455E00F6C176 /* Drums.m */; };
 		0B9AFA0519F347AB00F6C176 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0419F347AB00F6C176 /* Bell.wav */; };
 		0B9AFA0719F3714C00F6C176 /* Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0619F3714C00F6C176 /* Bass.wav */; };
 		0B9AFA0A19F6087200F6C176 /* NonEditableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */; };
+		0BA7319219F895F600CC8498 /* Tom2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BA7319119F895F600CC8498 /* Tom2.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,12 +268,11 @@
 		0B9AF9E919F341E400F6C176 /* KickDrum3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = KickDrum3.wav; sourceTree = "<group>"; };
 		0B9AF9EB19F341FA00F6C176 /* Snare2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Snare2.wav; sourceTree = "<group>"; };
 		0B9AF9EF19F3422B00F6C176 /* Snare1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Snare1.wav; sourceTree = "<group>"; };
-		0B9AF9F119F3426B00F6C176 /* Tom2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom2.wav; sourceTree = "<group>"; };
+		0B9AF9F119F3426B00F6C176 /* Tom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom.wav; sourceTree = "<group>"; };
 		0B9AF9F319F3428A00F6C176 /* FloorTom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FloorTom.wav; sourceTree = "<group>"; };
 		0B9AF9F519F3432F00F6C176 /* ClosedHiHat2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ClosedHiHat2.wav; sourceTree = "<group>"; };
 		0B9AF9F719F3436A00F6C176 /* ClosedHiHat3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ClosedHiHat3.wav; sourceTree = "<group>"; };
 		0B9AF9FB19F343D000F6C176 /* Snare3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Snare3.wav; sourceTree = "<group>"; };
-		0B9AF9FD19F3448700F6C176 /* Tom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom.wav; sourceTree = "<group>"; };
 		0B9AF9FF19F344CF00F6C176 /* RideCymbal3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RideCymbal3.wav; sourceTree = "<group>"; };
 		0B9AFA0119F3455E00F6C176 /* Drums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drums.h; sourceTree = "<group>"; };
 		0B9AFA0219F3455E00F6C176 /* Drums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drums.m; sourceTree = "<group>"; };
@@ -281,6 +280,7 @@
 		0B9AFA0619F3714C00F6C176 /* Bass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bass.wav; sourceTree = "<group>"; };
 		0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonEditableTextField.h; sourceTree = "<group>"; };
 		0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonEditableTextField.m; sourceTree = "<group>"; };
+		0BA7319119F895F600CC8498 /* Tom2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom2.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,8 +369,8 @@
 				0B9AF9D119F3405E00F6C176 /* RideCymbal1.wav */,
 				0B9AF9D919F340AA00F6C176 /* RideCymbal2.wav */,
 				0B9AF9FF19F344CF00F6C176 /* RideCymbal3.wav */,
-				0B9AF9FD19F3448700F6C176 /* Tom.wav */,
-				0B9AF9F119F3426B00F6C176 /* Tom2.wav */,
+				0BA7319119F895F600CC8498 /* Tom2.wav */,
+				0B9AF9F119F3426B00F6C176 /* Tom.wav */,
 				0B9AF9F319F3428A00F6C176 /* FloorTom.wav */,
 				0B9AF9E519F3417B00F6C176 /* KickDrum1.wav */,
 				0B9AF9E719F3418D00F6C176 /* KickDrum2.wav */,
@@ -623,9 +623,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B703EAD19E70B5F00CED5B4 /* RingSeq */ = {
+		0B703EAD19E70B5F00CED5B4 /* RingRing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingSeq" */;
+			buildConfigurationList = 0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingRing" */;
 			buildPhases = (
 				0B703EAA19E70B5F00CED5B4 /* Sources */,
 				0B703EAB19E70B5F00CED5B4 /* Frameworks */,
@@ -635,7 +635,7 @@
 			);
 			dependencies = (
 			);
-			name = RingSeq;
+			name = RingRing;
 			productName = RingSeq;
 			productReference = 0B703EAE19E70B5F00CED5B4 /* RingSeq.app */;
 			productType = "com.apple.product-type.application";
@@ -696,7 +696,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				0B703EAD19E70B5F00CED5B4 /* RingSeq */,
+				0B703EAD19E70B5F00CED5B4 /* RingRing */,
 				0B703EC919E70B5F00CED5B4 /* RingSeqTests */,
 			);
 		};
@@ -738,6 +738,7 @@
 				0B9AF93019F3287E00F6C176 /* ObjectAL-Overview2.png in Resources */,
 				0B9AF9E619F3417B00F6C176 /* KickDrum1.wav in Resources */,
 				0B74953B19EE050E0078296B /* delete1.wav in Resources */,
+				0BA7319219F895F600CC8498 /* Tom2.wav in Resources */,
 				0B9AF9F619F3432F00F6C176 /* ClosedHiHat2.wav in Resources */,
 				0B9AF94D19F3287E00F6C176 /* InfoPlist.strings in Resources */,
 				0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */,
@@ -767,13 +768,12 @@
 				0B74954119EE052D0078296B /* delete2.wav in Resources */,
 				0B9AF92C19F3287E00F6C176 /* ObjectAL-Overview1.eps in Resources */,
 				0B9AF9D419F3407200F6C176 /* Crash3.wav in Resources */,
-				0B9AF9FE19F3448700F6C176 /* Tom.wav in Resources */,
 				0B9AF93119F3287E00F6C176 /* ObjectAL-Overview2.svg in Resources */,
 				0B9AF94E19F3287E00F6C176 /* ObjectAL (OSX)-Info.plist in Resources */,
 				0B9AF9BA19F3389F00F6C176 /* Acoustic Guitar.wav in Resources */,
 				0B9AF94F19F3287E00F6C176 /* ObjectAL-for-iPhone.podspec in Resources */,
 				0B9AFA0019F344CF00F6C176 /* RideCymbal3.wav in Resources */,
-				0B9AF9F219F3426B00F6C176 /* Tom2.wav in Resources */,
+				0B9AF9F219F3426B00F6C176 /* Tom.wav in Resources */,
 				0B9AF9F419F3428A00F6C176 /* FloorTom.wav in Resources */,
 				0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */,
 			);
@@ -851,7 +851,7 @@
 /* Begin PBXTargetDependency section */
 		0B703ECC19E70B5F00CED5B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0B703EAD19E70B5F00CED5B4 /* RingSeq */;
+			target = 0B703EAD19E70B5F00CED5B4 /* RingRing */;
 			targetProxy = 0B703ECB19E70B5F00CED5B4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1030,7 +1030,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingSeq" */ = {
+		0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingRing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B703ED519E70B5F00CED5B4 /* Debug */,

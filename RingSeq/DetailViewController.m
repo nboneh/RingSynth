@@ -11,7 +11,6 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
-#import "SaveFile.h"
 
 @interface DetailViewController ()
 -(void)fixSegements;
