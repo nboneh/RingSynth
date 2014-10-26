@@ -290,7 +290,8 @@
     }
     [self changeLayer:-1];
 }
--(void) encodeWithCallBack:(void (^)(NSData *))callBackBlock{
+-(void) encodeWithBpm:(int)bpm_ andCallBack:(void (^)(NSData *))callBackBlock {
+    int numOfMeasures = self.numOfMeasures;
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if(layers.count == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
@@ -298,6 +299,65 @@
             }];
             return;
         }
+        
+        NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:@"Electric Guitar" ofType:@"wav"];
+        
+         NSData * header = [[NSData alloc] initWithContentsOfFile:musicPaths];
+     
+    
+        int sampleRate = 44100;
+        int bytesPerSample = 2;
+        float measuresPerSecond = 1/bpm_;
+        int samplePerMeasure = sampleRate * measuresPerSecond;
+        
+        int lengthOfPiece =bytesPerSample *samplePerMeasure *numOfMeasures+44;
+        
+        short int*cdata = ( short int*)malloc( bytesPerSample *sampleRate*measuresPerSecond* numOfMeasures+44);
+        [header getBytes:(  short int*)cdata range:NSMakeRange(0,44)];
+        
+        //Creating a copy of saveData we will decode it into out giant wave file composition
+        //This allows the user to mess with the grid as it encodes the wave file
+        NSArray *decodeData = [self createSaveFile];
+        NSArray *decodeLayer = [decodeData objectAtIndex:0];
+        for(int i = 0; i < 1; i++){
+            NSMutableDictionary *decodeMeasure = [decodeLayer objectAtIndex:i];
+            NSDictionary *notesHolder = [[decodeMeasure objectForKey:@"notesholders"] objectAtIndex:0];
+            float volume = [[notesHolder objectForKey:@"volume"] floatValue];
+            NSArray *notes = [notesHolder objectForKey:@"notes"];
+
+            for(int j = 0; j <1; j++){
+                NSDictionary *decodeNote=[notes objectAtIndex:j];
+                Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex:[[decodeNote objectForKey:@"instrument"] intValue]];
+                Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
+                NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
+                NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
+                NSData * noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
+                int positionToInsert = j * samplePerMeasure +22;
+                unsigned long noteLength = noteData.length/2;
+                short int*noteCData = ( short int*)malloc( noteData.length);
+                for(int k = 0; k < noteLength; k++){
+                    cdata[positionToInsert] +=noteCData[k]/10;
+                    positionToInsert++;
+                }
+                // free(noteCData);
+                
+            }
+        }
+
+       
+        NSData *data = [NSData dataWithBytes:(const void *)cdata length:(lengthOfPiece)];
+        
+        [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"Yo.wav"]
+                                                contents:data
+                                              attributes:nil];
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+            callBackBlock(data);
+        }];
+
+        free(cdata);
+        /*AudioFileTypeID fileType = kAudioFileWAVEType;
         AudioStreamBasicDescription audioFormat;
         audioFormat.mSampleRate         = 44100.00;
         audioFormat.mFormatID           = kAudioFormatLinearPCM;
@@ -306,7 +366,9 @@
         audioFormat.mChannelsPerFrame   = 2;
         audioFormat.mBitsPerChannel     = 16;
         audioFormat.mBytesPerPacket     = 4;
-        audioFormat.mBytesPerFrame      = 4;
+        audioFormat.mBytesPerFrame      = 4;*/
+
+
         
 
     });

@@ -81,37 +81,30 @@
 
 -(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
  [self initWavs];
-    NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *drum =[(NSDictionary *)[_sounds objectAtIndex:(note.octave -3)] objectForKey:[NSString stringWithFormat:@"%c",(note.character) ]];
     NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:[drum substringWithRange:NSMakeRange(0,[drum rangeOfString:@".wav" ].location)] ofType:@"wav"];
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
-    NSUInteger length = [data length];
+    NSUInteger length = [data length] -44;
     short int*cdata = (  short int*)malloc(length);
-    [data getBytes:(  short int*)cdata length:length];
+    [data getBytes:(  short int*)cdata range:NSMakeRange(44,length)];
     float pitch = 1.0f;
     if(note.accidental == sharp)
         pitch += .1f;
     else if(note.accidental == flat)
         pitch -= .1f;
 
-    
+    float delta = 1/pitch;
 
-    for(int i = 22; i < length/2; i++){
+    for(int i = 0; i < length/2; i++){
         cdata[i] = cdata[i] *volume;
     }
     [self initWavs];
-    
-    short int*outdata = (short int *) malloc(length/2);
-    for(int i =0; i < 22; i++){
-        outdata[i] = cdata[i];
-    }
-  //  smb_pitch_shift(pitch,length/2,cdata, outdata);
+     int newLength = (length * delta);
+    short int*outdata = (short int *) malloc(newLength);
+   smb_pitch_shift(cdata,outdata,length/2, newLength/2,delta);
     
 
-    data = [NSData dataWithBytes:(const void *)outdata length:(length/2)];
-    [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"Yo.wav"]
-                                            contents:data
-                                          attributes:nil];
+    free(outdata);
     free(cdata);
     return data;
 }

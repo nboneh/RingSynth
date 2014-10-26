@@ -403,13 +403,13 @@ static BOOL LOOPING;
     [activityIndicator startAnimating];
     [_fullGrid encodeWithBpm:[_tempoField.text intValue] andCallBack:^(NSData *data){
            self.navigationItem.rightBarButtonItem = button;
-        //if(data){
-            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ is downloaded", self.name] message:@"Export it to your phone via iTunes" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        if(data){
+            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ is downloaded", self.name] message:@"Export it to your device via iTunes" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [ringtoneAlert show];
-        /*} else{
+        } else{
             UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error downloading ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [ringtoneAlert show];
-        }*/
+        }
     }];
 }
 

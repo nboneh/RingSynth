@@ -81,30 +81,25 @@
 }
 
 -(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
-    NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
-    NSUInteger length = [data length];
+    //Get rid of header file 44 bytes
+    NSUInteger length = [data length] -44;
     short int*cdata = (  short int*)malloc(length);
-    [data getBytes:(  short int*)cdata length:length];
-    for(int i = 22; i < length/2; i++){
+    [data getBytes:(  short int*)cdata range:NSMakeRange(44,length)];
+    for(int i = 0; i < length /2; i++){
         cdata[i] = cdata[i] *volume;
     }
-      float delta = 1/[self calcPitch:note];
-    int newLength = ((length +44) * delta) +44;
+    
+    float delta = 1/[self calcPitch:note];
+    int newLength = (length* delta);
     short int*outdata = (short int *) malloc(newLength);
-    for(int i =0; i < 22; i++){
-        outdata[i] = cdata[i];
-    }
-
+    
     smb_pitch_shift(cdata, outdata,length/2, newLength/2,delta);
     
-    data = [NSData dataWithBytes:(const void *)outdata length:(length/2)];
-
-    [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"Yo.wav"]
-                                            contents:data
-                                          attributes:nil];
+    data = [NSData dataWithBytes:(const void *)outdata length:(newLength)];
     free(cdata);
+    free(outdata);
     return data;
 }
 

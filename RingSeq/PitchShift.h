@@ -13,5 +13,5 @@
 #include <math.h>
 
 
-void smb_pitch_shift(short int *origData, short int *outData, long origDataLength, int outDataLength, float frequency);
+void smb_pitch_shift(short int *origData, short int *outData, long origDataLength, long outDataLength, float frequency);
 #endif /* defined(__RingSeq__PitchShift__) */

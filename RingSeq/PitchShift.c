@@ -75,8 +75,8 @@
     a3 = x1;
     return (a0 * (t * t * t)) + (a1 * (t * t)) + (a2 * t) + (a3);
 }
-void smb_pitch_shift(short int *origData, short int *outData, long origDataLength, int outDataLength, float delta) {
-    for (int i = 22; i < outDataLength; i++)
+void smb_pitch_shift(short int *origData, short int *outData, long origDataLength, long outDataLength, float delta) {
+    for (int i = 0; i < outDataLength; i++)
     {
         float realPos = i / delta;
         
