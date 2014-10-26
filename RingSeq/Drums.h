@@ -10,5 +10,5 @@
 //Drums are special what can you do
 @interface Drums : Instrument
 @property NSArray*sounds;
-
+-(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume;
 @end

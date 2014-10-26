@@ -676,6 +676,27 @@ initFailed:
 	return nil;
 }
 
+- (id<ALSoundSource>) getBuffer:(NSString*) filePath
+                          volume:(float) volume
+                           pitch:(float) pitch
+                             pan:(float) pan
+                            loop:(bool) loop
+{
+    if(nil == filePath)
+    {
+        OAL_LOG_ERROR(@"filePath was NULL");
+        return nil;
+    }
+    ALBuffer* buffer = [self internalPreloadEffect:filePath reduceToMono:NO];
+    if(nil != buffer)
+    {
+        [channel play:buffer gain:volume pitch:pitch pan:pan loop:loop];
+        return buffer;
+            [channel stop];
+    }
+    return nil;
+}
+
 - (id<ALSoundSource>) playBuffer:(ALBuffer*) buffer
 						  volume:(float) volume
 						   pitch:(float) pitch

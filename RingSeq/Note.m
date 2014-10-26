@@ -41,10 +41,10 @@
             _accidentalView.text = @"";
             break;
         case sharp:
-            _accidentalView.text = @"#";
+            _accidentalView.text = @"♯";
             break;
         case flat:
-            _accidentalView.text = @"b";
+            _accidentalView.text = @"♭";
             break;
         case numOfAccedintals:
             break;

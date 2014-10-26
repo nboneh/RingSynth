@@ -88,7 +88,9 @@ initFailed:
     as_release(self);
     return nil;
 }
-
+-(void*)getData{
+    return bufferData;
+}
 - (void) dealloc
 {
 	OAL_LOG_DEBUG(@"%@: Dealloc", self);

@@ -11,7 +11,6 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
-#import "lame.h"
 
 @interface DetailViewController ()
 -(void)fixSegements;
@@ -333,9 +332,9 @@ static BOOL LOOPING;
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if(alertView.alertViewStyle ==UIAlertViewStylePlainTextInput){
         if(alertView == tempoAlert)
-            _tempoField.text =  [alertView textFieldAtIndex:0].text;
+            _tempoField.text =  [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
         else if(alertView == beatAlert){
-            _beatsTextField.text = [alertView textFieldAtIndex:0].text;
+            _beatsTextField.text = [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
             [_fullGrid setNumOfMeasures: [_beatsTextField.text intValue]];
         }
     }
@@ -396,15 +395,22 @@ static BOOL LOOPING;
     
 }
 
--(IBAction)exportMusic{
-    @try {
-        int read, write;
-        lame_t lame = lame_init();
-        
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@",[exception description]);
-    }
+-(IBAction)exportMusic:(UIBarButtonItem *) button{
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    activityIndicator.color = self.view.tintColor ;
+    UIBarButtonItem * loadView = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+       self.navigationItem.rightBarButtonItem = loadView;
+    [activityIndicator startAnimating];
+    [_fullGrid encodeWithBpm:[_tempoField.text intValue] andCallBack:^(NSData *data){
+           self.navigationItem.rightBarButtonItem = button;
+        //if(data){
+            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ is downloaded", self.name] message:@"Export it to your phone via iTunes" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [ringtoneAlert show];
+        /*} else{
+            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error downloading ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [ringtoneAlert show];
+        }*/
+    }];
 }
 
 +(EditMode)CURRENT_EDIT_MODE{

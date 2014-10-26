@@ -9,7 +9,6 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
-#import "ToastView.h"
 
 @implementation MasterViewController
 static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";

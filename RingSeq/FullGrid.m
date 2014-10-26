@@ -290,6 +290,27 @@
     }
     [self changeLayer:-1];
 }
+-(void) encodeWithCallBack:(void (^)(NSData *))callBackBlock{
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if(layers.count == 0){
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                callBackBlock(NULL);
+            }];
+            return;
+        }
+        AudioStreamBasicDescription audioFormat;
+        audioFormat.mSampleRate         = 44100.00;
+        audioFormat.mFormatID           = kAudioFormatLinearPCM;
+        audioFormat.mFormatFlags        = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+        audioFormat.mFramesPerPacket    = 1;
+        audioFormat.mChannelsPerFrame   = 2;
+        audioFormat.mBitsPerChannel     = 16;
+        audioFormat.mBytesPerPacket     = 4;
+        audioFormat.mBytesPerFrame      = 4;
+        
+
+    });
+}
 
 
 @end

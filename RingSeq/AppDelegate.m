@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "DetailViewController.h"
+#import "Assets.h"
+#import "Instrument.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -17,6 +18,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [(Instrument *)[[Assets INSTRUMENTS] objectAtIndex:7] getDataNoteDescription:[[NoteDescription alloc] initWithOctave:4 andChar:'g' ]andVolume:1.0f];
+
     return YES;
 }
 

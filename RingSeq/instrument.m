@@ -7,7 +7,11 @@
 //
 
 #import "Instrument.h"
+#import "PitchShift.h"
 
+@interface Instrument()
+-(double)calcPitch:(NoteDescription *)noteDesc;
+@end
 @implementation Instrument
 @synthesize name = _name;
 @synthesize image = _image;
@@ -23,16 +27,14 @@
 
 -(UIImage *)image{
     if(_image == nil) {
-       _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return _image;
 }
 
--(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
-    ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
-   [OALSimpleAudio sharedInstance].channel = channel;
+-(double)calcPitch:(NoteDescription *)noteDesc{
     int noteNum = 0;
-    switch(note.character){
+    switch(noteDesc.character){
         case 'c':
             noteNum =0;
             break;
@@ -55,24 +57,56 @@
             noteNum = 11;
             break;
     }
-    if(note.accidental == sharp)
+    if(noteDesc.accidental == sharp)
         noteNum++;
-    else if(note.accidental == flat)
+    else if(noteDesc.accidental == flat)
         noteNum--;
-    float   pitch = pow(2,((note.octave-_baseOctave)+ (noteNum/12.0f)));
-      [channel setVolume:volume];
-    [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name] volume:volume pitch:pitch pan:0.0f loop:NO];
+    return  pow(2,((noteDesc.octave-_baseOctave)+ (noteNum/12.0f)));
+    
+}
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
+    ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
+    [OALSimpleAudio sharedInstance].channel = channel;
+    [channel setVolume:volume];
+    [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name] volume:volume pitch:[self calcPitch:note] pan:0.0f loop:NO];
     if(volume == 0.0f)
         [[OALSimpleAudio sharedInstance] stopAllEffects];
     
-
-    
     [OALSimpleAudio sharedInstance].channel = mainChannel;
-
     
 }
 
 -(void)play{
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name]];
 }
+
+-(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
+    NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
+    NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
+    NSUInteger length = [data length];
+    short int*cdata = (  short int*)malloc(length);
+    [data getBytes:(  short int*)cdata length:length];
+    for(int i = 22; i < length/2; i++){
+        cdata[i] = cdata[i] *volume;
+    }
+      float delta = 1/[self calcPitch:note];
+    int newLength = ((length +44) * delta) +44;
+    short int*outdata = (short int *) malloc(newLength);
+    for(int i =0; i < 22; i++){
+        outdata[i] = cdata[i];
+    }
+
+    smb_pitch_shift(cdata, outdata,length/2, newLength/2,delta);
+    
+    data = [NSData dataWithBytes:(const void *)outdata length:(length/2)];
+
+    [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"Yo.wav"]
+                                            contents:data
+                                          attributes:nil];
+    free(cdata);
+    return data;
+}
+
+
 @end

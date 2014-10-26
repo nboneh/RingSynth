@@ -268,6 +268,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(OALSimpleAudio);
 - (id) initWithReservedSources:(int) reservedSources
                    monoSources:(int) monoSources
                  stereoSources:(int) stereoSources;
+- (ALBuffer *) getBuffer:(NSString*) filePath
+                  volume:(float) volume
+                   pitch:(float) pitch
+                     pan:(float) pan
+                    loop:(bool) loop;
 /** \endcond */
 
 

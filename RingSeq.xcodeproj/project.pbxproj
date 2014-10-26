@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
 		0B39A04C19F04601006B7EA5 /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Measure.m */; };
+		0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D64FB19FC5C5400C408D4 /* PitchShift.c */; };
+		0B5D654B19FC7FFF00C408D4 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88C19F3287D00F6C176 /* mach_timing.c */; };
 		0B703EB419E70B5F00CED5B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB319E70B5F00CED5B4 /* main.m */; };
 		0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB619E70B5F00CED5B4 /* AppDelegate.m */; };
 		0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB919E70B5F00CED5B4 /* MasterViewController.m */; };
@@ -59,7 +61,6 @@
 		0B9AF94519F3287E00F6C176 /* OALAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88519F3287D00F6C176 /* OALAudioSession.m */; };
 		0B9AF94619F3287E00F6C176 /* OALSuspendHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88719F3287D00F6C176 /* OALSuspendHandler.m */; };
 		0B9AF94719F3287E00F6C176 /* IOSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88B19F3287D00F6C176 /* IOSVersion.m */; };
-		0B9AF94819F3287E00F6C176 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88C19F3287D00F6C176 /* mach_timing.c */; };
 		0B9AF94919F3287E00F6C176 /* NSMutableArray+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88F19F3287D00F6C176 /* NSMutableArray+WeakReferences.m */; };
 		0B9AF94A19F3287E00F6C176 /* NSMutableDictionary+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF89119F3287D00F6C176 /* NSMutableDictionary+WeakReferences.m */; };
 		0B9AF94B19F3287E00F6C176 /* OALAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF89319F3287D00F6C176 /* OALAudioFile.m */; };
@@ -102,7 +103,6 @@
 		0B9AFA0719F3714C00F6C176 /* Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0619F3714C00F6C176 /* Bass.wav */; };
 		0B9AFA0A19F6087200F6C176 /* NonEditableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */; };
 		0BA7319219F895F600CC8498 /* Tom2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BA7319119F895F600CC8498 /* Tom2.wav */; };
-		0BA731AE19F8AA3D00CC8498 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA731AD19F8AA3D00CC8498 /* libmp3lame.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +134,8 @@
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
 		0B39A04A19F04601006B7EA5 /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
 		0B39A04B19F04601006B7EA5 /* Measure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measure.m; sourceTree = "<group>"; };
+		0B5D64FB19FC5C5400C408D4 /* PitchShift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PitchShift.c; sourceTree = "<group>"; };
+		0B5D64FC19FC5C5400C408D4 /* PitchShift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchShift.h; sourceTree = "<group>"; };
 		0B703EAE19E70B5F00CED5B4 /* RingRing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingRing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703EB219E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703EB319E70B5F00CED5B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -282,8 +284,6 @@
 		0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonEditableTextField.h; sourceTree = "<group>"; };
 		0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonEditableTextField.m; sourceTree = "<group>"; };
 		0BA7319119F895F600CC8498 /* Tom2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom2.wav; sourceTree = "<group>"; };
-		0BA7319C19F8A6C200CC8498 /* lame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
-		0BA731AD19F8AA3D00CC8498 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +291,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BA731AE19F8AA3D00CC8498 /* libmp3lame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,8 +307,8 @@
 		0B39A04619EF8518006B7EA5 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				0BA731AD19F8AA3D00CC8498 /* libmp3lame.a */,
-				0BA7319C19F8A6C200CC8498 /* lame.h */,
+				0B5D64FC19FC5C5400C408D4 /* PitchShift.h */,
+				0B5D64FB19FC5C5400C408D4 /* PitchShift.c */,
 				0B7AB60319F21C0D0092F808 /* SlidingSegment.h */,
 				0B7AB60419F21C0D0092F808 /* SlidingSegment.m */,
 				0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */,
@@ -800,6 +799,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B5D654B19FC7FFF00C408D4 /* mach_timing.c in Sources */,
 				0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */,
 				0B9AF93619F3287E00F6C176 /* OALUtilityActions.m in Sources */,
 				0B9AF94A19F3287E00F6C176 /* NSMutableDictionary+WeakReferences.m in Sources */,
@@ -807,7 +807,6 @@
 				0B9AF94C19F3287E00F6C176 /* OALTools.m in Sources */,
 				0B9AF93F19F3287E00F6C176 /* ALDevice.m in Sources */,
 				0B74953419EC5C570078296B /* NoteDescription.m in Sources */,
-				0B9AF94819F3287E00F6C176 /* mach_timing.c in Sources */,
 				0B9AF93919F3287E00F6C176 /* OALAudioTracks.m in Sources */,
 				0B9AF93419F3287E00F6C176 /* OALActionManager.m in Sources */,
 				0B9AF93A19F3287E00F6C176 /* OALSimpleAudio.m in Sources */,
@@ -830,6 +829,7 @@
 				0B9AF94619F3287E00F6C176 /* OALSuspendHandler.m in Sources */,
 				0B9AF93C19F3287E00F6C176 /* ALCaptureDevice.m in Sources */,
 				0B74952E19EB7BA50078296B /* Assets.m in Sources */,
+				0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */,
 				0B9AF94319F3287E00F6C176 /* ALWrapper.m in Sources */,
 				0B39A04C19F04601006B7EA5 /* Measure.m in Sources */,
 				0B74953719EDAE000078296B /* Note.m in Sources */,
@@ -981,10 +981,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RingSeq/build",
 					"$(PROJECT_DIR)/RingSeq",
+					"/Users/nirboneh/Downloads/bassflac24-osx",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Debug;
 		};
@@ -999,10 +1000,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/RingSeq/build",
 					"$(PROJECT_DIR)/RingSeq",
+					"/Users/nirboneh/Downloads/bassflac24-osx",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Release;
 		};
@@ -1020,6 +1022,7 @@
 				);
 				INFOPLIST_FILE = RingSeqTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RingSeq.app/RingSeq";
 				VALID_ARCHS = "armv7 armv7s";
@@ -1036,6 +1039,7 @@
 				);
 				INFOPLIST_FILE = RingSeqTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RingSeq.app/RingSeq";
 				VALID_ARCHS = "armv7 armv7s";

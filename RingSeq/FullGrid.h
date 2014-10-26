@@ -33,4 +33,6 @@
 -(void)silence;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
+-(void) encodeWithBpm:(int)bpm andCallBack:(void (^)(NSData *))callBackBlock ;
+
 @end

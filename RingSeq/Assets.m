@@ -59,6 +59,7 @@ static NSArray *INSTRUMENTS;
     if(!ERASE_SOUNDS){
         ERASE_SOUNDS = [[NSArray alloc] initWithObjects:@"delete1.wav", @"delete2.wav", @"delete3.wav",@"delete4.wav", nil];
     }
+    
     [[OALSimpleAudio sharedInstance] playEffect:[ERASE_SOUNDS objectAtIndex: arc4random_uniform((int)ERASE_SOUNDS.count)]];
 }
 

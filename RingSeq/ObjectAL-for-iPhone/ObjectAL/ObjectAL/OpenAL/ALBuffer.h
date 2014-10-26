@@ -121,7 +121,7 @@
 			   size:(ALsizei) size
 			 format:(ALenum) format
 		  frequency:(ALsizei) frequency;
-
+-(void*)getData;
 /** Returns a part of the buffer as a new buffer. You can use this method to split a buffer
  * into a sub-buffers. The sub-buffers retain a reference to their parent buffer, and share
  * the same memory. Therefore, modifying the parent buffer contents will affect its slices

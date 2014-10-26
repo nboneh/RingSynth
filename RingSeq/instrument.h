@@ -25,5 +25,5 @@
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel;
 -(void)play;
-
+-(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume;
 @end

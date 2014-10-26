@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RMx-3f-FxP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RMx-3f-FxP">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -33,11 +33,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-yD-WIh">
-                                <rect key="frame" x="0.0" y="276" width="568" height="44"/>
+                                <rect key="frame" x="-16" y="276" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="xUO-xL-O3F"/>
                                 </constraints>
                                 <items>
+                                    <barButtonItem width="15" style="plain" systemItem="fixedSpace" id="9X2-RU-wbm"/>
                                     <barButtonItem systemItem="reply" id="aVY-vK-OZw">
                                         <connections>
                                             <action selector="replay" destination="JEX-9P-axG" id="rh2-ok-mAV"/>
@@ -87,8 +88,8 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="♮"/>
-                                                <segment title="#"/>
-                                                <segment title="b"/>
+                                                <segment title="♯"/>
+                                                <segment title="♭"/>
                                             </segments>
                                             <connections>
                                                 <action selector="changeAccedintal:" destination="JEX-9P-axG" eventType="valueChanged" id="gnV-aC-SIc"/>
@@ -108,6 +109,7 @@
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
+                                    <barButtonItem width="15" style="plain" systemItem="fixedSpace" id="urj-Qk-WfV"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -115,15 +117,15 @@
                         <constraints>
                             <constraint firstItem="jph-0e-7ce" firstAttribute="top" secondItem="0Dk-yD-WIh" secondAttribute="bottom" id="4Ke-TD-5LB"/>
                             <constraint firstItem="jph-0e-7ce" firstAttribute="top" secondItem="0Dk-yD-WIh" secondAttribute="bottom" id="Bva-sd-kfH"/>
-                            <constraint firstItem="0Dk-yD-WIh" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="-16" id="Qn3-n0-fRQ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0Dk-yD-WIh" secondAttribute="trailing" constant="-16" id="RDP-SV-Nm1"/>
+                            <constraint firstItem="0Dk-yD-WIh" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="-16" id="Qn3-n0-fRQ"/>
+                            <constraint firstAttribute="trailing" secondItem="0Dk-yD-WIh" secondAttribute="trailing" constant="-16" id="RDP-SV-Nm1"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="dar-5b-x6U">
+                        <barButtonItem key="rightBarButtonItem" image="download" id="dar-5b-x6U">
                             <connections>
-                                <action selector="exportMusic" destination="JEX-9P-axG" id="ETl-pD-z2X"/>
+                                <action selector="exportMusic:" destination="JEX-9P-axG" id="OBs-qe-t9R"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -213,6 +215,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="download" width="22" height="22"/>
         <image name="eraser" width="22" height="22"/>
         <image name="noloop" width="22" height="22"/>
         <image name="pencil" width="22" height="22"/>
