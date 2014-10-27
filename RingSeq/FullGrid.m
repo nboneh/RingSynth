@@ -380,7 +380,6 @@
             NSDictionary *notesHolder = [[decodeMeasure objectForKey:@"notesholders"] objectAtIndex:0];
             float volume = [[notesHolder objectForKey:@"volume"] floatValue];
             NSArray *notes = [notesHolder objectForKey:@"notes"];
-            int positionToInsert = i * samplePerMeasure +22;
             
             for(int j = 0; j <notes.count; j++){
                 NSDictionary *decodeNote=[notes objectAtIndex:j];
@@ -392,16 +391,12 @@
                 
                 unsigned long noteLength = noteData.length/2;
                 short int*noteCData = ( short int*)malloc( noteData.length);
-                unsigned long positionInPiece = positionToInsert;
+                unsigned long positionInPiece = i * samplePerMeasure +22;;
                 for(int k = 0; k < noteLength; k++){
-                    if(((short int)wavfile[positionInPiece]) >= 0 &&(((short int) noteCData[k]) >= 0) && ((short int)(wavfile[positionInPiece] +noteCData[k] *volumeChange) < 0 ))
-                        wavfile[positionInPiece] =MAX_VALUE_SHORT;
-                    else if(((short int)wavfile[positionInPiece]) < 0 && (((short int) noteCData[k]) < 0) && ((short int)(wavfile[positionInPiece] +noteCData[k]* volumeChange) >=0 ))
-                        wavfile[positionInPiece] =-MAX_VALUE_SHORT;
-                    else{
-                        wavfile[positionInPiece] +=round(noteCData[k] *volumeChange);
-                        positionInPiece++;
-                    }
+                    if(positionInPiece >= (totalLength/2))
+                        break;
+                    wavfile[positionInPiece] =[ self clippingWith:round(noteCData[k] *volumeChange) and:wavfile[positionInPiece]];
+                     positionInPiece++;
                 }
                 free(noteCData);
                 
@@ -438,5 +433,13 @@
     });
 }
 
+-(short int)clippingWith:(short int)a and:(short int)b{
+    if(((short int)a) >= 0 && ((short int)b )>= 0 && ((short int)(a +b)) < 0 )
+        return MAX_VALUE_SHORT;
+    else if(((short int)a) < 0 && ((short int)b) < 0 && ((short int)(a+b)) >=0 )
+        return -MAX_VALUE_SHORT;
+    else
+        return a +b;
 
+}
 @end

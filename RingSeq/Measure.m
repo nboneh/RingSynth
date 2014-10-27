@@ -189,42 +189,18 @@
     }
     
     NotesHolder* notesHolder;
-    if(currentPlayingNoteHolder < [_noteHolders count]){
+    if(currentPlayingNoteHolder < (_currentSubdivision +1)){
         notesHolder = [_noteHolders objectAtIndex:currentPlayingNoteHolder];
+        [ notesHolder play];
+        [notesHolder.titleView setTextColor:self.tintColor];
+        [notesHolder.lineView setBackgroundColor:self.tintColor];
+        prevNoteHolder = notesHolder;
     } else{
         [self stop];
+        return;
     }
-    [ notesHolder play];
-    [notesHolder.titleView setTextColor:self.tintColor];
-    [notesHolder.lineView setBackgroundColor:self.tintColor];
-    prevNoteHolder = notesHolder;
     
-    switch(_currentSubdivision){
-        case quaters:
-            if(currentPlayingNoteHolder >= 1){
-                [self stop];
-                return;
-            }
-            currentPlayingNoteHolder++;
-            
-            return;
-        case eighths:
-            if(currentPlayingNoteHolder >= 2){
-                [self stop];
-                return;
-            }
-            currentPlayingNoteHolder++;
-            break;
-            
-        case triplets:
-            if(currentPlayingNoteHolder >= 3){
-                [self stop];
-                return;
-            }
-            currentPlayingNoteHolder++;
-            break;
-            
-        case sixteenths:
+    if(_currentSubdivision == sixteenths){
             switch(currentPlayingNoteHolder){
                 case 0:
                     currentPlayingNoteHolder = 3;
@@ -238,16 +214,11 @@
                 case 2:
                     currentPlayingNoteHolder = 4;
                     break;
-                case 4:
-                    [self stop];
-                    return;
             }
-            break;
-            
-        case numOfSubdivisions:
-            [self stop];
-            return;
+    } else {
+        currentPlayingNoteHolder++;
     }
+
 }
 
 -(void)stop{
