@@ -11,6 +11,8 @@
 #import "NotesHolder.h"
 #import  "DetailViewController.h"
 #import "ObjectAL.h"
+#define MAX_VALUE_SHORT 32768
+
 @interface FullGrid()
 -(void)stopAnimation;
 -(void)startAnimation;
@@ -42,7 +44,7 @@
         
         [container addGestureRecognizer:longPress];
         _isPlaying = NO;
-
+        
         
         
     }
@@ -123,9 +125,9 @@
     
     bpm = bpm_;
     if([layers count] >0  && ![self isZooming] && ![self isDragging] && ![self isDecelerating]){
-            [self setUserInteractionEnabled:NO];
+        [self setUserInteractionEnabled:NO];
         [self setZoomScale:1.0f animated:NO];
-
+        
         Layout *layer = [layers objectAtIndex:0];
         Measure * measure =[layer findMeasureAtx:(self.contentOffset.x + layer.widthPerMeasure )];
         [self startAnimation];
@@ -154,7 +156,7 @@
                                                         object: nil
                                                       userInfo: nil];
     
-
+    
 }
 -(void)stopAnimation{
     [stopAnimTimer invalidate];
@@ -263,22 +265,24 @@
 -(void)setNumOfMeasures:(int)numOfMeasures{
     _numOfMeasures = numOfMeasures;
     BOOL firstLayer = YES;
-     for(Layout * layer in layers){
-         [layer setNumOfMeasures:_numOfMeasures];
-         if(firstLayer){
-             [self changeToWidth:layer.frame.size.width];
-             firstLayer = NO;
-         }
-             
-     }
+    for(Layout * layer in layers){
+        [layer setNumOfMeasures:_numOfMeasures];
+        if(firstLayer){
+            [self changeToWidth:layer.frame.size.width];
+            firstLayer = NO;
+        }
+        
+    }
 }
 
 -(NSArray*)createSaveFile{
+    @synchronized(self){
     NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
     for(int i = 0; i < [layers count]; i++){
         [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
     }
     return [[NSArray alloc] initWithArray:preSaveFile];
+    }
 }
 
 -(void)loadSaveFile:(NSArray *)saveFile{
@@ -301,76 +305,136 @@
         }
         
         NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:@"Electric Guitar" ofType:@"wav"];
         
-         NSData * header = [[NSData alloc] initWithContentsOfFile:musicPaths];
-     
-    
-        int sampleRate = 44100;
+        
+        //Lower over all volume of output to reduce number of clippings
+        float volumeChange = 0.16667f;
+        long sampleRate = 44100;
         int bytesPerSample = 2;
-        float measuresPerSecond = 1/bpm_;
-        int samplePerMeasure = sampleRate * measuresPerSecond;
+        int channels = 2;
+        float measuresPerSecond = 1.0f/bpm_ * 60;
+        int samplePerMeasure = (sampleRate * measuresPerSecond)  *bytesPerSample;
         
-        int lengthOfPiece =bytesPerSample *samplePerMeasure *numOfMeasures+44;
+        //Extra two seconds after piece is over
+        long lengthOfPiece =samplePerMeasure *numOfMeasures + 2*sampleRate;
         
-        short int*cdata = ( short int*)malloc( bytesPerSample *sampleRate*measuresPerSecond* numOfMeasures+44);
-        [header getBytes:(  short int*)cdata range:NSMakeRange(0,44)];
+        long totalLength = 44 + lengthOfPiece;
         
+        Byte*cdata = ( Byte*)malloc( lengthOfPiece);
+        for(int i = 0; i <lengthOfPiece; i++){
+            cdata[i] = 0;
+        }
+        long byteRate = 16 * 11025.0 * channels/8;
+        cdata[0] = 'R';
+        cdata[1] = 'I';
+        cdata[2] = 'F';
+        cdata[3] = 'F';
+        cdata[4] = (Byte) (totalLength & 0xff);
+        cdata[5] = (Byte) ((totalLength >> 8) & 0xff);
+        cdata[6] = (Byte) ((totalLength >> 16) & 0xff);
+        cdata[7] = (Byte) ((totalLength >> 24) & 0xff);
+        cdata[8] = 'W';
+        cdata[9] = 'A';
+        cdata[10] = 'V';
+        cdata[11] = 'E';
+        cdata[12] = 'f';  // 'fmt ' chunk
+        cdata[13] = 'm';
+        cdata[14] = 't';
+        cdata[15] = ' ';
+        cdata[16] = 16;  // 4 bytes: size of 'fmt ' chunk
+        cdata[17] = 0;
+        cdata[18] = 0;
+        cdata[19] = 0;
+        cdata[20] = 1;  // format = 1
+        cdata[21] = 0;
+        cdata[22] = channels;
+        cdata[23] = 0;
+        cdata[24] = (Byte) (sampleRate & 0xff);
+        cdata[25] = (Byte) ((sampleRate >> 8) & 0xff);
+        cdata[26] = (Byte) ((sampleRate >> 16) & 0xff);
+        cdata[27] = (Byte) ((sampleRate >> 24) & 0xff);
+        cdata[28] = (Byte) (byteRate & 0xff);
+        cdata[29] = (Byte) ((byteRate >> 8) & 0xff);
+        cdata[30] = (Byte) ((byteRate >> 16) & 0xff);
+        cdata[31] = (Byte) ((byteRate >> 24) & 0xff);
+        cdata[32] = (Byte) (2 * 8 / 8);  // block align
+        cdata[33] = 0;
+        cdata[34] = 16;  // bits per sample
+        cdata[35] = 0;
+        cdata[36] = 'd';
+        cdata[37] = 'a';
+        cdata[38] = 't';
+        cdata[39] = 'a';
+        cdata[40] = (Byte) (lengthOfPiece & 0xff);
+        cdata[41] = (Byte) ((lengthOfPiece >> 8) & 0xff);
+        cdata[42] = (Byte) ((lengthOfPiece >> 16) & 0xff);
+        cdata[43] = (Byte) ((lengthOfPiece >> 24) & 0xff);
+        
+        short int *wavfile = (short int*)cdata;
         //Creating a copy of saveData we will decode it into out giant wave file composition
         //This allows the user to mess with the grid as it encodes the wave file
         NSArray *decodeData = [self createSaveFile];
         NSArray *decodeLayer = [decodeData objectAtIndex:0];
-        for(int i = 0; i < 1; i++){
+        for(int i = 0; i < decodeLayer.count; i++){
             NSMutableDictionary *decodeMeasure = [decodeLayer objectAtIndex:i];
             NSDictionary *notesHolder = [[decodeMeasure objectForKey:@"notesholders"] objectAtIndex:0];
             float volume = [[notesHolder objectForKey:@"volume"] floatValue];
             NSArray *notes = [notesHolder objectForKey:@"notes"];
-
-            for(int j = 0; j <1; j++){
+            int positionToInsert = i * samplePerMeasure +22;
+            
+            for(int j = 0; j <notes.count; j++){
                 NSDictionary *decodeNote=[notes objectAtIndex:j];
                 Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex:[[decodeNote objectForKey:@"instrument"] intValue]];
                 Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
                 NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
                 NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
                 NSData * noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
-                int positionToInsert = j * samplePerMeasure +22;
+                
                 unsigned long noteLength = noteData.length/2;
                 short int*noteCData = ( short int*)malloc( noteData.length);
+                unsigned long positionInPiece = positionToInsert;
                 for(int k = 0; k < noteLength; k++){
-                    cdata[positionToInsert] +=noteCData[k]/10;
-                    positionToInsert++;
+                    if(((short int)wavfile[positionInPiece]) >= 0 &&(((short int) noteCData[k]) >= 0) && ((short int)(wavfile[positionInPiece] +noteCData[k] *volumeChange) < 0 ))
+                        wavfile[positionInPiece] =MAX_VALUE_SHORT;
+                    else if(((short int)wavfile[positionInPiece]) < 0 && (((short int) noteCData[k]) < 0) && ((short int)(wavfile[positionInPiece] +noteCData[k]* volumeChange) >=0 ))
+                        wavfile[positionInPiece] =-MAX_VALUE_SHORT;
+                    else{
+                        wavfile[positionInPiece] +=round(noteCData[k] *volumeChange);
+                        positionInPiece++;
+                    }
                 }
-                // free(noteCData);
+                free(noteCData);
                 
             }
         }
-
-       
-        NSData *data = [NSData dataWithBytes:(const void *)cdata length:(lengthOfPiece)];
+        
+        
+        NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
         
         [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"Yo.wav"]
                                                 contents:data
                                               attributes:nil];
-        
+        free(cdata);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
             callBackBlock(data);
         }];
-
-        free(cdata);
-        /*AudioFileTypeID fileType = kAudioFileWAVEType;
-        AudioStreamBasicDescription audioFormat;
-        audioFormat.mSampleRate         = 44100.00;
-        audioFormat.mFormatID           = kAudioFormatLinearPCM;
-        audioFormat.mFormatFlags        = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-        audioFormat.mFramesPerPacket    = 1;
-        audioFormat.mChannelsPerFrame   = 2;
-        audioFormat.mBitsPerChannel     = 16;
-        audioFormat.mBytesPerPacket     = 4;
-        audioFormat.mBytesPerFrame      = 4;*/
-
-
         
-
+        
+        
+        /*AudioFileTypeID fileType = kAudioFileWAVEType;
+         AudioStreamBasicDescription audioFormat;
+         audioFormat.mSampleRate         = 44100.00;
+         audioFormat.mFormatID           = kAudioFormatLinearPCM;
+         audioFormat.mFormatFlags        = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+         audioFormat.mFramesPerPacket    = 1;
+         audioFormat.mChannelsPerFrame   = 2;
+         audioFormat.mBitsPerChannel     = 16;
+         audioFormat.mBytesPerPacket     = 4;
+         audioFormat.mBytesPerFrame      = 4;*/
+        
+        
+        
+        
     });
 }
 

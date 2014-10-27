@@ -87,7 +87,7 @@
     NSUInteger length = [data length] -44;
     short int*cdata = (  short int*)malloc(length);
     [data getBytes:(  short int*)cdata range:NSMakeRange(44,length)];
-    for(int i = 0; i < length /2; i++){
+    for(int i = 0; i < (length /2); i++){
         cdata[i] = cdata[i] *volume;
     }
     
