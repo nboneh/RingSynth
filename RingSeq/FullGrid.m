@@ -294,12 +294,12 @@
     }
     [self changeLayer:-1];
 }
--(void) encodeWithBpm:(int)bpm_ andCallBack:(void (^)(NSData *))callBackBlock {
+-(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andCallBack:(void (^)(BOOL ))callBackBlock {
     int numOfMeasures = self.numOfMeasures;
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if(layers.count == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-                callBackBlock(NULL);
+                callBackBlock(NO);
             }];
             return;
         }
@@ -445,31 +445,34 @@
                 maxValue = uncompData[i];
         }
         
-        if(maxValue < USHRT_MAX)
-            maxValue = USHRT_MAX;
+        if(maxValue < SHRT_MAX)
+            maxValue = SHRT_MAX;
         
         float invMaxValue = 1.0f/maxValue;
         
         short int*wavfile = (short int *)wavfileByte;
         for( int i = 22; i < (totalLength/2); i++){
-            int value = (uncompData[i -22] * invMaxValue *USHRT_MAX);
-            if(value >= USHRT_MAX)
-                value = USHRT_MAX;
+            int value = (uncompData[i -22] * invMaxValue *SHRT_MAX);
+            if(value >= SHRT_MAX)
+                value = SHRT_MAX;
             wavfile[i] =value;
         }
-        
-        
-        
-        NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
-        
-        [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"Yo.wav"]
+                NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
+        [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"]
                                                 contents:data
                                               attributes:nil];
+       TPAACAudioConverter * audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
+                                                                 source:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"]
+                                                            destination:[NSString stringWithFormat:@"%@/%@%@", path, name, @".m4r"]];
+        
+        [audioConverter start];
+        
+       
         free(headerfile);
         free(wavfile);
         free(uncompData);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-            callBackBlock(data);
+            callBackBlock(YES);
         }];
         
         
@@ -478,6 +481,13 @@
         
         
     });
+}
+
+-(void)AACAudioConverterDidFinishConversion:(TPAACAudioConverter *)converter{
+    
+}
+-(void)AACAudioConverter:(TPAACAudioConverter *)converter didFailWithError:(NSError *)error{
+    
 }
 
 /*-(short int)clippingWith:(short int)a and:(short int)b{

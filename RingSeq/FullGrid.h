@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Layout.h"
 #import "Instrument.h"
+#import "TAPPCAudioConverter.h"
 
-@interface FullGrid : UIScrollView<UIScrollViewDelegate>{
+@interface FullGrid : UIScrollView<UIScrollViewDelegate, TPAACAudioConverterDelegate>{
     NSMutableArray *layers;
     UIView *container;
     UIActionSheet *newColors;
@@ -33,6 +34,6 @@
 -(void)silence;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
--(void) encodeWithBpm:(int)bpm andCallBack:(void (^)(NSData *))callBackBlock ;
+-(void) encodeWithBpm:(int)bpm andName:(NSString *)name andCallBack:(void (^)(BOOL ))callBackBlock ;
 
 @end

@@ -401,10 +401,10 @@ static BOOL LOOPING;
     UIBarButtonItem * loadView = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
        self.navigationItem.rightBarButtonItem = loadView;
     [activityIndicator startAnimating];
-    [_fullGrid encodeWithBpm:[_tempoField.text intValue] andCallBack:^(NSData *data){
+    [_fullGrid encodeWithBpm:[_tempoField.text intValue] andName:self.name andCallBack:^(BOOL success){
            self.navigationItem.rightBarButtonItem = button;
-        if(data){
-            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ is downloaded", self.name] message:@"Export it to your device via iTunes" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        if(success){
+            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ is downloaded", self.name] message:@"Export it to your device via iTunes using file sharing apps" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [ringtoneAlert show];
         } else{
             UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error downloading ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
