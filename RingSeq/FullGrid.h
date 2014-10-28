@@ -10,6 +10,10 @@
 #import "Layout.h"
 #import "Instrument.h"
 #import "TAPPCAudioConverter.h"
+@protocol FullGridDelegate
+@optional
+-(void)finishedEncoding:(BOOL)success;
+@end
 
 @interface FullGrid : UIScrollView<UIScrollViewDelegate, TPAACAudioConverterDelegate>{
     NSMutableArray *layers;
@@ -21,8 +25,9 @@
     int bpm;
     NSTimer *stopAnimTimer;
     NSTimer *stopPlayingTimer;
+    
 }
-
+@property(nonatomic,assign)id delegate;
 @property(nonatomic) int numOfMeasures;
 @property BOOL isPlaying;
 -(void)replay;
@@ -34,6 +39,6 @@
 -(void)silence;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
--(void) encodeWithBpm:(int)bpm andName:(NSString *)name andCallBack:(void (^)(BOOL ))callBackBlock ;
+-(void) encodeWithBpm:(int)bpm andName:(NSString *)name andDelegate:(id)delegate ;
 
 @end

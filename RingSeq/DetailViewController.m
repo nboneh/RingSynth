@@ -396,23 +396,26 @@ static BOOL LOOPING;
 }
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
+     createButton =  self.navigationItem.rightBarButtonItem;
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.color = self.view.tintColor ;
     UIBarButtonItem * loadView = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
        self.navigationItem.rightBarButtonItem = loadView;
     [activityIndicator startAnimating];
-    [_fullGrid encodeWithBpm:[_tempoField.text intValue] andName:self.name andCallBack:^(BOOL success){
-           self.navigationItem.rightBarButtonItem = button;
-        if(success){
-            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ is downloaded", self.name] message:@"Export it to your device via iTunes using file sharing apps" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [ringtoneAlert show];
-        } else{
-            UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error downloading ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [ringtoneAlert show];
-        }
-    }];
+    [_fullGrid encodeWithBpm:[_tempoField.text intValue] andName:self.name andDelegate:self];
 }
 
+-(void)finishedEncoding:(BOOL)success{
+     self.navigationItem.rightBarButtonItem = createButton;
+    if(success){
+        UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [ringtoneAlert show];
+    } else{
+        UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [ringtoneAlert show];
+
+    }
+}
 +(EditMode)CURRENT_EDIT_MODE{
     return CURRENT_EDIT_MODE;
 }

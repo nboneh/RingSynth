@@ -294,16 +294,10 @@
     }
     [self changeLayer:-1];
 }
--(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andCallBack:(void (^)(BOOL ))callBackBlock {
+-(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andDelegate:(id)delegate {
     int numOfMeasures = self.numOfMeasures;
+    self.delegate = delegate;
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if(layers.count == 0){
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-                callBackBlock(NO);
-            }];
-            return;
-        }
-        
         NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         
         
@@ -431,11 +425,14 @@
                 uncompData[j] += uncompLayer[j];
             free(uncompLayer);
         }
+        free(uncompDataPointers);
 
         Byte *wavfileByte = ( Byte*)malloc( totalLength);
         for(int i = 0; i < 44; i++){
             wavfileByte[i] = headerfile[i];
         }
+        free(headerfile);
+        
         for(int i = 44; i < totalLength; i++){
             wavfileByte[i] = 0;
         }
@@ -457,6 +454,7 @@
                 value = SHRT_MAX;
             wavfile[i] =value;
         }
+        free(uncompData);
                 NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
         [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"]
                                                 contents:data
@@ -467,16 +465,7 @@
         
         [audioConverter start];
         
-       
-        free(headerfile);
         free(wavfile);
-        free(uncompData);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-            callBackBlock(YES);
-        }];
-        
-        
-        
         
         
         
@@ -484,10 +473,24 @@
 }
 
 -(void)AACAudioConverterDidFinishConversion:(TPAACAudioConverter *)converter{
-    
+       NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"] error:nil];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        [self.delegate finishedEncoding:YES ];
+    }];
+
+
 }
 -(void)AACAudioConverter:(TPAACAudioConverter *)converter didFailWithError:(NSError *)error{
-    
+       NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"] error:nil];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+          [self.delegate finishedEncoding:NO ];
+    }];
+
+
 }
 
 /*-(short int)clippingWith:(short int)a and:(short int)b{

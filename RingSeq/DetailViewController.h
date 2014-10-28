@@ -13,12 +13,13 @@
 #import "SlidingSegment.h"
 
 
-@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate>{
+@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, FullGridDelegate>{
     BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;
     UIAlertView * tempoAlert;
     UIAlertView *beatAlert;
+    UIBarButtonItem* createButton;
 }
 
 typedef enum {
