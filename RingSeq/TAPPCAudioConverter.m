@@ -158,7 +158,11 @@ static inline BOOL _checkResultLite(OSStatus result, const char *operation, cons
 
 - (void)reportCompletion {
     if ( _cancelled ) return;
-    [_delegate AACAudioConverterDidFinishConversion:self];
+    @try{
+        [_delegate AACAudioConverterDidFinishConversion:self];
+    }@catch (NSException * e) {
+        return;
+    }
     if ( _priorMixOverrideValue != NO ) {
         UInt32 allowMixing = _priorMixOverrideValue;
         checkResult(AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof (allowMixing), &allowMixing),

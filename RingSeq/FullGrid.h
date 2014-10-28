@@ -26,9 +26,10 @@
     NSTimer *stopAnimTimer;
     NSTimer *stopPlayingTimer;
     NSString *tempFilePath;
+    TPAACAudioConverter * audioConverter;
     
 }
-@property(nonatomic,assign)id delegate;
+@property(nonatomic,assign)id delegateForEncode;
 @property(nonatomic) int numOfMeasures;
 @property BOOL isPlaying;
 -(void)replay;
@@ -41,5 +42,4 @@
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
 -(void) encodeWithBpm:(int)bpm andName:(NSString *)name andDelegate:(id)delegate ;
-
 @end

@@ -95,7 +95,8 @@
     }
     
     float delta = 1.0f/[self calcPitch:note];
-    int newLength = (length* delta);
+    //Extra space cause of algorithm
+    int newLength = (length* delta) -4;
     short int*outdata = (short int *) malloc(newLength);
     for(int i = 0; i < (newLength/2); i++){
         outdata[i] = 0;

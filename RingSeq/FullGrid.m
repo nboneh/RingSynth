@@ -276,13 +276,12 @@
 }
 
 -(NSArray*)createSaveFile{
-    @synchronized(self){
         NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
         for(int i = 0; i < [layers count]; i++){
             [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
         }
         return [[NSArray alloc] initWithArray:preSaveFile];
-    }
+
 }
 
 -(void)loadSaveFile:(NSArray *)saveFile{
@@ -296,7 +295,7 @@
 }
 -(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andDelegate:(id)delegate {
     int numOfMeasures = self.numOfMeasures;
-    self.delegate = delegate;
+    self.delegate = _delegateForEncode;
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         long sampleRate = 44100;
@@ -370,10 +369,10 @@
             uncompDataPointers[i] = NULL;
         }
         for(int t = 0; t < decodeData.count; t++){
-            int*uncompData = malloc(lengthOfPiece *2);
+            int*uncompLayer = malloc(lengthOfPiece *2);
             NSArray *decodeLayer = [decodeData objectAtIndex:t];
             for(int i = 0; i < lengthOfPiece/2; i++){
-                uncompData[i] = 0;
+                uncompLayer[i] = 0;
             }
             for(int i = 0; i < decodeLayer.count; i++){
                 NSDictionary *decodeMeasure = [decodeLayer objectAtIndex:i];
@@ -386,7 +385,7 @@
                         unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
                         if(volume == 0){
                             for(long k = positionInPiece; k < lengthOfPiece/2; k++)
-                                uncompData[k] = 0;
+                                uncompLayer[k] = 0;
                         }
                         else{
                             NSArray *notes = [notesHolder objectForKey:@"notes"];
@@ -406,7 +405,7 @@
                                 for(int l = 0; l < noteLength; l++){
                                     if(positionInPiece >= (totalLength/2))
                                         break;
-                                    uncompData[positionInPiece] += noteShortData[l];
+                                    uncompLayer[positionInPiece] += noteShortData[l];
                                     positionInPiece++;
                                 }
                                 free(noteShortData);
@@ -415,7 +414,7 @@
                     }
                 }
             }
-            uncompDataPointers[t] = uncompData;
+            uncompDataPointers[t] = uncompLayer;
         }
         //Adding all the layers to the wavefile
         int *uncompData = malloc(decodeData.count * lengthOfPiece *2);
@@ -452,7 +451,7 @@
         
         short int*wavfile = (short int *)wavfileByte;
         for( int i = 22; i < (totalLength/2); i++){
-            int value = (uncompData[i -22] * invMaxValue *SHRT_MAX);
+            int value = uncompData[i -22] * invMaxValue *SHRT_MAX;
             if(value >= SHRT_MAX)
                 value = SHRT_MAX;
             else if(value <= SHRT_MIN)
@@ -474,12 +473,15 @@
         if(exists == YES)
             [fm removeItemAtPath:ringtonePath error:nil];
 
-       TPAACAudioConverter * audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
-                                                                 source:tempFilePath
-                                                            destination:ringtonePath];
+        free(wavfile);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+          audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
+                                                                                      source:tempFilePath
+                                                                                 destination:ringtonePath];
         
         [audioConverter start];
-        free(wavfile);
+        }];
+
         }
         
     );
@@ -489,7 +491,7 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     [fm removeItemAtPath:tempFilePath error:nil];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-        [self.delegate finishedEncoding:YES ];
+        [_delegateForEncode finishedEncoding:YES ];
     }];
 
 
@@ -498,11 +500,12 @@
        NSFileManager *fm = [NSFileManager defaultManager];
     [fm removeItemAtPath:tempFilePath error:nil];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-          [self.delegate finishedEncoding:NO ];
+          [_delegateForEncode finishedEncoding:NO ];
     }];
 
 
 }
+
 
 /*-(short int)clippingWith:(short int)a and:(short int)b{
     if(((short int)a) >= 0 && ((short int)b )>= 0 && ((short int)(a +b)) < 0 )

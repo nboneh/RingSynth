@@ -371,7 +371,7 @@ static BOOL LOOPING;
              if(buttonIndex == 1){
                  MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
                  [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
-                [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat a ringtone I made in the App RingSynth for iOS", self.name] isHTML:NO];
+                [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App RingSynth for iOS", self.name] isHTML:NO];
                  NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
                  [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.mp3", self.name]];
                  mc.mailComposeDelegate = self;
