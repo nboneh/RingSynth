@@ -91,7 +91,7 @@
         cdata[i] = cdata[i] *volume;
     }
     
-    float delta = 1/[self calcPitch:note];
+    float delta = 1.0f/[self calcPitch:note];
     int newLength = (length* delta);
     short int*outdata = (short int *) malloc(newLength);
     

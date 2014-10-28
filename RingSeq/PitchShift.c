@@ -84,7 +84,7 @@ void smb_pitch_shift(short int *origData, short int *outData, long origDataLengt
         outData[i] = InterpolateHermite4pt3oX(origData[(int)realPos -1], origData[(int)realPos ],  origData[(int)realPos+1 ], origData[(int)realPos +2
                                                                                                                                        ] , .5f);
         else{
-            outData[i] = 0;
+            outData[i] = origData[(int)realPos];
         }
     }}
 

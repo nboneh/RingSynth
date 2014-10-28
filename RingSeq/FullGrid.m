@@ -11,7 +11,7 @@
 #import "NotesHolder.h"
 #import  "DetailViewController.h"
 #import "ObjectAL.h"
-#define MAX_VALUE_SHORT 32768
+#include <limits.h>
 
 @interface FullGrid()
 -(void)stopAnimation;
@@ -277,11 +277,11 @@
 
 -(NSArray*)createSaveFile{
     @synchronized(self){
-    NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
-    for(int i = 0; i < [layers count]; i++){
-        [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
-    }
-    return [[NSArray alloc] initWithArray:preSaveFile];
+        NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
+        for(int i = 0; i < [layers count]; i++){
+            [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
+        }
+        return [[NSArray alloc] initWithArray:preSaveFile];
     }
 }
 
@@ -307,8 +307,7 @@
         NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         
         
-        //Lower over all volume of output to reduce number of clippings
-        float volumeChange = 0.16667f;
+        
         long sampleRate = 44100;
         int bytesPerSample = 2;
         int channels = 2;
@@ -316,92 +315,149 @@
         int samplePerMeasure = (sampleRate * measuresPerSecond)  *bytesPerSample;
         
         //Extra two seconds after piece is over
-        long lengthOfPiece =samplePerMeasure *numOfMeasures + 2*sampleRate;
+        long lengthOfPiece =(samplePerMeasure *numOfMeasures * bytesPerSample + 2*sampleRate);
         
         long totalLength = 44 + lengthOfPiece;
         
-        Byte*cdata = ( Byte*)malloc( lengthOfPiece);
-        for(int i = 0; i <lengthOfPiece; i++){
-            cdata[i] = 0;
-        }
+        Byte*headerfile = ( Byte*)malloc( lengthOfPiece);
         long byteRate = 16 * 11025.0 * channels/8;
-        cdata[0] = 'R';
-        cdata[1] = 'I';
-        cdata[2] = 'F';
-        cdata[3] = 'F';
-        cdata[4] = (Byte) (totalLength & 0xff);
-        cdata[5] = (Byte) ((totalLength >> 8) & 0xff);
-        cdata[6] = (Byte) ((totalLength >> 16) & 0xff);
-        cdata[7] = (Byte) ((totalLength >> 24) & 0xff);
-        cdata[8] = 'W';
-        cdata[9] = 'A';
-        cdata[10] = 'V';
-        cdata[11] = 'E';
-        cdata[12] = 'f';  // 'fmt ' chunk
-        cdata[13] = 'm';
-        cdata[14] = 't';
-        cdata[15] = ' ';
-        cdata[16] = 16;  // 4 bytes: size of 'fmt ' chunk
-        cdata[17] = 0;
-        cdata[18] = 0;
-        cdata[19] = 0;
-        cdata[20] = 1;  // format = 1
-        cdata[21] = 0;
-        cdata[22] = channels;
-        cdata[23] = 0;
-        cdata[24] = (Byte) (sampleRate & 0xff);
-        cdata[25] = (Byte) ((sampleRate >> 8) & 0xff);
-        cdata[26] = (Byte) ((sampleRate >> 16) & 0xff);
-        cdata[27] = (Byte) ((sampleRate >> 24) & 0xff);
-        cdata[28] = (Byte) (byteRate & 0xff);
-        cdata[29] = (Byte) ((byteRate >> 8) & 0xff);
-        cdata[30] = (Byte) ((byteRate >> 16) & 0xff);
-        cdata[31] = (Byte) ((byteRate >> 24) & 0xff);
-        cdata[32] = (Byte) (2 * 8 / 8);  // block align
-        cdata[33] = 0;
-        cdata[34] = 16;  // bits per sample
-        cdata[35] = 0;
-        cdata[36] = 'd';
-        cdata[37] = 'a';
-        cdata[38] = 't';
-        cdata[39] = 'a';
-        cdata[40] = (Byte) (lengthOfPiece & 0xff);
-        cdata[41] = (Byte) ((lengthOfPiece >> 8) & 0xff);
-        cdata[42] = (Byte) ((lengthOfPiece >> 16) & 0xff);
-        cdata[43] = (Byte) ((lengthOfPiece >> 24) & 0xff);
+        headerfile[0] = 'R';
+        headerfile[1] = 'I';
+        headerfile[2] = 'F';
+        headerfile[3] = 'F';
+        headerfile[4] = (Byte) (totalLength & 0xff);
+        headerfile[5] = (Byte) ((totalLength >> 8) & 0xff);
+        headerfile[6] = (Byte) ((totalLength >> 16) & 0xff);
+        headerfile[7] = (Byte) ((totalLength >> 24) & 0xff);
+        headerfile[8] = 'W';
+        headerfile[9] = 'A';
+        headerfile[10] = 'V';
+        headerfile[11] = 'E';
+        headerfile[12] = 'f';  // 'fmt ' chunk
+        headerfile[13] = 'm';
+        headerfile[14] = 't';
+        headerfile[15] = ' ';
+        headerfile[16] = 16;  // 4 bytes: size of 'fmt ' chunk
+        headerfile[17] = 0;
+        headerfile[18] = 0;
+        headerfile[19] = 0;
+        headerfile[20] = 1;  // format = 1
+        headerfile[21] = 0;
+        headerfile[22] = channels;
+        headerfile[23] = 0;
+        headerfile[24] = (Byte) (sampleRate & 0xff);
+        headerfile[25] = (Byte) ((sampleRate >> 8) & 0xff);
+        headerfile[26] = (Byte) ((sampleRate >> 16) & 0xff);
+        headerfile[27] = (Byte) ((sampleRate >> 24) & 0xff);
+        headerfile[28] = (Byte) (byteRate & 0xff);
+        headerfile[29] = (Byte) ((byteRate >> 8) & 0xff);
+        headerfile[30] = (Byte) ((byteRate >> 16) & 0xff);
+        headerfile[31] = (Byte) ((byteRate >> 24) & 0xff);
+        headerfile[32] = (Byte) (2 * 8 / 8);  // block align
+        headerfile[33] = 0;
+        headerfile[34] = 16;  // bits per sample
+        headerfile[35] = 0;
+        headerfile[36] = 'd';
+        headerfile[37] = 'a';
+        headerfile[38] = 't';
+        headerfile[39] = 'a';
+        headerfile[40] = (Byte) (lengthOfPiece & 0xff);
+        headerfile[41] = (Byte) ((lengthOfPiece >> 8) & 0xff);
+        headerfile[42] = (Byte) ((lengthOfPiece >> 16) & 0xff);
+        headerfile[43] = (Byte) ((lengthOfPiece >> 24) & 0xff);
         
-        short int *wavfile = (short int*)cdata;
+        
         //Creating a copy of saveData we will decode it into out giant wave file composition
         //This allows the user to mess with the grid as it encodes the wave file
         NSArray *decodeData = [self createSaveFile];
-        NSArray *decodeLayer = [decodeData objectAtIndex:0];
-        for(int i = 0; i < decodeLayer.count; i++){
-            NSMutableDictionary *decodeMeasure = [decodeLayer objectAtIndex:i];
-            NSDictionary *notesHolder = [[decodeMeasure objectForKey:@"notesholders"] objectAtIndex:0];
-            float volume = [[notesHolder objectForKey:@"volume"] floatValue];
-            NSArray *notes = [notesHolder objectForKey:@"notes"];
-            
-            for(int j = 0; j <notes.count; j++){
-                NSDictionary *decodeNote=[notes objectAtIndex:j];
-                Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex:[[decodeNote objectForKey:@"instrument"] intValue]];
-                Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
-                NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
-                NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
-                NSData * noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
-                
-                unsigned long noteLength = noteData.length/2;
-                short int*noteCData = ( short int*)malloc( noteData.length);
-                unsigned long positionInPiece = i * samplePerMeasure +22;;
-                for(int k = 0; k < noteLength; k++){
-                    if(positionInPiece >= (totalLength/2))
-                        break;
-                    wavfile[positionInPiece] =[ self clippingWith:round(noteCData[k] *volumeChange) and:wavfile[positionInPiece]];
-                     positionInPiece++;
-                }
-                free(noteCData);
-                
+        
+        //We are going to create a list of int arrays for each layer then we are going to add those all togther and the finnally analyze the data
+        //to turn it to a short int array
+        //So much nested loops gah
+        int **uncompDataPointers = malloc(4 *decodeData.count);
+        for(int t = 0; t < decodeData.count; t++){
+            int*uncompData = malloc(lengthOfPiece *2);
+            NSArray *decodeLayer = [decodeData objectAtIndex:t];
+            for(int i = 0; i < lengthOfPiece/2; i++){
+                uncompData[i] = 0;
             }
+            for(int i = 0; i < decodeLayer.count; i++){
+                NSDictionary *decodeMeasure = [decodeLayer objectAtIndex:i];
+                NSArray *notesHolders = [decodeMeasure objectForKey:@"notesholders"];
+                int subdivision = [[decodeMeasure objectForKey:@"subdivision"] intValue] +1;
+                for(int j=0; j < notesHolders.count; j++){
+                    NSDictionary *notesHolder = [[decodeMeasure objectForKey:@"notesholders"] objectAtIndex:j];
+                    float volume = [[notesHolder objectForKey:@"volume"] floatValue];
+                    if(notesHolder.count > 0){
+                        unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
+                        if(volume == 0){
+                            for(long k = positionInPiece; k < lengthOfPiece/2; k++)
+                                uncompData[k] = 0;
+                        }
+                        else{
+                            NSArray *notes = [notesHolder objectForKey:@"notes"];
+                            for(int k = 0;k <notes.count; k++){
+                                NSDictionary *decodeNote=[notes objectAtIndex:k];
+                                Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex:[[decodeNote objectForKey:@"instrument"] intValue]];
+                                Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
+                                NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
+                                NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
+                                NSData * noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
+                                
+                                unsigned long noteLength = noteData.length/2;
+                                short int*noteShortData = ( short int*)malloc( noteData.length);
+                                [noteData getBytes:(  short int*)noteShortData];
+                                
+                                unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
+                                for(int l = 0; l < noteLength; l++){
+                                    if(positionInPiece >= (totalLength/2))
+                                        break;
+                                    uncompData[positionInPiece] += noteShortData[l];
+                                    positionInPiece++;
+                                }
+                                free(noteShortData);
+                            }
+                        }
+                    }
+                }
+            }
+            uncompDataPointers[t] = uncompData;
         }
+        //Adding all the layers to the wavefile
+        int *uncompData = malloc(decodeData.count * lengthOfPiece *2);
+        for(int i = 0; i < decodeData.count; i++){
+            int *uncompLayer = uncompDataPointers[i];
+            for(int j =0; j < lengthOfPiece/2; j++)
+                uncompData[j] += uncompLayer[j];
+            free(uncompLayer);
+        }
+
+        Byte *wavfileByte = ( Byte*)malloc( totalLength);
+        for(int i = 0; i < 44; i++){
+            wavfileByte[i] = headerfile[i];
+        }
+        for(int i = 44; i < totalLength; i++){
+            wavfileByte[i] = 0;
+        }
+        int maxValue = 0;
+        for(int i = 0; i < lengthOfPiece/2; i++){
+            if(uncompData[i] > maxValue)
+                maxValue = uncompData[i];
+        }
+        
+        if(maxValue < USHRT_MAX)
+            maxValue = USHRT_MAX;
+        
+        float invMaxValue = 1.0f/maxValue;
+        
+        short int*wavfile = (short int *)wavfileByte;
+        for( int i = 22; i < (totalLength/2); i++){
+            int value = (uncompData[i -22] * invMaxValue *USHRT_MAX);
+            if(value >= USHRT_MAX)
+                value = USHRT_MAX;
+            wavfile[i] =value;
+        }
+        
         
         
         NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
@@ -409,23 +465,14 @@
         [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"Yo.wav"]
                                                 contents:data
                                               attributes:nil];
-        free(cdata);
+        free(headerfile);
+        free(wavfile);
+        free(uncompData);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
             callBackBlock(data);
         }];
         
         
-        
-        /*AudioFileTypeID fileType = kAudioFileWAVEType;
-         AudioStreamBasicDescription audioFormat;
-         audioFormat.mSampleRate         = 44100.00;
-         audioFormat.mFormatID           = kAudioFormatLinearPCM;
-         audioFormat.mFormatFlags        = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-         audioFormat.mFramesPerPacket    = 1;
-         audioFormat.mChannelsPerFrame   = 2;
-         audioFormat.mBitsPerChannel     = 16;
-         audioFormat.mBytesPerPacket     = 4;
-         audioFormat.mBytesPerFrame      = 4;*/
         
         
         
@@ -433,13 +480,13 @@
     });
 }
 
--(short int)clippingWith:(short int)a and:(short int)b{
+/*-(short int)clippingWith:(short int)a and:(short int)b{
     if(((short int)a) >= 0 && ((short int)b )>= 0 && ((short int)(a +b)) < 0 )
         return MAX_VALUE_SHORT;
     else if(((short int)a) < 0 && ((short int)b) < 0 && ((short int)(a+b)) >=0 )
         return -MAX_VALUE_SHORT;
     else
         return a +b;
-
-}
+    
+}*/
 @end

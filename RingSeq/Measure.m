@@ -96,7 +96,7 @@
                 notesHolder2.frame = frame;
                 [notesHolder2 setHidden: NO];
             }
-
+            
             if(!notesHolder3){
                 notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height) andTitle:@"e" andChannel:channel];
                 [_noteHolders addObject:notesHolder3 ];
@@ -201,24 +201,24 @@
     }
     
     if(_currentSubdivision == sixteenths){
-            switch(currentPlayingNoteHolder){
-                case 0:
-                    currentPlayingNoteHolder = 3;
-                    break;
-                case 3:
-                    currentPlayingNoteHolder = 1;
-                    break;
-                case 1:
-                    currentPlayingNoteHolder = 2;
-                    break;
-                case 2:
-                    currentPlayingNoteHolder = 4;
-                    break;
-            }
+        switch(currentPlayingNoteHolder){
+            case 0:
+                currentPlayingNoteHolder = 3;
+                break;
+            case 3:
+                currentPlayingNoteHolder = 1;
+                break;
+            case 1:
+                currentPlayingNoteHolder = 2;
+                break;
+            case 2:
+                currentPlayingNoteHolder = 4;
+                break;
+        }
     } else {
         currentPlayingNoteHolder++;
     }
-
+    
 }
 
 -(void)stop{
@@ -251,8 +251,17 @@
     NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
     [preSaveFile setValue:[NSNumber numberWithInt:self.currentSubdivision] forKey:@"subdivision"];
     NSMutableArray*preSaveNoteHolders = [[NSMutableArray alloc] init];
-    for(int i = 0; i<  (_currentSubdivision +1); i++){
-        [preSaveNoteHolders addObject:[[_noteHolders objectAtIndex:i] createSaveFile]];
+    if(_currentSubdivision == sixteenths){
+        //We are going to align the sixteenth note array normally to make the encoding wav file process easier
+        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:0] createSaveFile] atIndex:0] ;
+        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:3] createSaveFile] atIndex:1] ;
+        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:1] createSaveFile] atIndex:2] ;
+        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:2] createSaveFile] atIndex:3] ;
+    }
+    else{
+        for(int i = 0; i<  (_currentSubdivision +1); i++){
+            [preSaveNoteHolders addObject:[[_noteHolders objectAtIndex:i] createSaveFile]];
+        }
     }
     [preSaveFile setValue:[[NSArray alloc] initWithArray:preSaveNoteHolders] forKey:@"notesholders"];
     return [[NSDictionary alloc] initWithDictionary:preSaveFile];
@@ -261,8 +270,16 @@
 -(void)loadSaveFile:(NSDictionary *)saveFile{
     [self changeSubDivision:[[saveFile objectForKey:@"subdivision"] intValue]];
     NSArray * loadNotesHolders = [saveFile objectForKey:@"notesholders"];
+    if(_currentSubdivision == sixteenths){
+        [[_noteHolders objectAtIndex:0] loadSaveFile:[loadNotesHolders objectAtIndex:0]];
+        [[_noteHolders objectAtIndex:3] loadSaveFile:[loadNotesHolders objectAtIndex:1]];
+        [[_noteHolders objectAtIndex:1] loadSaveFile:[loadNotesHolders objectAtIndex:2]];
+        [[_noteHolders objectAtIndex:2] loadSaveFile:[loadNotesHolders objectAtIndex:3]];
+    }
+    else{
     for(int i =0; i < [loadNotesHolders count]; i++){
         [[_noteHolders objectAtIndex:i] loadSaveFile:[loadNotesHolders objectAtIndex:i]];
+    }
     }
 }
 @end
