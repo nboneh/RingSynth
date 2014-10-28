@@ -57,13 +57,13 @@ static BOOL LOOPING;
     self.automaticallyAdjustsScrollViewInsets = NO;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
-               selector: @selector(enteredBackground:)
-                   name: @"didEnterBackground"
+               selector: @selector(resignActive:)
+                   name: @"applicationWillResignActive"
                  object: nil];
     
     [center addObserver: self
-               selector: @selector(willEnterForeground:)
-                   name: @"willEnterForeground"
+               selector: @selector(becameActive:)
+                   name: @"becameActive"
                  object: nil];
     [center addObserver: self
                selector: @selector(musicStopped:)
@@ -118,7 +118,7 @@ static BOOL LOOPING;
     // Dispose of any resources that can be recreated.
 }
 
--(void)enteredBackground:(NSNotification *)notification{
+-(void)resignActive:(NSNotification *)notification{
     //Stoping sound
     [_fullGrid stop];
     [_fullGrid silence];
@@ -142,7 +142,7 @@ static BOOL LOOPING;
 }
 
 
--(void)willEnterForeground:(NSNotification *)notification{
+-(void)becameActive:(NSNotification *)notification{
     //Unsilence the grid
     [_fullGrid changeLayer:(int)(_instrumentController.selectedSegmentIndex -1)];
 }

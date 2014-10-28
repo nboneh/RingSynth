@@ -22,8 +22,8 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     if(ringtones == nil)
         ringtones = [[NSMutableArray alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(enteredBackground:)
-                                                 name: @"didEnterBackground"
+                                             selector: @selector(resignActive:)
+                                                 name: @"applicationWillResignActive"
                                                object: nil];
     
 }
@@ -179,7 +179,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     return YES;
 }
 
--(void)enteredBackground:(NSNotification *)notification{
+-(void)resignActive:(NSNotification *)notification{
     //Saving ringtones
     [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RINGTONES_LIST_FILE]];
     

@@ -366,6 +366,9 @@
         //to turn it to a short int array
         //So much nested loops gah
         int **uncompDataPointers = malloc(4 *decodeData.count);
+        for(int i = 0; i < decodeData.count; i++){
+            uncompDataPointers[i] = NULL;
+        }
         for(int t = 0; t < decodeData.count; t++){
             int*uncompData = malloc(lengthOfPiece *2);
             NSArray *decodeLayer = [decodeData objectAtIndex:t];
