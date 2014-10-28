@@ -25,6 +25,7 @@
     int bpm;
     NSTimer *stopAnimTimer;
     NSTimer *stopPlayingTimer;
+    NSString *tempFilePath;
     
 }
 @property(nonatomic,assign)id delegate;

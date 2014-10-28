@@ -86,10 +86,10 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
             [fm removeItemAtPath:fileToBeDeleted error:nil];
         
         //Also delete the ringtone file if it exists
-        NSString* ringPath = [NSString stringWithFormat:@"%@%@", fileToBeDeleted, @".m4r"];
+        /*NSString* ringPath = [NSString stringWithFormat:@"%@%@", fileToBeDeleted, @".m4r"];
          exists = [fm fileExistsAtPath:ringPath];
         if(exists == YES)
-            [fm removeItemAtPath:ringPath error:nil];
+            [fm removeItemAtPath:ringPath error:nil];*/
 
     }
     fileToBeDeleted =nil;

@@ -298,9 +298,6 @@
     int numOfMeasures = self.numOfMeasures;
     self.delegate = delegate;
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        
-        
         
         long sampleRate = 44100;
         int bytesPerSample = 2;
@@ -313,7 +310,7 @@
         
         long totalLength = 44 + lengthOfPiece;
         
-        Byte*headerfile = ( Byte*)malloc( lengthOfPiece);
+        Byte*headerfile = ( Byte*)malloc( 44);
         long byteRate = 16 * 11025.0 * channels/8;
         headerfile[0] = 'R';
         headerfile[1] = 'I';
@@ -419,6 +416,9 @@
         }
         //Adding all the layers to the wavefile
         int *uncompData = malloc(decodeData.count * lengthOfPiece *2);
+        for(int i = 0; i < lengthOfPiece/2; i++){
+            uncompData[i] = 0;
+        }
         for(int i = 0; i < decodeData.count; i++){
             int *uncompLayer = uncompDataPointers[i];
             for(int j =0; j < lengthOfPiece/2; j++)
@@ -455,27 +455,34 @@
             wavfile[i] =value;
         }
         free(uncompData);
+        NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+         tempFilePath=[NSString stringWithFormat:@"%@/%@%@", path, name, @"temp.wav"];
                 NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
-        [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"]
+        [[NSFileManager defaultManager] createFileAtPath:tempFilePath
                                                 contents:data
                                               attributes:nil];
+        
+        //Delete ringtone file if exists
+        NSString *ringtonePath =[NSString stringWithFormat:@"%@/%@%@", path, name, @".m4r"];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        BOOL exists = [fm fileExistsAtPath:ringtonePath];
+        if(exists == YES)
+            [fm removeItemAtPath:ringtonePath error:nil];
+
        TPAACAudioConverter * audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
-                                                                 source:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"]
-                                                            destination:[NSString stringWithFormat:@"%@/%@%@", path, name, @".m4r"]];
+                                                                 source:tempFilePath
+                                                            destination:ringtonePath];
         
         [audioConverter start];
-        
         free(wavfile);
+        }
         
-        
-        
-    });
+    );
 }
 
 -(void)AACAudioConverterDidFinishConversion:(TPAACAudioConverter *)converter{
-       NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"] error:nil];
+    [fm removeItemAtPath:tempFilePath error:nil];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         [self.delegate finishedEncoding:YES ];
     }];
@@ -483,9 +490,8 @@
 
 }
 -(void)AACAudioConverter:(TPAACAudioConverter *)converter didFailWithError:(NSError *)error{
-       NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:[NSString stringWithFormat:@"%@/%@", path, @"temp.wav"] error:nil];
+       NSFileManager *fm = [NSFileManager defaultManager];
+    [fm removeItemAtPath:tempFilePath error:nil];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
           [self.delegate finishedEncoding:NO ];
     }];
