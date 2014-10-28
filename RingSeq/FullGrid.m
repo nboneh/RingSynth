@@ -452,6 +452,8 @@
             int value = (uncompData[i -22] * invMaxValue *SHRT_MAX);
             if(value >= SHRT_MAX)
                 value = SHRT_MAX;
+            else if(value <= SHRT_MIN)
+                value = SHRT_MIN;
             wavfile[i] =value;
         }
         free(uncompData);

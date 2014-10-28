@@ -206,7 +206,8 @@ static BOOL LOOPING;
             [message appendString:@"Delete "];
             [message appendString:instrumentName];
             [message appendString:@"?"];
-            UIAlertView * deleteAlert = [[UIAlertView alloc] initWithTitle:message message:@""   delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            if(!deleteAlert)
+                deleteAlert = [[UIAlertView alloc] initWithTitle:message message:@""   delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
             
             [deleteAlert show];
             
@@ -330,15 +331,13 @@ static BOOL LOOPING;
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if(alertView.alertViewStyle ==UIAlertViewStylePlainTextInput){
-        if(alertView == tempoAlert)
-            _tempoField.text =  [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
-        else if(alertView == beatAlert){
-            _beatsTextField.text = [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
-            [_fullGrid setNumOfMeasures: [_beatsTextField.text intValue]];
-        }
+    if(alertView == tempoAlert)
+        _tempoField.text =  [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
+    else if(alertView == beatAlert){
+        _beatsTextField.text = [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
+        [_fullGrid setNumOfMeasures: [_beatsTextField.text intValue]];
     }
-    else{
+    else if (alertView ==deleteAlert){
         if(buttonIndex == 1){
             int deleteIndex = (int)[_instrumentController selectedSegmentIndex];
             if(prevSelect == deleteIndex)
@@ -362,6 +361,25 @@ static BOOL LOOPING;
             
             [self fixSegements];
         }
+    }
+    else if(alertView == sucessAlert){
+        if(!emailAlert)
+            emailAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Would you like to email %@?", self.name] message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [emailAlert show];
+    }
+    else if(alertView == emailAlert){
+             if(buttonIndex == 1){
+                 MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                 [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
+                [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat a ringtone I made in the App RingSynth for iOS", self.name] isHTML:NO];
+                 NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
+                 [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.mp3", self.name]];
+                 mc.mailComposeDelegate = self;
+                 // Present mail view controller on screen
+                 
+                 [self presentViewController:mc animated:YES completion:NULL];
+
+             }
     }
     
 }
@@ -396,24 +414,25 @@ static BOOL LOOPING;
 }
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
-     createButton =  self.navigationItem.rightBarButtonItem;
+    createButton =  self.navigationItem.rightBarButtonItem;
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.color = self.view.tintColor ;
     UIBarButtonItem * loadView = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-       self.navigationItem.rightBarButtonItem = loadView;
+    self.navigationItem.rightBarButtonItem = loadView;
     [activityIndicator startAnimating];
     [_fullGrid encodeWithBpm:[_tempoField.text intValue] andName:self.name andDelegate:self];
 }
 
 -(void)finishedEncoding:(BOOL)success{
-     self.navigationItem.rightBarButtonItem = createButton;
+    self.navigationItem.rightBarButtonItem = createButton;
     if(success){
-        UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [ringtoneAlert show];
+        if(!sucessAlert)
+            sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [sucessAlert show];
     } else{
-        UIAlertView* ringtoneAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [ringtoneAlert show];
-
+        UIAlertView* failAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [failAlert show];
+        
     }
 }
 +(EditMode)CURRENT_EDIT_MODE{
@@ -421,6 +440,12 @@ static BOOL LOOPING;
 }
 +(BOOL)LOOPING{
     return LOOPING;
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

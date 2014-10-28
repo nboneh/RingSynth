@@ -426,18 +426,18 @@
 		0B74951F19EB59AA0078296B /* GridLayout */ = {
 			isa = PBXGroup;
 			children = (
-				0B74952519EB5A870078296B /* NotesHolder.h */,
-				0B74952619EB5A870078296B /* NotesHolder.m */,
-				0B74952F19EC553C0078296B /* Staff.h */,
-				0B74953019EC553C0078296B /* Staff.m */,
 				0B74953519EDAE000078296B /* Note.h */,
 				0B74953619EDAE000078296B /* Note.m */,
-				0B74954219EEF7300078296B /* Layout.h */,
-				0B74954319EEF7300078296B /* Layout.m */,
-				0B39A04319EF24BB006B7EA5 /* FullGrid.h */,
-				0B39A04419EF24BB006B7EA5 /* FullGrid.m */,
+				0B74952519EB5A870078296B /* NotesHolder.h */,
+				0B74952619EB5A870078296B /* NotesHolder.m */,
 				0B39A04A19F04601006B7EA5 /* Measure.h */,
 				0B39A04B19F04601006B7EA5 /* Measure.m */,
+				0B74954219EEF7300078296B /* Layout.h */,
+				0B74954319EEF7300078296B /* Layout.m */,
+				0B74952F19EC553C0078296B /* Staff.h */,
+				0B74953019EC553C0078296B /* Staff.m */,
+				0B39A04319EF24BB006B7EA5 /* FullGrid.h */,
+				0B39A04419EF24BB006B7EA5 /* FullGrid.m */,
 			);
 			name = GridLayout;
 			sourceTree = "<group>";

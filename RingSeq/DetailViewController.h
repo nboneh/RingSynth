@@ -11,15 +11,19 @@
 #import "NoteDescription.h"
 #import "FullGrid.h"
 #import "SlidingSegment.h"
+#import <MessageUI/MessageUI.h>
 
 
-@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, FullGridDelegate>{
+@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, FullGridDelegate, MFMailComposeViewControllerDelegate>{
     BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;
     UIAlertView * tempoAlert;
     UIAlertView *beatAlert;
     UIBarButtonItem* createButton;
+    UIAlertView * deleteAlert;
+    UIAlertView *sucessAlert;
+    UIAlertView* emailAlert;
 }
 
 typedef enum {
