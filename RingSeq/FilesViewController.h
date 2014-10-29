@@ -10,7 +10,7 @@
 
 @class DetailViewController;
 
-@interface MasterViewController : UITableViewController<UIAlertViewDelegate, UITextFieldDelegate>{
+@interface FilesViewController : UITableViewController<UIAlertViewDelegate, UITextFieldDelegate>{
     int addOrigHeight;
     NSArray *searchResults;
     NSString *fileToBeDeleted;

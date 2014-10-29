@@ -14,7 +14,7 @@
 		0B5D654B19FC7FFF00C408D4 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88C19F3287D00F6C176 /* mach_timing.c */; };
 		0B703EB419E70B5F00CED5B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB319E70B5F00CED5B4 /* main.m */; };
 		0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB619E70B5F00CED5B4 /* AppDelegate.m */; };
-		0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB919E70B5F00CED5B4 /* MasterViewController.m */; };
+		0B703EBA19E70B5F00CED5B4 /* FilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB919E70B5F00CED5B4 /* FilesViewController.m */; };
 		0B703EBD19E70B5F00CED5B4 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */; };
 		0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EBE19E70B5F00CED5B4 /* Main.storyboard */; };
 		0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC119E70B5F00CED5B4 /* Images.xcassets */; };
@@ -103,6 +103,7 @@
 		0B9AFA0719F3714C00F6C176 /* Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0619F3714C00F6C176 /* Bass.wav */; };
 		0B9AFA0A19F6087200F6C176 /* NonEditableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */; };
 		0BA7319219F895F600CC8498 /* Tom2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BA7319119F895F600CC8498 /* Tom2.wav */; };
+		0BC7014E1A0184E8003E03F3 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7014D1A0184E8003E03F3 /* MainMenuViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,10 +137,10 @@
 		0B703EB319E70B5F00CED5B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0B703EB519E70B5F00CED5B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0B703EB619E70B5F00CED5B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0B703EB819E70B5F00CED5B4 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		0B703EB919E70B5F00CED5B4 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		0B703EBB19E70B5F00CED5B4 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		0B703EB819E70B5F00CED5B4 /* FilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FilesViewController.h; path = RingSeq/FilesViewController.h; sourceTree = "<group>"; };
+		0B703EB919E70B5F00CED5B4 /* FilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FilesViewController.m; path = RingSeq/FilesViewController.m; sourceTree = "<group>"; };
+		0B703EBB19E70B5F00CED5B4 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = RingSeq/DetailViewController.h; sourceTree = "<group>"; };
+		0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = RingSeq/DetailViewController.m; sourceTree = "<group>"; };
 		0B703EBF19E70B5F00CED5B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B703EC119E70B5F00CED5B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0B703EC419E70B5F00CED5B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -276,6 +277,8 @@
 		0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonEditableTextField.h; sourceTree = "<group>"; };
 		0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonEditableTextField.m; sourceTree = "<group>"; };
 		0BA7319119F895F600CC8498 /* Tom2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tom2.wav; sourceTree = "<group>"; };
+		0BC7014C1A0184E8003E03F3 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuViewController.h; path = RingSeq/MainMenuViewController.h; sourceTree = "<group>"; };
+		0BC7014D1A0184E8003E03F3 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuViewController.m; path = RingSeq/MainMenuViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,12 +330,9 @@
 				0B39A04619EF8518006B7EA5 /* util */,
 				0B74952819EB79150078296B /* InstrumentAsset */,
 				0B74951F19EB59AA0078296B /* GridLayout */,
+				0BC701451A0165F9003E03F3 /* ViewControllers */,
 				0B703EB519E70B5F00CED5B4 /* AppDelegate.h */,
 				0B703EB619E70B5F00CED5B4 /* AppDelegate.m */,
-				0B703EB819E70B5F00CED5B4 /* MasterViewController.h */,
-				0B703EB919E70B5F00CED5B4 /* MasterViewController.m */,
-				0B703EBB19E70B5F00CED5B4 /* DetailViewController.h */,
-				0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */,
 				0B703EBE19E70B5F00CED5B4 /* Main.storyboard */,
 				0B703EC119E70B5F00CED5B4 /* Images.xcassets */,
 				0B703EC319E70B5F00CED5B4 /* LaunchScreen.xib */,
@@ -594,6 +594,20 @@
 			path = OSX;
 			sourceTree = "<group>";
 		};
+		0BC701451A0165F9003E03F3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0BC7014C1A0184E8003E03F3 /* MainMenuViewController.h */,
+				0BC7014D1A0184E8003E03F3 /* MainMenuViewController.m */,
+				0B703EBB19E70B5F00CED5B4 /* DetailViewController.h */,
+				0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */,
+				0B703EB819E70B5F00CED5B4 /* FilesViewController.h */,
+				0B703EB919E70B5F00CED5B4 /* FilesViewController.m */,
+			);
+			name = ViewControllers;
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -741,6 +755,7 @@
 				0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */,
 				0B9AF93619F3287E00F6C176 /* OALUtilityActions.m in Sources */,
 				0B9AF94A19F3287E00F6C176 /* NSMutableDictionary+WeakReferences.m in Sources */,
+				0BC7014E1A0184E8003E03F3 /* MainMenuViewController.m in Sources */,
 				0B9AF93319F3287E00F6C176 /* OALAction.m in Sources */,
 				0B9AF94C19F3287E00F6C176 /* OALTools.m in Sources */,
 				0B9AF93F19F3287E00F6C176 /* ALDevice.m in Sources */,
@@ -757,7 +772,7 @@
 				0B9AF93E19F3287E00F6C176 /* ALContext.m in Sources */,
 				0B9AF93719F3287E00F6C176 /* OALAudioTrack.m in Sources */,
 				0B74952719EB5A870078296B /* NotesHolder.m in Sources */,
-				0B703EBA19E70B5F00CED5B4 /* MasterViewController.m in Sources */,
+				0B703EBA19E70B5F00CED5B4 /* FilesViewController.m in Sources */,
 				0B9AF93819F3287E00F6C176 /* OALAudioTrackNotifications.m in Sources */,
 				0B74954419EEF7300078296B /* Layout.m in Sources */,
 				0B9AF93B19F3287E00F6C176 /* ALBuffer.m in Sources */,

@@ -27,7 +27,14 @@
 
 -(UIImage *)image{
     if(_image == nil) {
-        _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        {
+            _image = [[UIImage imageNamed:[NSString stringWithFormat:@"%@-ipad",self.name]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
+        } else{
+              _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        }
+
     }
     return _image;
 }

@@ -7,10 +7,10 @@
 //  Copyright (c) 2014 Clouby. All rights reserved.
 //
 
-#import "MasterViewController.h"
+#import "FilesViewController.h"
 #import "DetailViewController.h"
 
-@implementation MasterViewController
+@implementation FilesViewController
 static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
 
 
@@ -25,6 +25,8 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
                                              selector: @selector(resignActive:)
                                                  name: @"applicationWillResignActive"
                                                object: nil];
+    self.navigationController.navigationBar.hidden = NO;
+
     
 }
 
@@ -184,6 +186,14 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RINGTONES_LIST_FILE]];
     
 }
+-(void) viewWillDisappear:(BOOL)animated
+{
+    //Saving ringtones list
+    [super viewDidDisappear:YES];
+    [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RINGTONES_LIST_FILE]];
+
+}
+
 
 - (NSString *) getPath:(NSString *)fileName
 {

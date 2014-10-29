@@ -45,7 +45,6 @@ static BOOL LOOPING;
     // Update the user interface for the detail item.
     if (self.name) {
         self.navigationItem.title = _name;
-        _fullGrid =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)_name]];
     }
 }
 
