@@ -91,10 +91,11 @@ static BOOL LOOPING;
                                             action:@selector(quickTap:)];
     [_instrumentController addGestureRecognizer:quicktap];
     
-    UILongPressGestureRecognizer *longpress =
-    [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(longPress:)];
-    [_instrumentController addGestureRecognizer:longpress];
+    UITapGestureRecognizer *doubleTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(doubleTap:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [_instrumentController addGestureRecognizer:doubleTap];
     
     [self.view addSubview:_instrumentController];
     [self fixSegements];
@@ -194,25 +195,19 @@ static BOOL LOOPING;
 }
 
 
-- (void)longPress:(UILongPressGestureRecognizer *)recognizer{
-    if(recognizer.state == UIGestureRecognizerStateEnded ){
+- (void)doubleTap:(UITapGestureRecognizer *)recognizer{
         [_fullGrid stop];
         CGPoint translate = [recognizer locationInView:_instrumentController];
         int selectedIndex =((translate.x/_instrumentController.frame.size.width) * [_instrumentController numberOfSegments]);
         if(selectedIndex > 0 && selectedIndex < ([_instrumentController numberOfSegments]  -1)){
             [_instrumentController setSelectedSegmentIndex:selectedIndex];
-            NSString *instrumentName = ((Instrument *)[instruments objectAtIndex:(selectedIndex-1)]).name;
-            NSMutableString*message = [[NSMutableString alloc] init];
-            [message appendString:@"Delete "];
-            [message appendString:instrumentName];
-            [message appendString:@"?"];
-            if(!deleteAlert)
-                deleteAlert = [[UIAlertView alloc] initWithTitle:message message:@""   delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-            
-            [deleteAlert show];
-            
+            UIActionSheet *instrumentSheet = [self getInstrumentSheet];
+            NSString * name = [(Instrument *)[instruments objectAtIndex:(selectedIndex -1)] name];
+            [instrumentSheet setTitle:[NSString stringWithFormat:@"Change %@", name]];
+            instrumentSheet.destructiveButtonIndex =[instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@", name]];
+            [instrumentSheet showInView:self.view];
         }
-    }
+
 }
 
 - (void)quickTap:(UITapGestureRecognizer *)recognizer{
@@ -224,17 +219,21 @@ static BOOL LOOPING;
     }
 }
 
+
+-(UIActionSheet *)getInstrumentSheet{
+    UIActionSheet * instrumentSheet = [[UIActionSheet alloc] initWithTitle:@"New instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    for (Instrument *inst in [Assets INSTRUMENTS]) {
+        [instrumentSheet addButtonWithTitle:inst.name];
+    }
+    instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
+    return instrumentSheet;
+}
+
 -(void)changeInstruments{
     int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
     if(pos == ([_instrumentController numberOfSegments] -2)){
         [_fullGrid stop];
-        UIActionSheet *newInstruments = [[UIActionSheet alloc] initWithTitle:@"New instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        for (Instrument *inst in [Assets INSTRUMENTS]) {
-            [newInstruments addButtonWithTitle:inst.name];
-        }
-        newInstruments.cancelButtonIndex = [newInstruments addButtonWithTitle:@"Cancel"];
-        
-        [newInstruments showInView:self.view];
+        [[self getInstrumentSheet ]  showInView:self.view];
     }
     else{
         [_fullGrid changeLayer:(pos)];
@@ -252,19 +251,58 @@ static BOOL LOOPING;
     
 }
 - (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex != popup.cancelButtonIndex){
-        Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
-        [self addInstrument:instrument fromLoad:NO];
-        [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
-        prevSelect =((int)[_instrumentController numberOfSegments] - 1);
-        [_fullGrid addLayer];
-        [self changeInstruments];
+           if(buttonIndex != popup.cancelButtonIndex){
+    
+    if([_instrumentController selectedSegmentIndex] == ([_instrumentController numberOfSegments] -1)){
+        //Add new Instrumenet
+        if(buttonIndex != popup.cancelButtonIndex){
+            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
+            [self addInstrument:instrument fromLoad:NO];
+            [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
+            prevSelect =((int)[_instrumentController numberOfSegments] - 1);
+            [_fullGrid addLayer];
+            [self changeInstruments];
+        }
+        else{
+            [_instrumentController setSelectedSegmentIndex:prevSelect];
+            [_fullGrid changeLayer:prevSelect -1];
+        }
     }
     else{
-        [_instrumentController setSelectedSegmentIndex:prevSelect];
-        [_fullGrid changeLayer:prevSelect -1];
+        //Replace or delete current instrument
+        if(buttonIndex == popup.destructiveButtonIndex){
+            int deleteIndex = (int)[_instrumentController selectedSegmentIndex];
+            
+            
+            [_fullGrid deleteLayerAt:(int)(deleteIndex-1)];
+            [instruments removeObjectAtIndex:(deleteIndex-1)];
+            CGRect frame  =_instrumentController.frame;
+            int remove = frame.size.width/[_instrumentController numberOfSegments];
+            frame.size.width -= remove;
+            _instrumentController.frame = frame;
+            [_instrumentController removeSegmentAtIndex:deleteIndex animated:YES];
+            
+            [_fullGrid changeLayer:-1];
+            [_instrumentController setSelectedSegmentIndex:0];
+                CURRENT_INSTRUMENT = nil;
+            
+            [self fixSegements];
+
+        } else if(buttonIndex != popup.cancelButtonIndex){
+            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
+            NSInteger pos = [_instrumentController selectedSegmentIndex];
+            [instruments removeObjectAtIndex:([_instrumentController selectedSegmentIndex] -1)];
+            [instruments insertObject:instrument atIndex:(pos-1)];
+            [_instrumentController removeSegmentAtIndex:[_instrumentController selectedSegmentIndex] animated:YES];
+            [_instrumentController insertSegmentWithImage:instrument.image atIndex:pos animated:YES];
+             [[[_instrumentController subviews] objectAtIndex:(([_instrumentController numberOfSegments]) -pos -1)] setTintColor:instrument.color];
+              [_instrumentController setSelectedSegmentIndex:pos];
+            [_fullGrid changeInstrumentTo:instrument forLayer:((int)(pos- 1))];
+            CURRENT_INSTRUMENT = instrument;
+            [instrument play];
+        }
     }
-    
+           }
 }
 
 -(void)addInstrument:(Instrument *)instrument fromLoad:(BOOL)load{
@@ -337,49 +375,24 @@ static BOOL LOOPING;
         _beatsTextField.text = [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
         [_fullGrid setNumOfMeasures: [_beatsTextField.text intValue]];
     }
-    else if (alertView ==deleteAlert){
-        if(buttonIndex == 1){
-            int deleteIndex = (int)[_instrumentController selectedSegmentIndex];
-            if(prevSelect == deleteIndex)
-                prevSelect = 0;
-            else if(deleteIndex <= prevSelect)
-                prevSelect--;
-            
-            
-            [_fullGrid deleteLayerAt:(int)(deleteIndex-1)];
-            [instruments removeObjectAtIndex:(deleteIndex-1)];
-            CGRect frame  =_instrumentController.frame;
-            int remove = frame.size.width/[_instrumentController numberOfSegments];
-            frame.size.width -= remove;
-            _instrumentController.frame = frame;
-            [_instrumentController removeSegmentAtIndex:deleteIndex animated:YES];
-            
-            [_fullGrid changeLayer:(prevSelect-1 )];
-            [_instrumentController setSelectedSegmentIndex:(prevSelect)];
-            if((prevSelect -1)>0)
-                CURRENT_INSTRUMENT = [instruments objectAtIndex: prevSelect-1 ];
-            
-            [self fixSegements];
-        }
-    }
     else if(alertView == sucessAlert){
         if(!emailAlert)
             emailAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Would you like to email %@?", self.name] message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [emailAlert show];
     }
     else if(alertView == emailAlert){
-             if(buttonIndex == 1){
-                 MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-                 [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
-                [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App RingSynth for iOS", self.name] isHTML:NO];
-                 NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
-                 [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.mp3", self.name]];
-                 mc.mailComposeDelegate = self;
-                 // Present mail view controller on screen
-                 
-                 [self presentViewController:mc animated:YES completion:NULL];
-
-             }
+        if(buttonIndex == 1){
+            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+            [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
+            [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App RingSynth for iOS", self.name] isHTML:NO];
+            NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
+            [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.mp3", self.name]];
+            mc.mailComposeDelegate = self;
+            // Present mail view controller on screen
+            
+            [self presentViewController:mc animated:YES completion:NULL];
+            
+        }
     }
     
 }
@@ -415,6 +428,7 @@ static BOOL LOOPING;
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
     createButton =  self.navigationItem.rightBarButtonItem;
+    self.navigationItem.hidesBackButton =YES;
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.color = self.view.tintColor ;
     UIBarButtonItem * loadView = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
@@ -425,6 +439,8 @@ static BOOL LOOPING;
 
 -(void)finishedEncoding:(BOOL)success{
     self.navigationItem.rightBarButtonItem = createButton;
+    self.navigationItem.hidesBackButton =NO;
+    
     if(success){
         if(!sucessAlert)
             sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];

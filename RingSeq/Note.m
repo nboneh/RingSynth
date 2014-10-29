@@ -53,7 +53,11 @@
     _noteDescription = [_notePlacement.noteDescs objectAtIndex:accidental];
 }
 
-
+-(void)setInstrument:(Instrument *)instrument{
+    _instrument = instrument;
+    [_instrView setTintColor:instrument.color];
+    [_accidentalView setTextColor:instrument.color];
+}
 -(BOOL)equals:(Note *)note{
     if( self.notePlacement == note.notePlacement && self.instrument == note.instrument)
         return YES;

@@ -19,7 +19,6 @@
 		0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EBE19E70B5F00CED5B4 /* Main.storyboard */; };
 		0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC119E70B5F00CED5B4 /* Images.xcassets */; };
 		0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC319E70B5F00CED5B4 /* LaunchScreen.xib */; };
-		0B703ED119E70B5F00CED5B4 /* RingSeqTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703ED019E70B5F00CED5B4 /* RingSeqTests.m */; };
 		0B74952719EB5A870078296B /* NotesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952619EB5A870078296B /* NotesHolder.m */; };
 		0B74952B19EB793B0078296B /* Instrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952A19EB793B0078296B /* Instrument.m */; };
 		0B74952E19EB7BA50078296B /* Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952D19EB7BA50078296B /* Assets.m */; };
@@ -107,13 +106,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0B703ECB19E70B5F00CED5B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0B703EA619E70B5F00CED5B4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0B703EAD19E70B5F00CED5B4;
-			remoteInfo = RingSeq;
-		};
 		0B9AF9A919F3287E00F6C176 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0B9AF89919F3287D00F6C176 /* ObjectAL.xcodeproj */;
@@ -139,7 +131,7 @@
 		0B39A04B19F04601006B7EA5 /* Measure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measure.m; sourceTree = "<group>"; };
 		0B5D64FB19FC5C5400C408D4 /* PitchShift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PitchShift.c; sourceTree = "<group>"; };
 		0B5D64FC19FC5C5400C408D4 /* PitchShift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchShift.h; sourceTree = "<group>"; };
-		0B703EAE19E70B5F00CED5B4 /* RingRing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingRing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B703EAE19E70B5F00CED5B4 /* RingSynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingSynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703EB219E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703EB319E70B5F00CED5B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0B703EB519E70B5F00CED5B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -151,9 +143,6 @@
 		0B703EBF19E70B5F00CED5B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B703EC119E70B5F00CED5B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0B703EC419E70B5F00CED5B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		0B703ECA19E70B5F00CED5B4 /* RingSeqTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RingSeqTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B703ECF19E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0B703ED019E70B5F00CED5B4 /* RingSeqTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingSeqTests.m; sourceTree = "<group>"; };
 		0B74952519EB5A870078296B /* NotesHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesHolder.h; sourceTree = "<group>"; };
 		0B74952619EB5A870078296B /* NotesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesHolder.m; sourceTree = "<group>"; };
 		0B74952919EB793B0078296B /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
@@ -297,13 +286,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0B703EC719E70B5F00CED5B4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -325,8 +307,7 @@
 		0B703EA519E70B5F00CED5B4 = {
 			isa = PBXGroup;
 			children = (
-				0B703EB019E70B5F00CED5B4 /* RingRing */,
-				0B703ECD19E70B5F00CED5B4 /* RingSeqTests */,
+				0B703EB019E70B5F00CED5B4 /* RingSynth */,
 				0B703EAF19E70B5F00CED5B4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -334,13 +315,12 @@
 		0B703EAF19E70B5F00CED5B4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0B703EAE19E70B5F00CED5B4 /* RingRing.app */,
-				0B703ECA19E70B5F00CED5B4 /* RingSeqTests.xctest */,
+				0B703EAE19E70B5F00CED5B4 /* RingSynth.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0B703EB019E70B5F00CED5B4 /* RingRing */ = {
+		0B703EB019E70B5F00CED5B4 /* RingSynth */ = {
 			isa = PBXGroup;
 			children = (
 				0B9AF84819F3287D00F6C176 /* ObjectAL-for-iPhone */,
@@ -358,7 +338,7 @@
 				0B703EC319E70B5F00CED5B4 /* LaunchScreen.xib */,
 				0B703EB119E70B5F00CED5B4 /* Supporting Files */,
 			);
-			name = RingRing;
+			name = RingSynth;
 			path = RingSeq;
 			sourceTree = "<group>";
 		};
@@ -402,23 +382,6 @@
 				0B74953A19EE050E0078296B /* delete1.wav */,
 				0B703EB219E70B5F00CED5B4 /* Info.plist */,
 				0B703EB319E70B5F00CED5B4 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0B703ECD19E70B5F00CED5B4 /* RingSeqTests */ = {
-			isa = PBXGroup;
-			children = (
-				0B703ED019E70B5F00CED5B4 /* RingSeqTests.m */,
-				0B703ECE19E70B5F00CED5B4 /* Supporting Files */,
-			);
-			path = RingSeqTests;
-			sourceTree = "<group>";
-		};
-		0B703ECE19E70B5F00CED5B4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0B703ECF19E70B5F00CED5B4 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -634,9 +597,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B703EAD19E70B5F00CED5B4 /* RingRing */ = {
+		0B703EAD19E70B5F00CED5B4 /* RingSynth */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingRing" */;
+			buildConfigurationList = 0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingSynth" */;
 			buildPhases = (
 				0B703EAA19E70B5F00CED5B4 /* Sources */,
 				0B703EAB19E70B5F00CED5B4 /* Frameworks */,
@@ -646,28 +609,10 @@
 			);
 			dependencies = (
 			);
-			name = RingRing;
+			name = RingSynth;
 			productName = RingSeq;
-			productReference = 0B703EAE19E70B5F00CED5B4 /* RingRing.app */;
+			productReference = 0B703EAE19E70B5F00CED5B4 /* RingSynth.app */;
 			productType = "com.apple.product-type.application";
-		};
-		0B703EC919E70B5F00CED5B4 /* RingSeqTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0B703ED719E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingSeqTests" */;
-			buildPhases = (
-				0B703EC619E70B5F00CED5B4 /* Sources */,
-				0B703EC719E70B5F00CED5B4 /* Frameworks */,
-				0B703EC819E70B5F00CED5B4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0B703ECC19E70B5F00CED5B4 /* PBXTargetDependency */,
-			);
-			name = RingSeqTests;
-			productName = RingSeqTests;
-			productReference = 0B703ECA19E70B5F00CED5B4 /* RingSeqTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -681,13 +626,9 @@
 					0B703EAD19E70B5F00CED5B4 = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
-					0B703EC919E70B5F00CED5B4 = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = 0B703EAD19E70B5F00CED5B4;
-					};
 				};
 			};
-			buildConfigurationList = 0B703EA919E70B5F00CED5B4 /* Build configuration list for PBXProject "RingSeq" */;
+			buildConfigurationList = 0B703EA919E70B5F00CED5B4 /* Build configuration list for PBXProject "RingSynth" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -707,8 +648,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				0B703EAD19E70B5F00CED5B4 /* RingRing */,
-				0B703EC919E70B5F00CED5B4 /* RingSeqTests */,
+				0B703EAD19E70B5F00CED5B4 /* RingSynth */,
 			);
 		};
 /* End PBXProject section */
@@ -790,13 +730,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0B703EC819E70B5F00CED5B4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -851,23 +784,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0B703EC619E70B5F00CED5B4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0B703ED119E70B5F00CED5B4 /* RingSeqTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0B703ECC19E70B5F00CED5B4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0B703EAD19E70B5F00CED5B4 /* RingRing */;
-			targetProxy = 0B703ECB19E70B5F00CED5B4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0B703EBE19E70B5F00CED5B4 /* Main.storyboard */ = {
@@ -1014,48 +931,10 @@
 			};
 			name = Release;
 		};
-		0B703ED819E70B5F00CED5B4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RingSeqTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RingSeq.app/RingSeq";
-				VALID_ARCHS = "armv7 armv7s";
-			};
-			name = Debug;
-		};
-		0B703ED919E70B5F00CED5B4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RingSeqTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RingSeq.app/RingSeq";
-				VALID_ARCHS = "armv7 armv7s";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0B703EA919E70B5F00CED5B4 /* Build configuration list for PBXProject "RingSeq" */ = {
+		0B703EA919E70B5F00CED5B4 /* Build configuration list for PBXProject "RingSynth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B703ED219E70B5F00CED5B4 /* Debug */,
@@ -1064,20 +943,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingRing" */ = {
+		0B703ED419E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingSynth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B703ED519E70B5F00CED5B4 /* Debug */,
 				0B703ED619E70B5F00CED5B4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0B703ED719E70B5F00CED5B4 /* Build configuration list for PBXNativeTarget "RingSeqTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0B703ED819E70B5F00CED5B4 /* Debug */,
-				0B703ED919E70B5F00CED5B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -15,7 +15,7 @@
 
 @property NoteDescription *noteDescription;
 @property NotePlacement *notePlacement;
-@property Instrument *instrument;
+@property (nonatomic) Instrument *instrument;
 @property UILabel *accidentalView;
 @property UIImageView *instrView;
 @property (nonatomic) Accidental accidental;

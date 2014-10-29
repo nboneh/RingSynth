@@ -21,9 +21,9 @@
     UIAlertView * tempoAlert;
     UIAlertView *beatAlert;
     UIBarButtonItem* createButton;
-    UIAlertView * deleteAlert;
     UIAlertView *sucessAlert;
     UIAlertView* emailAlert;
+    UIActionSheet *changeInstrumentSheet;
 }
 
 typedef enum {

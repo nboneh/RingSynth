@@ -115,7 +115,7 @@
         return;
     }
     y -=_titleViewHeight;
-    int pos = round(y/(self.staff.spacePerNote + 0.0));
+    int pos = round(y /(self.staff.spacePerNote + 0.0f));
     if(pos >=  [_staff.notePlacements count]  )
         return;
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];

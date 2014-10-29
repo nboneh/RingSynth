@@ -40,7 +40,7 @@ static int const NOTES_IN_STAFF = 9;
     self = [super initWithFrame:frame];
     if(self){
         int totalNotes = NOTES_BELOW_STAFF + NOTES_ABOVE_STAFF +NOTES_IN_STAFF;
-         _spacePerNote = self.frame.size.height/totalNotes;
+         _spacePerNote = self.frame.size.height/(totalNotes );
 
         NoteDescription*note = [[NoteDescription alloc] initWithOctave:5 andChar:'f'];
         for(int i = 0; i< NOTES_ABOVE_STAFF; i++){

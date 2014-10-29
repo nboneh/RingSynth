@@ -295,7 +295,7 @@
 }
 -(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andDelegate:(id)delegate {
     int numOfMeasures = self.numOfMeasures;
-    self.delegate = _delegateForEncode;
+    _delegateForEncode = delegate;
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         long sampleRate = 44100;
@@ -504,6 +504,11 @@
     }];
 
 
+}
+
+
+-(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex{
+    
 }
 
 

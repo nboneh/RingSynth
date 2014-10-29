@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-               BuildableName = "RingRing.app"
-               BlueprintName = "RingRing"
-               ReferencedContainer = "container:RingSeq.xcodeproj">
+               BuildableName = "RingSynth.app"
+               BlueprintName = "RingSynth"
+               ReferencedContainer = "container:RingSynth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0B703EC919E70B5F00CED5B4"
-               BuildableName = "RingSeqTests.xctest"
-               BlueprintName = "RingSeqTests"
-               ReferencedContainer = "container:RingSeq.xcodeproj">
+               BuildableName = "RingSynthTests.xctest"
+               BlueprintName = "RingSynthTests"
+               ReferencedContainer = "container:RingSynth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0B703EC919E70B5F00CED5B4"
-               BuildableName = "RingSeqTests.xctest"
-               BlueprintName = "RingSeqTests"
-               ReferencedContainer = "container:RingSeq.xcodeproj">
+               BuildableName = "RingSynthTests.xctest"
+               BlueprintName = "RingSynthTests"
+               ReferencedContainer = "container:RingSynth.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-            BuildableName = "RingRing.app"
-            BlueprintName = "RingRing"
-            ReferencedContainer = "container:RingSeq.xcodeproj">
+            BuildableName = "RingSynth.app"
+            BlueprintName = "RingSynth"
+            ReferencedContainer = "container:RingSynth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-            BuildableName = "RingRing.app"
-            BlueprintName = "RingRing"
-            ReferencedContainer = "container:RingSeq.xcodeproj">
+            BuildableName = "RingSynth.app"
+            BlueprintName = "RingSynth"
+            ReferencedContainer = "container:RingSynth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-            BuildableName = "RingRing.app"
-            BlueprintName = "RingRing"
-            ReferencedContainer = "container:RingSeq.xcodeproj">
+            BuildableName = "RingSynth.app"
+            BlueprintName = "RingSynth"
+            ReferencedContainer = "container:RingSynth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

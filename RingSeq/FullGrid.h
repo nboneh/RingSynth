@@ -42,4 +42,5 @@
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
 -(void) encodeWithBpm:(int)bpm andName:(NSString *)name andDelegate:(id)delegate ;
+-(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex;
 @end
