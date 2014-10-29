@@ -19,13 +19,32 @@
         _noteDescription = [placement.noteDescs objectAtIndex:accidental];
         _instrView = [[UIImageView alloc] initWithImage:[instrument image]];
         [_instrView setTintColor:instrument.color];
-        CGRect imageFrame = _instrView.frame;
+
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        {
+            //Making image twice as large if on ipad and raising it up a tid bit
+            CGRect frame = _instrView.frame;
+            frame.size.width = frame.size.width *2;
+            frame.size.height = frame.size.height *2;
+            frame.origin.y -= 5;
+            _instrView.frame = frame;
+
+        }
+         CGRect imageFrame = _instrView.frame;
         self.frame = CGRectMake(0, placement.y - imageFrame.size.height, imageFrame.size.width, imageFrame.size.height);
         [self addSubview:_instrView];
         CGRect myFrame = self.frame;
-        int width = myFrame.size.width/2;
-        _accidentalView= [[UILabel alloc] initWithFrame:CGRectMake(-width * .8f,width/2,width,width)];
+        int width = myFrame.size.width;
+        _accidentalView= [[UILabel alloc] initWithFrame:CGRectMake(-width/2,width/8,width,width)];
         _accidentalView.textColor = instrument.color;
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        {
+            //Increasing size of font if on ipad
+            [_accidentalView setFont:[UIFont systemFontOfSize:40]];
+            CGRect frame = _accidentalView.frame;
+            frame.origin.y -= 8;
+            _accidentalView.frame = frame;
+        }
         [self addSubview:_accidentalView];
         [self setAccidental:_noteDescription.accidental];
         
