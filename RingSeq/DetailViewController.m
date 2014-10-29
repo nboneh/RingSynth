@@ -93,7 +93,7 @@ static BOOL LOOPING;
     
     UITapGestureRecognizer *doubleTap =
     [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(doubleTap:)];
+                                            action:@selector(doubleTap:)];
     [doubleTap setNumberOfTapsRequired:2];
     [_instrumentController addGestureRecognizer:doubleTap];
     
@@ -196,18 +196,15 @@ static BOOL LOOPING;
 
 
 - (void)doubleTap:(UITapGestureRecognizer *)recognizer{
-        [_fullGrid stop];
-        CGPoint translate = [recognizer locationInView:_instrumentController];
-        int selectedIndex =((translate.x/_instrumentController.frame.size.width) * [_instrumentController numberOfSegments]);
-        if(selectedIndex > 0 && selectedIndex < ([_instrumentController numberOfSegments]  -1)){
-            [_instrumentController setSelectedSegmentIndex:selectedIndex];
-            UIActionSheet *instrumentSheet = [self getInstrumentSheet];
-            NSString * name = [(Instrument *)[instruments objectAtIndex:(selectedIndex -1)] name];
-            [instrumentSheet setTitle:[NSString stringWithFormat:@"Change %@", name]];
-            instrumentSheet.destructiveButtonIndex =[instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@", name]];
-            [instrumentSheet showInView:self.view];
-        }
-
+    [_fullGrid stop];
+    CGPoint translate = [recognizer locationInView:_instrumentController];
+    int selectedIndex =((translate.x/_instrumentController.frame.size.width) * [_instrumentController numberOfSegments]);
+    if(selectedIndex > 0 && selectedIndex < ([_instrumentController numberOfSegments]  -1)){
+        [_instrumentController setSelectedSegmentIndex:selectedIndex];
+        UIActionSheet *instrumentSheet = [self getInstrumentSheetWithInstrument:(Instrument *)[instruments objectAtIndex:(selectedIndex -1)] ];
+        [instrumentSheet showInView:self.view];
+    }
+    
 }
 
 - (void)quickTap:(UITapGestureRecognizer *)recognizer{
@@ -220,20 +217,24 @@ static BOOL LOOPING;
 }
 
 
--(UIActionSheet *)getInstrumentSheet{
+-(UIActionSheet *)getInstrumentSheetWithInstrument:(Instrument *)instrument{
     UIActionSheet * instrumentSheet = [[UIActionSheet alloc] initWithTitle:@"New instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    if(instrument){
+        instrumentSheet.title = [NSString stringWithFormat:@"Editing %@", instrument.name];
+        instrumentSheet.destructiveButtonIndex = [instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
+    }
     for (Instrument *inst in [Assets INSTRUMENTS]) {
         [instrumentSheet addButtonWithTitle:inst.name];
     }
-    instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
-    return instrumentSheet;
+        instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
+     return instrumentSheet;
 }
 
 -(void)changeInstruments{
     int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
     if(pos == ([_instrumentController numberOfSegments] -2)){
         [_fullGrid stop];
-        [[self getInstrumentSheet ]  showInView:self.view];
+        [[self getInstrumentSheetWithInstrument:nil ]  showInView:self.view];
     }
     else{
         [_fullGrid changeLayer:(pos)];
@@ -251,22 +252,21 @@ static BOOL LOOPING;
     
 }
 - (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
-           if(buttonIndex != popup.cancelButtonIndex){
+    if(buttonIndex ==popup.cancelButtonIndex){
+        [_instrumentController setSelectedSegmentIndex:prevSelect];
+        [_fullGrid changeLayer:prevSelect -1];
+        return;
+    }
     
     if([_instrumentController selectedSegmentIndex] == ([_instrumentController numberOfSegments] -1)){
         //Add new Instrumenet
-        if(buttonIndex != popup.cancelButtonIndex){
-            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
-            [self addInstrument:instrument fromLoad:NO];
-            [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
-            prevSelect =((int)[_instrumentController numberOfSegments] - 1);
-            [_fullGrid addLayer];
-            [self changeInstruments];
-        }
-        else{
-            [_instrumentController setSelectedSegmentIndex:prevSelect];
-            [_fullGrid changeLayer:prevSelect -1];
-        }
+        
+        Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
+        [self addInstrument:instrument fromLoad:NO];
+        [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
+        prevSelect =((int)[_instrumentController numberOfSegments] - 1);
+        [_fullGrid addLayer];
+        [self changeInstruments];
     }
     else{
         //Replace or delete current instrument
@@ -284,25 +284,24 @@ static BOOL LOOPING;
             
             [_fullGrid changeLayer:-1];
             [_instrumentController setSelectedSegmentIndex:0];
-                CURRENT_INSTRUMENT = nil;
+            CURRENT_INSTRUMENT = nil;
             
             [self fixSegements];
-
-        } else if(buttonIndex != popup.cancelButtonIndex){
-            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
+            
+        } else {
+            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: (buttonIndex- 1)];
             NSInteger pos = [_instrumentController selectedSegmentIndex];
             [instruments removeObjectAtIndex:([_instrumentController selectedSegmentIndex] -1)];
             [instruments insertObject:instrument atIndex:(pos-1)];
             [_instrumentController removeSegmentAtIndex:[_instrumentController selectedSegmentIndex] animated:YES];
             [_instrumentController insertSegmentWithImage:instrument.image atIndex:pos animated:YES];
-             [[[_instrumentController subviews] objectAtIndex:(([_instrumentController numberOfSegments]) -pos -1)] setTintColor:instrument.color];
-              [_instrumentController setSelectedSegmentIndex:pos];
+            [[[_instrumentController subviews] objectAtIndex:(([_instrumentController numberOfSegments]) -pos -1)] setTintColor:instrument.color];
+            [_instrumentController setSelectedSegmentIndex:pos];
             [_fullGrid changeInstrumentTo:instrument forLayer:((int)(pos- 1))];
             CURRENT_INSTRUMENT = instrument;
             [instrument play];
         }
     }
-           }
 }
 
 -(void)addInstrument:(Instrument *)instrument fromLoad:(BOOL)load{

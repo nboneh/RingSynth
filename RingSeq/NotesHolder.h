@@ -20,7 +20,7 @@
 }
 
 @property UISlider *volumeSlider;
-@property NSMutableArray *notes;
+@property(readonly) NSMutableArray *notes;
 @property Staff *staff;
 @property UIView *lineView;
 @property UILabel *titleView;

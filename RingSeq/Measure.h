@@ -32,7 +32,7 @@ typedef enum {
 @property Staff *staff;
 @property Subdivision currentSubdivision;
 @property int widthPerNoteHolder;
-@property NSMutableArray *noteHolders;
+@property (readonly)NSMutableArray *noteHolders;
 @property NotesHolder *initialNotesHolder;
 @property(nonatomic,assign)id delegate;
 

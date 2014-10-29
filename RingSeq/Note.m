@@ -55,7 +55,8 @@
 
 -(void)setInstrument:(Instrument *)instrument{
     _instrument = instrument;
-    [_instrView setTintColor:instrument.color];
+      [_instrView setTintColor:instrument.color];
+    [_instrView setImage:instrument.image];
     [_accidentalView setTextColor:instrument.color];
 }
 -(BOOL)equals:(Note *)note{

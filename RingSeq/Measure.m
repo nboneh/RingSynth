@@ -12,6 +12,7 @@
 @implementation Measure
 @synthesize delegate = _delegate;
 @synthesize num = _num;
+@synthesize noteHolders = _noteHolders;
 
 -(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num andChannel:(ALChannelSource *)channel_{
     self = [super initWithFrame:frame];

@@ -276,12 +276,12 @@
 }
 
 -(NSArray*)createSaveFile{
-        NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
-        for(int i = 0; i < [layers count]; i++){
-            [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
-        }
-        return [[NSArray alloc] initWithArray:preSaveFile];
-
+    NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
+    for(int i = 0; i < [layers count]; i++){
+        [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
+    }
+    return [[NSArray alloc] initWithArray:preSaveFile];
+    
 }
 
 -(void)loadSaveFile:(NSArray *)saveFile{
@@ -428,7 +428,7 @@
             free(uncompLayer);
         }
         free(uncompDataPointers);
-
+        
         Byte *wavfileByte = ( Byte*)malloc( totalLength);
         for(int i = 0; i < 44; i++){
             wavfileByte[i] = headerfile[i];
@@ -460,8 +460,8 @@
         }
         free(uncompData);
         NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-         tempFilePath=[NSString stringWithFormat:@"%@/%@%@", path, name, @"temp.wav"];
-                NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
+        tempFilePath=[NSString stringWithFormat:@"%@/%@%@", path, name, @"temp.wav"];
+        NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
         [[NSFileManager defaultManager] createFileAtPath:tempFilePath
                                                 contents:data
                                               attributes:nil];
@@ -472,19 +472,19 @@
         BOOL exists = [fm fileExistsAtPath:ringtonePath];
         if(exists == YES)
             [fm removeItemAtPath:ringtonePath error:nil];
-
+        
         free(wavfile);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-          audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
-                                                                                      source:tempFilePath
-                                                                                 destination:ringtonePath];
-        
-        [audioConverter start];
+            audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
+                                                                    source:tempFilePath
+                                                               destination:ringtonePath];
+            
+            [audioConverter start];
         }];
-
-        }
         
-    );
+    }
+                   
+                   );
 }
 
 -(void)AACAudioConverterDidFinishConversion:(TPAACAudioConverter *)converter{
@@ -493,32 +493,40 @@
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         [_delegateForEncode finishedEncoding:YES ];
     }];
-
-
+    
+    
 }
 -(void)AACAudioConverter:(TPAACAudioConverter *)converter didFailWithError:(NSError *)error{
-       NSFileManager *fm = [NSFileManager defaultManager];
+    NSFileManager *fm = [NSFileManager defaultManager];
     [fm removeItemAtPath:tempFilePath error:nil];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-          [_delegateForEncode finishedEncoding:NO ];
+        [_delegateForEncode finishedEncoding:NO ];
     }];
-
-
+    
+    
 }
 
 
 -(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex{
-    
+    [self changeLayer:layerIndex];
+    NSArray * measures = [currentLayer measures];
+    for(Measure *measure in measures){
+        for(NotesHolder *noteHolder in [measure noteHolders]){
+            for(Note*note in [noteHolder notes])
+                [note setInstrument:instrument];
+        }
+    }
 }
 
 
+
 /*-(short int)clippingWith:(short int)a and:(short int)b{
-    if(((short int)a) >= 0 && ((short int)b )>= 0 && ((short int)(a +b)) < 0 )
-        return MAX_VALUE_SHORT;
-    else if(((short int)a) < 0 && ((short int)b) < 0 && ((short int)(a+b)) >=0 )
-        return -MAX_VALUE_SHORT;
-    else
-        return a +b;
-    
-}*/
+ if(((short int)a) >= 0 && ((short int)b )>= 0 && ((short int)(a +b)) < 0 )
+ return MAX_VALUE_SHORT;
+ else if(((short int)a) < 0 && ((short int)b) < 0 && ((short int)(a+b)) >=0 )
+ return -MAX_VALUE_SHORT;
+ else
+ return a +b;
+ 
+ }*/
 @end

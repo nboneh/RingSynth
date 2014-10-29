@@ -12,13 +12,13 @@
 #import "ObjectAL.h"
 
 @interface Layout  : UIView<MeasureDelegate>{
-    NSMutableArray *measures;
     int prevMeasure;
     NSTimer *playTimer;
     int bpm;
     ALChannelSource *channel;
     Staff *staff;
 }
+@property (readonly)NSMutableArray *measures;
 @property (readonly)int currentMeasurePlaying;
 @property (readonly)int widthFromFirstMeasure;
 @property(readonly) int widthPerMeasure;

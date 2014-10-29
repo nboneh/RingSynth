@@ -18,7 +18,7 @@
 @implementation NotesHolder
 @synthesize titleView = _titleView;
 @synthesize lineView = _lineView;
-
+@synthesize notes = _notes;
 -(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andTitle:(NSString *)title  andChannel:(  ALChannelSource *)  channel_{
     self = [super initWithFrame:frame];
     if(self){
@@ -108,8 +108,6 @@
 }
 
 -(void)placeNoteAtY:(int)y {
-    if(!_notes)
-        _notes = [[NSMutableArray alloc] init];
     
     if(![DetailViewController CURRENT_INSTRUMENT]){
         return;
@@ -120,6 +118,13 @@
         return;
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
     Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:[DetailViewController CURRENT_INSTRUMENT] andAccedintal:[DetailViewController CURRENT_ACCIDENTAL]];
+    [self insertNote:note];
+        [note playWithVolume:[_volumeSlider value] andChannel:channel];
+}
+
+-(void)insertNote:(Note *)note{
+    if(!_notes)
+        _notes = [[NSMutableArray alloc] init];
     //If equals a note that exists do not add
     NSInteger size =  _notes.count;
     for(int i = 0; i < size; i++){
@@ -133,7 +138,6 @@
     note.frame = frame;
     [_notes  addObject: note];
     [self checkViews];
-    [note playWithVolume:[_volumeSlider value] andChannel:channel];
     [self addSubview:note];
     UITapGestureRecognizer *doubleFingerTap =
     [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -144,8 +148,10 @@
     [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                   action:@selector(longPress:)];
     [note addGestureRecognizer:longPress];
-    
+
+
 }
+
 - (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
     Note * note = (Note *)recognizer.view;
     if(note.accidental < (numOfAccedintals -1))
@@ -203,16 +209,8 @@
         for(NSDictionary * noteDict in loadNotes){
             Note*note = [[Note alloc] initWithNotePlacement:[_staff.notePlacements objectAtIndex:[[noteDict objectForKey:@"noteplacement"] intValue]]
                                              withInstrument:[[Assets INSTRUMENTS] objectAtIndex:[[noteDict objectForKey:@"instrument"] intValue]] andAccedintal:[[noteDict  objectForKey:@"accidental"] intValue]];
-            if(!_notes){
-                _notes = [[NSMutableArray alloc] init];
-            }
-            CGRect frame = note.frame;
-            frame.origin.y += _volumeMeterHeight;
-            frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
-            note.frame = frame;
+            [self insertNote:note];
 
-            [_notes addObject:note];
-            [self addSubview:note];
         }
         [self checkViews];
 

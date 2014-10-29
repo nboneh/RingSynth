@@ -19,11 +19,12 @@
 @synthesize widthPerMeasure = _widthPerMeasure;
 @synthesize currentMeasurePlaying = _currentMeasurePlaying;
 @synthesize numOfMeasures = _numOfMeasures;
+@synthesize measures =_measures;
 -(id) initWithStaff:(Staff *)staff_ andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures{
     self = [super init];
     if(self){
         staff = staff_;
-        measures = [[NSMutableArray alloc] init];
+        _measures = [[NSMutableArray alloc] init];
         channel =[[ALChannelSource alloc] initWithSources:kDefaultReservedSources];
         _numOfMeasures = numOfMeasures;
         
@@ -32,7 +33,7 @@
         _widthPerMeasure = frame.size.width/4;
         for(int i = 0; i < numOfMeasures; i++){
             Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, frame.size.height) andNum:(i) andChannel:channel];
-            [measures addObject:measure];
+            [_measures addObject:measure];
             delX += _widthPerMeasure;
             [self addSubview:measure];
             [measure setDelegate:self];
@@ -69,7 +70,7 @@
     }
     
     
-    Measure * measure = [measures objectAtIndex:_currentMeasurePlaying];
+    Measure * measure = [_measures objectAtIndex:_currentMeasurePlaying];
     [measure playWithTempo:bpm];
     
     _currentMeasurePlaying++;
@@ -78,7 +79,7 @@
 -(void)stop{
     [playTimer invalidate];
      playTimer = nil;
-    for(Measure * measure in measures){
+    for(Measure * measure in _measures){
         [measure stop];
     }
     _currentMeasurePlaying = 0;
@@ -86,7 +87,7 @@
 -(void)changeSubDivision:(Subdivision)subdivision{
     NSInteger size = _numOfMeasures ;
     for(int i = 0; i < size; i++){
-        Measure* measure = [measures objectAtIndex:i];
+        Measure* measure = [_measures objectAtIndex:i];
         if(!measure.anyNotesInsubdivision)
             [measure changeSubDivision:subdivision];
     }
@@ -97,10 +98,10 @@
     CGRect myFrame = self.frame;
     myFrame.size.width = _widthPerMeasure * numOfMeasures + _widthFromFirstMeasure;
     self.frame = myFrame;
-    int delX =_widthFromFirstMeasure + (int)[measures count]*(_widthPerMeasure) ;
-    for(int i = (int)[measures count]; i < numOfMeasures; i++){
+    int delX =_widthFromFirstMeasure + (int)[_measures count]*(_widthPerMeasure) ;
+    for(int i = (int)[_measures count]; i < numOfMeasures; i++){
         Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, self.frame.size.height) andNum:(i) andChannel:channel];
-        [measures addObject:measure];
+        [_measures addObject:measure];
         [self addSubview:measure];
         delX += _widthPerMeasure;
         [measure setDelegate:self];
@@ -110,8 +111,8 @@
 
 -(Measure *)findMeasureAtx:(int)x{
     int pos = (x -_widthFromFirstMeasure)/( _widthPerMeasure);
-    if(pos < [measures count])
-        return[measures objectAtIndex:pos];
+    if(pos < [_measures count])
+        return[_measures objectAtIndex:pos];
     return nil;
 }
 
@@ -125,7 +126,7 @@
 -(NSArray*)createSaveFile{
     NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
     for(int i = 0; i < _numOfMeasures; i++){
-        [preSaveFile addObject:[(Measure *)[measures objectAtIndex:i] createSaveFile] ];
+        [preSaveFile addObject:[(Measure *)[_measures objectAtIndex:i] createSaveFile] ];
     }
     return [[NSArray alloc] initWithArray:preSaveFile];
 }
@@ -133,7 +134,7 @@
 -(void)loadSaveFile:(NSArray *)saveFile{
     NSInteger size = saveFile.count;
     for(int i = 0; i < size; i++){
-        [(Measure *)[measures objectAtIndex:i] loadSaveFile:[saveFile objectAtIndex:i]];
+        [(Measure *)[_measures objectAtIndex:i] loadSaveFile:[saveFile objectAtIndex:i]];
     }
 }
 @end
