@@ -149,6 +149,7 @@
 		0BC701D71A01FA56003E03F3 /* KettleDrum1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */; };
 		0BC701D91A0203EF003E03F3 /* Bass Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */; };
 		0BC701DB1A0213D5003E03F3 /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701DA1A0213D5003E03F3 /* Default */; };
+		0BC701DE1A02BA2D003E03F3 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC701DD1A02BA2D003E03F3 /* HelpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,6 +370,8 @@
 		0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = KettleDrum1.wav; path = ../../../Downloads/KettleDrum1.wav; sourceTree = "<group>"; };
 		0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Bass Guitar.wav"; path = "../../../Downloads/Bass Guitar.wav"; sourceTree = "<group>"; };
 		0BC701DA1A0213D5003E03F3 /* Default */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Default; path = ../../Default; sourceTree = "<group>"; };
+		0BC701DC1A02BA2D003E03F3 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		0BC701DD1A02BA2D003E03F3 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -674,6 +677,8 @@
 				0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */,
 				0B703EB819E70B5F00CED5B4 /* FilesViewController.h */,
 				0B703EB919E70B5F00CED5B4 /* FilesViewController.m */,
+				0BC701DC1A02BA2D003E03F3 /* HelpViewController.h */,
+				0BC701DD1A02BA2D003E03F3 /* HelpViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -960,6 +965,7 @@
 				0B9AF93E19F3287E00F6C176 /* ALContext.m in Sources */,
 				0B9AF93719F3287E00F6C176 /* OALAudioTrack.m in Sources */,
 				0B74952719EB5A870078296B /* NotesHolder.m in Sources */,
+				0BC701DE1A02BA2D003E03F3 /* HelpViewController.m in Sources */,
 				0B703EBA19E70B5F00CED5B4 /* FilesViewController.m in Sources */,
 				0B9AF93819F3287E00F6C176 /* OALAudioTrackNotifications.m in Sources */,
 				0B74954419EEF7300078296B /* Layout.m in Sources */,
