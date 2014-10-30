@@ -78,15 +78,7 @@
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:self];
     int y = location.y;
-    switch([DetailViewController CURRENT_EDIT_MODE]){
-        case insert:
-            [self placeNoteAtY:y];
-            break;
-        case nerase:
-            [self deleteNoteIfExistsAtY:y];
-            break;
-            
-    }
+    [self placeNoteAtY:y];
 }
 
 
@@ -118,11 +110,11 @@
         return;
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
     Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:[DetailViewController CURRENT_INSTRUMENT] andAccedintal:[DetailViewController CURRENT_ACCIDENTAL]];
-    [self insertNote:note];
+    if([self insertNote:note])
         [note playWithVolume:[_volumeSlider value] andChannel:channel];
 }
 
--(void)insertNote:(Note *)note{
+-(BOOL)insertNote:(Note *)note{
     if(!_notes)
         _notes = [[NSMutableArray alloc] init];
     //If equals a note that exists do not add
@@ -130,7 +122,7 @@
     for(int i = 0; i < size; i++){
         Note *note2 = [_notes objectAtIndex:i];
         if([note2 equals:note])
-            return;
+            return NO;
     }
     CGRect frame = note.frame;
     frame.origin.y += _volumeMeterHeight;
@@ -144,11 +136,7 @@
                                             action:@selector(handleDoubleTap:)];
     [doubleFingerTap setNumberOfTapsRequired:2];
     [note addGestureRecognizer:doubleFingerTap];
-    UILongPressGestureRecognizer *longPress =
-    [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(longPress:)];
-    [note addGestureRecognizer:longPress];
-
+    return YES;
 
 }
 

@@ -26,11 +26,6 @@
     UIActionSheet *changeInstrumentSheet;
 }
 
-typedef enum {
-    insert,
-    nerase
-} EditMode;
-
 @property (weak, nonatomic) IBOutlet UITextField *beatsTextField;
 
 @property (strong, nonatomic) id name;
@@ -45,7 +40,6 @@ typedef enum {
 -(IBAction)changeTempo;
 -(IBAction)replay;
 -(IBAction)changeAccedintal:(UISegmentedControl *)sender;
--(IBAction)changeEditMode:(UISegmentedControl *)sender;
 -(IBAction)play:(UIBarButtonItem*)sender;
 -(IBAction)loop:(UIBarButtonItem*)sender;
 -(IBAction)changeBeat;
@@ -54,7 +48,6 @@ typedef enum {
 
 +(Instrument *)CURRENT_INSTRUMENT;
 +(Accidental)CURRENT_ACCIDENTAL;
-+(EditMode)CURRENT_EDIT_MODE;
 +(BOOL)LOOPING;
 @end
 

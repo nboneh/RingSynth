@@ -28,7 +28,6 @@ static const int MAX_BEATS = 99;
 
 static Accidental CURRENT_ACCIDENTAL;
 static Instrument *CURRENT_INSTRUMENT;
-static EditMode CURRENT_EDIT_MODE;
 static BOOL LOOPING;
 #pragma mark - Managing the detail item
 
@@ -77,7 +76,6 @@ static BOOL LOOPING;
     firstTimeLoadingSubView = YES;
     CURRENT_INSTRUMENT = nil;
     CURRENT_ACCIDENTAL = natural;
-    CURRENT_EDIT_MODE = insert;
     LOOPING = NO;
     
     int width = [[UIScreen mainScreen] bounds].size.width/10 ;
@@ -327,10 +325,6 @@ static BOOL LOOPING;
     
 }
 
--(IBAction)changeEditMode:(UISegmentedControl *)sender{
-    CURRENT_EDIT_MODE =(EditMode)[sender selectedSegmentIndex];
-}
-
 
 +(Instrument *)CURRENT_INSTRUMENT{
     return CURRENT_INSTRUMENT;
@@ -449,9 +443,7 @@ static BOOL LOOPING;
         
     }
 }
-+(EditMode)CURRENT_EDIT_MODE{
-    return CURRENT_EDIT_MODE;
-}
+
 +(BOOL)LOOPING{
     return LOOPING;
 }
@@ -460,6 +452,7 @@ static BOOL LOOPING;
 {
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
+    [self changeInstruments];
 }
 
 @end

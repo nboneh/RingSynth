@@ -14,7 +14,6 @@
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
     ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
     [OALSimpleAudio sharedInstance].channel = channel;
-    [self initWavs];
     float pitch = 1.0f;
     if(note.accidental == sharp)
         pitch += .1f;
@@ -22,9 +21,8 @@
         pitch -= .1f;
     if(volume == 0.0f)
         [[OALSimpleAudio sharedInstance] stopAllEffects];
-    NSString *drum =[(NSDictionary *)[_sounds objectAtIndex:(note.octave -3)] objectForKey:[NSString stringWithFormat:@"%c",(note.character) ]];
-      [channel setVolume:volume];
-    [[OALSimpleAudio sharedInstance] playEffect:drum volume:volume pitch:pitch pan:0.0f loop:NO];
+    NSString *drum =  [self getDrumWithNoteDescription:note];
+    [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", drum] volume:volume pitch:pitch pan:0.0f loop:NO];
     if(volume == 0.0f)
         [[OALSimpleAudio sharedInstance] stopAllEffects];
     
@@ -32,86 +30,67 @@
     
 
 }
--(void)initWavs{
+-(id)getDrumWithNoteDescription:(NoteDescription *)note{
     if(!_sounds){
-        NSDictionary *octave1 = @{@"e":@"Gong.wav",
-                                  @"f":@"KickDrum1.wav",
-                                  @"g": @"KickDrum2.wav",
-                                  @"a" : @"KickDrum3.wav",
-                                  @"b" :@"FloorTom.wav"
+        NSDictionary *octave1 = @{@"e":@[@"Gong", @"Synth-Cowbell",@""],
+                                  @"f":@[@"Shaker", @"Kick-Snare", @"Zill"],
+                                  @"g": @[@"Clap",@"Clap2", @"Snap"],
+                                  @"a" : @[@"Low-Bongo",@"Kalimba",@"CrazyKalimba"],
+                                  @"b" :@[@"Hi-Bongo",@"BikeBell",@"LowTimp"]
                                   };
         
         
         NSDictionary *octave2 =@{
-                                 @"c" :@"Tom.wav",
-                                 @"d":  @"Tom2.wav",
-                                 @"e": @"RideCymbal1.wav",
-                                 @"f": @"RideCymbal2.wav",
-                                 @"g": @"RideCymbal3.wav",
-                                 @"a" : @"Snare1.wav",
-                                 @"b" :@"Snare2.wav"
+                                 @"c" :@[@"KickDrum2", @"SlapNoise",@"Timpani"],
+                                 @"d":  @[@"PedalHiHat",@"KickDrum3", @"Side-Stick"],
+                                 @"e": @[@"BassDrum", @"HandDrum", @"KettleDrum1"],
+                                 @"f": @[@"BassDrum2", @"DoumbekTek", @"Click"],
+                                 @"g": @[@"FloorTom", @"OpenRimShot", @"Clacker"],
+                                 @"a" : @[@"FloorTom2",@"Electro-Tom",@"Tambourine2"],
+                                 @"b" :@[@"LowTom", @"Tambourine", @"Low-Synth-Tom"]
                                  
                                  
                                  };
         NSDictionary *octave3 = @{
-                                  @"c" :@"Snare3.wav",
-                                  @"d":  @"Crash1.wav",
-                                  @"e":  @"Crash2.wav",
-                                  @"f": @"Crash3.wav",
-                                  @"g": @"ClosedHiHat1.wav",
-                                  @"a"     : @"ClosedHiHat2.wav",
-                                  @"b" :@"ClosedHiHat3.wav",
-                                  @"c" :@"OpenHiHat1.wav"
+                                  @"c" :@[@"Snare", @"Rimshot", @"BuzzSnare"],
+                                  @"d":  @[@"RideCymbal1",@"MidTom1",@"Woodblock"],
+                                  @"e":  @[@"MidTom2", @"Cowbell",@"HalfOpenHiHat"],
+                                  @"f": @[@"RideCymbal2", @"HiTom",@"Hi-Synth-Tom"],
+                                  @"g": @[@"ClosedHiHat",@"OpenHiHat", @"ClosedHiHat2"],
+                                  @"a" : @[@"Crash1", @"Triangle", @"TriangleMute"],
+                                  @"b" :@[@"Splash", @"Splash2", @"Crash2"]
                                   };
         
         NSDictionary *octave4 = @{
-                                  @"c" :@"OpenHiHat1.wav",
-                                  @"d": @"OpenHiHat2.wav"
+                                  @"c" :@[@"China",@"Sizzle",@"Crash3"],
+                                  @"d": @[@"Klank",@"",@"Klank2"]
                                   };
         _sounds = [[NSArray alloc] initWithObjects:octave1, octave2,octave3, octave4, nil];
         
     }
+     return [[(NSDictionary *)[_sounds objectAtIndex:(note.octave -3)] objectForKey:[NSString stringWithFormat:@"%c",(note.character) ]] objectAtIndex:note.accidental];
 
 }
 
 -(void)play{
-    [[OALSimpleAudio sharedInstance] playEffect:@"Snare1.wav"];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Snare.wav"];
     
 }
 
 -(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
- [self initWavs];
-    NSString *drum =[(NSDictionary *)[_sounds objectAtIndex:(note.octave -3)] objectForKey:[NSString stringWithFormat:@"%c",(note.character) ]];
-    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:[drum substringWithRange:NSMakeRange(0,[drum rangeOfString:@".wav" ].location)] ofType:@"wav"];
+    NSString *drum =[self getDrumWithNoteDescription:note];
+    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:drum ofType:@"wav"];
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
     NSUInteger length = [data length] -44;
     short int*cdata = (  short int*)malloc(length);
-    for(int i = 0; i < (length/2); i++){
+    for(int i = 0; i < length/2; i++){
         cdata[i] = 0;
     }
     [data getBytes:(  short int*)cdata range:NSMakeRange(44,length)];
-    float pitch = 1.0f;
-    if(note.accidental == sharp)
-        pitch += .1f;
-    else if(note.accidental == flat)
-        pitch -= .1f;
-
-    float delta = 1/pitch;
-
     for(int i = 0; i < length/2; i++){
         cdata[i] = cdata[i] *volume;
     }
-    [self initWavs];
-    //Extra space cause of algorithm
-     int newLength = (length * delta) -4;
-    short int*outdata = (short int *) malloc(newLength);
-    for(int i = 0; i < (newLength/2); i++){
-        outdata[i] = 0;
-    }
-   smb_pitch_shift(cdata,outdata,length/2, newLength/2,delta);
-    
-
-    free(outdata);
+    data = [NSData dataWithBytes:(const void *)cdata length:(length)];
     free(cdata);
     return data;
 }

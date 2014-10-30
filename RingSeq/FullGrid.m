@@ -23,6 +23,7 @@
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
+        
         int volumeMeterSpace = frame.size.height/6;
         int titleSpace = frame.size.height/8;
         container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
@@ -33,11 +34,6 @@
         self.maximumZoomScale = 6.5f;
         [self addSubview:container];
         [self setDelegate:self];
-        UITapGestureRecognizer *singleFingerTap =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(handleSingleTap:)];
-        
-        [container addGestureRecognizer:singleFingerTap];
         UILongPressGestureRecognizer *longPress =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                       action:@selector(handleLongPress:)];
@@ -219,14 +215,7 @@
     [staff increaseWidthOfLines:width];
 }
 
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    if([DetailViewController CURRENT_EDIT_MODE] == nerase){
-        CGPoint location = [recognizer locationInView:container];
-        [self deleteNoteAtLocation:location];
-    }
-    
-    
-}
+
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:container];
@@ -245,6 +234,15 @@
                     if([noteHolder deleteNoteIfExistsAtY:location.y])
                         return;
                 }
+            }
+        }
+    } else {
+        Measure * measure = [currentLayer findMeasureAtx:location.x];
+        if(measure){
+            NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
+            if(noteHolder){
+                if([noteHolder deleteNoteIfExistsAtY:location.y])
+                    return;
             }
         }
     }
@@ -365,8 +363,8 @@
         //to turn it to a short int array
         //So much nested loops gah
         int **uncompDataPointers = malloc(4 *decodeData.count);
-        for(int i = 0; i < decodeData.count; i++){
-            uncompDataPointers[i] = NULL;
+        for(int i = 0; i < decodeData.count; i++) {
+            uncompDataPointers[i] = 0;
         }
         for(int t = 0; t < decodeData.count; t++){
             int*uncompLayer = malloc(lengthOfPiece *2);
@@ -440,18 +438,18 @@
         }
         int maxValue = 0;
         for(int i = 0; i < lengthOfPiece/2; i++){
-            if(uncompData[i] > maxValue)
-                maxValue = uncompData[i];
+            int val =abs(uncompData[i]) ;
+            if(val > maxValue)
+                maxValue = val;
         }
         
         if(maxValue < SHRT_MAX)
             maxValue = SHRT_MAX;
         
-        float invMaxValue = 1.0f/maxValue;
-        
         short int*wavfile = (short int *)wavfileByte;
+        float multi =  (1.0f/maxValue) *SHRT_MAX;
         for( int i = 22; i < (totalLength/2); i++){
-            int value = uncompData[i -22] * invMaxValue *SHRT_MAX;
+            int value = uncompData[i -22] * multi;
             if(value >= SHRT_MAX)
                 value = SHRT_MAX;
             else if(value <= SHRT_MIN)

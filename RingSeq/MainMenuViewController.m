@@ -14,6 +14,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     self.navigationController.navigationBar.hidden = YES;
 }
 
 
@@ -26,7 +27,6 @@
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
 }
-
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
        self.navigationController.navigationBar.hidden = YES;

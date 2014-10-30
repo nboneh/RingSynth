@@ -33,7 +33,7 @@ static NSArray *INSTRUMENTS;
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Electric Guitar" color: [UIColor blueColor] andBaseOctave:4]];
         [instrumentMut addObject:[[Drums alloc] initWithName:@"Drums" color:[UIColor brownColor] andBaseOctave:4]];
         //C4
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Bass" color:[UIColor greenColor] andBaseOctave:4 ]];
+        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Bass Guitar" color:[UIColor greenColor] andBaseOctave:4 ]];
         //C5
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Bell" color:[UIColor cyanColor] andBaseOctave:5]];
         //C5

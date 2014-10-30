@@ -163,19 +163,6 @@
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" id="wUP-ep-eH2">
-                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="PYy-sp-jV9">
-                                            <rect key="frame" x="144" y="7" width="61" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <segments>
-                                                <segment title="" image="pencil"/>
-                                                <segment title="" image="eraser"/>
-                                            </segments>
-                                            <connections>
-                                                <action selector="changeEditMode:" destination="JEX-9P-axG" eventType="valueChanged" id="MYS-P5-QGm"/>
-                                            </connections>
-                                        </segmentedControl>
-                                    </barButtonItem>
                                     <barButtonItem width="15" style="plain" systemItem="fixedSpace" id="urj-Qk-WfV"/>
                                 </items>
                             </toolbar>
@@ -283,9 +270,7 @@
     </scenes>
     <resources>
         <image name="download" width="22" height="22"/>
-        <image name="eraser" width="22" height="22"/>
         <image name="noloop" width="22" height="22"/>
-        <image name="pencil" width="22" height="22"/>
         <image name="play" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

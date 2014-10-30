@@ -105,10 +105,6 @@
     //Extra space cause of algorithm
     int newLength = (length* delta) -4;
     short int*outdata = (short int *) malloc(newLength);
-    for(int i = 0; i < (newLength/2); i++){
-        outdata[i] = 0;
-    }
-    
     smb_pitch_shift(cdata, outdata,length/2, newLength/2,delta);
     
     data = [NSData dataWithBytes:(const void *)outdata length:(newLength)];
