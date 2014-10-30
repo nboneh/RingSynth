@@ -268,22 +268,12 @@ static BOOL LOOPING;
     else{
         //Replace or delete current instrument
         if(buttonIndex == popup.destructiveButtonIndex){
-            int deleteIndex = (int)[_instrumentController selectedSegmentIndex];
-            
-            
-            [_fullGrid deleteLayerAt:(int)(deleteIndex-1)];
-            [instruments removeObjectAtIndex:(deleteIndex-1)];
-            CGRect frame  =_instrumentController.frame;
-            int remove = frame.size.width/[_instrumentController numberOfSegments];
-            frame.size.width -= remove;
-            _instrumentController.frame = frame;
-            [_instrumentController removeSegmentAtIndex:deleteIndex animated:YES];
-            
-            [_fullGrid changeLayer:-1];
-            [_instrumentController setSelectedSegmentIndex:0];
-            CURRENT_INSTRUMENT = nil;
-            
-            [self fixSegements];
+            if(!deleteAlert){
+            deleteAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            }
+            Instrument* instrument = [instruments objectAtIndex:[_instrumentController selectedSegmentIndex]- 1];
+            [deleteAlert setTitle:[NSString stringWithFormat:@"Delete %@",instrument.name ]];
+            [deleteAlert show];
             
         } else {
             Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: (buttonIndex- 1)];
@@ -371,6 +361,26 @@ static BOOL LOOPING;
         if(!emailAlert)
             emailAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Would you like to email %@?", self.name] message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [emailAlert show];
+    }
+    else if(alertView == deleteAlert){
+        if(buttonIndex == 1){
+            int deleteIndex = (int)[_instrumentController selectedSegmentIndex];
+            
+            [_fullGrid deleteLayerAt:(int)(deleteIndex-1)];
+            [instruments removeObjectAtIndex:(deleteIndex-1)];
+            CGRect frame  =_instrumentController.frame;
+            int remove = frame.size.width/[_instrumentController numberOfSegments];
+            frame.size.width -= remove;
+            _instrumentController.frame = frame;
+            [_instrumentController removeSegmentAtIndex:deleteIndex animated:YES];
+            
+            [_fullGrid changeLayer:-1];
+            [_instrumentController setSelectedSegmentIndex:0];
+            CURRENT_INSTRUMENT = nil;
+            
+            [self fixSegements];
+            
+        }
     }
     else if(alertView == emailAlert){
         if(buttonIndex == 1){

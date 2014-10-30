@@ -23,6 +23,7 @@
     UIBarButtonItem* createButton;
     UIAlertView *sucessAlert;
     UIAlertView* emailAlert;
+    UIAlertView* deleteAlert;
     UIActionSheet *changeInstrumentSheet;
 }
 
