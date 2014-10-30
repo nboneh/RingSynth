@@ -19,8 +19,14 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RINGTONES_LIST_FILE]];
-    if(ringtones == nil)
+    if(ringtones == nil){
+        //User has not yet made a ringtone load the default ringtones
         ringtones = [[NSMutableArray alloc] init];
+        NSString *musicPath  =[[NSBundle mainBundle] pathForResource:@"Default" ofType:@""];
+        NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
+        [ringtones addObject:@"Default (Opening)"];
+        [data writeToFile:[self getPath:@"Default (Opening)"] atomically:YES];
+    }
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(resignActive:)
                                                  name: @"applicationWillResignActive"

@@ -142,12 +142,13 @@
 		0BC701C71A01B3B8003E03F3 /* Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701C61A01B3B8003E03F3 /* Click.wav */; };
 		0BC701C91A01B451003E03F3 /* TriangleMute.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701C81A01B451003E03F3 /* TriangleMute.wav */; };
 		0BC701CB1A01B544003E03F3 /* Clacker.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701CA1A01B544003E03F3 /* Clacker.wav */; };
-		0BC701CD1A01E820003E03F3 /* Bass Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701CC1A01E820003E03F3 /* Bass Guitar.wav */; };
 		0BC701CF1A01F456003E03F3 /* HalfOpenHiHat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701CE1A01F456003E03F3 /* HalfOpenHiHat.wav */; };
 		0BC701D11A01F4BB003E03F3 /* BassDrum2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D01A01F4BB003E03F3 /* BassDrum2.wav */; };
 		0BC701D31A01F4F7003E03F3 /* Kick-Snare.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D21A01F4F7003E03F3 /* Kick-Snare.wav */; };
 		0BC701D51A01F7B9003E03F3 /* Orchestra Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */; };
 		0BC701D71A01FA56003E03F3 /* KettleDrum1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */; };
+		0BC701D91A0203EF003E03F3 /* Bass Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */; };
+		0BC701DB1A0213D5003E03F3 /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701DA1A0213D5003E03F3 /* Default */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -361,12 +362,13 @@
 		0BC701C61A01B3B8003E03F3 /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Click.wav; path = ../../../Downloads/Click.wav; sourceTree = "<group>"; };
 		0BC701C81A01B451003E03F3 /* TriangleMute.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = TriangleMute.wav; path = ../../../Downloads/TriangleMute.wav; sourceTree = "<group>"; };
 		0BC701CA1A01B544003E03F3 /* Clacker.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Clacker.wav; path = ../../../Downloads/Clacker.wav; sourceTree = "<group>"; };
-		0BC701CC1A01E820003E03F3 /* Bass Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Bass Guitar.wav"; path = "../../../Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/Bass Guitar.wav"; sourceTree = "<group>"; };
 		0BC701CE1A01F456003E03F3 /* HalfOpenHiHat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = HalfOpenHiHat.wav; path = ../../../Downloads/HalfOpenHiHat.wav; sourceTree = "<group>"; };
 		0BC701D01A01F4BB003E03F3 /* BassDrum2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = BassDrum2.wav; path = ../../../Downloads/BassDrum2.wav; sourceTree = "<group>"; };
 		0BC701D21A01F4F7003E03F3 /* Kick-Snare.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Kick-Snare.wav"; path = "../../../Downloads/Kick-Snare.wav"; sourceTree = "<group>"; };
 		0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Orchestra Hit.wav"; path = "../../../Downloads/Orchestra Hit.wav"; sourceTree = "<group>"; };
 		0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = KettleDrum1.wav; path = ../../../Downloads/KettleDrum1.wav; sourceTree = "<group>"; };
+		0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Bass Guitar.wav"; path = "../../../Downloads/Bass Guitar.wav"; sourceTree = "<group>"; };
+		0BC701DA1A0213D5003E03F3 /* Default */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Default; path = ../../Default; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,8 +436,8 @@
 			isa = PBXGroup;
 			children = (
 				0BC701911A01A9F1003E03F3 /* Drums */,
-				0BC701CC1A01E820003E03F3 /* Bass Guitar.wav */,
 				0B9AF9C519F33B9D00F6C176 /* Trombone.wav */,
+				0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */,
 				0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */,
 				0B9AF9C319F33B2500F6C176 /* Saxophone.wav */,
 				0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */,
@@ -448,6 +450,7 @@
 				0B74953E19EE05250078296B /* delete4.wav */,
 				0B74953C19EE051B0078296B /* delete3.wav */,
 				0B74953A19EE050E0078296B /* delete1.wav */,
+				0BC701DA1A0213D5003E03F3 /* Default */,
 				0B703EB219E70B5F00CED5B4 /* Info.plist */,
 				0B703EB319E70B5F00CED5B4 /* main.m */,
 			);
@@ -843,6 +846,7 @@
 				0BC701B71A01B02C003E03F3 /* BikeBell.wav in Resources */,
 				0B9AF9CE19F33FCC00F6C176 /* Crash1.wav in Resources */,
 				0BC701D71A01FA56003E03F3 /* KettleDrum1.wav in Resources */,
+				0BC701DB1A0213D5003E03F3 /* Default in Resources */,
 				0B9AF93019F3287E00F6C176 /* ObjectAL-Overview2.png in Resources */,
 				0B9AF9E619F3417B00F6C176 /* KickDrum1.wav in Resources */,
 				0B74953B19EE050E0078296B /* delete1.wav in Resources */,
@@ -852,7 +856,7 @@
 				0BC701D51A01F7B9003E03F3 /* Orchestra Hit.wav in Resources */,
 				0BC701721A0195C5003E03F3 /* MidTom1.wav in Resources */,
 				0B9AF94D19F3287E00F6C176 /* InfoPlist.strings in Resources */,
-				0BC701CD1A01E820003E03F3 /* Bass Guitar.wav in Resources */,
+				0BC701D91A0203EF003E03F3 /* Bass Guitar.wav in Resources */,
 				0BC701C71A01B3B8003E03F3 /* Click.wav in Resources */,
 				0BC701601A0192E6003E03F3 /* Woodblock.wav in Resources */,
 				0BC701641A01939D003E03F3 /* Rimshot.wav in Resources */,
