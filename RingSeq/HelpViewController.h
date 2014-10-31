@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HelpViewController : UIViewController
+@interface HelpViewController : UIViewController<UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *container;
 
 @end

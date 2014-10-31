@@ -14,5 +14,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = NO;
+    
+    UIScrollView* scrollView = (UIScrollView *)self.view;
+      scrollView.scrollEnabled = YES;
+    scrollView.maximumZoomScale = 6.5f;
+    [(UIScrollView *)self.view setDelegate:self];
 }
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return _container;
+}
+
 @end
