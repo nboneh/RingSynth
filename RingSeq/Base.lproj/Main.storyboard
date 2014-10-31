@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -102,16 +103,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="9D4-xV-jsQ">
-                                <rect key="frame" x="273" y="263" width="23" height="37"/>
-                                <color key="pageIndicatorTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </pageControl>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="WVA-ar-AbZ">
+                                <rect key="frame" x="6" y="50" width="563" height="250"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qGQ-r2-F0m" firstAttribute="top" secondItem="9D4-xV-jsQ" secondAttribute="bottom" constant="20" id="G4O-TD-XrK"/>
-                            <constraint firstAttribute="centerX" secondItem="9D4-xV-jsQ" secondAttribute="centerX" id="UX1-p9-Rqy"/>
+                            <constraint firstItem="WVA-ar-AbZ" firstAttribute="top" secondItem="A8J-nt-TC0" secondAttribute="topMargin" constant="50" id="5DM-j0-Ua2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WVA-ar-AbZ" secondAttribute="trailing" constant="-17" id="8f7-zv-Ux8"/>
+                            <constraint firstItem="qGQ-r2-F0m" firstAttribute="top" secondItem="WVA-ar-AbZ" secondAttribute="bottom" constant="20" id="SRw-xe-gFO"/>
+                            <constraint firstItem="WVA-ar-AbZ" firstAttribute="leading" secondItem="A8J-nt-TC0" secondAttribute="leadingMargin" constant="-10" id="wdi-yF-Jym"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Help" id="YaV-IO-rNp"/>
@@ -119,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="40g-vI-RYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-12" y="-642"/>
+            <point key="canvasLocation" x="-7" y="-602"/>
         </scene>
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
@@ -304,6 +305,7 @@
     </scenes>
     <resources>
         <image name="download" width="22" height="22"/>
+        <image name="help" width="1092" height="663"/>
         <image name="noloop" width="22" height="22"/>
         <image name="play" width="22" height="22"/>
     </resources>
