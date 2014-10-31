@@ -15,9 +15,10 @@
     int prevMeasure;
     NSTimer *playTimer;
     int bpm;
-    ALChannelSource *channel;
+
     Staff *staff;
 }
+@property(readonly)ALChannelSource*channel;
 @property (readonly)NSMutableArray *measures;
 @property (readonly)int currentMeasurePlaying;
 @property (readonly)int widthFromFirstMeasure;

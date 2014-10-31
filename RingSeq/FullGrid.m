@@ -23,7 +23,7 @@
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-        
+
         int volumeMeterSpace = frame.size.height/6;
         int titleSpace = frame.size.height/8;
         container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
@@ -34,6 +34,7 @@
         self.maximumZoomScale = 6.5f;
         [self addSubview:container];
         [self setDelegate:self];
+        
         UILongPressGestureRecognizer *longPress =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                       action:@selector(handleLongPress:)];
@@ -237,15 +238,16 @@
             }
         }
     } else {
-        Measure * measure = [currentLayer findMeasureAtx:location.x];
-        if(measure){
-            NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
-            if(noteHolder){
-                if([noteHolder deleteNoteIfExistsAtY:location.y])
-                    return;
+            Measure * measure = [currentLayer findMeasureAtx:location.x];
+            if(measure){
+                NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
+                if(noteHolder){
+                    if([noteHolder deleteNoteIfExistsAtY:location.y])
+                        return;
+                }
             }
         }
-    }
+
 }
 -(void)silence{
     [self stopTimers];
@@ -445,7 +447,7 @@
         
         if(maxValue < SHRT_MAX)
             maxValue = SHRT_MAX;
-        
+                
         short int*wavfile = (short int *)wavfileByte;
         float multi =  (1.0f/maxValue) *SHRT_MAX;
         for( int i = 22; i < (totalLength/2); i++){

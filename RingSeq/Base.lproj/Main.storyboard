@@ -18,7 +18,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-287" y="-728"/>
+            <point key="canvasLocation" x="-508" y="-849"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="vmo-vj-wsd">
@@ -183,9 +183,9 @@
                                         </textField>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HCu-AN-fmA"/>
-                                    <barButtonItem width="70" style="plain" id="G3s-2d-sVH">
+                                    <barButtonItem width="88" style="plain" id="G3s-2d-sVH">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="hG6-gh-sVt">
-                                            <rect key="frame" x="144" y="7" width="70" height="30"/>
+                                            <rect key="frame" x="481" y="7" width="88" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="♮"/>

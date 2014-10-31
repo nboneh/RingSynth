@@ -193,10 +193,10 @@ static BOOL LOOPING;
 
 
 - (void)doubleTap:(UITapGestureRecognizer *)recognizer{
-    [_fullGrid stop];
     CGPoint translate = [recognizer locationInView:_instrumentController];
     int selectedIndex =((translate.x/_instrumentController.frame.size.width) * [_instrumentController numberOfSegments]);
     if(selectedIndex > 0 && selectedIndex < ([_instrumentController numberOfSegments]  -1)){
+
         [_instrumentController setSelectedSegmentIndex:selectedIndex];
         UIActionSheet *instrumentSheet = [self getInstrumentSheetWithInstrument:(Instrument *)[instruments objectAtIndex:(selectedIndex -1)] ];
         [instrumentSheet showInView:self.view];
@@ -216,6 +216,7 @@ static BOOL LOOPING;
 
 -(UIActionSheet *)getInstrumentSheetWithInstrument:(Instrument *)instrument{
     UIActionSheet * instrumentSheet = [[UIActionSheet alloc] initWithTitle:@"New instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            [_fullGrid stop];
     if(instrument){
         instrumentSheet.title = [NSString stringWithFormat:@"Editing %@", instrument.name];
         instrumentSheet.destructiveButtonIndex = [instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
@@ -230,7 +231,6 @@ static BOOL LOOPING;
 -(void)changeInstruments{
     int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
     if(pos == ([_instrumentController numberOfSegments] -2)){
-        [_fullGrid stop];
         [[self getInstrumentSheetWithInstrument:nil ]  showInView:self.view];
     }
     else{
@@ -361,6 +361,7 @@ static BOOL LOOPING;
         if(!emailAlert)
             emailAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Would you like to email %@?", self.name] message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [emailAlert show];
+          [_fullGrid stop];
     }
     else if(alertView == deleteAlert){
         if(buttonIndex == 1){
@@ -444,6 +445,7 @@ static BOOL LOOPING;
     self.navigationItem.hidesBackButton =NO;
     
     if(success){
+          [_fullGrid stop];
         if(!sucessAlert)
             sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [sucessAlert show];
@@ -462,7 +464,12 @@ static BOOL LOOPING;
 {
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
+    
+    //Unsilence the grid
+    [[OALSimpleAudio sharedInstance] setMuted:YES];
     [self changeInstruments];
+    [[OALSimpleAudio sharedInstance] stopAllEffects];
+    [[OALSimpleAudio sharedInstance] setMuted:NO];
 }
 
 @end

@@ -15,6 +15,7 @@
 //-(NotesHolder *)findMeasureIfExistsAtX:(int)x;
 @end
 @implementation Layout
+@synthesize channel= _channel;
 @synthesize widthFromFirstMeasure = _widthFromFirstMeasure;
 @synthesize widthPerMeasure = _widthPerMeasure;
 @synthesize currentMeasurePlaying = _currentMeasurePlaying;
@@ -25,14 +26,14 @@
     if(self){
         staff = staff_;
         _measures = [[NSMutableArray alloc] init];
-        channel =[[ALChannelSource alloc] initWithSources:kDefaultReservedSources];
+        _channel =[[ALChannelSource alloc] initWithSources:kDefaultReservedSources];
         _numOfMeasures = numOfMeasures;
         
         _widthFromFirstMeasure = staff.trebleView.frame.size.width;
         int delX =_widthFromFirstMeasure;
         _widthPerMeasure = frame.size.width/4;
         for(int i = 0; i < numOfMeasures; i++){
-            Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, frame.size.height) andNum:(i) andChannel:channel];
+            Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, frame.size.height) andNum:(i) andChannel:_channel];
             [_measures addObject:measure];
             delX += _widthPerMeasure;
             [self addSubview:measure];
@@ -100,7 +101,7 @@
     self.frame = myFrame;
     int delX =_widthFromFirstMeasure + (int)[_measures count]*(_widthPerMeasure) ;
     for(int i = (int)[_measures count]; i < numOfMeasures; i++){
-        Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, self.frame.size.height) andNum:(i) andChannel:channel];
+        Measure* measure =[[Measure alloc] initWithStaff:staff andFrame:CGRectMake(delX, 0, _widthPerMeasure, self.frame.size.height) andNum:(i) andChannel:_channel];
         [_measures addObject:measure];
         [self addSubview:measure];
         delX += _widthPerMeasure;
@@ -117,9 +118,9 @@
 }
 
 -(void)setMuted:(BOOL)abool{
-    [channel setMuted:abool];
+    [_channel setMuted:abool];
     if(abool)
-        [channel stop];
+        [_channel stop];
 }
 
 

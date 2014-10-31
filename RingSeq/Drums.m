@@ -32,7 +32,7 @@
 }
 -(id)getDrumWithNoteDescription:(NoteDescription *)note{
     if(!_sounds){
-        NSDictionary *octave1 = @{@"e":@[@"Gong", @"Synth-Cowbell",@""],
+        NSDictionary *octave1 = @{@"e":@[@"Gong", @"Synth-Cowbell",@"DameSon"],
                                   @"f":@[@"Shaker", @"Kick-Snare", @"Zill"],
                                   @"g": @[@"Clap",@"Clap2", @"Snap"],
                                   @"a" : @[@"Low-Bongo",@"Kalimba",@"CrazyKalimba"],
@@ -63,7 +63,7 @@
         
         NSDictionary *octave4 = @{
                                   @"c" :@[@"China",@"Sizzle",@"Crash3"],
-                                  @"d": @[@"Klank",@"",@"Klank2"]
+                                  @"d": @[@"Klank",@"TurnDown",@"Klank2"]
                                   };
         _sounds = [[NSArray alloc] initWithObjects:octave1, octave2,octave3, octave4, nil];
         

@@ -136,6 +136,7 @@
                                             action:@selector(handleDoubleTap:)];
     [doubleFingerTap setNumberOfTapsRequired:2];
     [note addGestureRecognizer:doubleFingerTap];
+
     return YES;
 
 }

@@ -25,10 +25,6 @@
 		0B74953119EC553C0078296B /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953019EC553C0078296B /* Staff.m */; };
 		0B74953419EC5C570078296B /* NoteDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953319EC5C570078296B /* NoteDescription.m */; };
 		0B74953719EDAE000078296B /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74953619EDAE000078296B /* Note.m */; };
-		0B74953B19EE050E0078296B /* delete1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74953A19EE050E0078296B /* delete1.wav */; };
-		0B74953D19EE051B0078296B /* delete3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74953C19EE051B0078296B /* delete3.wav */; };
-		0B74953F19EE05250078296B /* delete4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74953E19EE05250078296B /* delete4.wav */; };
-		0B74954119EE052D0078296B /* delete2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B74954019EE052D0078296B /* delete2.wav */; };
 		0B74954419EEF7300078296B /* Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74954319EEF7300078296B /* Layout.m */; };
 		0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7AB60419F21C0D0092F808 /* SlidingSegment.m */; };
 		0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0B9AF84919F3287D00F6C176 /* .gitignore */; };
@@ -143,13 +139,19 @@
 		0BC701C91A01B451003E03F3 /* TriangleMute.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701C81A01B451003E03F3 /* TriangleMute.wav */; };
 		0BC701CB1A01B544003E03F3 /* Clacker.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701CA1A01B544003E03F3 /* Clacker.wav */; };
 		0BC701CF1A01F456003E03F3 /* HalfOpenHiHat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701CE1A01F456003E03F3 /* HalfOpenHiHat.wav */; };
-		0BC701D11A01F4BB003E03F3 /* BassDrum2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D01A01F4BB003E03F3 /* BassDrum2.wav */; };
 		0BC701D31A01F4F7003E03F3 /* Kick-Snare.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D21A01F4F7003E03F3 /* Kick-Snare.wav */; };
 		0BC701D51A01F7B9003E03F3 /* Orchestra Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */; };
 		0BC701D71A01FA56003E03F3 /* KettleDrum1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */; };
 		0BC701D91A0203EF003E03F3 /* Bass Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */; };
 		0BC701DB1A0213D5003E03F3 /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701DA1A0213D5003E03F3 /* Default */; };
-		0BC701DE1A02BA2D003E03F3 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC701DD1A02BA2D003E03F3 /* HelpViewController.m */; };
+		0BC701E01A033623003E03F3 /* BassDrum2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701DF1A033623003E03F3 /* BassDrum2.wav */; };
+		0BC701E31A0336E8003E03F3 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC701E21A0336E8003E03F3 /* HelpViewController.m */; };
+		0BC701E51A0337AA003E03F3 /* delete1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701E41A0337AA003E03F3 /* delete1.wav */; };
+		0BC701E71A0337D4003E03F3 /* delete3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701E61A0337D4003E03F3 /* delete3.wav */; };
+		0BC701ED1A033898003E03F3 /* delete4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701EC1A033898003E03F3 /* delete4.wav */; };
+		0BC701EF1A03392C003E03F3 /* delete2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701EE1A03392C003E03F3 /* delete2.wav */; };
+		0BC701F31A033F62003E03F3 /* DameSon.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701F21A033F62003E03F3 /* DameSon.wav */; };
+		0BC701F51A03434E003E03F3 /* TurnDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701F41A03434E003E03F3 /* TurnDown.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,10 +204,6 @@
 		0B74953319EC5C570078296B /* NoteDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteDescription.m; sourceTree = "<group>"; };
 		0B74953519EDAE000078296B /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		0B74953619EDAE000078296B /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
-		0B74953A19EE050E0078296B /* delete1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete1.wav; sourceTree = "<group>"; };
-		0B74953C19EE051B0078296B /* delete3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete3.wav; sourceTree = "<group>"; };
-		0B74953E19EE05250078296B /* delete4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete4.wav; sourceTree = "<group>"; };
-		0B74954019EE052D0078296B /* delete2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete2.wav; sourceTree = "<group>"; };
 		0B74954219EEF7300078296B /* Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
 		0B74954319EEF7300078296B /* Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layout.m; sourceTree = "<group>"; };
 		0B7AB60319F21C0D0092F808 /* SlidingSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidingSegment.h; sourceTree = "<group>"; };
@@ -364,14 +362,20 @@
 		0BC701C81A01B451003E03F3 /* TriangleMute.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = TriangleMute.wav; path = ../../../Downloads/TriangleMute.wav; sourceTree = "<group>"; };
 		0BC701CA1A01B544003E03F3 /* Clacker.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Clacker.wav; path = ../../../Downloads/Clacker.wav; sourceTree = "<group>"; };
 		0BC701CE1A01F456003E03F3 /* HalfOpenHiHat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = HalfOpenHiHat.wav; path = ../../../Downloads/HalfOpenHiHat.wav; sourceTree = "<group>"; };
-		0BC701D01A01F4BB003E03F3 /* BassDrum2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = BassDrum2.wav; path = ../../../Downloads/BassDrum2.wav; sourceTree = "<group>"; };
 		0BC701D21A01F4F7003E03F3 /* Kick-Snare.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Kick-Snare.wav"; path = "../../../Downloads/Kick-Snare.wav"; sourceTree = "<group>"; };
 		0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Orchestra Hit.wav"; path = "../../../Downloads/Orchestra Hit.wav"; sourceTree = "<group>"; };
 		0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = KettleDrum1.wav; path = ../../../Downloads/KettleDrum1.wav; sourceTree = "<group>"; };
 		0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Bass Guitar.wav"; path = "../../../Downloads/Bass Guitar.wav"; sourceTree = "<group>"; };
 		0BC701DA1A0213D5003E03F3 /* Default */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Default; path = ../../Default; sourceTree = "<group>"; };
-		0BC701DC1A02BA2D003E03F3 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
-		0BC701DD1A02BA2D003E03F3 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		0BC701DF1A033623003E03F3 /* BassDrum2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = BassDrum2.wav; path = ../../../Downloads/BassDrum2.wav; sourceTree = "<group>"; };
+		0BC701E11A0336DE003E03F3 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelpViewController.h; path = RingSeq/HelpViewController.h; sourceTree = "<group>"; };
+		0BC701E21A0336E8003E03F3 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelpViewController.m; path = RingSeq/HelpViewController.m; sourceTree = "<group>"; };
+		0BC701E41A0337AA003E03F3 /* delete1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = delete1.wav; path = ../../../Downloads/delete1.wav; sourceTree = "<group>"; };
+		0BC701E61A0337D4003E03F3 /* delete3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = delete3.wav; path = ../../../Downloads/delete3.wav; sourceTree = "<group>"; };
+		0BC701EC1A033898003E03F3 /* delete4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = delete4.wav; path = ../../../Downloads/delete4.wav; sourceTree = "<group>"; };
+		0BC701EE1A03392C003E03F3 /* delete2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = delete2.wav; path = ../../../Downloads/delete2.wav; sourceTree = "<group>"; };
+		0BC701F21A033F62003E03F3 /* DameSon.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = DameSon.wav; path = ../../../Downloads/DameSon.wav; sourceTree = "<group>"; };
+		0BC701F41A03434E003E03F3 /* TurnDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = TurnDown.wav; path = ../../../Downloads/TurnDown.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -449,10 +453,10 @@
 				0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */,
 				0B9AFA0419F347AB00F6C176 /* Bell.wav */,
 				0B9AF9B419F330EF00F6C176 /* Electric Guitar.wav */,
-				0B74954019EE052D0078296B /* delete2.wav */,
-				0B74953E19EE05250078296B /* delete4.wav */,
-				0B74953C19EE051B0078296B /* delete3.wav */,
-				0B74953A19EE050E0078296B /* delete1.wav */,
+				0BC701EC1A033898003E03F3 /* delete4.wav */,
+				0BC701E61A0337D4003E03F3 /* delete3.wav */,
+				0BC701EE1A03392C003E03F3 /* delete2.wav */,
+				0BC701E41A0337AA003E03F3 /* delete1.wav */,
 				0BC701DA1A0213D5003E03F3 /* Default */,
 				0B703EB219E70B5F00CED5B4 /* Info.plist */,
 				0B703EB319E70B5F00CED5B4 /* main.m */,
@@ -671,14 +675,14 @@
 		0BC701451A0165F9003E03F3 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0BC701E11A0336DE003E03F3 /* HelpViewController.h */,
+				0BC701E21A0336E8003E03F3 /* HelpViewController.m */,
 				0BC7014C1A0184E8003E03F3 /* MainMenuViewController.h */,
 				0BC7014D1A0184E8003E03F3 /* MainMenuViewController.m */,
 				0B703EBB19E70B5F00CED5B4 /* DetailViewController.h */,
 				0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */,
 				0B703EB819E70B5F00CED5B4 /* FilesViewController.h */,
 				0B703EB919E70B5F00CED5B4 /* FilesViewController.m */,
-				0BC701DC1A02BA2D003E03F3 /* HelpViewController.h */,
-				0BC701DD1A02BA2D003E03F3 /* HelpViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -687,6 +691,8 @@
 		0BC701911A01A9F1003E03F3 /* Drums */ = {
 			isa = PBXGroup;
 			children = (
+				0BC701F41A03434E003E03F3 /* TurnDown.wav */,
+				0BC701F21A033F62003E03F3 /* DameSon.wav */,
 				0BC701C81A01B451003E03F3 /* TriangleMute.wav */,
 				0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */,
 				0BC701C61A01B3B8003E03F3 /* Click.wav */,
@@ -716,6 +722,7 @@
 				0B9AF9CD19F33FCC00F6C176 /* Crash1.wav */,
 				0B9AF9DF19F3412400F6C176 /* Crash2.wav */,
 				0B9AF9D319F3407200F6C176 /* Crash3.wav */,
+				0BC701DF1A033623003E03F3 /* BassDrum2.wav */,
 				0BC701851A019A61003E03F3 /* BuzzSnare.wav */,
 				0B9AF9FB19F343D000F6C176 /* Snare.wav */,
 				0BC701811A01990B003E03F3 /* Tambourine.wav */,
@@ -747,7 +754,6 @@
 				0BC701631A01939D003E03F3 /* Rimshot.wav */,
 				0BC701611A019304003E03F3 /* China.wav */,
 				0BC701D21A01F4F7003E03F3 /* Kick-Snare.wav */,
-				0BC701D01A01F4BB003E03F3 /* BassDrum2.wav */,
 				0BC701651A0193F9003E03F3 /* BassDrum.wav */,
 				0BC701831A019951003E03F3 /* Splash.wav */,
 				0BC7018D1A01A950003E03F3 /* DoumbekTek.wav */,
@@ -839,22 +845,22 @@
 			files = (
 				0BC7015E1A019167003E03F3 /* Shaker.wav in Resources */,
 				0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */,
+				0BC701F31A033F62003E03F3 /* DameSon.wav in Resources */,
 				0B9AF92B19F3287E00F6C176 /* build_docs.sh in Resources */,
 				0BC701C31A01B32C003E03F3 /* LowTimp.wav in Resources */,
 				0B9AF9BC19F338DE00F6C176 /* High Piano.wav in Resources */,
+				0BC701F51A03434E003E03F3 /* TurnDown.wav in Resources */,
 				0BC701D31A01F4F7003E03F3 /* Kick-Snare.wav in Resources */,
 				0B9AF9B519F330EF00F6C176 /* Electric Guitar.wav in Resources */,
 				0B9AF9DA19F340AA00F6C176 /* RideCymbal3.wav in Resources */,
 				0B9AF9E019F3412400F6C176 /* Crash2.wav in Resources */,
 				0BC701B11A01AF08003E03F3 /* Sizzle.wav in Resources */,
-				0B74953F19EE05250078296B /* delete4.wav in Resources */,
 				0BC701B71A01B02C003E03F3 /* BikeBell.wav in Resources */,
 				0B9AF9CE19F33FCC00F6C176 /* Crash1.wav in Resources */,
 				0BC701D71A01FA56003E03F3 /* KettleDrum1.wav in Resources */,
 				0BC701DB1A0213D5003E03F3 /* Default in Resources */,
 				0B9AF93019F3287E00F6C176 /* ObjectAL-Overview2.png in Resources */,
 				0B9AF9E619F3417B00F6C176 /* KickDrum1.wav in Resources */,
-				0B74953B19EE050E0078296B /* delete1.wav in Resources */,
 				0BC701821A01990B003E03F3 /* Tambourine.wav in Resources */,
 				0B9AF9F619F3432F00F6C176 /* ClosedHiHat.wav in Resources */,
 				0BC701C11A01B2B8003E03F3 /* Clacker.wav in Resources */,
@@ -884,14 +890,12 @@
 				0BC7019F1A01AC52003E03F3 /* Side-Stick.wav in Resources */,
 				0BC701971A01AB09003E03F3 /* Clap2.wav in Resources */,
 				0B9AF9CC19F33F8D00F6C176 /* Gong.wav in Resources */,
-				0BC701D11A01F4BB003E03F3 /* BassDrum2.wav in Resources */,
 				0B9AF9FC19F343D000F6C176 /* Snare.wav in Resources */,
 				0BC701B31A01AF8E003E03F3 /* Splash2.wav in Resources */,
 				0BC701A31A01ACB5003E03F3 /* Low-Synth-Tom.wav in Resources */,
 				0BC701A11A01AC83003E03F3 /* Shaker.wav in Resources */,
 				0BC701C51A01B350003E03F3 /* Snap.wav in Resources */,
 				0BC7015C1A01914F003E03F3 /* Hi-Bongo.wav in Resources */,
-				0B74953D19EE051B0078296B /* delete3.wav in Resources */,
 				0B9AF9E819F3418D00F6C176 /* KickDrum2.wav in Resources */,
 				0BC7018E1A01A950003E03F3 /* DoumbekTek.wav in Resources */,
 				0B9AF9D219F3405E00F6C176 /* RideCymbal2.wav in Resources */,
@@ -907,8 +911,9 @@
 				0BC7019B1A01AB9D003E03F3 /* Klank2.wav in Resources */,
 				0B9AF92F19F3287E00F6C176 /* ObjectAL-Overview2.eps in Resources */,
 				0BC701BD1A01B1D2003E03F3 /* Tambourine2.wav in Resources */,
+				0BC701EF1A03392C003E03F3 /* delete2.wav in Resources */,
 				0BC701951A01AABB003E03F3 /* Synth-Cowbell.wav in Resources */,
-				0B74954119EE052D0078296B /* delete2.wav in Resources */,
+				0BC701E51A0337AA003E03F3 /* delete1.wav in Resources */,
 				0B9AF92C19F3287E00F6C176 /* ObjectAL-Overview1.eps in Resources */,
 				0B9AF9D419F3407200F6C176 /* Crash3.wav in Resources */,
 				0BC701B51A01AFDE003E03F3 /* Kalimba.wav in Resources */,
@@ -917,6 +922,7 @@
 				0B9AF93119F3287E00F6C176 /* ObjectAL-Overview2.svg in Resources */,
 				0BC701521A0190CB003E03F3 /* Cowbell.wav in Resources */,
 				0BC7016E1A0195A2003E03F3 /* HiTom.wav in Resources */,
+				0BC701E71A0337D4003E03F3 /* delete3.wav in Resources */,
 				0BC701901A01A98C003E03F3 /* HandDrum.wav in Resources */,
 				0B9AF94E19F3287E00F6C176 /* ObjectAL (OSX)-Info.plist in Resources */,
 				0BC701A91A01AD7F003E03F3 /* Electro-Tom.wav in Resources */,
@@ -925,10 +931,12 @@
 				0BC701B91A01B124003E03F3 /* CrazyKalimba.wav in Resources */,
 				0BC701AF1A01AEC7003E03F3 /* OpenRimShot.wav in Resources */,
 				0BC701541A0190F7003E03F3 /* SlapNoise.wav in Resources */,
+				0BC701ED1A033898003E03F3 /* delete4.wav in Resources */,
 				0BC701561A01910C003E03F3 /* Klank.wav in Resources */,
 				0B9AF94F19F3287E00F6C176 /* ObjectAL-for-iPhone.podspec in Resources */,
 				0B9AFA0019F344CF00F6C176 /* RideCymbal1.wav in Resources */,
 				0B9AF9F419F3428A00F6C176 /* FloorTom1.wav in Resources */,
+				0BC701E01A033623003E03F3 /* BassDrum2.wav in Resources */,
 				0BC7018A1A01A4CA003E03F3 /* ClosedHiHat2.wav in Resources */,
 				0BC701CB1A01B544003E03F3 /* Clacker.wav in Resources */,
 				0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */,
@@ -965,7 +973,6 @@
 				0B9AF93E19F3287E00F6C176 /* ALContext.m in Sources */,
 				0B9AF93719F3287E00F6C176 /* OALAudioTrack.m in Sources */,
 				0B74952719EB5A870078296B /* NotesHolder.m in Sources */,
-				0BC701DE1A02BA2D003E03F3 /* HelpViewController.m in Sources */,
 				0B703EBA19E70B5F00CED5B4 /* FilesViewController.m in Sources */,
 				0B9AF93819F3287E00F6C176 /* OALAudioTrackNotifications.m in Sources */,
 				0B74954419EEF7300078296B /* Layout.m in Sources */,
@@ -985,6 +992,7 @@
 				0B9AF94719F3287E00F6C176 /* IOSVersion.m in Sources */,
 				0B9AF94219F3287E00F6C176 /* ALSource.m in Sources */,
 				0B9AF94019F3287E00F6C176 /* ALListener.m in Sources */,
+				0BC701E31A0336E8003E03F3 /* HelpViewController.m in Sources */,
 				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
 				0B05385C19FF43BC005A2E5B /* TAPPCAudioConverter.m in Sources */,
