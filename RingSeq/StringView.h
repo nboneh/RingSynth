@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol StringViewDelegate
+@optional
+-(void)stringActivated;
+@end
+
 @interface StringView : UIImageView{
-    CGRect origFrame;
+    CGPoint originalCenter;
 }
 
-
+@property(nonatomic,assign)id delegate;
+-(id)initWithX:(int)x andDelegate:(id)delegate;
 -(void)bounceBack;
 @end

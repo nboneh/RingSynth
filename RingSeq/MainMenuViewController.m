@@ -18,11 +18,8 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
     
-    UITapGestureRecognizer *singleFingerTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(handleSingleTap:)];
-    [_curtain addGestureRecognizer:singleFingerTap];
-    [_curtain setUserInteractionEnabled:YES];
+    stringView = [[StringView alloc] initWithX:self.view.frame.size.width * .8f andDelegate:self];
+    [self.view addSubview:stringView];
     isAnimating = NO;
     currentlyAnimating = NO;
 
@@ -53,7 +50,7 @@
              CGRect frame = _curtain.frame;
              frame.origin.y = -frame.size.height + frame.size.height/8;
              [_curtain setFrame:frame];
-             [_spotLight setAlpha:1.0f];
+             [spotLight setAlpha:0.6f];
              
          }  completion:^(BOOL finished)
          {
@@ -74,7 +71,7 @@
                   CGRect frame = _curtain.frame;
                   frame.origin.y = 0;
                   _curtain.frame = frame;
-                  [_spotLight setAlpha:0.0f];
+                  [spotLight setAlpha:0.0f];
                   
               }
                               completion:^(BOOL finished2){
@@ -88,7 +85,7 @@
     
 }
 
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+-(void)stringActivated{
     if(isAnimating)
         return;
     
@@ -96,10 +93,27 @@
     NSArray * instruments =[Assets INSTRUMENTS];
     currentInstrument= [instruments objectAtIndex: arc4random_uniform((int)instruments.count)];
     instrView = [[UIImageView alloc] initWithImage:currentInstrument.image];
-    instrView.center = _stageView.center;
+    CGRect frame = instrView.frame;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        frame.origin.x = self.view.frame.size.width/2 - frame.size.width *.25f;
+    else
+        frame.origin.x =self.view.frame.size.width/2 + frame.size.width *.125f;
+    frame.origin.y =self.view.frame.size.height/2 - frame.size.height*.5f;
+    instrView.frame = frame;
     instrView.tintColor = currentInstrument.color;
     [_stageView addSubview:instrView];
+    if(!spotLight){
+        spotLight = [[UIImageView alloc ] initWithImage:[UIImage imageNamed:@"spotlight"]];
+        CGRect frame  = spotLight.frame;
+        frame.size.height = instrView.frame.size.height * 2;
+        frame.size.width = instrView.frame.size.width * 2;
+        spotLight.frame =frame;
+         spotLight.center = self.view.center;
+        [spotLight setAlpha:0];
+        [self.view addSubview:spotLight];
+    }
+
     
-    
+
 }
 @end
