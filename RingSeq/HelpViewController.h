@@ -10,5 +10,6 @@
 
 @interface HelpViewController : UIViewController<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *container;
+@property (weak, nonatomic) IBOutlet UIImageView *helpView;
 
 @end

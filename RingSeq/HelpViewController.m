@@ -22,7 +22,7 @@
 }
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return _container;
+    return _helpView;
 }
 
 @end
