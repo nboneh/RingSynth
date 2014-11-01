@@ -48,32 +48,23 @@
 }
 
 -(void)playWithTempo:(int)bpm_ fromMeasure:(int)measure{
-    [ [_measures objectAtIndex:0] stop];
-    if(_currentMeasurePlaying < [_measures count])
-        [[_measures objectAtIndex:_currentMeasurePlaying] stop];
-
+    if(playTimer)
+        [self stop];
     _currentMeasurePlaying = measure ;
-    if(!playTimer){
     bpm = bpm_;
     playTimer =[NSTimer scheduledTimerWithTimeInterval:(60.0f/bpm)
                                                 target:self
                                               selector:@selector(playMeasure:)
                                               userInfo:nil
                                                repeats:YES];
-             [playTimer fire];
-    }
+     [playTimer fire];
 
     
 }
 -(void)playMeasure:(NSTimer *)target{
     if(_currentMeasurePlaying >= _numOfMeasures){
-        if([DetailViewController LOOPING])
-            _currentMeasurePlaying = 0;
-        else{
             [self stop];
             return;
-        }
-        
     }
     
     

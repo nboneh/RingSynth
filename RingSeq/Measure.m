@@ -223,12 +223,14 @@
 }
 
 -(void)stop{
+    if(playTimer){
     [playTimer invalidate];
     playTimer = nil;
     prevNoteHolder = nil;
     for(NotesHolder * notesHolder in _noteHolders){
         [notesHolder.titleView setTextColor:[UIColor blackColor]];
         [notesHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
+    }
     }
 }
 
