@@ -14,21 +14,16 @@
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
     ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
     [OALSimpleAudio sharedInstance].channel = channel;
-    float pitch = 1.0f;
-    if(note.accidental == sharp)
-        pitch += .1f;
-    else if(note.accidental == flat)
-        pitch -= .1f;
     if(volume == 0.0f)
         [[OALSimpleAudio sharedInstance] stopAllEffects];
     NSString *drum =  [self getDrumWithNoteDescription:note];
-    [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", drum] volume:volume pitch:pitch pan:0.0f loop:NO];
+    [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", drum] volume:volume pitch:1.0f pan:0.0f loop:NO];
     if(volume == 0.0f)
         [[OALSimpleAudio sharedInstance] stopAllEffects];
     
     [OALSimpleAudio sharedInstance].channel = mainChannel;
     
-
+    
 }
 -(id)getDrumWithNoteDescription:(NoteDescription *)note{
     if(!_sounds){
@@ -68,8 +63,8 @@
         _sounds = [[NSArray alloc] initWithObjects:octave1, octave2,octave3, octave4, nil];
         
     }
-     return [[(NSDictionary *)[_sounds objectAtIndex:(note.octave -3)] objectForKey:[NSString stringWithFormat:@"%c",(note.character) ]] objectAtIndex:note.accidental];
-
+    return [[(NSDictionary *)[_sounds objectAtIndex:(note.octave -3)] objectForKey:[NSString stringWithFormat:@"%c",(note.character) ]] objectAtIndex:note.accidental];
+    
 }
 
 -(void)play{
@@ -93,6 +88,17 @@
     data = [NSData dataWithBytes:(const void *)cdata length:(length)];
     free(cdata);
     return data;
+}
+-(void)playRandomNote{
+    NoteDescription* note;
+    do{
+        note = [[NoteDescription alloc] initWithOctave: (arc4random_uniform(4) + self.baseOctave -1) andChar:(arc4random_uniform(7) + 'a')];
+        
+    }while(![self getDrumWithNoteDescription:note]);
+    
+    note.accidental = arc4random_uniform(numOfAccedintals);
+    
+    [self playNote:note withVolume:1.0f andChannel:[OALSimpleAudio sharedInstance].channel];
 }
 
 

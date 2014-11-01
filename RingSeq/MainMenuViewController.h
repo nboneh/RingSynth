@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Instrument.h"
 
 @interface MainMenuViewController : UIViewController{
     BOOL isAnimating;
+    BOOL currentlyAnimating;
+    UIImageView * instrView;
+    Instrument*currentInstrument;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *stageView;
 @property (weak, nonatomic) IBOutlet UIImageView *curtain;

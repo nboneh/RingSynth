@@ -152,6 +152,7 @@
 		0BC701EF1A03392C003E03F3 /* delete2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701EE1A03392C003E03F3 /* delete2.wav */; };
 		0BC701F31A033F62003E03F3 /* DameSon.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701F21A033F62003E03F3 /* DameSon.wav */; };
 		0BC701F51A03434E003E03F3 /* TurnDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701F41A03434E003E03F3 /* TurnDown.wav */; };
+		0BC701FA1A04B826003E03F3 /* StringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC701F91A04B826003E03F3 /* StringView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -376,6 +377,8 @@
 		0BC701EE1A03392C003E03F3 /* delete2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = delete2.wav; path = ../../../Downloads/delete2.wav; sourceTree = "<group>"; };
 		0BC701F21A033F62003E03F3 /* DameSon.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = DameSon.wav; path = ../../../Downloads/DameSon.wav; sourceTree = "<group>"; };
 		0BC701F41A03434E003E03F3 /* TurnDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = TurnDown.wav; path = ../../../Downloads/TurnDown.wav; sourceTree = "<group>"; };
+		0BC701F81A04B826003E03F3 /* StringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringView.h; sourceTree = "<group>"; };
+		0BC701F91A04B826003E03F3 /* StringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,6 +403,8 @@
 				0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */,
 				0B05385D19FF43CB005A2E5B /* TAPPCAudioConverter.h */,
 				0B05385B19FF43BC005A2E5B /* TAPPCAudioConverter.m */,
+				0BC701F81A04B826003E03F3 /* StringView.h */,
+				0BC701F91A04B826003E03F3 /* StringView.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -995,6 +1000,7 @@
 				0B9AF94019F3287E00F6C176 /* ALListener.m in Sources */,
 				0BC701E31A0336E8003E03F3 /* HelpViewController.m in Sources */,
 				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
+				0BC701FA1A04B826003E03F3 /* StringView.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
 				0B05385C19FF43BC005A2E5B /* TAPPCAudioConverter.m in Sources */,
 				0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */,

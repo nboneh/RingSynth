@@ -113,5 +113,9 @@
     return data;
 }
 
-
+-(void)playRandomNote{
+    NoteDescription* note = [[NoteDescription alloc] initWithOctave: (arc4random_uniform(4) + _baseOctave -1) andChar:(arc4random_uniform(7) +'a')];
+    note.accidental = arc4random_uniform(numOfAccedintals);
+    [self playNote:note withVolume:1.0f andChannel:[OALSimpleAudio sharedInstance].channel];
+}
 @end
