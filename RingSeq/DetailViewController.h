@@ -14,7 +14,7 @@
 #import <MessageUI/MessageUI.h>
 
 
-@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, FullGridDelegate, MFMailComposeViewControllerDelegate>{
+@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, FullGridDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate>{
     BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;

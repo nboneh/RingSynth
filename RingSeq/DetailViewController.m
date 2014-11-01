@@ -46,6 +46,9 @@ static BOOL LOOPING;
         self.navigationItem.title = _name;
     }
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return  [self checkTextField:textField];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -148,17 +151,24 @@ static BOOL LOOPING;
 
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
     if(alertView.alertViewStyle ==UIAlertViewStylePlainTextInput){
-        NSString *text = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
-                          [NSCharacterSet whitespaceCharacterSet]];
-        int newValue = [text intValue];
-        if(alertView == tempoAlert)
-            return newValue <= MAX_TEMPO && newValue >= MIN_TEMPO;
-        else if(alertView == beatAlert)
-            return newValue <= MAX_BEATS && newValue >= MIN_BEATS;
+        return [self checkTextField:[alertView  textFieldAtIndex:0]];
     }
     return YES;
 }
 
+-(BOOL)checkTextField:(UITextField *) textField{
+    
+    NSString *text = [textField.text stringByTrimmingCharactersInSet:
+                      [NSCharacterSet whitespaceCharacterSet]];
+    int newValue = [text intValue];
+    if([tempoAlert textFieldAtIndex:0] == textField)
+        return newValue <= MAX_TEMPO && newValue >= MIN_TEMPO;
+    else if([beatAlert textFieldAtIndex:0] == textField)
+        return newValue <= MAX_BEATS && newValue >= MIN_BEATS;
+    return YES;
+    
+    
+}
 
 
 -(void) save{
@@ -196,7 +206,7 @@ static BOOL LOOPING;
     CGPoint translate = [recognizer locationInView:_instrumentController];
     int selectedIndex =((translate.x/_instrumentController.frame.size.width) * [_instrumentController numberOfSegments]);
     if(selectedIndex > 0 && selectedIndex < ([_instrumentController numberOfSegments]  -1)){
-
+        
         [_instrumentController setSelectedSegmentIndex:selectedIndex];
         UIActionSheet *instrumentSheet = [self getInstrumentSheetWithInstrument:(Instrument *)[instruments objectAtIndex:(selectedIndex -1)] ];
         [instrumentSheet showInView:self.view];
@@ -216,7 +226,7 @@ static BOOL LOOPING;
 
 -(UIActionSheet *)getInstrumentSheetWithInstrument:(Instrument *)instrument{
     UIActionSheet * instrumentSheet = [[UIActionSheet alloc] initWithTitle:@"New instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-            [_fullGrid stop];
+    [_fullGrid stop];
     if(instrument){
         instrumentSheet.title = [NSString stringWithFormat:@"Editing %@", instrument.name];
         instrumentSheet.destructiveButtonIndex = [instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
@@ -224,8 +234,8 @@ static BOOL LOOPING;
     for (Instrument *inst in [Assets INSTRUMENTS]) {
         [instrumentSheet addButtonWithTitle:inst.name];
     }
-        instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
-     return instrumentSheet;
+    instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
+    return instrumentSheet;
 }
 
 -(void)changeInstruments{
@@ -269,7 +279,7 @@ static BOOL LOOPING;
         //Replace or delete current instrument
         if(buttonIndex == popup.destructiveButtonIndex){
             if(!deleteAlert){
-            deleteAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+                deleteAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
             }
             Instrument* instrument = [instruments objectAtIndex:[_instrumentController selectedSegmentIndex]- 1];
             [deleteAlert setTitle:[NSString stringWithFormat:@"Delete %@",instrument.name ]];
@@ -334,6 +344,7 @@ static BOOL LOOPING;
     tempoAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [tempoAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
     [tempoAlert textFieldAtIndex:0].text = _tempoField.text;
+    [tempoAlert textFieldAtIndex:0].delegate = self;
     [tempoAlert show];
     
 }
@@ -345,6 +356,7 @@ static BOOL LOOPING;
     beatAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [beatAlert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
     [beatAlert textFieldAtIndex:0].text = _beatsTextField.text;
+    [beatAlert textFieldAtIndex:0].delegate = self;
     [beatAlert show];
     
     
@@ -361,7 +373,7 @@ static BOOL LOOPING;
         if(!emailAlert)
             emailAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Would you like to email %@?", self.name] message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [emailAlert show];
-          [_fullGrid stop];
+        [_fullGrid stop];
     }
     else if(alertView == deleteAlert){
         if(buttonIndex == 1){
@@ -445,7 +457,7 @@ static BOOL LOOPING;
     self.navigationItem.hidesBackButton =NO;
     
     if(success){
-          [_fullGrid stop];
+        [_fullGrid stop];
         if(!sucessAlert)
             sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [sucessAlert show];

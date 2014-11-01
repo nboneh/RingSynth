@@ -48,11 +48,10 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     [addAlert show];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    return NO;
+    return [self checkTextField:textField];
 }
-
-- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
-    NSString *text = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
+-(BOOL)checkTextField:(UITextField *) textField{
+    NSString *text = [textField.text stringByTrimmingCharactersInSet:
                       [NSCharacterSet whitespaceCharacterSet]];
     if(text.length == 0)
         return NO;
@@ -64,6 +63,10 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
         }
     }
     return YES;
+
+}
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
+    return [self checkTextField:[alertView textFieldAtIndex:0]];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
