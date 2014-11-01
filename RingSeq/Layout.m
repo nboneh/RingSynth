@@ -48,6 +48,9 @@
 }
 
 -(void)playWithTempo:(int)bpm_ fromMeasure:(int)measure{
+    [ [_measures objectAtIndex:0] stop];
+    if(_currentMeasurePlaying < [_measures count])
+        [[_measures objectAtIndex:_currentMeasurePlaying] stop];
 
     _currentMeasurePlaying = measure ;
     if(!playTimer){
