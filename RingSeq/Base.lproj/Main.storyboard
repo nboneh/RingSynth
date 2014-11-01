@@ -39,6 +39,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="curtain" translatesAutoresizingMaskIntoConstraints="NO" id="1aX-Wo-N7W">
                                 <rect key="frame" x="-14" y="0.0" width="596" height="300"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stage_front" translatesAutoresizingMaskIntoConstraints="NO" id="Jpn-yu-A5P">
+                                <rect key="frame" x="-14" y="44" width="596" height="276"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHV-p2-NmD">
                                 <rect key="frame" x="261" y="206" width="46" height="30"/>
                                 <state key="normal" title="Create">
@@ -81,14 +84,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="1aX-Wo-N7W" secondAttribute="bottom" constant="20" id="2v2-yC-Ebf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jpn-yu-A5P" secondAttribute="trailing" constant="-30" id="3vm-O1-tP9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Srs-VQ-nPt" secondAttribute="trailing" constant="-30" id="6UI-Ad-fb9"/>
                             <constraint firstItem="1aX-Wo-N7W" firstAttribute="top" secondItem="ClE-xV-l0s" secondAttribute="topMargin" id="6Wn-XR-cwM"/>
+                            <constraint firstItem="Jpn-yu-A5P" firstAttribute="top" secondItem="TNb-Gk-sJJ" secondAttribute="bottom" constant="-20" id="78T-PI-P9I"/>
+                            <constraint firstItem="Jpn-yu-A5P" firstAttribute="leading" secondItem="ClE-xV-l0s" secondAttribute="leadingMargin" constant="-30" id="7SG-Ia-b1P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1aX-Wo-N7W" secondAttribute="trailing" constant="-30" id="Cb1-8p-4CK"/>
                             <constraint firstAttribute="centerX" secondItem="Bgb-pm-rJf" secondAttribute="centerX" id="Dj8-MW-crN"/>
                             <constraint firstItem="1aX-Wo-N7W" firstAttribute="leading" secondItem="ClE-xV-l0s" secondAttribute="leadingMargin" constant="-30" id="EBv-ho-pHa"/>
                             <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="pJV-bz-hQ6" secondAttribute="bottom" constant="8" id="JVY-k7-vdB"/>
                             <constraint firstAttribute="centerX" secondItem="pJV-bz-hQ6" secondAttribute="centerX" id="MiC-2q-khN"/>
                             <constraint firstAttribute="centerX" secondItem="W57-3C-7su" secondAttribute="centerX" id="UWb-uG-IBd"/>
+                            <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="Jpn-yu-A5P" secondAttribute="bottom" id="Ukq-Xw-GnB"/>
                             <constraint firstItem="pJV-bz-hQ6" firstAttribute="top" secondItem="W57-3C-7su" secondAttribute="bottom" constant="8" id="cUF-6Q-jnK"/>
                             <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="Srs-VQ-nPt" secondAttribute="bottom" id="dVg-of-HMT"/>
                             <constraint firstItem="Srs-VQ-nPt" firstAttribute="top" secondItem="ClE-xV-l0s" secondAttribute="topMargin" id="fLw-x2-Mjg"/>
@@ -333,6 +340,7 @@
         <image name="noloop" width="22" height="22"/>
         <image name="play" width="22" height="22"/>
         <image name="stage" width="680" height="390"/>
+        <image name="stage_front" width="1000" height="735"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

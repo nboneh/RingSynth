@@ -93,14 +93,12 @@
     NSArray * instruments =[Assets INSTRUMENTS];
     currentInstrument= [instruments objectAtIndex: arc4random_uniform((int)instruments.count)];
     instrView = [[UIImageView alloc] initWithImage:currentInstrument.image];
-    CGRect frame = instrView.frame;
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-        frame.origin.x = self.view.frame.size.width/2 - frame.size.width *.25f;
-    else
-        frame.origin.x =self.view.frame.size.width/2 + frame.size.width *.125f;
-    frame.origin.y =self.view.frame.size.height/2 - frame.size.height*.5f;
-    instrView.frame = frame;
     instrView.tintColor = currentInstrument.color;
+        instrView.center = _stageView.center;
+    
+    CGRect frame =instrView.frame;
+    frame.origin.x  = _stageView.frame.size.width/2 - frame.size.width/2;
+    instrView.frame = frame;
     [_stageView addSubview:instrView];
     if(!spotLight){
         spotLight = [[UIImageView alloc ] initWithImage:[UIImage imageNamed:@"spotlight"]];
@@ -108,7 +106,7 @@
         frame.size.height = instrView.frame.size.height * 2;
         frame.size.width = instrView.frame.size.width * 2;
         spotLight.frame =frame;
-         spotLight.center = self.view.center;
+         spotLight.center = _stageView.center;
         [spotLight setAlpha:0];
         [self.view addSubview:spotLight];
     }
