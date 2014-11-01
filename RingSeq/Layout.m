@@ -48,15 +48,18 @@
 }
 
 -(void)playWithTempo:(int)bpm_ fromMeasure:(int)measure{
- 
+
     _currentMeasurePlaying = measure ;
+    if(!playTimer){
     bpm = bpm_;
     playTimer =[NSTimer scheduledTimerWithTimeInterval:(60.0f/bpm)
                                                 target:self
                                               selector:@selector(playMeasure:)
                                               userInfo:nil
                                                repeats:YES];
-    [playTimer fire];
+             [playTimer fire];
+    }
+
     
 }
 -(void)playMeasure:(NSTimer *)target{

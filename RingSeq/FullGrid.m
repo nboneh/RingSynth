@@ -57,11 +57,7 @@
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self stopAnimation];
     if(_isPlaying){
-        
-        for(Layout * layer in layers){
-            [layer stop];
-        }
-        [self stopAnimation];
+                [self stopAnimation];
         [self setZoomScale:1.0f animated:NO];
         [self scrollRectToVisible:frame animated:NO];
         [self playWithTempo:bpm];

@@ -15,7 +15,6 @@
     int prevMeasure;
     NSTimer *playTimer;
     int bpm;
-
     Staff *staff;
 }
 @property(readonly)ALChannelSource*channel;
