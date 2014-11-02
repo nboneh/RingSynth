@@ -11,6 +11,7 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
+#import "AppDelegate.h"
 
 @interface DetailViewController ()
 -(void)fixSegements;
@@ -124,13 +125,14 @@ static BOOL LOOPING;
     [_fullGrid stop];
     [_fullGrid silence];
     [_playButton setImage:[UIImage imageNamed:@"play"]];
+    
     //Saving file
+    
     [self save];
 }
 
 -(void)musicStopped:(NSNotification *)notification{
     [_playButton setImage:[UIImage imageNamed:@"play"]];
-    
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -145,7 +147,9 @@ static BOOL LOOPING;
 
 -(void)becameActive:(NSNotification *)notification{
     //Unsilence the grid
+    
     [_fullGrid changeLayer:(int)(_instrumentController.selectedSegmentIndex -1)];
+    
 }
 
 
@@ -455,11 +459,11 @@ static BOOL LOOPING;
 -(void)finishedEncoding:(BOOL)success{
     self.navigationItem.rightBarButtonItem = createButton;
     self.navigationItem.hidesBackButton =NO;
-    
-    if(success){
-        [_fullGrid stop];
-        if(!sucessAlert)
+    [_fullGrid stop];
+    if(success ){
+        if(!sucessAlert){
             sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        }
         [sucessAlert show];
     } else{
         UIAlertView* failAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

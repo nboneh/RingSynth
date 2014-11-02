@@ -29,7 +29,7 @@
     TPAACAudioConverter * audioConverter;
     
 }
-@property(nonatomic,assign)id delegateForEncode;
+@property(nonatomic, assign)id delegateForEncode;
 @property(nonatomic) int numOfMeasures;
 @property BOOL isPlaying;
 -(void)replay;

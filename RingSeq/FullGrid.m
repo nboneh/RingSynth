@@ -19,11 +19,12 @@
 @end
 @implementation FullGrid
 @synthesize  isPlaying = _isPlaying;
+
 @synthesize  numOfMeasures = _numOfMeasures;
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-
+        
         int volumeMeterSpace = frame.size.height/6;
         int titleSpace = frame.size.height/8;
         container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
@@ -42,8 +43,6 @@
         [container addGestureRecognizer:longPress];
         _isPlaying = NO;
         
-        
-        
     }
     return self;
 }
@@ -57,7 +56,7 @@
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self stopAnimation];
     if(_isPlaying){
-                [self stopAnimation];
+        [self stopAnimation];
         [self setZoomScale:1.0f animated:NO];
         [self scrollRectToVisible:frame animated:NO];
         [self playWithTempo:bpm];
@@ -234,16 +233,16 @@
             }
         }
     } else {
-            Measure * measure = [currentLayer findMeasureAtx:location.x];
-            if(measure){
-                NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
-                if(noteHolder){
-                    if([noteHolder deleteNoteIfExistsAtY:location.y])
-                        return;
-                }
+        Measure * measure = [currentLayer findMeasureAtx:location.x];
+        if(measure){
+            NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
+            if(noteHolder){
+                if([noteHolder deleteNoteIfExistsAtY:location.y])
+                    return;
             }
         }
-
+    }
+    
 }
 -(void)silence{
     [self stopTimers];
@@ -272,11 +271,14 @@
 }
 
 -(NSArray*)createSaveFile{
+    @synchronized(self){
     NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
     for(int i = 0; i < [layers count]; i++){
         [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
     }
     return [[NSArray alloc] initWithArray:preSaveFile];
+    }
+    
     
 }
 
@@ -443,7 +445,7 @@
         
         if(maxValue < SHRT_MAX)
             maxValue = SHRT_MAX;
-                
+        
         short int*wavfile = (short int *)wavfileByte;
         float multi =  (1.0f/maxValue) *SHRT_MAX;
         for( int i = 22; i < (totalLength/2); i++){
@@ -471,6 +473,7 @@
         
         free(wavfile);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+
             audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
                                                                     source:tempFilePath
                                                                destination:ringtonePath];
@@ -486,22 +489,20 @@
 -(void)AACAudioConverterDidFinishConversion:(TPAACAudioConverter *)converter{
     NSFileManager *fm = [NSFileManager defaultManager];
     [fm removeItemAtPath:tempFilePath error:nil];
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+    
         [_delegateForEncode finishedEncoding:YES ];
-    }];
+
     
     
 }
 -(void)AACAudioConverter:(TPAACAudioConverter *)converter didFailWithError:(NSError *)error{
     NSFileManager *fm = [NSFileManager defaultManager];
     [fm removeItemAtPath:tempFilePath error:nil];
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+
         [_delegateForEncode finishedEncoding:NO ];
-    }];
     
     
 }
-
 
 -(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex{
     [self changeLayer:layerIndex];
@@ -515,14 +516,4 @@
 }
 
 
-
-/*-(short int)clippingWith:(short int)a and:(short int)b{
- if(((short int)a) >= 0 && ((short int)b )>= 0 && ((short int)(a +b)) < 0 )
- return MAX_VALUE_SHORT;
- else if(((short int)a) < 0 && ((short int)b) < 0 && ((short int)(a+b)) >=0 )
- return -MAX_VALUE_SHORT;
- else
- return a +b;
- 
- }*/
 @end

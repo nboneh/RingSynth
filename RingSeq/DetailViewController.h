@@ -20,11 +20,11 @@
     int prevSelect;
     UIAlertView * tempoAlert;
     UIAlertView *beatAlert;
-    UIBarButtonItem* createButton;
     UIAlertView *sucessAlert;
     UIAlertView* emailAlert;
     UIAlertView* deleteAlert;
     UIActionSheet *changeInstrumentSheet;
+    UIBarButtonItem* createButton;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *beatsTextField;
