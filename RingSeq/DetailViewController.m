@@ -446,6 +446,9 @@ static BOOL LOOPING;
 }
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
+    //Safe save incase app crashed during export process
+    //Not likley but we might be kicked out due to ram usage
+    [self save];
     createButton =  self.navigationItem.rightBarButtonItem;
     self.navigationItem.hidesBackButton =YES;
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];

@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Layout.h"
 #import "Instrument.h"
-#import "TAPPCAudioConverter.h"
+
 @protocol FullGridDelegate
 @optional
 -(void)finishedEncoding:(BOOL)success;
 @end
 
-@interface FullGrid : UIScrollView<UIScrollViewDelegate, TPAACAudioConverterDelegate>{
+@interface FullGrid : UIScrollView<UIScrollViewDelegate>{
     NSMutableArray *layers;
     UIView *container;
     UIActionSheet *newColors;
@@ -25,9 +25,6 @@
     int bpm;
     NSTimer *stopAnimTimer;
     NSTimer *stopPlayingTimer;
-    NSString *tempFilePath;
-    TPAACAudioConverter * audioConverter;
-    
 }
 @property(nonatomic, assign)id delegateForEncode;
 @property(nonatomic) int numOfMeasures;

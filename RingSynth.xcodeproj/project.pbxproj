@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B05385C19FF43BC005A2E5B /* TAPPCAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B05385B19FF43BC005A2E5B /* TAPPCAudioConverter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
 		0B39A04C19F04601006B7EA5 /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Measure.m */; };
 		0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D64FB19FC5C5400C408D4 /* PitchShift.c */; };
@@ -173,8 +172,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B05385B19FF43BC005A2E5B /* TAPPCAudioConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPPCAudioConverter.m; sourceTree = "<group>"; };
-		0B05385D19FF43CB005A2E5B /* TAPPCAudioConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAPPCAudioConverter.h; sourceTree = "<group>"; };
 		0B39A04319EF24BB006B7EA5 /* FullGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullGrid.h; sourceTree = "<group>"; };
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
 		0B39A04A19F04601006B7EA5 /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
@@ -401,8 +398,6 @@
 				0B7AB60419F21C0D0092F808 /* SlidingSegment.m */,
 				0B9AFA0819F6087200F6C176 /* NonEditableTextField.h */,
 				0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */,
-				0B05385D19FF43CB005A2E5B /* TAPPCAudioConverter.h */,
-				0B05385B19FF43BC005A2E5B /* TAPPCAudioConverter.m */,
 				0BC701F81A04B826003E03F3 /* StringView.h */,
 				0BC701F91A04B826003E03F3 /* StringView.m */,
 			);
@@ -1002,7 +997,6 @@
 				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
 				0BC701FA1A04B826003E03F3 /* StringView.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
-				0B05385C19FF43BC005A2E5B /* TAPPCAudioConverter.m in Sources */,
 				0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */,
 				0B703EBD19E70B5F00CED5B4 /* DetailViewController.m in Sources */,
 			);

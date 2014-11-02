@@ -458,7 +458,7 @@
         }
         free(uncompData);
         NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        tempFilePath=[NSString stringWithFormat:@"%@/%@%@", path, name, @"temp.wav"];
+        NSString *tempFilePath=[NSString stringWithFormat:@"%@/%@%@", path, name, @"temp.wav"];
         NSData *data = [NSData dataWithBytes:(const void *)wavfile length:(lengthOfPiece)];
         [[NSFileManager defaultManager] createFileAtPath:tempFilePath
                                                 contents:data
@@ -472,13 +472,41 @@
             [fm removeItemAtPath:ringtonePath error:nil];
         
         free(wavfile);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        AVURLAsset *wavAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:tempFilePath] options:nil];
+        
+        AVMutableComposition *mutableComposition = [AVMutableComposition composition];
+        NSError * error;
+        [mutableComposition insertTimeRange:CMTimeRangeMake(kCMTimeZero, wavAsset.duration)
+                                    ofAsset:wavAsset atTime:kCMTimeZero error:&error];
+        
+        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]
+                                               initWithAsset:[mutableComposition copy] presetName:AVAssetExportPresetAppleM4A];
+        exportSession.outputURL = [NSURL fileURLWithPath:ringtonePath];
+        exportSession.outputFileType = AVFileTypeAppleM4A;
+        
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            NSFileManager *fm = [NSFileManager defaultManager];
+            [fm removeItemAtPath:tempFilePath error:nil];
+            switch (exportSession.status) {
+                case AVAssetExportSessionStatusCompleted: {
+    
+                    
+                    [_delegateForEncode finishedEncoding:YES ];
 
-            audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self
-                                                                    source:tempFilePath
-                                                               destination:ringtonePath];
-            
-            [audioConverter start];
+                    break;
+                }
+                case AVAssetExportSessionStatusFailed: {
+
+                    
+                    [_delegateForEncode finishedEncoding:NO ];
+                    break;
+                }
+                    // ... handle some other cases...
+                default: {
+                    [_delegateForEncode finishedEncoding:NO ];
+                    break;
+                }
+            }
         }];
         
     }
@@ -486,23 +514,6 @@
                    );
 }
 
--(void)AACAudioConverterDidFinishConversion:(TPAACAudioConverter *)converter{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:tempFilePath error:nil];
-    
-        [_delegateForEncode finishedEncoding:YES ];
-
-    
-    
-}
--(void)AACAudioConverter:(TPAACAudioConverter *)converter didFailWithError:(NSError *)error{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:tempFilePath error:nil];
-
-        [_delegateForEncode finishedEncoding:NO ];
-    
-    
-}
 
 -(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex{
     [self changeLayer:layerIndex];
