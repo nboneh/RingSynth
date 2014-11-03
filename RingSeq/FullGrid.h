@@ -10,11 +10,6 @@
 #import "Layout.h"
 #import "Instrument.h"
 
-@protocol FullGridDelegate
-@optional
--(void)finishedEncoding:(BOOL)success;
-@end
-
 @interface FullGrid : UIScrollView<UIScrollViewDelegate>{
     NSMutableArray *layers;
     UIView *container;
@@ -26,7 +21,6 @@
     NSTimer *stopAnimTimer;
     NSTimer *stopPlayingTimer;
 }
-@property(nonatomic, assign)id delegateForEncode;
 @property(nonatomic) int numOfMeasures;
 @property BOOL isPlaying;
 -(void)replay;
@@ -38,6 +32,6 @@
 -(void)silence;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
--(void) encodeWithBpm:(int)bpm andName:(NSString *)name andDelegate:(id)delegate ;
+-(void) encodeWithBpm:(int)bpm andName:(NSString *)name andCompletionBlock:(void (^)( BOOL)) block;
 -(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex;
 @end

@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B213AF91A06CACC00F2255B /* libAxonixSDK.a */; };
+		0B213B0F1A06E5B800F2255B /* Steel Drum.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B0E1A06E5B800F2255B /* Steel Drum.wav */; };
+		0B213B111A06E67600F2255B /* Slap Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B101A06E67600F2255B /* Slap Bass.wav */; };
+		0B213B131A06E9D600F2255B /* Steel Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B121A06E9D600F2255B /* Steel Guitar.wav */; };
+		0B213B151A06ED6400F2255B /* Fiddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B141A06ED6400F2255B /* Fiddle.wav */; };
+		0B213B191A06EFE500F2255B /* Fiddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B181A06EFE500F2255B /* Fiddle.wav */; };
+		0B213B1B1A06F15500F2255B /* Banjo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B1A1A06F15500F2255B /* Banjo.wav */; };
+		0B213B1D1A06F1B700F2255B /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B213B1C1A06F1B700F2255B /* ShopViewController.m */; };
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
 		0B39A04C19F04601006B7EA5 /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Measure.m */; };
 		0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D64FB19FC5C5400C408D4 /* PitchShift.c */; };
@@ -136,7 +144,6 @@
 		0BC701C51A01B350003E03F3 /* Snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701C41A01B350003E03F3 /* Snap.wav */; };
 		0BC701C71A01B3B8003E03F3 /* Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701C61A01B3B8003E03F3 /* Click.wav */; };
 		0BC701C91A01B451003E03F3 /* TriangleMute.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701C81A01B451003E03F3 /* TriangleMute.wav */; };
-		0BC701CB1A01B544003E03F3 /* Clacker.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701CA1A01B544003E03F3 /* Clacker.wav */; };
 		0BC701CF1A01F456003E03F3 /* HalfOpenHiHat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701CE1A01F456003E03F3 /* HalfOpenHiHat.wav */; };
 		0BC701D31A01F4F7003E03F3 /* Kick-Snare.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D21A01F4F7003E03F3 /* Kick-Snare.wav */; };
 		0BC701D51A01F7B9003E03F3 /* Orchestra Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */; };
@@ -172,6 +179,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B213AF21A06CACC00F2255B /* AXNBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXNBrowserViewController.h; sourceTree = "<group>"; };
+		0B213AF31A06CACC00F2255B /* Axonix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Axonix.h; sourceTree = "<group>"; };
+		0B213AF41A06CACC00F2255B /* AxonixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixAds.h; sourceTree = "<group>"; };
+		0B213AF51A06CACC00F2255B /* AxonixAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixAdView.h; sourceTree = "<group>"; };
+		0B213AF61A06CACC00F2255B /* AxonixDemographics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixDemographics.h; sourceTree = "<group>"; };
+		0B213AF71A06CACC00F2255B /* AxonixFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixFeedback.h; sourceTree = "<group>"; };
+		0B213AF81A06CACC00F2255B /* AxonixFullScreenAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixFullScreenAdViewController.h; sourceTree = "<group>"; };
+		0B213AF91A06CACC00F2255B /* libAxonixSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAxonixSDK.a; sourceTree = "<group>"; };
+		0B213AFA1A06CACC00F2255B /* MCBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCBrowserViewController.h; sourceTree = "<group>"; };
+		0B213AFB1A06CACC00F2255B /* Mobclix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobclix.h; sourceTree = "<group>"; };
+		0B213AFC1A06CACC00F2255B /* MobclixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixAds.h; sourceTree = "<group>"; };
+		0B213AFD1A06CACC00F2255B /* MobclixAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixAdView.h; sourceTree = "<group>"; };
+		0B213AFE1A06CACC00F2255B /* MobclixDemographics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixDemographics.h; sourceTree = "<group>"; };
+		0B213AFF1A06CACC00F2255B /* MobclixFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixFeedback.h; sourceTree = "<group>"; };
+		0B213B001A06CACC00F2255B /* MobclixFullScreenAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixFullScreenAdViewController.h; sourceTree = "<group>"; };
+		0B213B0E1A06E5B800F2255B /* Steel Drum.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Steel Drum.wav"; path = "../../../Downloads/Steel Drum.wav"; sourceTree = "<group>"; };
+		0B213B101A06E67600F2255B /* Slap Bass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Slap Bass.wav"; path = "../../../Downloads/Slap Bass.wav"; sourceTree = "<group>"; };
+		0B213B121A06E9D600F2255B /* Steel Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Steel Guitar.wav"; path = "../../../Downloads/Steel Guitar.wav"; sourceTree = "<group>"; };
+		0B213B141A06ED6400F2255B /* Fiddle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Fiddle.wav; path = ../../../Downloads/Fiddle.wav; sourceTree = "<group>"; };
+		0B213B181A06EFE500F2255B /* Fiddle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Fiddle.wav; path = ../../../Downloads/Fiddle.wav; sourceTree = "<group>"; };
+		0B213B1A1A06F15500F2255B /* Banjo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Banjo.wav; path = ../../../Downloads/Banjo.wav; sourceTree = "<group>"; };
+		0B213B1C1A06F1B700F2255B /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = RingSeq/ShopViewController.m; sourceTree = "<group>"; };
+		0B213B1E1A06F1C500F2255B /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelpViewController.h; path = RingSeq/HelpViewController.h; sourceTree = "<group>"; };
 		0B39A04319EF24BB006B7EA5 /* FullGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullGrid.h; sourceTree = "<group>"; };
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
 		0B39A04A19F04601006B7EA5 /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
@@ -383,12 +413,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B213AF11A06CACC00F2255B /* AxonixSDK */ = {
+			isa = PBXGroup;
+			children = (
+				0B213AF21A06CACC00F2255B /* AXNBrowserViewController.h */,
+				0B213AF31A06CACC00F2255B /* Axonix.h */,
+				0B213AF41A06CACC00F2255B /* AxonixAds.h */,
+				0B213AF51A06CACC00F2255B /* AxonixAdView.h */,
+				0B213AF61A06CACC00F2255B /* AxonixDemographics.h */,
+				0B213AF71A06CACC00F2255B /* AxonixFeedback.h */,
+				0B213AF81A06CACC00F2255B /* AxonixFullScreenAdViewController.h */,
+				0B213AF91A06CACC00F2255B /* libAxonixSDK.a */,
+				0B213AFA1A06CACC00F2255B /* MCBrowserViewController.h */,
+				0B213AFB1A06CACC00F2255B /* Mobclix.h */,
+				0B213AFC1A06CACC00F2255B /* MobclixAds.h */,
+				0B213AFD1A06CACC00F2255B /* MobclixAdView.h */,
+				0B213AFE1A06CACC00F2255B /* MobclixDemographics.h */,
+				0B213AFF1A06CACC00F2255B /* MobclixFeedback.h */,
+				0B213B001A06CACC00F2255B /* MobclixFullScreenAdViewController.h */,
+			);
+			name = AxonixSDK;
+			path = "../../../Downloads/axonix-ios-sdk-releases-7.0.3/AxonixSDK";
+			sourceTree = "<group>";
+		};
 		0B39A04619EF8518006B7EA5 /* util */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +477,7 @@
 		0B703EB019E70B5F00CED5B4 /* RingSynth */ = {
 			isa = PBXGroup;
 			children = (
+				0B213AF11A06CACC00F2255B /* AxonixSDK */,
 				0B9AF84819F3287D00F6C176 /* ObjectAL-for-iPhone */,
 				0B39A04619EF8518006B7EA5 /* util */,
 				0B74952819EB79150078296B /* InstrumentAsset */,
@@ -444,15 +499,21 @@
 			children = (
 				0BC701911A01A9F1003E03F3 /* Drums */,
 				0B9AF9C519F33B9D00F6C176 /* Trombone.wav */,
+				0B213B1A1A06F15500F2255B /* Banjo.wav */,
+				0B213B121A06E9D600F2255B /* Steel Guitar.wav */,
+				0B213B101A06E67600F2255B /* Slap Bass.wav */,
+				0B213B0E1A06E5B800F2255B /* Steel Drum.wav */,
 				0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */,
 				0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */,
 				0B9AF9C319F33B2500F6C176 /* Saxophone.wav */,
 				0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */,
 				0B9AF9BD19F3390300F6C176 /* Low Piano.wav */,
+				0B213B181A06EFE500F2255B /* Fiddle.wav */,
 				0B9AF9BB19F338DE00F6C176 /* High Piano.wav */,
 				0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */,
 				0B9AFA0419F347AB00F6C176 /* Bell.wav */,
 				0B9AF9B419F330EF00F6C176 /* Electric Guitar.wav */,
+				0B213B141A06ED6400F2255B /* Fiddle.wav */,
 				0BC701EC1A033898003E03F3 /* delete4.wav */,
 				0BC701E61A0337D4003E03F3 /* delete3.wav */,
 				0BC701EE1A03392C003E03F3 /* delete2.wav */,
@@ -683,6 +744,8 @@
 				0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */,
 				0B703EB819E70B5F00CED5B4 /* FilesViewController.h */,
 				0B703EB919E70B5F00CED5B4 /* FilesViewController.m */,
+				0B213B1E1A06F1C500F2255B /* HelpViewController.h */,
+				0B213B1C1A06F1B700F2255B /* ShopViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -788,7 +851,7 @@
 		0B703EA619E70B5F00CED5B4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Clouby;
 				TargetAttributes = {
 					0B703EAD19E70B5F00CED5B4 = {
@@ -845,6 +908,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BC7015E1A019167003E03F3 /* Shaker.wav in Resources */,
+				0B213B0F1A06E5B800F2255B /* Steel Drum.wav in Resources */,
 				0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */,
 				0BC701F31A033F62003E03F3 /* DameSon.wav in Resources */,
 				0B9AF92B19F3287E00F6C176 /* build_docs.sh in Resources */,
@@ -866,6 +930,7 @@
 				0B9AF9F619F3432F00F6C176 /* ClosedHiHat.wav in Resources */,
 				0BC701C11A01B2B8003E03F3 /* Clacker.wav in Resources */,
 				0BC701D51A01F7B9003E03F3 /* Orchestra Hit.wav in Resources */,
+				0B213B1B1A06F15500F2255B /* Banjo.wav in Resources */,
 				0BC701721A0195C5003E03F3 /* MidTom1.wav in Resources */,
 				0B9AF94D19F3287E00F6C176 /* InfoPlist.strings in Resources */,
 				0BC701D91A0203EF003E03F3 /* Bass Guitar.wav in Resources */,
@@ -873,6 +938,7 @@
 				0BC701601A0192E6003E03F3 /* Woodblock.wav in Resources */,
 				0BC701641A01939D003E03F3 /* Rimshot.wav in Resources */,
 				0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */,
+				0B213B131A06E9D600F2255B /* Steel Guitar.wav in Resources */,
 				0B9AF9C019F33AC900F6C176 /* Trumpet.wav in Resources */,
 				0B9AF9BE19F3390300F6C176 /* Low Piano.wav in Resources */,
 				0BC701761A0195FE003E03F3 /* FloorTom2.wav in Resources */,
@@ -895,6 +961,7 @@
 				0BC701B31A01AF8E003E03F3 /* Splash2.wav in Resources */,
 				0BC701A31A01ACB5003E03F3 /* Low-Synth-Tom.wav in Resources */,
 				0BC701A11A01AC83003E03F3 /* Shaker.wav in Resources */,
+				0B213B191A06EFE500F2255B /* Fiddle.wav in Resources */,
 				0BC701C51A01B350003E03F3 /* Snap.wav in Resources */,
 				0BC7015C1A01914F003E03F3 /* Hi-Bongo.wav in Resources */,
 				0B9AF9E819F3418D00F6C176 /* KickDrum2.wav in Resources */,
@@ -922,9 +989,11 @@
 				0BC701861A019A61003E03F3 /* BuzzSnare.wav in Resources */,
 				0B9AF93119F3287E00F6C176 /* ObjectAL-Overview2.svg in Resources */,
 				0BC701521A0190CB003E03F3 /* Cowbell.wav in Resources */,
+				0B213B151A06ED6400F2255B /* Fiddle.wav in Resources */,
 				0BC7016E1A0195A2003E03F3 /* HiTom.wav in Resources */,
 				0BC701E71A0337D4003E03F3 /* delete3.wav in Resources */,
 				0BC701901A01A98C003E03F3 /* HandDrum.wav in Resources */,
+				0B213B111A06E67600F2255B /* Slap Bass.wav in Resources */,
 				0B9AF94E19F3287E00F6C176 /* ObjectAL (OSX)-Info.plist in Resources */,
 				0BC701A91A01AD7F003E03F3 /* Electro-Tom.wav in Resources */,
 				0B9AF9BA19F3389F00F6C176 /* Acoustic Guitar.wav in Resources */,
@@ -939,7 +1008,6 @@
 				0B9AF9F419F3428A00F6C176 /* FloorTom1.wav in Resources */,
 				0BC701E01A033623003E03F3 /* BassDrum2.wav in Resources */,
 				0BC7018A1A01A4CA003E03F3 /* ClosedHiHat2.wav in Resources */,
-				0BC701CB1A01B544003E03F3 /* Clacker.wav in Resources */,
 				0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */,
 				0BC701C91A01B451003E03F3 /* TriangleMute.wav in Resources */,
 				0BC701AD1A01ADCB003E03F3 /* Zill.wav in Resources */,
@@ -992,6 +1060,7 @@
 				0B74952B19EB793B0078296B /* Instrument.m in Sources */,
 				0B9AF94719F3287E00F6C176 /* IOSVersion.m in Sources */,
 				0B9AF94219F3287E00F6C176 /* ALSource.m in Sources */,
+				0B213B1D1A06F1B700F2255B /* ShopViewController.m in Sources */,
 				0B9AF94019F3287E00F6C176 /* ALListener.m in Sources */,
 				0BC701E31A0336E8003E03F3 /* HelpViewController.m in Sources */,
 				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
@@ -1125,8 +1194,11 @@
 					"$(PROJECT_DIR)/RingSeq/build",
 					"$(PROJECT_DIR)/RingSeq",
 					"/Users/nirboneh/Downloads/bassflac24-osx",
+					"/Users/nirboneh/Downloads/GoogleMobileAdsSdkiOS-6.12.0",
+					"/Users/nirboneh/Downloads/axonix-ios-sdk-releases-7.0.3/AxonixSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 arm64 armv7s";
@@ -1147,8 +1219,11 @@
 					"$(PROJECT_DIR)/RingSeq/build",
 					"$(PROJECT_DIR)/RingSeq",
 					"/Users/nirboneh/Downloads/bassflac24-osx",
+					"/Users/nirboneh/Downloads/GoogleMobileAdsSdkiOS-6.12.0",
+					"/Users/nirboneh/Downloads/axonix-ios-sdk-releases-7.0.3/AxonixSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 arm64 armv7s";

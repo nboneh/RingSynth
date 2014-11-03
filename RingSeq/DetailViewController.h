@@ -12,9 +12,11 @@
 #import "FullGrid.h"
 #import "SlidingSegment.h"
 #import <MessageUI/MessageUI.h>
+#import "AxonixFullScreenAdViewController.h"
 
 
-@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, FullGridDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate>{
+
+@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate>{
     BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;
@@ -23,10 +25,9 @@
     UIAlertView *sucessAlert;
     UIAlertView* emailAlert;
     UIAlertView* deleteAlert;
-    UIActionSheet *changeInstrumentSheet;
-    UIBarButtonItem* createButton;
+    UIActionSheet *changeInstrumentSheet;    
 }
-
+@property (strong, nonatomic) AxonixFullScreenAdViewController *fullScreenAdViewController;
 @property (weak, nonatomic) IBOutlet UITextField *beatsTextField;
 
 @property (strong, nonatomic) id name;

@@ -11,7 +11,6 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
-#import "AppDelegate.h"
 
 @interface DetailViewController ()
 -(void)fixSegements;
@@ -55,7 +54,10 @@ static BOOL LOOPING;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    //[self createAndLoadInterstitial];
     firstTimeLoadingSubView = YES;
+    self.fullScreenAdViewController = [[AxonixFullScreenAdViewController alloc] init];
+    self.fullScreenAdViewController.delegate = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
@@ -71,7 +73,6 @@ static BOOL LOOPING;
                selector: @selector(musicStopped:)
                    name: @"musicStopped"
                  object: nil];
-    
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
@@ -97,7 +98,6 @@ static BOOL LOOPING;
                                             action:@selector(doubleTap:)];
     [doubleTap setNumberOfTapsRequired:2];
     [_instrumentController addGestureRecognizer:doubleTap];
-    
     [self.view addSubview:_instrumentController];
     [self fixSegements];
 }
@@ -121,13 +121,15 @@ static BOOL LOOPING;
 }
 
 -(void)resignActive:(NSNotification *)notification{
+    
+
+    
     //Stoping sound
     [_fullGrid stop];
     [_fullGrid silence];
     [_playButton setImage:[UIImage imageNamed:@"play"]];
     
     //Saving file
-    
     [self save];
 }
 
@@ -401,9 +403,10 @@ static BOOL LOOPING;
     }
     else if(alertView == emailAlert){
         if(buttonIndex == 1){
+            [self.fullScreenAdViewController dismissViewControllerAnimated:YES completion:NULL];
             MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
             [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
-            [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App RingSynth for iOS", self.name] isHTML:NO];
+            [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App %@ for iOS", self.name, [[[NSBundle mainBundle] infoDictionary]   objectForKey:@"CFBundleName"]] isHTML:NO];
             NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
             [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.mp3", self.name]];
             mc.mailComposeDelegate = self;
@@ -446,33 +449,34 @@ static BOOL LOOPING;
 }
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
-    //Safe save incase app crashed during export process
-    //Not likley but we might be kicked out due to ram usage
+    [self.fullScreenAdViewController requestAndDisplayAdFromViewController:self];
+   self.navigationItem.hidesBackButton = YES;
+    //Saving as Saftey measure
     [self save];
-    createButton =  self.navigationItem.rightBarButtonItem;
-    self.navigationItem.hidesBackButton =YES;
+    
+    UIBarButtonItem* _createButton =  self.navigationItem.rightBarButtonItem;
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.color = self.view.tintColor ;
     UIBarButtonItem * loadView = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     self.navigationItem.rightBarButtonItem = loadView;
     [activityIndicator startAnimating];
-    [_fullGrid encodeWithBpm:[_tempoField.text intValue] andName:self.name andDelegate:self];
-}
+    [_fullGrid encodeWithBpm:[_tempoField.text intValue] andName:self.name andCompletionBlock:^(BOOL success){
+               [_fullGrid stop];
+            self.navigationItem.hidesBackButton = NO;
+                self.navigationItem.rightBarButtonItem = _createButton;
+                   if(success ){
 
--(void)finishedEncoding:(BOOL)success{
-    self.navigationItem.rightBarButtonItem = createButton;
-    self.navigationItem.hidesBackButton =NO;
-    [_fullGrid stop];
-    if(success ){
-        if(!sucessAlert){
-            sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        }
-        [sucessAlert show];
-    } else{
-        UIAlertView* failAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [failAlert show];
-        
-    }
+                    if(!sucessAlert){
+                        sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    }
+                    [sucessAlert show];
+                } else{
+                    UIAlertView* failAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [failAlert show];
+                }
+               }
+
+    ];
 }
 
 +(BOOL)LOOPING{
@@ -489,6 +493,35 @@ static BOOL LOOPING;
     [self changeInstruments];
     [[OALSimpleAudio sharedInstance] stopAllEffects];
     [[OALSimpleAudio sharedInstance] setMuted:NO];
+}
+
+
+- (void)fullScreenAdViewController:(AxonixFullScreenAdViewController*)fullScreenAdViewController didFailToLoadWithError:(NSError*)error {
+    NSLog(@"Failed to load full screen ad");
+      }
+- (void)fullScreenAdViewControllerDidFinishLoad:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
+    NSLog(@"Full screen ad was loaded");
+    
+}
+
+
+// Called when about to show ad
+
+- (void)fullScreenAdViewControllerWillPresentAd:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
+    NSLog(@"Full screen ad will be presented");
+
+}
+
+// Called when the ad is closed / dismissed
+
+- (void)fullScreenAdViewControllerDidDismissAd:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
+    NSLog(@"Full screen ad was dismissed");
+    //Unsilence the grid
+    [[OALSimpleAudio sharedInstance] setMuted:YES];
+    [self changeInstruments];
+    [[OALSimpleAudio sharedInstance] stopAllEffects];
+    [[OALSimpleAudio sharedInstance] setMuted:NO];
+    
 }
 
 @end

@@ -8,10 +8,12 @@
 
 #import "AppDelegate.h"
 #import "Assets.h"
+#import "Axonix.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Axonix startWithApplicationId:@"F2850B4D-301F-4F0E-A7E2-015186F24B9B"];
         return YES;
 
 }

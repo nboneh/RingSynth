@@ -271,13 +271,12 @@
 }
 
 -(NSArray*)createSaveFile{
-    @synchronized(self){
+
     NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
     for(int i = 0; i < [layers count]; i++){
         [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
     }
     return [[NSArray alloc] initWithArray:preSaveFile];
-    }
     
     
 }
@@ -291,9 +290,13 @@
     }
     [self changeLayer:-1];
 }
--(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andDelegate:(id)delegate {
+-(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andCompletionBlock:(void (^)( BOOL)) block {
     int numOfMeasures = self.numOfMeasures;
-    _delegateForEncode = delegate;
+
+    //Creating a copy of saveData we will decode it into out giant wave file composition
+    //This allows the user to mess with the grid as it encodes the wave file
+    NSArray *decodeData = [self createSaveFile];
+
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         long sampleRate = 44100;
@@ -354,10 +357,6 @@
         headerfile[42] = (Byte) ((lengthOfPiece >> 16) & 0xff);
         headerfile[43] = (Byte) ((lengthOfPiece >> 24) & 0xff);
         
-        
-        //Creating a copy of saveData we will decode it into out giant wave file composition
-        //This allows the user to mess with the grid as it encodes the wave file
-        NSArray *decodeData = [self createSaveFile];
         
         //We are going to create a list of int arrays for each layer then we are going to add those all togther and the finnally analyze the data
         //to turn it to a short int array
@@ -487,27 +486,31 @@
         [exportSession exportAsynchronouslyWithCompletionHandler:^{
             NSFileManager *fm = [NSFileManager defaultManager];
             [fm removeItemAtPath:tempFilePath error:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
             switch (exportSession.status) {
+                    
                 case AVAssetExportSessionStatusCompleted: {
     
                     
-                    [_delegateForEncode finishedEncoding:YES ];
+                    block(YES) ;
 
                     break;
                 }
                 case AVAssetExportSessionStatusFailed: {
 
                     
-                    [_delegateForEncode finishedEncoding:NO ];
+                   block(NO);
                     break;
                 }
                     // ... handle some other cases...
                 default: {
-                    [_delegateForEncode finishedEncoding:NO ];
+                    block(NO);
                     break;
                 }
             }
+            });
         }];
+    
         
     }
                    
