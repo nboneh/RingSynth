@@ -291,6 +291,11 @@
     [self changeLayer:-1];
 }
 -(void) encodeWithBpm:(int)bpm_ andName:(NSString *)name andCompletionBlock:(void (^)( BOOL)) block {
+    if(layers.count == 0 ){
+        block(NO);
+        return;
+    }
+
     int numOfMeasures = self.numOfMeasures;
 
     //Creating a copy of saveData we will decode it into out giant wave file composition
@@ -361,7 +366,7 @@
         //We are going to create a list of int arrays for each layer then we are going to add those all togther and the finnally analyze the data
         //to turn it to a short int array
         //So much nested loops gah
-        int **uncompDataPointers = malloc(4 *decodeData.count);
+        int **uncompDataPointers = malloc(sizeof(int*)*decodeData.count);
         for(int i = 0; i < decodeData.count; i++) {
             uncompDataPointers[i] = 0;
         }
@@ -392,11 +397,10 @@
                                 Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
                                 NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
                                 NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
-                                NSData * noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
+                                struct NoteData noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
                                 
-                                unsigned long noteLength = noteData.length/2;
-                                short int*noteShortData = ( short int*)malloc( noteData.length);
-                                [noteData getBytes:(  short int*)noteShortData];
+                                unsigned long noteLength = noteData.length;
+                                short int*noteShortData = noteData.noteData;
                                 
                                 unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
                                 for(int l = 0; l < noteLength; l++){
@@ -477,7 +481,6 @@
         NSError * error;
         [mutableComposition insertTimeRange:CMTimeRangeMake(kCMTimeZero, wavAsset.duration)
                                     ofAsset:wavAsset atTime:kCMTimeZero error:&error];
-        
         AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]
                                                initWithAsset:[mutableComposition copy] presetName:AVAssetExportPresetAppleM4A];
         exportSession.outputURL = [NSURL fileURLWithPath:ringtonePath];
@@ -513,7 +516,7 @@
     
         
     }
-                   
+
                    );
 }
 

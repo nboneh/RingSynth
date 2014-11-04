@@ -15,6 +15,8 @@
 		0B213B191A06EFE500F2255B /* Fiddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B181A06EFE500F2255B /* Fiddle.wav */; };
 		0B213B1B1A06F15500F2255B /* Banjo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B1A1A06F15500F2255B /* Banjo.wav */; };
 		0B213B1D1A06F1B700F2255B /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B213B1C1A06F1B700F2255B /* ShopViewController.m */; };
+		0B213B201A073CF300F2255B /* Reverb Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B1F1A073CF300F2255B /* Reverb Guitar.wav */; };
+		0B213B241A0740B100F2255B /* Synth.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B231A0740B100F2255B /* Synth.wav */; };
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
 		0B39A04C19F04601006B7EA5 /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Measure.m */; };
 		0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D64FB19FC5C5400C408D4 /* PitchShift.c */; };
@@ -202,6 +204,8 @@
 		0B213B1A1A06F15500F2255B /* Banjo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Banjo.wav; path = ../../../Downloads/Banjo.wav; sourceTree = "<group>"; };
 		0B213B1C1A06F1B700F2255B /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = RingSeq/ShopViewController.m; sourceTree = "<group>"; };
 		0B213B1E1A06F1C500F2255B /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelpViewController.h; path = RingSeq/HelpViewController.h; sourceTree = "<group>"; };
+		0B213B1F1A073CF300F2255B /* Reverb Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Reverb Guitar.wav"; path = "../../../Downloads/Reverb Guitar.wav"; sourceTree = "<group>"; };
+		0B213B231A0740B100F2255B /* Synth.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Synth.wav; path = ../../../Downloads/Synth.wav; sourceTree = "<group>"; };
 		0B39A04319EF24BB006B7EA5 /* FullGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullGrid.h; sourceTree = "<group>"; };
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
 		0B39A04A19F04601006B7EA5 /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
@@ -499,6 +503,8 @@
 			children = (
 				0BC701911A01A9F1003E03F3 /* Drums */,
 				0B9AF9C519F33B9D00F6C176 /* Trombone.wav */,
+				0B213B231A0740B100F2255B /* Synth.wav */,
+				0B213B1F1A073CF300F2255B /* Reverb Guitar.wav */,
 				0B213B1A1A06F15500F2255B /* Banjo.wav */,
 				0B213B121A06E9D600F2255B /* Steel Guitar.wav */,
 				0B213B101A06E67600F2255B /* Slap Bass.wav */,
@@ -917,6 +923,7 @@
 				0BC701F51A03434E003E03F3 /* TurnDown.wav in Resources */,
 				0BC701D31A01F4F7003E03F3 /* Kick-Snare.wav in Resources */,
 				0B9AF9B519F330EF00F6C176 /* Electric Guitar.wav in Resources */,
+				0B213B201A073CF300F2255B /* Reverb Guitar.wav in Resources */,
 				0B9AF9DA19F340AA00F6C176 /* RideCymbal3.wav in Resources */,
 				0B9AF9E019F3412400F6C176 /* Crash2.wav in Resources */,
 				0BC701B11A01AF08003E03F3 /* Sizzle.wav in Resources */,
@@ -931,6 +938,7 @@
 				0BC701C11A01B2B8003E03F3 /* Clacker.wav in Resources */,
 				0BC701D51A01F7B9003E03F3 /* Orchestra Hit.wav in Resources */,
 				0B213B1B1A06F15500F2255B /* Banjo.wav in Resources */,
+				0B213B241A0740B100F2255B /* Synth.wav in Resources */,
 				0BC701721A0195C5003E03F3 /* MidTom1.wav in Resources */,
 				0B9AF94D19F3287E00F6C176 /* InfoPlist.strings in Resources */,
 				0BC701D91A0203EF003E03F3 /* Bass Guitar.wav in Resources */,

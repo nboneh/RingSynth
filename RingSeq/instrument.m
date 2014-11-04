@@ -87,7 +87,7 @@
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name]];
 }
 
--(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
+-(struct NoteData  )getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
     NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
     //Get rid of header file 44 bytes
@@ -106,11 +106,11 @@
     int newLength = (length* delta) -4;
     short int*outdata = (short int *) malloc(newLength);
     smb_pitch_shift(cdata, outdata,length/2, newLength/2,delta);
-    
-    data = [NSData dataWithBytes:(const void *)outdata length:(newLength)];
     free(cdata);
-    free(outdata);
-    return data;
+    struct NoteData noteData;
+    noteData.length = newLength/2;
+    noteData.noteData = outdata;
+    return noteData;
 }
 
 -(void)playRandomNote{

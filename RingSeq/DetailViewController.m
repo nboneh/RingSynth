@@ -55,10 +55,14 @@ static BOOL LOOPING;
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
     //[self createAndLoadInterstitial];
+    //Put view infront of popup
+
+    
+    
     firstTimeLoadingSubView = YES;
     self.fullScreenAdViewController = [[AxonixFullScreenAdViewController alloc] init];
     self.fullScreenAdViewController.delegate = self;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
                selector: @selector(resignActive:)
@@ -510,12 +514,18 @@ static BOOL LOOPING;
 - (void)fullScreenAdViewControllerWillPresentAd:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
     NSLog(@"Full screen ad will be presented");
 
+    [fullScreenAdViewController.view removeFromSuperview];
+    [self.view addSubview:fullScreenAdViewController.view];
+    fullScreenAdViewController.view.window.windowLevel = UIWindowLevelAlert+100;
+    
+
 }
 
 // Called when the ad is closed / dismissed
 
 - (void)fullScreenAdViewControllerDidDismissAd:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
     NSLog(@"Full screen ad was dismissed");
+    fullScreenAdViewController.view.window.windowLevel = UIWindowLevelAlert-100;
     //Unsilence the grid
     [[OALSimpleAudio sharedInstance] setMuted:YES];
     [self changeInstruments];

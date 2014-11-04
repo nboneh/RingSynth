@@ -11,8 +11,12 @@
 #import "NoteDescription.h"
 #import "ObjectAL.h"
 
-
 @interface Instrument : NSObject
+struct NoteData
+{
+    short int * noteData;
+    int length;
+};
 
 @property (readonly)NSString *name;
 @property(readonly) UIImage *image;
@@ -25,6 +29,6 @@
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel;
 -(void)play;
--(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume;
+-(struct NoteData )getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume;
 -(void)playRandomNote;
 @end

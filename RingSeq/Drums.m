@@ -72,7 +72,7 @@
     
 }
 
--(NSData *)getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
+-(struct NoteData  )getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
     NSString *drum =[self getDrumWithNoteDescription:note];
     NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:drum ofType:@"wav"];
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
@@ -86,8 +86,11 @@
         cdata[i] = cdata[i] *volume;
     }
     data = [NSData dataWithBytes:(const void *)cdata length:(length)];
-    free(cdata);
-    return data;
+    struct NoteData noteData;
+    noteData.length = (int)length/2;
+    noteData.noteData = cdata;
+
+    return noteData;
 }
 -(void)playRandomNote{
     NoteDescription* note;
