@@ -27,15 +27,24 @@
     self.bannerView.frame = bannerFrame;
     [self.view addSubview:self.bannerView];
     
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver: self
+               selector: @selector(resignActive)
+                   name: @"applicationWillResignActive"
+                 object: nil];
+
+    
     
     CGRect frame = self.view.frame;
     NSArray *packs = [Assets IN_APP_PURCHASE_PACKS];
     int i = 0;
     int ydist  =  frame.size.height/8;
     int heightStart =  [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.toolbar.frame.size.height+ ydist/2;
+    purchaseViews = [[NSMutableArray alloc] init];
     for(NSDictionary * pack in packs){
         PurchaseView* pView = [[PurchaseView alloc] initWithFrame:CGRectMake(0, ydist*i +heightStart, frame.size.width, ydist/2) andPackInfo:pack];
         [self.view addSubview: pView];
+        [purchaseViews addObject:pView];
         i++;
     }
 }
@@ -47,11 +56,19 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.bannerView pauseAdAutoRefresh];
+    
+      [[OALSimpleAudio sharedInstance] stopBg];
+    for(PurchaseView * purchaseView in purchaseViews){
+
+        [[NSNotificationCenter defaultCenter] removeObserver:purchaseView];
+    }
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.bannerView resumeAdAutoRefresh];
 }
-
+-(void)resignActive{
+     [[OALSimpleAudio sharedInstance] stopBg];
+}
 
 @end

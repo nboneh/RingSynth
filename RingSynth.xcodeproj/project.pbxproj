@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B190B0A1A09CF0D0079A606 /* PurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B091A09CF0D0079A606 /* PurchaseView.m */; };
 		0B190B0E1A09D8490079A606 /* InstrumentPurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */; };
+		0B190B101A0ACB050079A606 /* Default.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B0F1A0AC7A30079A606 /* Default.m4a */; };
 		0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B213AF91A06CACC00F2255B /* libAxonixSDK.a */; };
 		0B213B0F1A06E5B800F2255B /* Steel Drum.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B0E1A06E5B800F2255B /* Steel Drum.wav */; };
 		0B213B111A06E67600F2255B /* Slap Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B101A06E67600F2255B /* Slap Bass.wav */; };
@@ -186,6 +187,7 @@
 		0B190B0B1A09D2D80079A606 /* ShopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ShopViewController.h; path = RingSeq/ShopViewController.h; sourceTree = "<group>"; };
 		0B190B0C1A09D8490079A606 /* InstrumentPurchaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentPurchaseView.h; sourceTree = "<group>"; };
 		0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentPurchaseView.m; sourceTree = "<group>"; };
+		0B190B0F1A0AC7A30079A606 /* Default.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Default.m4a; path = ../../../Downloads/Default.m4a; sourceTree = "<group>"; };
 		0B213AF21A06CACC00F2255B /* AXNBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXNBrowserViewController.h; sourceTree = "<group>"; };
 		0B213AF31A06CACC00F2255B /* Axonix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Axonix.h; sourceTree = "<group>"; };
 		0B213AF41A06CACC00F2255B /* AxonixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixAds.h; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				0B9AF9BF19F33AC900F6C176 /* Trumpet.wav */,
 				0B9AF9BD19F3390300F6C176 /* Low Piano.wav */,
 				0B213B181A06EFE500F2255B /* Fiddle.wav */,
+				0B190B0F1A0AC7A30079A606 /* Default.m4a */,
 				0B9AF9BB19F338DE00F6C176 /* High Piano.wav */,
 				0B9AF9B919F3389F00F6C176 /* Acoustic Guitar.wav */,
 				0B9AFA0419F347AB00F6C176 /* Bell.wav */,
@@ -919,6 +922,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B190B101A0ACB050079A606 /* Default.m4a in Resources */,
 				0B213B0F1A06E5B800F2255B /* Steel Drum.wav in Resources */,
 				0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */,
 				0BC701F31A033F62003E03F3 /* DameSon.wav in Resources */,

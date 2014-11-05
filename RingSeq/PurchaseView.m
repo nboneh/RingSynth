@@ -12,6 +12,12 @@
 -(id)initWithFrame:(CGRect)frame andPackInfo:(NSDictionary *)packInfo{
     self = [super initWithFrame:frame];
     if(self){
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                   selector: @selector(stopSample)
+                       name: @"backgroundMusicStopped"
+                     object: nil];
+
         int nameWidth = self.frame.size.width/6;
         int instDistance = frame.size.width/8;
         UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, nameWidth, self.frame.size.height)];
@@ -35,10 +41,12 @@
             [self addSubview:instrView];
         }
         int xOfSample = (int)instruments.count * instDistance + nameWidth ;
-        UIButton *playSampleButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];playSampleButton.frame= CGRectMake(xOfSample, 0, nameWidth, self.frame.size.height);
+      playSampleButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];playSampleButton.frame= CGRectMake(xOfSample, 0, nameWidth, self.frame.size.height);
         playSampleButton.titleLabel.textColor = self.tintColor;
        [playSampleButton setTitle:@"Play Sample!" forState:UIControlStateNormal];
-
+        [playSampleButton addTarget:self
+                   action:@selector(playSample:)
+         forControlEvents:UIControlEventTouchUpInside];
       if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
         {
             //Increasing size of font if on ipad
@@ -47,7 +55,7 @@
         } else{
             [playSampleButton.titleLabel  setFont:[UIFont systemFontOfSize:13]];
         }
-
+        sampleName= [packInfo objectForKey:@"samplename"];
         [self addSubview:playSampleButton];
     }
     return self;
@@ -61,5 +69,37 @@
         view.frame = frame;
     }completion:nil];
 }
+
+-(void)playSample:(UIButton *)button{
+    if([button.titleLabel.text isEqualToString:@"Play Sample!"]){
+          [[OALSimpleAudio sharedInstance] stopBg];
+        stopSampleTimer =[NSTimer scheduledTimerWithTimeInterval:[self durationOfSample]
+                                                             target:self
+                                                           selector:@selector(stopSample)
+                                                           userInfo:nil
+                                                            repeats:NO];
+
+        [button setTitle:@"Stop Sample!" forState:UIControlStateNormal];
+        [[OALSimpleAudio sharedInstance] playBg:[NSString stringWithFormat:@"%@.m4a", sampleName]];
+    } else{
+        [[OALSimpleAudio sharedInstance] stopBg];
+    }
+    
+}
+
+-(void)stopSample{
+    [playSampleButton setTitle:@"Play Sample!" forState:UIControlStateNormal];
+    [stopSampleTimer  invalidate];
+    stopSampleTimer = nil;
+}
+
+-(float) durationOfSample{
+    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:sampleName ofType:@"m4a"];
+    AVURLAsset* audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:musicPaths]  options:nil];
+    CMTime audioDuration = audioAsset.duration;
+    float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+    return  audioDurationSeconds;
+}
+
 
 @end

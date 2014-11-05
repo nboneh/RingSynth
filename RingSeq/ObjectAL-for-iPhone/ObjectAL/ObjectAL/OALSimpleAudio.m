@@ -454,6 +454,12 @@ initFailed:
 
 - (void) stopBg
 {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"backgroundMusicStopped"
+                                                        object: nil
+                                                      userInfo: nil];
+    
+
 	OAL_LOG_DEBUG(@"Stop bg");
 	[backgroundTrack stop];
 }

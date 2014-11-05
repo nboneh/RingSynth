@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Instrument.h"
 #import "InstrumentPurchaseView.h"
+#import "OALSimpleAudio.h"
 
-@interface PurchaseView : UIView
+@interface PurchaseView : UIView{
+    NSString *sampleName;
+    UIButton *playSampleButton;
+    NSTimer *stopSampleTimer;
+}
 
 
 -(id)initWithFrame:(CGRect)frame andPackInfo:(NSDictionary *)packInfo;

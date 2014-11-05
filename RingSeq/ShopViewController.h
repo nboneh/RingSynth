@@ -12,6 +12,8 @@
 #import "Assets.h"
 
 
-@interface ShopViewController : UIViewController
+@interface ShopViewController : UIViewController{
+    NSMutableArray *purchaseViews;
+}
 @property AxonixAdView *bannerView;
 @end

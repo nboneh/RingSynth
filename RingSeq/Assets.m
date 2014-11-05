@@ -87,7 +87,7 @@ static NSArray *IN_APP_PURCHASE_PACKS;
                                          [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5 andPurchased:NO],
                                            //C4
                                        [[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4 andPurchased:NO]],
-                                   @"sample name": @"Funky"
+                                   @"samplename": @"Default"
         
                                   };
         [prePacks addObject:funkPack];
@@ -102,7 +102,7 @@ static NSArray *IN_APP_PURCHASE_PACKS;
                                        //C4
                                     [[Instrument alloc] initWithName:@"Banjo" color:[UIColor purpleColor] andBaseOctave:4 andPurchased:NO]],
 
-                                       @"sample name": @"Country"
+                                       @"samplename": @"Default"
                                        
                                        };
 
