@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "AxonixAdView.h"
+#import "PurchaseView.h"
+#import "Assets.h"
 
 
 @interface ShopViewController : UIViewController

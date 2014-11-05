@@ -412,7 +412,7 @@ static BOOL LOOPING;
             [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
             [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App %@ for iOS", self.name, [[[NSBundle mainBundle] infoDictionary]   objectForKey:@"CFBundleName"]] isHTML:NO];
             NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
-            [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.mp3", self.name]];
+            [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.m4a", self.name]];
             mc.mailComposeDelegate = self;
             // Present mail view controller on screen
             

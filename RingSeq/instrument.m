@@ -87,6 +87,13 @@
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name]];
 }
 
+-(float) duration{
+    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
+    AVURLAsset* audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:musicPaths]  options:nil];
+    CMTime audioDuration = audioAsset.duration;
+    float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
+    return  audioDurationSeconds;
+}
 -(struct NoteData  )getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
     NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];

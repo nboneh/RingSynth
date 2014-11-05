@@ -12,6 +12,7 @@
 @interface Assets : NSObject
 
 +(NSArray *)INSTRUMENTS;
++(NSArray *)IN_APP_PURCHASE_PACKS;
 +(void) playEraseSound;
 
 @end

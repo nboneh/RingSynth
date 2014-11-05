@@ -15,6 +15,7 @@
 @implementation Assets
 static NSArray* ERASE_SOUNDS;
 static NSArray *INSTRUMENTS;
+static NSArray *IN_APP_PURCHASE_PACKS;
 +(void) initialize{
     [OALSimpleAudio sharedInstance].allowIpod = NO;
     
@@ -82,6 +83,43 @@ static NSArray *INSTRUMENTS;
     }
     
     [[OALSimpleAudio sharedInstance] playEffect:[ERASE_SOUNDS objectAtIndex: arc4random_uniform((int)ERASE_SOUNDS.count)]];
+}
+
++(NSArray *)IN_APP_PURCHASE_PACKS{
+    if(!IN_APP_PURCHASE_PACKS){
+        NSMutableArray *prePacks = [[NSMutableArray alloc] init];
+        NSDictionary *funkPack = @{@"name":@"Funk Pack",
+                                   @"instruments":@[//C2
+                                         [[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4],
+                                           //C5
+                                         [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5],
+                                           //C4
+                                       [[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4]],
+                                   @"sample name": @"Funky"
+        
+                                  };
+        [prePacks addObject:funkPack];
+        
+        NSDictionary *countryPack =  @{@"name":@"Country Pack",
+                                       @"instruments":@[//C5
+                                               [[Instrument alloc] initWithName:@"Fiddle" color:[UIColor brownColor] andBaseOctave:5],
+                                       
+                                       //C5
+                                     [[Instrument alloc] initWithName:@"Steel Guitar" color:[UIColor grayColor] andBaseOctave:5],
+                                       
+                                       //C4
+                                    [[Instrument alloc] initWithName:@"Banjo" color:[UIColor purpleColor] andBaseOctave:4]],
+
+                                       @"sample name": @"Country"
+                                       
+                                       };
+
+         [prePacks addObject:countryPack];
+        IN_APP_PURCHASE_PACKS = [[NSArray alloc] initWithArray:prePacks];
+        
+
+    }
+    return IN_APP_PURCHASE_PACKS;
 }
 
 @end

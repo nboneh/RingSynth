@@ -21,11 +21,23 @@
         self.bannerView = [[AxonixAdViewiPad_728x90 alloc] init];
     else
         self.bannerView = [[AxonixAdViewiPhone_320x50 alloc] init];
-    CGRect frame = self.bannerView.frame;
-    frame.origin.y = self.view.frame.size.height - frame.size.height;
-    frame.origin.x = self.view.frame.size.width/2 - frame.size.width/2;
-    self.bannerView.frame = frame;
+    CGRect bannerFrame = self.bannerView.frame;
+    bannerFrame.origin.y = self.view.frame.size.height - bannerFrame.size.height;
+    bannerFrame.origin.x = self.view.frame.size.width/2 - bannerFrame.size.width/2;
+    self.bannerView.frame = bannerFrame;
     [self.view addSubview:self.bannerView];
+    
+    
+    CGRect frame = self.view.frame;
+    NSArray *packs = [Assets IN_APP_PURCHASE_PACKS];
+    int i = 0;
+    int ydist  =  frame.size.height/8;
+    int heightStart =  [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.toolbar.frame.size.height+ ydist/2;
+    for(NSDictionary * pack in packs){
+        PurchaseView* pView = [[PurchaseView alloc] initWithFrame:CGRectMake(0, ydist*i +heightStart, frame.size.width, ydist/2) andPackInfo:pack];
+        [self.view addSubview: pView];
+        i++;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

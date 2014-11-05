@@ -29,6 +29,7 @@ struct NoteData
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel;
 -(void)play;
+-(float) duration;
 -(struct NoteData )getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume;
 -(void)playRandomNote;
 @end

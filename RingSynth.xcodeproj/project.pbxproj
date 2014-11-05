@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B190B0A1A09CF0D0079A606 /* PurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B091A09CF0D0079A606 /* PurchaseView.m */; };
+		0B190B0E1A09D8490079A606 /* InstrumentPurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */; };
 		0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B213AF91A06CACC00F2255B /* libAxonixSDK.a */; };
 		0B213B0F1A06E5B800F2255B /* Steel Drum.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B0E1A06E5B800F2255B /* Steel Drum.wav */; };
 		0B213B111A06E67600F2255B /* Slap Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B101A06E67600F2255B /* Slap Bass.wav */; };
 		0B213B131A06E9D600F2255B /* Steel Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B121A06E9D600F2255B /* Steel Guitar.wav */; };
 		0B213B151A06ED6400F2255B /* Fiddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B141A06ED6400F2255B /* Fiddle.wav */; };
-		0B213B191A06EFE500F2255B /* Fiddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B181A06EFE500F2255B /* Fiddle.wav */; };
 		0B213B1B1A06F15500F2255B /* Banjo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B1A1A06F15500F2255B /* Banjo.wav */; };
 		0B213B1D1A06F1B700F2255B /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B213B1C1A06F1B700F2255B /* ShopViewController.m */; };
 		0B213B201A073CF300F2255B /* Reverb Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B1F1A073CF300F2255B /* Reverb Guitar.wav */; };
@@ -107,7 +108,6 @@
 		0BC701581A019121003E03F3 /* Clap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701571A019121003E03F3 /* Clap.wav */; };
 		0BC7015A1A019141003E03F3 /* Low-Bongo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701591A019141003E03F3 /* Low-Bongo.wav */; };
 		0BC7015C1A01914F003E03F3 /* Hi-Bongo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC7015B1A01914F003E03F3 /* Hi-Bongo.wav */; };
-		0BC7015E1A019167003E03F3 /* Shaker.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC7015D1A019167003E03F3 /* Shaker.wav */; };
 		0BC701601A0192E6003E03F3 /* Woodblock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC7015F1A0192E6003E03F3 /* Woodblock.wav */; };
 		0BC701621A019304003E03F3 /* China.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701611A019304003E03F3 /* China.wav */; };
 		0BC701641A01939D003E03F3 /* Rimshot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701631A01939D003E03F3 /* Rimshot.wav */; };
@@ -181,6 +181,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B190B081A09CF0D0079A606 /* PurchaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseView.h; sourceTree = "<group>"; };
+		0B190B091A09CF0D0079A606 /* PurchaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseView.m; sourceTree = "<group>"; };
+		0B190B0B1A09D2D80079A606 /* ShopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ShopViewController.h; path = RingSeq/ShopViewController.h; sourceTree = "<group>"; };
+		0B190B0C1A09D8490079A606 /* InstrumentPurchaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentPurchaseView.h; sourceTree = "<group>"; };
+		0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentPurchaseView.m; sourceTree = "<group>"; };
 		0B213AF21A06CACC00F2255B /* AXNBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXNBrowserViewController.h; sourceTree = "<group>"; };
 		0B213AF31A06CACC00F2255B /* Axonix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Axonix.h; sourceTree = "<group>"; };
 		0B213AF41A06CACC00F2255B /* AxonixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixAds.h; sourceTree = "<group>"; };
@@ -195,7 +200,6 @@
 		0B213AFD1A06CACC00F2255B /* MobclixAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixAdView.h; sourceTree = "<group>"; };
 		0B213AFE1A06CACC00F2255B /* MobclixDemographics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixDemographics.h; sourceTree = "<group>"; };
 		0B213AFF1A06CACC00F2255B /* MobclixFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixFeedback.h; sourceTree = "<group>"; };
-		0B213B001A06CACC00F2255B /* MobclixFullScreenAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixFullScreenAdViewController.h; sourceTree = "<group>"; };
 		0B213B0E1A06E5B800F2255B /* Steel Drum.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Steel Drum.wav"; path = "../../../Downloads/Steel Drum.wav"; sourceTree = "<group>"; };
 		0B213B101A06E67600F2255B /* Slap Bass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Slap Bass.wav"; path = "../../../Downloads/Slap Bass.wav"; sourceTree = "<group>"; };
 		0B213B121A06E9D600F2255B /* Steel Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Steel Guitar.wav"; path = "../../../Downloads/Steel Guitar.wav"; sourceTree = "<group>"; };
@@ -203,7 +207,6 @@
 		0B213B181A06EFE500F2255B /* Fiddle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Fiddle.wav; path = ../../../Downloads/Fiddle.wav; sourceTree = "<group>"; };
 		0B213B1A1A06F15500F2255B /* Banjo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Banjo.wav; path = ../../../Downloads/Banjo.wav; sourceTree = "<group>"; };
 		0B213B1C1A06F1B700F2255B /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = RingSeq/ShopViewController.m; sourceTree = "<group>"; };
-		0B213B1E1A06F1C500F2255B /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelpViewController.h; path = RingSeq/HelpViewController.h; sourceTree = "<group>"; };
 		0B213B1F1A073CF300F2255B /* Reverb Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Reverb Guitar.wav"; path = "../../../Downloads/Reverb Guitar.wav"; sourceTree = "<group>"; };
 		0B213B231A0740B100F2255B /* Synth.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Synth.wav; path = ../../../Downloads/Synth.wav; sourceTree = "<group>"; };
 		0B39A04319EF24BB006B7EA5 /* FullGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullGrid.h; sourceTree = "<group>"; };
@@ -441,7 +444,6 @@
 				0B213AFD1A06CACC00F2255B /* MobclixAdView.h */,
 				0B213AFE1A06CACC00F2255B /* MobclixDemographics.h */,
 				0B213AFF1A06CACC00F2255B /* MobclixFeedback.h */,
-				0B213B001A06CACC00F2255B /* MobclixFullScreenAdViewController.h */,
 			);
 			name = AxonixSDK;
 			path = "../../../Downloads/axonix-ios-sdk-releases-7.0.3/AxonixSDK";
@@ -458,6 +460,10 @@
 				0B9AFA0919F6087200F6C176 /* NonEditableTextField.m */,
 				0BC701F81A04B826003E03F3 /* StringView.h */,
 				0BC701F91A04B826003E03F3 /* StringView.m */,
+				0B190B081A09CF0D0079A606 /* PurchaseView.h */,
+				0B190B091A09CF0D0079A606 /* PurchaseView.m */,
+				0B190B0C1A09D8490079A606 /* InstrumentPurchaseView.h */,
+				0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -750,7 +756,7 @@
 				0B703EBC19E70B5F00CED5B4 /* DetailViewController.m */,
 				0B703EB819E70B5F00CED5B4 /* FilesViewController.h */,
 				0B703EB919E70B5F00CED5B4 /* FilesViewController.m */,
-				0B213B1E1A06F1C500F2255B /* HelpViewController.h */,
+				0B190B0B1A09D2D80079A606 /* ShopViewController.h */,
 				0B213B1C1A06F1B700F2255B /* ShopViewController.m */,
 			);
 			name = ViewControllers;
@@ -913,7 +919,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BC7015E1A019167003E03F3 /* Shaker.wav in Resources */,
 				0B213B0F1A06E5B800F2255B /* Steel Drum.wav in Resources */,
 				0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */,
 				0BC701F31A033F62003E03F3 /* DameSon.wav in Resources */,
@@ -969,7 +974,6 @@
 				0BC701B31A01AF8E003E03F3 /* Splash2.wav in Resources */,
 				0BC701A31A01ACB5003E03F3 /* Low-Synth-Tom.wav in Resources */,
 				0BC701A11A01AC83003E03F3 /* Shaker.wav in Resources */,
-				0B213B191A06EFE500F2255B /* Fiddle.wav in Resources */,
 				0BC701C51A01B350003E03F3 /* Snap.wav in Resources */,
 				0BC7015C1A01914F003E03F3 /* Hi-Bongo.wav in Resources */,
 				0B9AF9E819F3418D00F6C176 /* KickDrum2.wav in Resources */,
@@ -1060,6 +1064,7 @@
 				0B9AF94619F3287E00F6C176 /* OALSuspendHandler.m in Sources */,
 				0B9AF93C19F3287E00F6C176 /* ALCaptureDevice.m in Sources */,
 				0B74952E19EB7BA50078296B /* Assets.m in Sources */,
+				0B190B0A1A09CF0D0079A606 /* PurchaseView.m in Sources */,
 				0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */,
 				0B9AF94319F3287E00F6C176 /* ALWrapper.m in Sources */,
 				0B39A04C19F04601006B7EA5 /* Measure.m in Sources */,
@@ -1071,6 +1076,7 @@
 				0B213B1D1A06F1B700F2255B /* ShopViewController.m in Sources */,
 				0B9AF94019F3287E00F6C176 /* ALListener.m in Sources */,
 				0BC701E31A0336E8003E03F3 /* HelpViewController.m in Sources */,
+				0B190B0E1A09D8490079A606 /* InstrumentPurchaseView.m in Sources */,
 				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
 				0BC701FA1A04B826003E03F3 /* StringView.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
@@ -1199,10 +1205,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/RingSeq/build",
 					"$(PROJECT_DIR)/RingSeq",
-					"/Users/nirboneh/Downloads/bassflac24-osx",
-					"/Users/nirboneh/Downloads/GoogleMobileAdsSdkiOS-6.12.0",
 					"/Users/nirboneh/Downloads/axonix-ios-sdk-releases-7.0.3/AxonixSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
@@ -1224,10 +1227,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/RingSeq/build",
 					"$(PROJECT_DIR)/RingSeq",
-					"/Users/nirboneh/Downloads/bassflac24-osx",
-					"/Users/nirboneh/Downloads/GoogleMobileAdsSdkiOS-6.12.0",
 					"/Users/nirboneh/Downloads/axonix-ios-sdk-releases-7.0.3/AxonixSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
