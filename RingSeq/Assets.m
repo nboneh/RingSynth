@@ -50,26 +50,18 @@ static NSArray *IN_APP_PURCHASE_PACKS;
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"High Piano" color:[UIColor blackColor]andBaseOctave:4]];
         //C2
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Low Piano" color:[UIColor blackColor]  andBaseOctave:4]];
-        //C2
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4]];
-        //C5
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5]];
-        //C4
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4]];
         
+        NSArray * packs =[Assets IN_APP_PURCHASE_PACKS];
+        for(NSDictionary * pack in packs){
+            NSArray * instruments = [pack objectForKey:@"instruments"];
+            for(Instrument *instrument in instruments){
+                [instrumentMut addObject:instrument];
+            }
+        }
         //C4
         [instrumentMut addObject:[[Instrument alloc] initWithName:@"Steel Drum" color:[UIColor grayColor] andBaseOctave:4]];
         
 
-        //C5
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Fiddle" color:[UIColor brownColor] andBaseOctave:5]];
-        
-        //C5
-        [instrumentMut addObject:[[Instrument alloc] initWithName:@"Steel Guitar" color:[UIColor grayColor] andBaseOctave:5]];
-        
-        //C4
-           [instrumentMut addObject:[[Instrument alloc] initWithName:@"Banjo" color:[UIColor purpleColor] andBaseOctave:4]];
-        
 
         INSTRUMENTS  = [[NSArray alloc]initWithArray:instrumentMut];
     }
@@ -90,11 +82,11 @@ static NSArray *IN_APP_PURCHASE_PACKS;
         NSMutableArray *prePacks = [[NSMutableArray alloc] init];
         NSDictionary *funkPack = @{@"name":@"Funk Pack",
                                    @"instruments":@[//C2
-                                         [[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4],
+                                         [[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4 andPurchased:NO],
                                            //C5
-                                         [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5],
+                                         [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5 andPurchased:NO],
                                            //C4
-                                       [[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4]],
+                                       [[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4 andPurchased:NO]],
                                    @"sample name": @"Funky"
         
                                   };
@@ -102,13 +94,13 @@ static NSArray *IN_APP_PURCHASE_PACKS;
         
         NSDictionary *countryPack =  @{@"name":@"Country Pack",
                                        @"instruments":@[//C5
-                                               [[Instrument alloc] initWithName:@"Fiddle" color:[UIColor brownColor] andBaseOctave:5],
+                                               [[Instrument alloc] initWithName:@"Fiddle" color:[UIColor brownColor] andBaseOctave:5 andPurchased:NO],
                                        
                                        //C5
-                                     [[Instrument alloc] initWithName:@"Steel Guitar" color:[UIColor grayColor] andBaseOctave:5],
+                                     [[Instrument alloc] initWithName:@"Steel Guitar" color:[UIColor grayColor] andBaseOctave:5 andPurchased:NO],
                                        
                                        //C4
-                                    [[Instrument alloc] initWithName:@"Banjo" color:[UIColor purpleColor] andBaseOctave:4]],
+                                    [[Instrument alloc] initWithName:@"Banjo" color:[UIColor purpleColor] andBaseOctave:4 andPurchased:NO]],
 
                                        @"sample name": @"Country"
                                        

@@ -18,6 +18,7 @@ struct NoteData
     int length;
 };
 
+@property BOOL purchased;
 @property (readonly)NSString *name;
 @property(readonly) UIImage *image;
 @property(readonly) UIColor *color;
@@ -25,6 +26,7 @@ struct NoteData
 @property int baseOctave;
 
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave;
+-(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave andPurchased:(BOOL)purchased;
 
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel;

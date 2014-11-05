@@ -242,7 +242,9 @@ static BOOL LOOPING;
         instrumentSheet.destructiveButtonIndex = [instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
     }
     for (Instrument *inst in [Assets INSTRUMENTS]) {
-        [instrumentSheet addButtonWithTitle:inst.name];
+        //Checking if instrument is purchased to add it to the list of instruments
+        if(inst.purchased)
+            [instrumentSheet addButtonWithTitle:inst.name];
     }
     instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
     return instrumentSheet;

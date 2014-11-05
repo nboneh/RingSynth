@@ -15,12 +15,22 @@
 @implementation Instrument
 @synthesize name = _name;
 @synthesize image = _image;
+@synthesize  purchased = _purchased;
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave{
     self = [super init];
     if(self){
         _name = name;
         _color = color;
         _baseOctave = octave;
+        _purchased = YES;
+    }
+    return self;
+}
+
+-(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave andPurchased:(BOOL)purchased{
+    self = [self initWithName:name color:color andBaseOctave:octave];
+    if(self){
+        self.purchased = purchased;
     }
     return self;
 }
