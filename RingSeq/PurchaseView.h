@@ -10,13 +10,15 @@
 #import "Instrument.h"
 #import "InstrumentPurchaseView.h"
 #import "OALSimpleAudio.h"
+#import <StoreKit/StoreKit.h>
 
-@interface PurchaseView : UIView<UIAlertViewDelegate>{
+@interface PurchaseView : UIView<UIAlertViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>{
     NSString *bundleName;
     NSString *sampleName;
     UIButton *playSampleButton;
     NSTimer *stopSampleTimer;
     float price;
+    NSString *bundleIdentifier;
 }
 
 

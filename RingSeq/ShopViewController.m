@@ -8,10 +8,6 @@
 
 #import "ShopViewController.h"
 
-@interface ShopViewController ()
-
-@end
-
 @implementation ShopViewController
 
 - (void)viewDidLoad {
@@ -47,6 +43,22 @@
         [purchaseViews addObject:pView];
         i++;
     }
+   UIButton * restorePurchases =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    restorePurchases.frame= CGRectMake(0, ydist*i + heightStart, self.view.frame.size.width,frame.size.height/6);
+    [restorePurchases setTitle:@"Restore purchases, if made on a different device" forState:UIControlStateNormal];
+    [restorePurchases addTarget:self
+                         action:@selector(restorePurchases)
+               forControlEvents:UIControlEventTouchUpInside];
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        //Increasing size of font if on ipad
+        [restorePurchases.titleLabel  setFont:[UIFont systemFontOfSize:25]];
+        
+    } else{
+        [restorePurchases.titleLabel  setFont:[UIFont systemFontOfSize:13]];
+    }
+    [self.view addSubview:restorePurchases];
+ 
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,5 +82,55 @@
 -(void)resignActive{
      [[OALSimpleAudio sharedInstance] stopBg];
 }
+-(void)restorePurchases{
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
 
+- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+{
+    NSLog(@"received restored transactions: %i", (int)queue.transactions.count);
+    for (SKPaymentTransaction *transaction in queue.transactions)
+    {
+        if(SKPaymentTransactionStateRestored){
+            NSLog(@"Transaction state -> Restored");
+            //called when the user successfully restores a purchase
+            //[self doRemoveAds];
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            break;
+        }
+        
+    }
+    
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+    for(SKPaymentTransaction *transaction in transactions){
+        switch (transaction.transactionState){
+            case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
+                //called when the user is in the process of purchasing, do not add any of your own code here.
+                break;
+            case SKPaymentTransactionStatePurchased:
+                //this is called when the user has successfully purchased the package (Cha-Ching!)
+               // [self doRemoveAds]; //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                NSLog(@"Transaction state -> Purchased");
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"Transaction state -> Restored");
+                //add the same code as you did from SKPaymentTransactionStatePurchased here
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                //called when the transaction does not finnish
+                if(transaction.error.code != SKErrorPaymentCancelled){
+                    NSLog(@"Transaction state -> Cancelled");
+                    //the user cancelled the payment ;(
+                }
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateDeferred:
+                break;
+        }
+    }
+}
 @end

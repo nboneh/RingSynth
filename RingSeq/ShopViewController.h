@@ -12,7 +12,7 @@
 #import "Assets.h"
 
 
-@interface ShopViewController : UIViewController{
+@interface ShopViewController : UIViewController<SKPaymentTransactionObserver>{
     NSMutableArray *purchaseViews;
 }
 @property AxonixAdView *bannerView;
