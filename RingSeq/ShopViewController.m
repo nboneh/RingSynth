@@ -10,6 +10,7 @@
 
 @implementation ShopViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = NO;
@@ -45,7 +46,7 @@
     }
    UIButton * restorePurchases =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
     restorePurchases.frame= CGRectMake(0, ydist*i + heightStart, self.view.frame.size.width,frame.size.height/6);
-    [restorePurchases setTitle:@"Restore purchases, if made on a different device" forState:UIControlStateNormal];
+    [restorePurchases setTitle:@"Restore purchases" forState:UIControlStateNormal];
     [restorePurchases addTarget:self
                          action:@selector(restorePurchases)
                forControlEvents:UIControlEventTouchUpInside];
@@ -60,6 +61,9 @@
     [self.view addSubview:restorePurchases];
  
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

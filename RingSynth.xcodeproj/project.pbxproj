@@ -10,6 +10,7 @@
 		0B190B0A1A09CF0D0079A606 /* PurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B091A09CF0D0079A606 /* PurchaseView.m */; };
 		0B190B0E1A09D8490079A606 /* InstrumentPurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */; };
 		0B190B101A0ACB050079A606 /* Default.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B0F1A0AC7A30079A606 /* Default.m4a */; };
+		0B190B141A0C31900079A606 /* Default(Test) in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B131A0C31900079A606 /* Default(Test) */; };
 		0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B213AF91A06CACC00F2255B /* libAxonixSDK.a */; };
 		0B213B0F1A06E5B800F2255B /* Steel Drum.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B0E1A06E5B800F2255B /* Steel Drum.wav */; };
 		0B213B111A06E67600F2255B /* Slap Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B101A06E67600F2255B /* Slap Bass.wav */; };
@@ -188,6 +189,7 @@
 		0B190B0C1A09D8490079A606 /* InstrumentPurchaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentPurchaseView.h; sourceTree = "<group>"; };
 		0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentPurchaseView.m; sourceTree = "<group>"; };
 		0B190B0F1A0AC7A30079A606 /* Default.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Default.m4a; path = ../../../Downloads/Default.m4a; sourceTree = "<group>"; };
+		0B190B131A0C31900079A606 /* Default(Test) */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = "Default(Test)"; path = "../../Default(Test)"; sourceTree = "<group>"; };
 		0B213AF21A06CACC00F2255B /* AXNBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXNBrowserViewController.h; sourceTree = "<group>"; };
 		0B213AF31A06CACC00F2255B /* Axonix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Axonix.h; sourceTree = "<group>"; };
 		0B213AF41A06CACC00F2255B /* AxonixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixAds.h; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				0BC701E61A0337D4003E03F3 /* delete3.wav */,
 				0BC701EE1A03392C003E03F3 /* delete2.wav */,
 				0BC701E41A0337AA003E03F3 /* delete1.wav */,
+				0B190B131A0C31900079A606 /* Default(Test) */,
 				0BC701DA1A0213D5003E03F3 /* Default */,
 				0B703EB219E70B5F00CED5B4 /* Info.plist */,
 				0B703EB319E70B5F00CED5B4 /* main.m */,
@@ -1027,6 +1030,7 @@
 				0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */,
 				0BC701C91A01B451003E03F3 /* TriangleMute.wav in Resources */,
 				0BC701AD1A01ADCB003E03F3 /* Zill.wav in Resources */,
+				0B190B141A0C31900079A606 /* Default(Test) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

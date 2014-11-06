@@ -7,6 +7,7 @@
 //
 
 #import "PurchaseView.h"
+#import "Assets.h"
 
 @implementation PurchaseView
 -(id)initWithFrame:(CGRect)frame andPackInfo:(NSDictionary *)packInfo{
@@ -34,7 +35,7 @@
             [labelName setFont:[UIFont systemFontOfSize:13]];
         }
         
-        NSArray * instruments = [packInfo objectForKey:@"instruments"];
+        instruments = [packInfo objectForKey:@"instruments"];
         for(int i = 0; i < instruments.count; i++){
             InstrumentPurchaseView* instrView = [[InstrumentPurchaseView alloc] initWitInstrument:[instruments objectAtIndex:i] andX:i*instDistance + nameWidth+ 10];
             CGRect instrFrame = instrView.frame;
@@ -62,10 +63,16 @@
         sampleName= [packInfo objectForKey:@"samplename"];
         [self addSubview:playSampleButton];
         
-        UIButton * purchaseButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        bundleIdentifier = [packInfo objectForKey:@"identifier"];
+        NSString *path =[self getPath:bundleIdentifier];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        //If file exists means we purchased it
+        purchased = [fm fileExistsAtPath:path];
+        
+        purchaseButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
         purchaseButton.frame= CGRectMake(xOfSample + playWidth , 0, playWidth, self.frame.size.height);
         purchaseButton.titleLabel.textColor = self.tintColor;
-        [purchaseButton setTitle:@"Purchase" forState:UIControlStateNormal];
         [purchaseButton addTarget:self
                            action:@selector(requestPurchase)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -77,9 +84,9 @@
         } else{
             [purchaseButton.titleLabel  setFont:[UIFont systemFontOfSize:13]];
         }
+        [self checkPurchaseButton];
         [self addSubview:purchaseButton];
         
-        bundleIdentifier = [packInfo objectForKey:@"identifier"];
         
     }
     return self;
@@ -139,9 +146,10 @@
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 1){
         //Buy option
-        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:bundleIdentifier]];
-        productsRequest.delegate = self;
-        [productsRequest start];
+        [self setAsPurchased];
+        /* SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:bundleIdentifier]];
+         productsRequest.delegate = self;
+         [productsRequest start];*/
     }
 }
 
@@ -154,7 +162,7 @@
         SKPayment *payment = [SKPayment paymentWithProduct:validProduct];
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
         [[SKPaymentQueue defaultQueue] addPayment:payment];
-
+        
     }
     else if(!validProduct){
         NSLog(@"No products available");
@@ -162,5 +170,61 @@
     }
 }
 
+-(void)checkPurchaseButton{
+    if(!purchased){
+        [purchaseButton setTitle:@"Purchase" forState:UIControlStateNormal];
+    } else{
+        [purchaseButton setTitle:@"Owned" forState:UIControlStateNormal];
+        [purchaseButton setEnabled:NO];
+    }
+}
+-(void)setAsPurchased{
+    if(purchased)
+        return;
+    purchased = YES;
+    [self checkPurchaseButton];
+    for(Instrument * instrument in instruments){
+        instrument.purchased = YES;
+    }
+    //Writing empty file with name of identifier to indicate purchase
+    NSString *path =[self getPath:bundleIdentifier];
+    [[NSFileManager defaultManager] createFileAtPath:path
+                                            contents:nil                                          attributes:nil];
+    
+    //Adding sample song
+    
+    NSMutableArray *ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RING_TONE_LIST_FILE_NAME]];
+    if(ringtones == nil){
+        ringtones = [[NSMutableArray alloc] init];
+    }
+    
+    
+    NSString *musicPath  =[[NSBundle mainBundle] pathForResource:sampleName ofType:@""];
+    NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
+    
+    NSString *useName = sampleName;
+    NSInteger size = [ringtones count];
+    int k = 1;
+    for(int i = 0; i < size; i++){
+        NSString *ring = [ringtones objectAtIndex:i];
+        if ([useName caseInsensitiveCompare:ring] == NSOrderedSame){
+            //Can't have two ringtones with the same name if exists change the name
+            useName = [NSString stringWithFormat:@"%@ (%d)",sampleName,k ];
+            i = 0;
+            k++;
+        }
+    }
+    
+    [ringtones insertObject:useName atIndex:0];
+    [data writeToFile:[self getPath:useName] atomically:YES];
+    [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RING_TONE_LIST_FILE_NAME]];
+    
+    
+}
+- (NSString *) getPath:(NSString *)fileName
+{
+    NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    return [path stringByAppendingPathComponent:fileName];
+}
 
 @end

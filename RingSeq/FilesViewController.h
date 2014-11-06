@@ -14,9 +14,8 @@
     int addOrigHeight;
     NSArray *searchResults;
     NSString *fileToBeDeleted;
-    NSMutableArray *ringtones;
 }
-
+@property NSMutableArray *ringtones;
 @property (strong, nonatomic) DetailViewController *detailViewController;
 -(IBAction) addItem;
 

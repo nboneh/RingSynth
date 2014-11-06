@@ -10,6 +10,7 @@
 #import "AxonixAdView.h"
 #import "PurchaseView.h"
 #import "Assets.h"
+#import "FilesViewController.h"
 
 
 @interface ShopViewController : UIViewController<SKPaymentTransactionObserver>{

@@ -9,31 +9,21 @@
 
 #import "FilesViewController.h"
 #import "DetailViewController.h"
+#import "Assets.h"
 
 @implementation FilesViewController
-static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RINGTONES_LIST_FILE]];
-    if(ringtones == nil){
-        //User has not yet made a ringtone load the default ringtones
-        ringtones = [[NSMutableArray alloc] init];
-        NSString *musicPath  =[[NSBundle mainBundle] pathForResource:@"Default" ofType:@""];
-        NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
-        [ringtones addObject:@"Default (Opening)"];
-        [data writeToFile:[self getPath:@"Default (Opening)"] atomically:YES];
-    }
+    
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(resignActive:)
                                                  name: @"applicationWillResignActive"
                                                object: nil];
     self.navigationController.navigationBar.hidden = NO;
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,9 +45,9 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
                       [NSCharacterSet whitespaceCharacterSet]];
     if(text.length == 0)
         return NO;
-    NSInteger size = [ringtones count];
+    NSInteger size = [_ringtones count];
     for(int i = 0; i < size; i++){
-        NSString *ring = [ringtones objectAtIndex:i];
+        NSString *ring = [_ringtones objectAtIndex:i];
         if ([text caseInsensitiveCompare:ring] == NSOrderedSame){
             return NO;
         }
@@ -74,7 +64,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
         NSString *newRing = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
                              [NSCharacterSet whitespaceCharacterSet]];
         
-        [ringtones insertObject:newRing atIndex:0];
+        [_ringtones insertObject:newRing atIndex:0];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:newRing];
@@ -93,7 +83,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
         //Delete the file
         NSFileManager *fm = [NSFileManager defaultManager];
         BOOL exists = [fm fileExistsAtPath:fileToBeDeleted];
-        if(exists == YES)
+        if(exists)
             [fm removeItemAtPath:fileToBeDeleted error:nil];
         
         //Also delete the ringtone file if it exists
@@ -111,7 +101,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSString *ringtone = ringtones[indexPath.row];
+        NSString *ringtone = _ringtones[indexPath.row];
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
         [controller setName:ringtone];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -130,7 +120,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
         return [searchResults count];
         
     } else {
-        return [ringtones count];
+        return [_ringtones count];
     }
 }
 
@@ -139,7 +129,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     if(tableView==self.searchDisplayController.searchResultsTableView)
         cell.textLabel.text = searchResults[indexPath.row];
     else
-        cell.textLabel.text = ringtones[indexPath.row];
+        cell.textLabel.text = _ringtones[indexPath.row];
     return cell;
 }
 
@@ -158,10 +148,10 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
         
         UIAlertView * editAlert = [[UIAlertView alloc] initWithTitle:@"Edit" message:@""   delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Rename", nil];
         editAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        NSString *text =[ringtones objectAtIndex:indexPath.row];
-        fileToBeDeleted =[self getPath:[ringtones objectAtIndex:indexPath.row]];
+        NSString *text =[_ringtones objectAtIndex:indexPath.row];
+        fileToBeDeleted =[self getPath:[_ringtones objectAtIndex:indexPath.row]];
         
-        [ringtones removeObjectAtIndex:indexPath.row];
+        [_ringtones removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [[editAlert textFieldAtIndex:0] setText: text];
@@ -177,7 +167,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"self beginswith [c] %@", searchText];
-    searchResults = [ringtones filteredArrayUsingPredicate:resultPredicate];
+    searchResults = [_ringtones filteredArrayUsingPredicate:resultPredicate];
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -192,17 +182,19 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
 
 -(void)resignActive:(NSNotification *)notification{
     //Saving ringtones
-    [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RINGTONES_LIST_FILE]];
+    [NSKeyedArchiver archiveRootObject:_ringtones toFile:[self getPath:(id) RING_TONE_LIST_FILE_NAME]];
     
 }
 -(void) viewWillDisappear:(BOOL)animated
 {
     //Saving ringtones list
     [super viewDidDisappear:YES];
-    [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RINGTONES_LIST_FILE]];
-    
+    [NSKeyedArchiver archiveRootObject:_ringtones toFile:[self getPath:(id) RING_TONE_LIST_FILE_NAME]];
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self load];
+}
 
 - (NSString *) getPath:(NSString *)fileName
 {
@@ -215,4 +207,25 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     return UIInterfaceOrientationLandscapeRight;
 }
 
+-(void)load{
+    //Loading ringtones
+    _ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RING_TONE_LIST_FILE_NAME]];
+    if(_ringtones == nil)
+        _ringtones = [[NSMutableArray alloc] init];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    NSString * path = [self getPath:@"LoadedDefaults"];
+    if(![fm fileExistsAtPath:path]){
+        //Loading defaults if file Loaded Defaults does not exist
+        NSString *musicPath  =[[NSBundle mainBundle] pathForResource:@"Default" ofType:@""];
+        NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
+        [_ringtones addObject:@"Default (Opening)"];
+        [data writeToFile:[self getPath:@"Default (Opening)"] atomically:YES];
+        [fm createFileAtPath:path
+                    contents:nil                                          attributes:nil];
+    }
+    [self.tableView reloadData];
+    
+
+}
 @end

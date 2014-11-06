@@ -19,8 +19,11 @@
     NSTimer *stopSampleTimer;
     float price;
     NSString *bundleIdentifier;
+    BOOL purchased;
+    UIButton * purchaseButton ;
+    NSArray * instruments;
 }
 
-
 -(id)initWithFrame:(CGRect)frame andPackInfo:(NSDictionary *)packInfo;
+-(void)setAsPurchased;
 @end

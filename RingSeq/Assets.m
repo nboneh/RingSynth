@@ -78,52 +78,65 @@ static NSArray *IN_APP_PURCHASE_PACKS;
 +(NSArray *)IN_APP_PURCHASE_PACKS{
     if(!IN_APP_PURCHASE_PACKS){
         NSMutableArray *prePacks = [[NSMutableArray alloc] init];
+        NSString* identifier = @"com.clouby.ios.RingSynth.FunkPack";
+        NSString * path = [Assets getPath:identifier];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        //If file exists means user purchased it
+        BOOL purchased = [fm fileExistsAtPath:path];
         NSDictionary *funkPack = @{@"name":@"Funk Pack",
                                    @"instruments":@[//C2
-                                           [[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4 andPurchased:NO],
+                                           [[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4 andPurchased:purchased],
                                            //C5
-                                           [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5 andPurchased:NO],
+                                           [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5 andPurchased:purchased],
                                            //C4
-                                           [[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4 andPurchased:NO]],
-                                   @"samplename": @"Default",
+                                           [[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4 andPurchased:purchased]],
+                                   @"samplename": @"Default(Test)",
                                    @"price":[[NSNumber alloc] initWithFloat:0.99f],
-                                   @"identifier":@"com.clouby.ios.RingSynth.FunkPack"
+                                   @"identifier":identifier
                                    
                                    };
         [prePacks addObject:funkPack];
+
+        identifier= @"com.clouby.ios.RingSynth.CountryPack";
         
+        //If file exists means we purchased it
+         purchased = [fm fileExistsAtPath:[Assets getPath:identifier]];
         NSDictionary *countryPack =  @{@"name":@"Country Pack",
                                        @"instruments":@[//C5
-                                               [[Instrument alloc] initWithName:@"Fiddle" color:[UIColor brownColor] andBaseOctave:5 andPurchased:NO],
+                                               [[Instrument alloc] initWithName:@"Fiddle" color:[UIColor brownColor] andBaseOctave:5 andPurchased:purchased],
                                                
                                                //C5
-                                               [[Instrument alloc] initWithName:@"Steel Guitar" color:[UIColor grayColor] andBaseOctave:5 andPurchased:NO],
+                                               [[Instrument alloc] initWithName:@"Steel Guitar" color:[UIColor grayColor] andBaseOctave:5 andPurchased:purchased],
                                                
                                                //C4
-                                               [[Instrument alloc] initWithName:@"Banjo" color:[UIColor redColor] andBaseOctave:4 andPurchased:NO]],
+                                               [[Instrument alloc] initWithName:@"Banjo" color:[UIColor redColor] andBaseOctave:4 andPurchased:purchased]],
                                        
-                                       @"samplename": @"Default",
+                                       @"samplename": @"Default(Test)",
                                        @"price":[[NSNumber alloc] initWithFloat:0.99f],
-                                       @"identifier":@"com.clouby.ios.RingSynth.CountryPack"
+                                       @"identifier":identifier
 
                                        
                                        };
         
         [prePacks addObject:countryPack];
         
+        identifier=@"com.clouby.ios.RingSynth.BeachPack";
+        
+        //If file exists means we purchased it
+        purchased = [fm fileExistsAtPath:[Assets getPath:identifier]];
         
         NSDictionary *beachPack =  @{@"name":@"Beach Pack",
                                      @"instruments":@[//C5
                                              //C4
-                                             [[Instrument alloc] initWithName:@"Steel Drum" color:[UIColor lightGrayColor] andBaseOctave:4 andPurchased:NO],
+                                             [[Instrument alloc] initWithName:@"Steel Drum" color:[UIColor lightGrayColor] andBaseOctave:4 andPurchased:purchased],
                                              
                                              //C4
-                                             [[Instrument alloc] initWithName:@"Ukulele" color:[UIColor brownColor] andBaseOctave:4 andPurchased:NO],
+                                             [[Instrument alloc] initWithName:@"Ukulele" color:[UIColor brownColor] andBaseOctave:4 andPurchased:purchased],
                                              
                                              //C4
-                                             [[Instrument alloc] initWithName:@"Female Voice" color:[UIColor magentaColor] andBaseOctave:4 andPurchased:NO]],
+                                             [[Instrument alloc] initWithName:@"Female Voice" color:[UIColor magentaColor] andBaseOctave:4 andPurchased:purchased]],
                                      
-                                     @"samplename": @"Default",
+                                     @"samplename": @"Default(Test)",
                                      @"price":[[NSNumber alloc] initWithFloat:0.99f],
                                      @"identifier":@"com.clouby.ios.RingSynth.BeachPack"
 
@@ -138,4 +151,9 @@ static NSArray *IN_APP_PURCHASE_PACKS;
     return IN_APP_PURCHASE_PACKS;
 }
 
++ (NSString *) getPath:(NSString *)fileName
+{
+    NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    return [path stringByAppendingPathComponent:fileName];
+}
 @end
