@@ -25,6 +25,7 @@
     UIAlertView *sucessAlert;
     UIAlertView* emailAlert;
     UIAlertView* deleteAlert;
+    UIAlertView* inAppPurchaseAlert;
     UIActionSheet *changeInstrumentSheet;    
 }
 @property (strong, nonatomic) AxonixFullScreenAdViewController *fullScreenAdViewController;

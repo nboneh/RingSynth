@@ -56,13 +56,13 @@ static BOOL LOOPING;
     [self configureView];
     //[self createAndLoadInterstitial];
     //Put view infront of popup
-
+    
     
     
     firstTimeLoadingSubView = YES;
     self.fullScreenAdViewController = [[AxonixFullScreenAdViewController alloc] init];
     self.fullScreenAdViewController.delegate = self;
-        self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
                selector: @selector(resignActive:)
@@ -126,7 +126,7 @@ static BOOL LOOPING;
 
 -(void)resignActive:(NSNotification *)notification{
     
-
+    
     
     //Stoping sound
     [_fullGrid stop];
@@ -150,6 +150,15 @@ static BOOL LOOPING;
     [super viewWillDisappear:animated];
 }
 
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    //Unsilence the grid
+    [[OALSimpleAudio sharedInstance] setMuted:YES];
+    [self changeInstruments];
+    [[OALSimpleAudio sharedInstance] stopAllEffects];
+    [[OALSimpleAudio sharedInstance] setMuted:NO];
+
+}
 
 -(void)becameActive:(NSNotification *)notification{
     //Unsilence the grid
@@ -244,7 +253,10 @@ static BOOL LOOPING;
     for (Instrument *inst in [Assets INSTRUMENTS]) {
         //Checking if instrument is purchased to add it to the list of instruments
         if(inst.purchased)
-            [instrumentSheet addButtonWithTitle:inst.name];
+            [instrumentSheet addButtonWithTitle:inst.name ];
+        else
+            [instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"\u26A0%@", inst.name] ];
+        
     }
     instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
     return instrumentSheet;
@@ -271,6 +283,9 @@ static BOOL LOOPING;
     
 }
 - (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+
+
     if(buttonIndex ==popup.cancelButtonIndex){
         [_instrumentController setSelectedSegmentIndex:prevSelect];
         [_fullGrid changeLayer:prevSelect -1];
@@ -281,10 +296,18 @@ static BOOL LOOPING;
         //Add new Instrumenet
         
         Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
+        if(!instrument.purchased ){
+            inAppPurchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is in app purchase", instrument.name ] message:@"Would you like to check out the shop?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            [inAppPurchaseAlert show];
+            [_instrumentController setSelectedSegmentIndex:prevSelect];
+            [_fullGrid changeLayer:prevSelect -1];
+            return;
+        }
         [self addInstrument:instrument fromLoad:NO];
+        [_fullGrid addLayer];
+        
         [_instrumentController setSelectedSegmentIndex:([_instrumentController numberOfSegments] -2)];
         prevSelect =((int)[_instrumentController numberOfSegments] - 1);
-        [_fullGrid addLayer];
         [self changeInstruments];
     }
     else{
@@ -299,6 +322,14 @@ static BOOL LOOPING;
             
         } else {
             Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: (buttonIndex- 1)];
+            if(!instrument.purchased ){
+                inAppPurchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is in app purchase", instrument.name ] message:@"Would you like to check out the shop?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                [inAppPurchaseAlert show];
+                [_instrumentController setSelectedSegmentIndex:prevSelect];
+                [_fullGrid changeLayer:prevSelect -1];
+                return;
+            }
+
             NSInteger pos = [_instrumentController selectedSegmentIndex];
             [instruments removeObjectAtIndex:([_instrumentController selectedSegmentIndex] -1)];
             [instruments insertObject:instrument atIndex:(pos-1)];
@@ -422,6 +453,11 @@ static BOOL LOOPING;
             
         }
     }
+    else if(alertView == inAppPurchaseAlert){
+        if(buttonIndex == 1){
+            [self performSegueWithIdentifier: @"pushShopFromDetail" sender: self];
+        }
+    }
     
 }
 - (NSString *) getPath:(NSString *)fileName
@@ -456,7 +492,7 @@ static BOOL LOOPING;
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
     [self.fullScreenAdViewController requestAndDisplayAdFromViewController:self];
-   self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.hidesBackButton = YES;
     //Saving as Saftey measure
     [self save];
     
@@ -467,22 +503,22 @@ static BOOL LOOPING;
     self.navigationItem.rightBarButtonItem = loadView;
     [activityIndicator startAnimating];
     [_fullGrid encodeWithBpm:[_tempoField.text intValue] andName:self.name andCompletionBlock:^(BOOL success){
-               [_fullGrid stop];
-            self.navigationItem.hidesBackButton = NO;
-                self.navigationItem.rightBarButtonItem = _createButton;
-                   if(success ){
-
-                    if(!sucessAlert){
-                        sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    }
-                    [sucessAlert show];
-                } else{
-                    UIAlertView* failAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    [failAlert show];
-                }
-               }
-
-    ];
+        [_fullGrid stop];
+        self.navigationItem.hidesBackButton = NO;
+        self.navigationItem.rightBarButtonItem = _createButton;
+        if(success ){
+            
+            if(!sucessAlert){
+                sucessAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Ringtone %@ was created", self.name] message:@"Export it to your device via iTunes under file sharing apps" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            }
+            [sucessAlert show];
+        } else{
+            UIAlertView* failAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error creating ringtone %@", self.name] message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [failAlert show];
+        }
+    }
+     
+     ];
 }
 
 +(BOOL)LOOPING{
@@ -494,17 +530,12 @@ static BOOL LOOPING;
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
     
-    //Unsilence the grid
-    [[OALSimpleAudio sharedInstance] setMuted:YES];
-    [self changeInstruments];
-    [[OALSimpleAudio sharedInstance] stopAllEffects];
-    [[OALSimpleAudio sharedInstance] setMuted:NO];
 }
 
 
 - (void)fullScreenAdViewController:(AxonixFullScreenAdViewController*)fullScreenAdViewController didFailToLoadWithError:(NSError*)error {
     NSLog(@"Failed to load full screen ad");
-      }
+}
 - (void)fullScreenAdViewControllerDidFinishLoad:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
     NSLog(@"Full screen ad was loaded");
     
@@ -515,12 +546,12 @@ static BOOL LOOPING;
 
 - (void)fullScreenAdViewControllerWillPresentAd:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
     NSLog(@"Full screen ad will be presented");
-
+    
     [fullScreenAdViewController.view removeFromSuperview];
     [self.view addSubview:fullScreenAdViewController.view];
     fullScreenAdViewController.view.window.windowLevel = UIWindowLevelAlert+100;
     
-
+    
 }
 
 // Called when the ad is closed / dismissed
@@ -528,12 +559,6 @@ static BOOL LOOPING;
 - (void)fullScreenAdViewControllerDidDismissAd:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
     NSLog(@"Full screen ad was dismissed");
     fullScreenAdViewController.view.window.windowLevel = UIWindowLevelAlert-100;
-    //Unsilence the grid
-    [[OALSimpleAudio sharedInstance] setMuted:YES];
-    [self changeInstruments];
-    [[OALSimpleAudio sharedInstance] stopAllEffects];
-    [[OALSimpleAudio sharedInstance] setMuted:NO];
-    
 }
 
 @end

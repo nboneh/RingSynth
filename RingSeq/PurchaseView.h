@@ -11,10 +11,12 @@
 #import "InstrumentPurchaseView.h"
 #import "OALSimpleAudio.h"
 
-@interface PurchaseView : UIView{
+@interface PurchaseView : UIView<UIAlertViewDelegate>{
+    NSString *bundleName;
     NSString *sampleName;
     UIButton *playSampleButton;
     NSTimer *stopSampleTimer;
+    float price;
 }
 
 

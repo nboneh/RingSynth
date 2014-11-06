@@ -1214,7 +1214,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RingSynth;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
@@ -1236,7 +1236,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RingSynth;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};

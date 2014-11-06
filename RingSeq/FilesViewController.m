@@ -32,7 +32,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
                                                  name: @"applicationWillResignActive"
                                                object: nil];
     self.navigationController.navigationBar.hidden = NO;
-
+    
     
 }
 
@@ -63,7 +63,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
         }
     }
     return YES;
-
+    
 }
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
     return [self checkTextField:[alertView textFieldAtIndex:0]];
@@ -99,9 +99,9 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
         //Also delete the ringtone file if it exists
         /*NSString* ringPath = [NSString stringWithFormat:@"%@%@", fileToBeDeleted, @".m4r"];
          exists = [fm fileExistsAtPath:ringPath];
-        if(exists == YES)
-            [fm removeItemAtPath:ringPath error:nil];*/
-
+         if(exists == YES)
+         [fm removeItemAtPath:ringPath error:nil];*/
+        
     }
     fileToBeDeleted =nil;
 }
@@ -200,7 +200,7 @@ static const NSString *RINGTONES_LIST_FILE = @"ringtones.dat";
     //Saving ringtones list
     [super viewDidDisappear:YES];
     [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RINGTONES_LIST_FILE]];
-
+    
 }
 
 

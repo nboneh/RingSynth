@@ -279,6 +279,7 @@
                         <outlet property="playButton" destination="kYS-aI-kCl" id="PUn-zU-XAH"/>
                         <outlet property="tempoField" destination="6kP-d4-Gfo" id="Z6Y-oT-U4A"/>
                         <outlet property="topBar" destination="mOI-FS-AaM" id="g2P-Z6-OC1"/>
+                        <segue destination="Ynr-Kr-KuT" kind="push" identifier="pushShopFromDetail" id="wFY-Em-PXW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
@@ -370,4 +371,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="wFY-Em-PXW"/>
+    </inferredMetricsTieBreakers>
 </document>

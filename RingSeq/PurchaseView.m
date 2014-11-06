@@ -18,10 +18,12 @@
                        name: @"backgroundMusicStopped"
                      object: nil];
 
-        int nameWidth = self.frame.size.width/6;
+        int nameWidth = self.frame.size.width/4 + 4;
         int instDistance = frame.size.width/8;
         UILabel *labelName = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, nameWidth, self.frame.size.height)];
-        labelName.text = [NSString stringWithFormat:@"%@:" ,[packInfo objectForKey:@"name"]];
+        bundleName = [packInfo objectForKey:@"name"];
+        price = [[packInfo objectForKey:@"price"] floatValue];
+        labelName.text = [NSString stringWithFormat:@"%@($%.2f)" ,bundleName,price];
         [self addSubview:labelName];
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
         {
@@ -40,10 +42,12 @@
             instrView.frame = instrFrame;
             [self addSubview:instrView];
         }
+         int playWidth = self.frame.size.width/5;
         int xOfSample = (int)instruments.count * instDistance + nameWidth ;
-      playSampleButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];playSampleButton.frame= CGRectMake(xOfSample, 0, nameWidth, self.frame.size.height);
+      playSampleButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        playSampleButton.frame= CGRectMake(xOfSample, 0, playWidth, self.frame.size.height);
         playSampleButton.titleLabel.textColor = self.tintColor;
-       [playSampleButton setTitle:@"Play Sample!" forState:UIControlStateNormal];
+       [playSampleButton setTitle:@"Play Sample" forState:UIControlStateNormal];
         [playSampleButton addTarget:self
                    action:@selector(playSample:)
          forControlEvents:UIControlEventTouchUpInside];
@@ -57,6 +61,26 @@
         }
         sampleName= [packInfo objectForKey:@"samplename"];
         [self addSubview:playSampleButton];
+        
+       UIButton * purchaseButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        purchaseButton.frame= CGRectMake(xOfSample + playWidth , 0, playWidth, self.frame.size.height);
+        purchaseButton.titleLabel.textColor = self.tintColor;
+        [purchaseButton setTitle:@"Purchase" forState:UIControlStateNormal];
+        [purchaseButton addTarget:self
+                             action:@selector(requestPurchase)
+                   forControlEvents:UIControlEventTouchUpInside];
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        {
+            //Increasing size of font if on ipad
+            [purchaseButton.titleLabel  setFont:[UIFont systemFontOfSize:25]];
+            
+        } else{
+            [purchaseButton.titleLabel  setFont:[UIFont systemFontOfSize:13]];
+        }
+        [self addSubview:purchaseButton];
+
+        
+    
     }
     return self;
 }
@@ -71,7 +95,7 @@
 }
 
 -(void)playSample:(UIButton *)button{
-    if([button.titleLabel.text isEqualToString:@"Play Sample!"]){
+    if([button.titleLabel.text isEqualToString:@"Play Sample"]){
           [[OALSimpleAudio sharedInstance] stopBg];
         stopSampleTimer =[NSTimer scheduledTimerWithTimeInterval:[self durationOfSample]
                                                              target:self
@@ -79,7 +103,7 @@
                                                            userInfo:nil
                                                             repeats:NO];
 
-        [button setTitle:@"Stop Sample!" forState:UIControlStateNormal];
+        [button setTitle:@"Stop Sample" forState:UIControlStateNormal];
         [[OALSimpleAudio sharedInstance] playBg:[NSString stringWithFormat:@"%@.m4a", sampleName]];
     } else{
         [[OALSimpleAudio sharedInstance] stopBg];
@@ -88,7 +112,7 @@
 }
 
 -(void)stopSample{
-    [playSampleButton setTitle:@"Play Sample!" forState:UIControlStateNormal];
+    [playSampleButton setTitle:@"Play Sample" forState:UIControlStateNormal];
     [stopSampleTimer  invalidate];
     stopSampleTimer = nil;
 }
@@ -101,5 +125,17 @@
     return  audioDurationSeconds;
 }
 
+-(void)requestPurchase{
+    UIAlertView *purchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Buy %@", bundleName]  message:[NSString stringWithFormat:@"Choose to restore if you already bought %@ on anoter device", bundleName] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy", @"Restore", nil];
+    [purchaseAlert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        //Buy option
+    } else if(buttonIndex == 2){
+        //Restore option
+    }
+}
 
 @end

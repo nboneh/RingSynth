@@ -16,7 +16,7 @@
     self.navigationController.navigationBar.hidden = NO;
     
     UIScrollView* scrollView = (UIScrollView *)self.view;
-      scrollView.scrollEnabled = YES;
+    scrollView.scrollEnabled = YES;
     scrollView.maximumZoomScale = 6.5f;
     [(UIScrollView *)self.view setDelegate:self];
 }
