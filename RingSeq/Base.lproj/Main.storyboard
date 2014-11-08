@@ -36,30 +36,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stage" translatesAutoresizingMaskIntoConstraints="NO" id="Srs-VQ-nPt">
                                 <rect key="frame" x="-14" y="0.0" width="596" height="320"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="curtain" translatesAutoresizingMaskIntoConstraints="NO" id="1aX-Wo-N7W">
-                                <rect key="frame" x="-14" y="0.0" width="596" height="300"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stage_front" translatesAutoresizingMaskIntoConstraints="NO" id="Jpn-yu-A5P">
-                                <rect key="frame" x="-14" y="44" width="596" height="276"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHV-p2-NmD">
-                                <rect key="frame" x="261" y="206" width="46" height="30"/>
-                                <state key="normal" title="Create">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="7bK-jq-Zjz" kind="push" identifier="showFiles" id="Xbq-PW-jep"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJV-bz-hQ6">
-                                <rect key="frame" x="266" y="282" width="37" height="30"/>
-                                <state key="normal" title="Shop">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Ynr-Kr-KuT" kind="push" identifier="showShop" id="Ilo-pb-Fjj"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bgb-pm-rJf">
                                 <rect key="frame" x="204" y="85" width="160" height="46"/>
                                 <attributedString key="attributedText">
@@ -74,8 +50,29 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHV-p2-NmD">
+                                <rect key="frame" x="259" y="197" width="51" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Create">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="7bK-jq-Zjz" kind="push" identifier="showFiles" id="Xbq-PW-jep"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJV-bz-hQ6">
+                                <rect key="frame" x="264" y="279" width="41" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Shop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Ynr-Kr-KuT" kind="push" identifier="showShop" id="Ilo-pb-Fjj"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W57-3C-7su">
-                                <rect key="frame" x="268" y="244" width="32" height="30"/>
+                                <rect key="frame" x="266" y="238" width="36" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Help">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -86,19 +83,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="1aX-Wo-N7W" secondAttribute="bottom" constant="20" id="2v2-yC-Ebf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Jpn-yu-A5P" secondAttribute="trailing" constant="-30" id="3vm-O1-tP9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Srs-VQ-nPt" secondAttribute="trailing" constant="-30" id="6UI-Ad-fb9"/>
-                            <constraint firstItem="1aX-Wo-N7W" firstAttribute="top" secondItem="ClE-xV-l0s" secondAttribute="topMargin" id="6Wn-XR-cwM"/>
-                            <constraint firstItem="Jpn-yu-A5P" firstAttribute="top" secondItem="TNb-Gk-sJJ" secondAttribute="bottom" constant="-20" id="78T-PI-P9I"/>
-                            <constraint firstItem="Jpn-yu-A5P" firstAttribute="leading" secondItem="ClE-xV-l0s" secondAttribute="leadingMargin" constant="-30" id="7SG-Ia-b1P"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1aX-Wo-N7W" secondAttribute="trailing" constant="-30" id="Cb1-8p-4CK"/>
                             <constraint firstAttribute="centerX" secondItem="Bgb-pm-rJf" secondAttribute="centerX" id="Dj8-MW-crN"/>
-                            <constraint firstItem="1aX-Wo-N7W" firstAttribute="leading" secondItem="ClE-xV-l0s" secondAttribute="leadingMargin" constant="-30" id="EBv-ho-pHa"/>
                             <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="pJV-bz-hQ6" secondAttribute="bottom" constant="8" id="JVY-k7-vdB"/>
                             <constraint firstAttribute="centerX" secondItem="pJV-bz-hQ6" secondAttribute="centerX" id="MiC-2q-khN"/>
                             <constraint firstAttribute="centerX" secondItem="W57-3C-7su" secondAttribute="centerX" id="UWb-uG-IBd"/>
-                            <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="Jpn-yu-A5P" secondAttribute="bottom" id="Ukq-Xw-GnB"/>
                             <constraint firstItem="pJV-bz-hQ6" firstAttribute="top" secondItem="W57-3C-7su" secondAttribute="bottom" constant="8" id="cUF-6Q-jnK"/>
                             <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="Srs-VQ-nPt" secondAttribute="bottom" id="dVg-of-HMT"/>
                             <constraint firstItem="Srs-VQ-nPt" firstAttribute="top" secondItem="ClE-xV-l0s" secondAttribute="topMargin" id="fLw-x2-Mjg"/>
@@ -111,8 +100,9 @@
                     <navigationItem key="navigationItem" id="vqD-0d-FZg"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="curtain" destination="1aX-Wo-N7W" id="fkp-ZJ-sAI"/>
-                        <outlet property="stageView" destination="Srs-VQ-nPt" id="EZR-63-axd"/>
+                        <outlet property="createButton" destination="gHV-p2-NmD" id="WXx-2D-Avi"/>
+                        <outlet property="helpButton" destination="W57-3C-7su" id="qNE-Bk-pdD"/>
+                        <outlet property="shopButton" destination="pJV-bz-hQ6" id="C2S-ar-FYr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6a1-Ky-2xp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -358,13 +348,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="curtain" width="400" height="227.15492248535156"/>
         <image name="download" width="22" height="22"/>
         <image name="help" width="1092" height="663"/>
         <image name="noloop" width="22" height="22"/>
         <image name="play" width="22" height="22"/>
         <image name="stage" width="680" height="390"/>
-        <image name="stage_front" width="1000" height="735"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -372,6 +360,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="wFY-Em-PXW"/>
+        <segue reference="Ilo-pb-Fjj"/>
     </inferredMetricsTieBreakers>
 </document>

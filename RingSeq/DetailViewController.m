@@ -54,7 +54,6 @@ static BOOL LOOPING;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
-    //[self createAndLoadInterstitial];
     //Put view infront of popup
     
     
@@ -292,6 +291,7 @@ static BOOL LOOPING;
         return;
     }
     
+    
     if([_instrumentController selectedSegmentIndex] == ([_instrumentController numberOfSegments] -1)){
         //Add new Instrumenet
         
@@ -435,6 +435,7 @@ static BOOL LOOPING;
             CURRENT_INSTRUMENT = nil;
             
             [self fixSegements];
+            prevSelect = 0;
             
         }
     }
@@ -534,7 +535,7 @@ static BOOL LOOPING;
 
 
 - (void)fullScreenAdViewController:(AxonixFullScreenAdViewController*)fullScreenAdViewController didFailToLoadWithError:(NSError*)error {
-    NSLog(@"Failed to load full screen ad");
+    NSLog(@"Failed to load full screen ad"); 
 }
 - (void)fullScreenAdViewControllerDidFinishLoad:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
     NSLog(@"Full screen ad was loaded");

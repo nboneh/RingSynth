@@ -191,8 +191,8 @@
     [super viewDidDisappear:YES];
     [NSKeyedArchiver archiveRootObject:_ringtones toFile:[self getPath:(id) RING_TONE_LIST_FILE_NAME]];
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self load];
 }
 

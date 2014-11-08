@@ -10,10 +10,10 @@
 #import "Assets.h"
 
 @implementation PurchaseView
--(id)initWithFrame:(CGRect)frame andPackInfo:(NSDictionary *)packInfo{
+@synthesize identifier = _identifier;
+-(id)initWithFrame:(CGRect)frame packInfo:(NSDictionary *)packInfo{
     self = [super initWithFrame:frame];
     if(self){
-        
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(stopSample)
                                                      name: @"backgroundMusicStopped"
@@ -64,8 +64,8 @@
         [self addSubview:playSampleButton];
         
         
-        bundleIdentifier = [packInfo objectForKey:@"identifier"];
-        NSString *path =[self getPath:bundleIdentifier];
+        _identifier = [packInfo objectForKey:@"identifier"];
+        NSString *path =[self getPath:_identifier];
         NSFileManager *fm = [NSFileManager defaultManager];
         //If file exists means we purchased it
         purchased = [fm fileExistsAtPath:path];
@@ -134,22 +134,13 @@
 
 -(void)requestPurchase{
     if([SKPaymentQueue canMakePayments]){
-        UIAlertView *purchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Buy %@", bundleName]  message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy", nil];
-        [purchaseAlert show];
+        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:_identifier]];
+        productsRequest.delegate = self;
+        [productsRequest start];
     }
     else{
         UIAlertView *noPurchaseAlert = [[UIAlertView alloc] initWithTitle:@"User can't make payments" message:@"" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [noPurchaseAlert show];
-    }
-}
-
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if(buttonIndex == 1){
-        //Buy option
-        [self setAsPurchased];
-        /* SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:bundleIdentifier]];
-         productsRequest.delegate = self;
-         [productsRequest start];*/
     }
 }
 
@@ -160,7 +151,7 @@
         validProduct = [response.products objectAtIndex:0];
         NSLog(@"Products Available!");
         SKPayment *payment = [SKPayment paymentWithProduct:validProduct];
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
         [[SKPaymentQueue defaultQueue] addPayment:payment];
         
     }
@@ -187,7 +178,7 @@
         instrument.purchased = YES;
     }
     //Writing empty file with name of identifier to indicate purchase
-    NSString *path =[self getPath:bundleIdentifier];
+    NSString *path =[self getPath:_identifier];
     [[NSFileManager defaultManager] createFileAtPath:path
                                             contents:nil                                          attributes:nil];
     
@@ -210,7 +201,7 @@
         if ([useName caseInsensitiveCompare:ring] == NSOrderedSame){
             //Can't have two ringtones with the same name if exists change the name
             useName = [NSString stringWithFormat:@"%@ (%d)",sampleName,k ];
-            i = 0;
+            i = -1;
             k++;
         }
     }

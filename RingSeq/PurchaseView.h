@@ -12,18 +12,17 @@
 #import "OALSimpleAudio.h"
 #import <StoreKit/StoreKit.h>
 
-@interface PurchaseView : UIView<UIAlertViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>{
+@interface PurchaseView : UIView<SKProductsRequestDelegate>{
     NSString *bundleName;
     NSString *sampleName;
     UIButton *playSampleButton;
     NSTimer *stopSampleTimer;
     float price;
-    NSString *bundleIdentifier;
     BOOL purchased;
     UIButton * purchaseButton ;
     NSArray * instruments;
 }
-
--(id)initWithFrame:(CGRect)frame andPackInfo:(NSDictionary *)packInfo;
+@property NSString * identifier;
+-(id)initWithFrame:(CGRect)frame packInfo:(NSDictionary *)packInfo;
 -(void)setAsPurchased;
 @end

@@ -65,7 +65,7 @@
 #include "PitchShift.h"
 
 #include <math.h>
-
+#include <limits.h>
  static float InterpolateHermite4pt3oX(float x0, float x1, float x2, float x3, float t)
 {
     float a0, a1, a2, a3;
@@ -84,7 +84,7 @@ void smb_pitch_shift(short int *origData, short int *outData, long origDataLengt
         outData[i] = InterpolateHermite4pt3oX(origData[(int)realPos -1], origData[(int)realPos ],  origData[(int)realPos+1 ], origData[(int)realPos +2
                                                                                                                                        ] , .5f);
         else{
-            outData[i] = origData[0];
+            outData[i] = 0;
         }
     }}
 

@@ -87,10 +87,10 @@ static NSArray *IN_APP_PURCHASE_PACKS;
                                    @"instruments":@[//C2
                                            [[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4 andPurchased:purchased],
                                            //C5
-                                           [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:5 andPurchased:purchased],
+                                           [[Instrument alloc] initWithName:@"Reverb Guitar" color:[UIColor purpleColor] andBaseOctave:4 andPurchased:purchased],
                                            //C4
                                            [[Instrument alloc] initWithName:@"Synth" color:[UIColor blueColor] andBaseOctave:4 andPurchased:purchased]],
-                                   @"samplename": @"Default(Test)",
+                                   @"samplename": @"Funky Funk",
                                    @"price":[[NSNumber alloc] initWithFloat:0.99f],
                                    @"identifier":identifier
                                    
@@ -134,9 +134,9 @@ static NSArray *IN_APP_PURCHASE_PACKS;
                                              [[Instrument alloc] initWithName:@"Ukulele" color:[UIColor brownColor] andBaseOctave:4 andPurchased:purchased],
                                              
                                              //C4
-                                             [[Instrument alloc] initWithName:@"Female Voice" color:[UIColor magentaColor] andBaseOctave:4 andPurchased:purchased]],
+                                             [[Instrument alloc] initWithName:@"Female Voice" color:[UIColor magentaColor] andBaseOctave:5 andPurchased:purchased]],
                                      
-                                     @"samplename": @"Default(Test)",
+                                     @"samplename": @"Off The Beach",
                                      @"price":[[NSNumber alloc] initWithFloat:0.99f],
                                      @"identifier":@"com.clouby.ios.RingSynth.BeachPack"
 

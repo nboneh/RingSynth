@@ -8,17 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Instrument.h"
-#import "StringView.h"
 
-@interface MainMenuViewController : UIViewController<StringViewDelegate>{
-    BOOL isAnimating;
-    BOOL currentlyAnimating;
-    UIImageView * instrView;
-    Instrument*currentInstrument;
-    StringView*stringView;
-    UIImageView *spotLight;
-}
-@property (weak, nonatomic) IBOutlet UIImageView *stageView;
-@property (weak, nonatomic) IBOutlet UIImageView *curtain;
+@interface MainMenuViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIButton *createButton;
+@property (weak, nonatomic) IBOutlet UIButton *helpButton;
+@property (weak, nonatomic) IBOutlet UIButton *shopButton;
+
+
 
 @end

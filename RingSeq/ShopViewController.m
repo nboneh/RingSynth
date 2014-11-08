@@ -13,6 +13,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     self.navigationController.navigationBar.hidden = NO;
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
         self.bannerView = [[AxonixAdViewiPad_728x90 alloc] init];
@@ -29,7 +30,7 @@
                selector: @selector(resignActive)
                    name: @"applicationWillResignActive"
                  object: nil];
-
+    
     
     
     CGRect frame = self.view.frame;
@@ -39,12 +40,12 @@
     int heightStart =  [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.toolbar.frame.size.height+ ydist/2;
     purchaseViews = [[NSMutableArray alloc] init];
     for(NSDictionary * pack in packs){
-        PurchaseView* pView = [[PurchaseView alloc] initWithFrame:CGRectMake(0, ydist*i +heightStart, frame.size.width, ydist/2) andPackInfo:pack];
+        PurchaseView* pView = [[PurchaseView alloc] initWithFrame:CGRectMake(0, ydist*i +heightStart, frame.size.width, ydist/2) packInfo:pack];
         [self.view addSubview: pView];
         [purchaseViews addObject:pView];
         i++;
     }
-   UIButton * restorePurchases =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton * restorePurchases =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
     restorePurchases.frame= CGRectMake(0, ydist*i + heightStart, self.view.frame.size.width,frame.size.height/6);
     [restorePurchases setTitle:@"Restore purchases" forState:UIControlStateNormal];
     [restorePurchases addTarget:self
@@ -59,7 +60,7 @@
         [restorePurchases.titleLabel  setFont:[UIFont systemFontOfSize:13]];
     }
     [self.view addSubview:restorePurchases];
- 
+    
 }
 
 
@@ -73,18 +74,19 @@
     [super viewDidDisappear:animated];
     [self.bannerView pauseAdAutoRefresh];
     
-      [[OALSimpleAudio sharedInstance] stopBg];
+    [[OALSimpleAudio sharedInstance] stopBg];
     for(PurchaseView * purchaseView in purchaseViews){
-
+        
         [[NSNotificationCenter defaultCenter] removeObserver:purchaseView];
     }
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.bannerView resumeAdAutoRefresh];
 }
 -(void)resignActive{
-     [[OALSimpleAudio sharedInstance] stopBg];
+    [[OALSimpleAudio sharedInstance] stopBg];
 }
 -(void)restorePurchases{
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
@@ -98,7 +100,7 @@
         if(SKPaymentTransactionStateRestored){
             NSLog(@"Transaction state -> Restored");
             //called when the user successfully restores a purchase
-            //[self doRemoveAds];
+            [self validatePurchaseTransaction:transaction];
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             break;
         }
@@ -115,13 +117,15 @@
                 break;
             case SKPaymentTransactionStatePurchased:
                 //this is called when the user has successfully purchased the package (Cha-Ching!)
-               // [self doRemoveAds]; //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
+                // [self doRemoveAds]; //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
+                [self validatePurchaseTransaction:transaction];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 NSLog(@"Transaction state -> Purchased");
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLog(@"Transaction state -> Restored");
                 //add the same code as you did from SKPaymentTransactionStatePurchased here
+                [self validatePurchaseTransaction:transaction];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
@@ -132,8 +136,20 @@
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
-            case SKPaymentTransactionStateDeferred:
+            case  SKPaymentTransactionStateDeferred:
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+
                 break;
+        }
+    }
+}
+
+-(void)validatePurchaseTransaction:(SKPaymentTransaction *) transaction{
+    NSString * identifier = transaction.payment.productIdentifier;
+    for(PurchaseView * pView in purchaseViews){
+        if([pView.identifier isEqualToString:identifier]){
+            [pView setAsPurchased];
+            break;
         }
     }
 }
