@@ -133,15 +133,9 @@
 }
 
 -(void)requestPurchase{
-    if([SKPaymentQueue canMakePayments]){
-        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:_identifier]];
-        productsRequest.delegate = self;
-        [productsRequest start];
-    }
-    else{
-        UIAlertView *noPurchaseAlert = [[UIAlertView alloc] initWithTitle:@"User can't make payments" message:@"" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-        [noPurchaseAlert show];
-    }
+    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:_identifier]];
+    productsRequest.delegate = self;
+    [productsRequest start];
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
@@ -151,7 +145,7 @@
         validProduct = [response.products objectAtIndex:0];
         NSLog(@"Products Available!");
         SKPayment *payment = [SKPayment paymentWithProduct:validProduct];
-
+        
         [[SKPaymentQueue defaultQueue] addPayment:payment];
         
     }
@@ -183,7 +177,6 @@
                                             contents:nil                                          attributes:nil];
     
     //Adding sample song
-    
     NSMutableArray *ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RING_TONE_LIST_FILE_NAME]];
     if(ringtones == nil){
         ringtones = [[NSMutableArray alloc] init];
@@ -209,7 +202,6 @@
     [ringtones insertObject:useName atIndex:0];
     [data writeToFile:[self getPath:useName] atomically:YES];
     [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RING_TONE_LIST_FILE_NAME]];
-    
     
 }
 - (NSString *) getPath:(NSString *)fileName

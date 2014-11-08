@@ -137,8 +137,7 @@
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case  SKPaymentTransactionStateDeferred:
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-
+                //Child asking for approval from parent wait it out
                 break;
         }
     }

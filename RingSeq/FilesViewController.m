@@ -99,6 +99,7 @@
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+      performSegueOnce = NO;
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSString *ringtone = _ringtones[indexPath.row];
@@ -194,6 +195,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self load];
+    performSegueOnce = YES;
 }
 
 - (NSString *) getPath:(NSString *)fileName
@@ -227,5 +229,9 @@
     [self.tableView reloadData];
     
 
+}
+-(BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    //Saftey method so the segue dosen't happen twice
+    return performSegueOnce;
 }
 @end
