@@ -33,7 +33,7 @@
 @synthesize spacePerNote = _spacePerNote;
 @synthesize trebleView = _trebleView;
 static int const NOTES_BELOW_STAFF= 7;
-static int const NOTES_ABOVE_STAFF =5;
+static int const NOTES_ABOVE_STAFF =6;
 static int const NOTES_IN_STAFF = 9;
 
 -(id)initWithFrame:(CGRect )frame{
