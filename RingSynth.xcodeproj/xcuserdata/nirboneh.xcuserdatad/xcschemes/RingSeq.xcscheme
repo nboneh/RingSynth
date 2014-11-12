@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-               BuildableName = "QuickSynth.app"
+               BuildableName = "RingSynth.app"
                BlueprintName = "RingSynth"
                ReferencedContainer = "container:RingSynth.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-            BuildableName = "QuickSynth.app"
+            BuildableName = "RingSynth.app"
             BlueprintName = "RingSynth"
             ReferencedContainer = "container:RingSynth.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-            BuildableName = "QuickSynth.app"
+            BuildableName = "RingSynth.app"
             BlueprintName = "RingSynth"
             ReferencedContainer = "container:RingSynth.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0B703EAD19E70B5F00CED5B4"
-            BuildableName = "QuickSynth.app"
+            BuildableName = "RingSynth.app"
             BlueprintName = "RingSynth"
             ReferencedContainer = "container:RingSynth.xcodeproj">
          </BuildableReference>

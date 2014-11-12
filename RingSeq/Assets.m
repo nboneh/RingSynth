@@ -103,29 +103,6 @@ static NSArray *IN_APP_PURCHASE_PACKS;
                                    };
         [prePacks addObject:funkPack];
 
-        identifier= @"com.clouby.ios.RingSynth.CountryPack";
-        
-        //If file exists means we purchased it
-         purchased = [fm fileExistsAtPath:[Assets getPath:identifier]];
-        NSDictionary *countryPack =  @{@"name":@"Country Pack",
-                                       @"instruments":@[//C5
-                                               [[Instrument alloc] initWithName:@"Fiddle" color:[UIColor brownColor] andBaseOctave:5 andPurchased:purchased],
-                                               
-                                               //C5
-                                               [[Instrument alloc] initWithName:@"Steel Guitar" color:[UIColor grayColor] andBaseOctave:5 andPurchased:purchased],
-                                               
-                                               //C4
-                                               [[Instrument alloc] initWithName:@"Banjo" color:[UIColor redColor] andBaseOctave:4 andPurchased:purchased]],
-                                       
-                                       @"samplename": @"Default(Test)",
-                                       @"price":[[NSNumber alloc] initWithFloat:0.99f],
-                                       @"identifier":identifier
-
-                                       
-                                       };
-        
-        [prePacks addObject:countryPack];
-        
         identifier=@"com.clouby.ios.RingSynth.BeachPack";
         
         //If file exists means we purchased it
