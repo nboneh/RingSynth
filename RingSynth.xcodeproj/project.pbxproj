@@ -946,9 +946,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BC701C11A01B2B8003E03F3 /* Clacker.wav in Resources */,
 				0B190B301A11C8D40079A606 /* String Section.wav in Resources */,
 				0B190B181A0E0A3B0079A606 /* Reverb Guitar.wav in Resources */,
-				0BC701C11A01B2B8003E03F3 /* Clacker.wav in Resources */,
 				0B190B3C1A11EEF10079A606 /* Funky Funk.m4a in Resources */,
 				0B190B3B1A11EEED0079A606 /* Off The Beach.m4a in Resources */,
 				0B190B251A0ED0E90079A606 /* Shaker.wav in Resources */,
@@ -1234,6 +1234,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RingSeq/Info.plist;
@@ -1256,6 +1257,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RingSeq/Info.plist;

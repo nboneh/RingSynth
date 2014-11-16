@@ -33,16 +33,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stage" translatesAutoresizingMaskIntoConstraints="NO" id="Srs-VQ-nPt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Srs-VQ-nPt">
                                 <rect key="frame" x="-14" y="0.0" width="596" height="320"/>
+                                <color key="backgroundColor" red="0.85550883960000002" green="0.1411096198" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bgb-pm-rJf">
-                                <rect key="frame" x="204" y="85" width="160" height="46"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgb-pm-rJf">
+                                <rect key="frame" x="205" y="85" width="159" height="43"/>
                                 <attributedString key="attributedText">
                                     <fragment content="RingSynth">
                                         <attributes>
                                             <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <font key="NSFont" size="36" name="SnellRoundhand-Bold"/>
+                                            <font key="NSFont" size="36" name="Optima-Bold"/>
                                             <font key="NSOriginalFont" size="36" name="SnellRoundhand-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
                                         </attributes>
@@ -51,33 +52,36 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHV-p2-NmD">
-                                <rect key="frame" x="259" y="197" width="51" height="33"/>
+                                <rect key="frame" x="259" y="165" width="51" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Create">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="7bK-jq-Zjz" kind="push" identifier="showFiles" id="Xbq-PW-jep"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJV-bz-hQ6">
-                                <rect key="frame" x="264" y="279" width="41" height="33"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Shop">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Ynr-Kr-KuT" kind="push" identifier="showShop" id="Ilo-pb-Fjj"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W57-3C-7su">
-                                <rect key="frame" x="266" y="238" width="36" height="33"/>
+                                <rect key="frame" x="266" y="206" width="36" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Help">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="SKU-2H-yZw" kind="push" identifier="showHelp" id="cuI-jf-v9C"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJV-bz-hQ6">
+                                <rect key="frame" x="264" y="247" width="41" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Shop">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Ynr-Kr-KuT" kind="push" identifier="showShop" id="Ilo-pb-Fjj"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -85,7 +89,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Srs-VQ-nPt" secondAttribute="trailing" constant="-30" id="6UI-Ad-fb9"/>
                             <constraint firstAttribute="centerX" secondItem="Bgb-pm-rJf" secondAttribute="centerX" id="Dj8-MW-crN"/>
-                            <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="pJV-bz-hQ6" secondAttribute="bottom" constant="8" id="JVY-k7-vdB"/>
+                            <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="pJV-bz-hQ6" secondAttribute="bottom" constant="40" id="JVY-k7-vdB"/>
                             <constraint firstAttribute="centerX" secondItem="pJV-bz-hQ6" secondAttribute="centerX" id="MiC-2q-khN"/>
                             <constraint firstAttribute="centerX" secondItem="W57-3C-7su" secondAttribute="centerX" id="UWb-uG-IBd"/>
                             <constraint firstItem="pJV-bz-hQ6" firstAttribute="top" secondItem="W57-3C-7su" secondAttribute="bottom" constant="8" id="cUF-6Q-jnK"/>
@@ -102,6 +106,7 @@
                     <connections>
                         <outlet property="createButton" destination="gHV-p2-NmD" id="WXx-2D-Avi"/>
                         <outlet property="helpButton" destination="W57-3C-7su" id="qNE-Bk-pdD"/>
+                        <outlet property="mainTitle" destination="Bgb-pm-rJf" id="XHk-zb-gZY"/>
                         <outlet property="shopButton" destination="pJV-bz-hQ6" id="C2S-ar-FYr"/>
                     </connections>
                 </viewController>
@@ -348,11 +353,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background" width="1600" height="613"/>
         <image name="download" width="22" height="22"/>
         <image name="help" width="1092" height="663"/>
         <image name="noloop" width="22" height="22"/>
         <image name="play" width="22" height="22"/>
-        <image name="stage" width="680" height="390"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

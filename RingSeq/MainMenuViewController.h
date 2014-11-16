@@ -10,6 +10,8 @@
 #import "Instrument.h"
 
 @interface MainMenuViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *mainTitle;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
 @property (weak, nonatomic) IBOutlet UIButton *helpButton;

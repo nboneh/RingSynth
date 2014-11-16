@@ -100,7 +100,7 @@
         if(SKPaymentTransactionStateRestored){
             NSLog(@"Transaction state -> Restored");
             //called when the user successfully restores a purchase
-            [self validatePurchaseTransaction:transaction];
+            [self validatePurchaseTransaction:transaction validated:YES];
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             break;
         }
@@ -118,14 +118,14 @@
             case SKPaymentTransactionStatePurchased:
                 //this is called when the user has successfully purchased the package (Cha-Ching!)
                 // [self doRemoveAds]; //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
-                [self validatePurchaseTransaction:transaction];
+                [self validatePurchaseTransaction:transaction validated:YES];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 NSLog(@"Transaction state -> Purchased");
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLog(@"Transaction state -> Restored");
                 //add the same code as you did from SKPaymentTransactionStatePurchased here
-                [self validatePurchaseTransaction:transaction];
+                [self validatePurchaseTransaction:transaction validated:YES];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
@@ -134,6 +134,7 @@
                     NSLog(@"Transaction state -> Cancelled");
                     //the user cancelled the payment ;(
                 }
+                  [self validatePurchaseTransaction:transaction validated:NO];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case  SKPaymentTransactionStateDeferred:
@@ -143,11 +144,11 @@
     }
 }
 
--(void)validatePurchaseTransaction:(SKPaymentTransaction *) transaction{
+-(void)validatePurchaseTransaction:(SKPaymentTransaction *) transaction validated:(BOOL) valid{
     NSString * identifier = transaction.payment.productIdentifier;
     for(PurchaseView * pView in purchaseViews){
         if([pView.identifier isEqualToString:identifier]){
-            [pView setAsPurchased];
+            [pView setPurchased:valid];
             break;
         }
     }

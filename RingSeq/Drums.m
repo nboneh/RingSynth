@@ -40,7 +40,7 @@
                                  @"d":  @[@"PedalHiHat",@"KickDrum3", @"Side-Stick"],
                                  @"e": @[@"BassDrum", @"HandDrum", @"KettleDrum1"],
                                  @"f": @[@"BassDrum2", @"DoumbekTek", @"Click"],
-                                 @"g": @[@"FloorTom", @"OpenRimShot", @"Clacker"],
+                                 @"g": @[@"FloorTom1", @"OpenRimShot", @"Clacker"],
                                  @"a" : @[@"FloorTom2",@"Electro-Tom",@"Tambourine2"],
                                  @"b" :@[@"LowTom", @"Tambourine", @"Low-Synth-Tom"]
                                  

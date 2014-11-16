@@ -99,7 +99,7 @@
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-      performSegueOnce = NO;
+    performSegueOnce = NO;
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSString *ringtone = _ringtones[indexPath.row];
@@ -219,16 +219,20 @@
     NSString * path = [self getPath:@"LoadedDefaults"];
     if(![fm fileExistsAtPath:path]){
         //Loading defaults if file Loaded Defaults does not exist
-        NSString *musicPath  =[[NSBundle mainBundle] pathForResource:@"Default" ofType:@""];
-        NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
-        [_ringtones addObject:@"Default (Opening)"];
-        [data writeToFile:[self getPath:@"Default (Opening)"] atomically:YES];
+        //Saftey if
+        if(![_ringtones containsObject:@"Default (Opening)"]){
+            
+            NSString *musicPath  =[[NSBundle mainBundle] pathForResource:@"Default" ofType:@""];
+            NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
+            [_ringtones addObject:@"Default (Opening)"];
+            [data writeToFile:[self getPath:@"Default (Opening)"] atomically:YES];
+        }
         [fm createFileAtPath:path
                     contents:nil                                          attributes:nil];
     }
     [self.tableView reloadData];
     
-
+    
 }
 -(BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     //Saftey method so the segue dosen't happen twice

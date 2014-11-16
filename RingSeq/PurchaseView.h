@@ -18,11 +18,10 @@
     UIButton *playSampleButton;
     NSTimer *stopSampleTimer;
     float price;
-    BOOL purchased;
     UIButton * purchaseButton ;
     NSArray * instruments;
 }
 @property NSString * identifier;
+@property (nonatomic)BOOL purchased;
 -(id)initWithFrame:(CGRect)frame packInfo:(NSDictionary *)packInfo;
--(void)setAsPurchased;
 @end

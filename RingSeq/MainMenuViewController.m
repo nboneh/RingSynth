@@ -18,14 +18,14 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
     
+
+    [self adjustButton:self.createButton];
+    [self adjustButton:self.helpButton];
+    [self adjustButton:self.shopButton];
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
     {
-        //Increasing size of font if on ipad
-        [_createButton.titleLabel  setFont:[UIFont systemFontOfSize:25]];
-        [_helpButton.titleLabel  setFont:[UIFont systemFontOfSize:25]];
-        [_shopButton.titleLabel  setFont:[UIFont systemFontOfSize:25]];
+        [self.mainTitle setFont:[self.mainTitle.font fontWithSize:70]];
     }
-    
     
     
 }
@@ -43,4 +43,59 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
+-(void)adjustButton:(UIButton *)button{
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *constraintWidth, *constraintHeight;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        //Increasing size of font if on ipad
+        [button.titleLabel  setFont:[UIFont systemFontOfSize:30]];
+        constraintWidth = [NSLayoutConstraint constraintWithItem:button
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationLessThanOrEqual
+                                                          toItem:nil
+                                                       attribute:NSLayoutAttributeNotAnAttribute
+                                                      multiplier:0
+                                                        constant:150];
+        
+        
+        
+        constraintHeight = [NSLayoutConstraint constraintWithItem:button
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationLessThanOrEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                       multiplier:0
+                                                         constant:75];
+        
+        
+    } else{
+        
+        
+        
+        constraintWidth = [NSLayoutConstraint constraintWithItem:button
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationLessThanOrEqual
+                                                          toItem:nil
+                                                       attribute:NSLayoutAttributeNotAnAttribute
+                                                      multiplier:0
+                                                        constant:75];
+        
+        
+        constraintHeight= [NSLayoutConstraint constraintWithItem:button
+                                                       attribute:NSLayoutAttributeHeight
+                                                       relatedBy:NSLayoutRelationLessThanOrEqual
+                                                          toItem:nil
+                                                       attribute:NSLayoutAttributeNotAnAttribute
+                                                      multiplier:0
+                                                        constant:45];
+        
+        
+    }
+    [button addConstraint:constraintHeight];
+    [button addConstraint:constraintWidth];
+    [button setBackgroundImage:[UIImage imageNamed:@"buttonbackground"] forState:UIControlStateNormal];
+    
+    
+}
 @end

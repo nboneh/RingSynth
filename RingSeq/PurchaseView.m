@@ -11,6 +11,7 @@
 
 @implementation PurchaseView
 @synthesize identifier = _identifier;
+@synthesize purchased = _purchased;
 -(id)initWithFrame:(CGRect)frame packInfo:(NSDictionary *)packInfo{
     self = [super initWithFrame:frame];
     if(self){
@@ -68,7 +69,7 @@
         NSString *path =[self getPath:_identifier];
         NSFileManager *fm = [NSFileManager defaultManager];
         //If file exists means we purchased it
-        purchased = [fm fileExistsAtPath:path];
+        _purchased = [fm fileExistsAtPath:path];
         
         purchaseButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
         purchaseButton.frame= CGRectMake(xOfSample + playWidth , 0, playWidth, self.frame.size.height);
@@ -133,9 +134,13 @@
 }
 
 -(void)requestPurchase{
+    [purchaseButton setTitle:@"Buying..." forState:UIControlStateNormal];
+    [purchaseButton setEnabled:NO];
+
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:_identifier]];
     productsRequest.delegate = self;
     [productsRequest start];
+
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
@@ -156,18 +161,21 @@
 }
 
 -(void)checkPurchaseButton{
-    if(!purchased){
+    if(!_purchased){
         [purchaseButton setTitle:@"Purchase" forState:UIControlStateNormal];
+        [purchaseButton setEnabled:YES];
     } else{
         [purchaseButton setTitle:@"Owned" forState:UIControlStateNormal];
         [purchaseButton setEnabled:NO];
     }
 }
--(void)setAsPurchased{
-    if(purchased)
+-(void)setPurchased:(BOOL)purchased{
+    if(_purchased)
         return;
-    purchased = YES;
+    _purchased = purchased;
     [self checkPurchaseButton];
+    if(!purchased)
+        return;
     for(Instrument * instrument in instruments){
         instrument.purchased = YES;
     }
