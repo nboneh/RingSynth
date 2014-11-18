@@ -207,6 +207,9 @@
                                     </barButtonItem>
                                     <barButtonItem title="Tempo:" id="obm-cR-TkX">
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeTempo" destination="JEX-9P-axG" id="5PM-E3-am7"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="OFn-61-8TE">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="100" borderStyle="roundedRect" minimumFontSize="17" id="6kP-d4-Gfo" customClass="NonEditableTextField">
@@ -219,7 +222,11 @@
                                             </connections>
                                         </textField>
                                     </barButtonItem>
-                                    <barButtonItem title="Beats:" id="Lsq-Qq-ORK"/>
+                                    <barButtonItem title="Beats:" id="Lsq-Qq-ORK">
+                                        <connections>
+                                            <action selector="changeBeat" destination="JEX-9P-axG" id="Kkp-XC-DAj"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" id="lON-Hy-nKR">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10" borderStyle="roundedRect" minimumFontSize="17" id="EH4-Y8-tu7" customClass="NonEditableTextField">
                                             <rect key="frame" x="264" y="7" width="32" height="30"/>
@@ -365,6 +372,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ilo-pb-Fjj"/>
+        <segue reference="wFY-Em-PXW"/>
     </inferredMetricsTieBreakers>
 </document>

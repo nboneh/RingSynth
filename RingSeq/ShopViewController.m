@@ -13,7 +13,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     self.navigationController.navigationBar.hidden = NO;
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
         self.bannerView = [[AxonixAdViewiPad_728x90 alloc] init];
@@ -29,6 +28,11 @@
     [center addObserver: self
                selector: @selector(resignActive)
                    name: @"applicationWillResignActive"
+                 object: nil];
+    
+    [center addObserver: self
+               selector: @selector(becameActive)
+                   name: @"becameActive"
                  object: nil];
     
     
@@ -71,8 +75,25 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)viewDidDisappear:(BOOL)animated {
-
     [super viewDidDisappear:animated];
+    [self resignActive];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self becameActive];
+}
+-(void)becameActive{
+    [self.bannerView resumeAdAutoRefresh];
+
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    //Just in case the user exited the screen somewhere in the process, we will check back for any on going purchases
+    if (SKPaymentQueue.defaultQueue.transactions.count > 0) {
+        [self paymentQueue:SKPaymentQueue.defaultQueue updatedTransactions:SKPaymentQueue.defaultQueue.transactions];
+    }
+
+}
+
+-(void)resignActive{
     [self.bannerView pauseAdAutoRefresh];
     [[OALSimpleAudio sharedInstance] stopBg];
     for(PurchaseView * purchaseView in purchaseViews){
@@ -81,13 +102,7 @@
     }
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.bannerView resumeAdAutoRefresh];
-}
--(void)resignActive{
-    [[OALSimpleAudio sharedInstance] stopBg];
-}
+
 -(void)restorePurchases{
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
