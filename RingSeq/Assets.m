@@ -17,8 +17,6 @@ static NSArray* ERASE_SOUNDS;
 static NSArray *INSTRUMENTS;
 static NSArray *IN_APP_PURCHASE_PACKS;
 +(void) initialize{
-    [OALSimpleAudio sharedInstance].allowIpod = NO;
-    
     // Mute all audio if the silent switch is turned on.
     [OALSimpleAudio sharedInstance].honorSilentSwitch = YES;
     
@@ -85,10 +83,7 @@ static NSArray *IN_APP_PURCHASE_PACKS;
     if(!IN_APP_PURCHASE_PACKS){
         NSMutableArray *prePacks = [[NSMutableArray alloc] init];
         NSString* identifier = @"com.clouby.ios.RingSynth.FunkPack";
-        NSString * path = [Assets getPath:identifier];
-        NSFileManager *fm = [NSFileManager defaultManager];
-        //If file exists means user purchased it
-        BOOL purchased = [fm fileExistsAtPath:path];
+        BOOL purchased = [[NSUserDefaults standardUserDefaults] boolForKey:identifier];
         NSDictionary *funkPack = @{@"name":@"Funk Pack",
                                    @"instruments":@[//C2
                                            [[Instrument alloc] initWithName:@"Slap Bass" color:[UIColor greenColor] andBaseOctave:4 andPurchased:purchased],
@@ -105,8 +100,7 @@ static NSArray *IN_APP_PURCHASE_PACKS;
 
         identifier=@"com.clouby.ios.RingSynth.BeachPack";
         
-        //If file exists means we purchased it
-        purchased = [fm fileExistsAtPath:[Assets getPath:identifier]];
+        purchased = [[NSUserDefaults standardUserDefaults] boolForKey:identifier];
         
         NSDictionary *beachPack =  @{@"name":@"Beach Pack",
                                      @"instruments":@[//C5

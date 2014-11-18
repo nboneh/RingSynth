@@ -71,9 +71,9 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)viewDidDisappear:(BOOL)animated {
+
     [super viewDidDisappear:animated];
     [self.bannerView pauseAdAutoRefresh];
-    
     [[OALSimpleAudio sharedInstance] stopBg];
     for(PurchaseView * purchaseView in purchaseViews){
         

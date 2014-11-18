@@ -204,6 +204,8 @@
 }
 
 -(void)changeToWidth:(int)width{
+    [self setZoomScale:1.0f animated:NO];
+    [self scrollRectToVisible:self.frame animated:NO];
     CGRect frame = container.frame;
     frame.size.width = width;
     container.frame = frame;

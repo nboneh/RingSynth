@@ -52,6 +52,9 @@
             return NO;
         }
     }
+    
+   if([text isEqualToString:RING_TONE_LIST_FILE_NAME])
+       return NO;
     return YES;
     
 }
@@ -214,21 +217,18 @@
     _ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RING_TONE_LIST_FILE_NAME]];
     if(_ringtones == nil)
         _ringtones = [[NSMutableArray alloc] init];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    
-    NSString * path = [self getPath:@"LoadedDefaults"];
-    if(![fm fileExistsAtPath:path]){
-        //Loading defaults if file Loaded Defaults does not exist
-        //Saftey if
-        if(![_ringtones containsObject:@"Default (Opening)"]){
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
+    if(![userDefaults boolForKey:@"loadedDefaults"]){
+        //Loading defaults
+        if(![_ringtones containsObject:@"Opening (Default) Mix"]){
             
             NSString *musicPath  =[[NSBundle mainBundle] pathForResource:@"Default" ofType:@""];
             NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
-            [_ringtones addObject:@"Default (Opening)"];
-            [data writeToFile:[self getPath:@"Default (Opening)"] atomically:YES];
+            [_ringtones addObject:@"Opening (Default) Mix"];
+            [data writeToFile:[self getPath:@"Opening (Default) Mix"] atomically:YES];
         }
-        [fm createFileAtPath:path
-                    contents:nil                                          attributes:nil];
+        [userDefaults setBool:YES forKey:@"loadedDefaults"];
+        [userDefaults synchronize];
     }
     [self.tableView reloadData];
     

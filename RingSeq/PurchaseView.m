@@ -66,10 +66,8 @@
         
         
         _identifier = [packInfo objectForKey:@"identifier"];
-        NSString *path =[self getPath:_identifier];
-        NSFileManager *fm = [NSFileManager defaultManager];
-        //If file exists means we purchased it
-        _purchased = [fm fileExistsAtPath:path];
+    
+        _purchased =[[instruments objectAtIndex:0] purchased];
         
         purchaseButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
         purchaseButton.frame= CGRectMake(xOfSample + playWidth , 0, playWidth, self.frame.size.height);
@@ -176,13 +174,12 @@
     [self checkPurchaseButton];
     if(!purchased)
         return;
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
+    [userDefaults setBool:YES forKey:_identifier];
+    [userDefaults synchronize];
     for(Instrument * instrument in instruments){
         instrument.purchased = YES;
     }
-    //Writing empty file with name of identifier to indicate purchase
-    NSString *path =[self getPath:_identifier];
-    [[NSFileManager defaultManager] createFileAtPath:path
-                                            contents:nil                                          attributes:nil];
     
     //Adding sample song
     NSMutableArray *ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RING_TONE_LIST_FILE_NAME]];
