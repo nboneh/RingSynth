@@ -218,14 +218,16 @@
     if(_ringtones == nil)
         _ringtones = [[NSMutableArray alloc] init];
         NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
+
     if(![userDefaults boolForKey:@"loadedDefaults"]){
+           NSString * name = @"Opening (Default) Mix";
         //Loading defaults
-        if(![_ringtones containsObject:@"Opening (Default) Mix"]){
+        if(![_ringtones containsObject:name]){
             
             NSString *musicPath  =[[NSBundle mainBundle] pathForResource:@"Default" ofType:@""];
             NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
-            [_ringtones addObject:@"Opening (Default) Mix"];
-            [data writeToFile:[self getPath:@"Opening (Default) Mix"] atomically:YES];
+            [_ringtones addObject:name];
+            [data writeToFile:[self getPath:name] atomically:YES];
         }
         [userDefaults setBool:YES forKey:@"loadedDefaults"];
         [userDefaults synchronize];

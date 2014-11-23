@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Music_wave.jpeg"
+      "filename" : "Music_wave.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Music_wave@2x.jpeg"
+      "filename" : "Music_wave@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "Music_wave@3x.jpeg"
+      "filename" : "Music_wave@3x.png"
     }
   ],
   "info" : {

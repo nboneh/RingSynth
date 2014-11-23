@@ -40,6 +40,7 @@
 		0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EBE19E70B5F00CED5B4 /* Main.storyboard */; };
 		0B703EC219E70B5F00CED5B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC119E70B5F00CED5B4 /* Images.xcassets */; };
 		0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B703EC319E70B5F00CED5B4 /* LaunchScreen.xib */; };
+		0B715D721A1C359700061A86 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B715D711A1C359700061A86 /* StoreKit.framework */; };
 		0B74952719EB5A870078296B /* NotesHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952619EB5A870078296B /* NotesHolder.m */; };
 		0B74952B19EB793B0078296B /* Instrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952A19EB793B0078296B /* Instrument.m */; };
 		0B74952E19EB7BA50078296B /* Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74952D19EB7BA50078296B /* Assets.m */; };
@@ -247,6 +248,7 @@
 		0B703EBF19E70B5F00CED5B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B703EC119E70B5F00CED5B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0B703EC419E70B5F00CED5B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		0B715D711A1C359700061A86 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0B74952519EB5A870078296B /* NotesHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesHolder.h; sourceTree = "<group>"; };
 		0B74952619EB5A870078296B /* NotesHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesHolder.m; sourceTree = "<group>"; };
 		0B74952919EB793B0078296B /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */,
+				0B715D721A1C359700061A86 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +490,7 @@
 		0B703EA519E70B5F00CED5B4 = {
 			isa = PBXGroup;
 			children = (
+				0B715D711A1C359700061A86 /* StoreKit.framework */,
 				0B703EB019E70B5F00CED5B4 /* RingSynth */,
 				0B703EAF19E70B5F00CED5B4 /* Products */,
 			);
@@ -896,6 +900,17 @@
 					0B703EAD19E70B5F00CED5B4 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = F7KBNV9Q9X;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1238,7 +1253,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RingSeq/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1249,6 +1264,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RingSynth;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Debug;
@@ -1261,7 +1277,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RingSeq/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1272,6 +1288,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RingSynth;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm64 armv7s";
 			};
 			name = Release;
