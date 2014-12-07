@@ -11,6 +11,7 @@
 #import "NotesHolder.h"
 #import  "DetailViewController.h"
 #import "ObjectAL.h"
+#import "Drums.h"
 #include <limits.h>
 
 @interface FullGrid()
@@ -272,7 +273,7 @@
 }
 
 -(NSArray*)createSaveFile{
-
+    
     NSMutableArray* preSaveFile = [[NSMutableArray alloc] init];
     for(int i = 0; i < [layers count]; i++){
         [preSaveFile addObject:[(Layout *)[layers objectAtIndex:i] createSaveFile] ];
@@ -296,13 +297,13 @@
         block(NO);
         return;
     }
-
+    
     int numOfMeasures = self.numOfMeasures;
-
+    
     //Creating a copy of saveData we will decode it into out giant wave file composition
     //This allows the user to mess with the grid as it encodes the wave file
     NSArray *decodeData = [self createSaveFile];
-
+    
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         long sampleRate = 44100;
@@ -385,34 +386,37 @@
                     NSDictionary *notesHolder = [[decodeMeasure objectForKey:@"notesholders"] objectAtIndex:j];
                     float volume = [[notesHolder objectForKey:@"volume"] floatValue];
                     if(notesHolder.count > 0){
-                        unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
-                        if(volume == 0){
-                            for(long k = positionInPiece; k < lengthOfPiece/2; k++)
-                                uncompLayer[k] = 0;
-                        }
-                        else{
-                            NSArray *notes = [notesHolder objectForKey:@"notes"];
-                            for(int k = 0;k <notes.count; k++){
-                                NSDictionary *decodeNote=[notes objectAtIndex:k];
-                                Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex:[[decodeNote objectForKey:@"instrument"] intValue]];
-                                Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
-                                NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
-                                NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
-                                struct NoteData noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
-                                
-                                unsigned long noteLength = noteData.length;
-                                short int*noteShortData = noteData.noteData;
-                                
-                                unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
-                                for(int l = 0; l < noteLength; l++){
-                                    if(positionInPiece >= (totalLength/2))
-                                        break;
-                                    uncompLayer[positionInPiece] += noteShortData[l];
-                                    positionInPiece++;
-                                }
-                                free(noteShortData);
+                
+                        
+                        NSArray *notes = [notesHolder objectForKey:@"notes"];
+                        for(int k = 0;k <notes.count; k++){
+                            
+                            NSDictionary *decodeNote=[notes objectAtIndex:k];
+                            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex:[[decodeNote objectForKey:@"instrument"] intValue]];
+                            Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
+                            NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
+                            NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
+                            struct NoteData noteData  = [instrument getDataNoteDescription:noteDescription andVolume:volume];
+                            
+                            unsigned long noteLength = noteData.length;
+                            short int*noteShortData = noteData.noteData;
+                            
+                            if(  k == 0 &&( ![instrument isKindOfClass:[Drums class]]  || volume == 0)){
+                                 unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
+                                for(long l= positionInPiece; l < lengthOfPiece/2; l++)
+                                    uncompLayer[l] = 0;
                             }
+
+                            unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
+                            for(int l = 0; l < noteLength; l++){
+                                if(positionInPiece >= (totalLength/2))
+                                    break;
+                                uncompLayer[positionInPiece] += noteShortData[l];
+                                positionInPiece++;
+                            }
+                            free(noteShortData);
                         }
+                        
                     }
                 }
             }
@@ -491,33 +495,33 @@
             NSFileManager *fm = [NSFileManager defaultManager];
             [fm removeItemAtPath:tempFilePath error:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
-            switch (exportSession.status) {
-                    
-                case AVAssetExportSessionStatusCompleted: {
-    
-                    
-                    block(YES) ;
-
-                    break;
+                switch (exportSession.status) {
+                        
+                    case AVAssetExportSessionStatusCompleted: {
+                        
+                        
+                        block(YES) ;
+                        
+                        break;
+                    }
+                    case AVAssetExportSessionStatusFailed: {
+                        
+                        
+                        block(NO);
+                        break;
+                    }
+                        // ... handle some other cases...
+                    default: {
+                        block(NO);
+                        break;
+                    }
                 }
-                case AVAssetExportSessionStatusFailed: {
-
-                    
-                   block(NO);
-                    break;
-                }
-                    // ... handle some other cases...
-                default: {
-                    block(NO);
-                    break;
-                }
-            }
             });
         }];
-    
+        
         
     }
-
+                   
                    );
 }
 

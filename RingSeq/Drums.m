@@ -11,17 +11,9 @@
 #import "PitchShift.h"
 @implementation Drums
 
--(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
-    ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
-    [OALSimpleAudio sharedInstance].channel = channel;
-    if(volume == 0.0f)
-        [[OALSimpleAudio sharedInstance] stopAllEffects];
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume{
     NSString *drum =  [self getDrumWithNoteDescription:note];
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", drum] volume:volume pitch:1.0f pan:0.0f loop:NO];
-    if(volume == 0.0f)
-        [[OALSimpleAudio sharedInstance] stopAllEffects];
-    
-    [OALSimpleAudio sharedInstance].channel = mainChannel;
     
     
 }
@@ -101,7 +93,7 @@
     
     note.accidental = arc4random_uniform(numOfAccedintals);
     
-    [self playNote:note withVolume:1.0f andChannel:[OALSimpleAudio sharedInstance].channel];
+    [self playNote:note withVolume:1.0f];
 }
 
 

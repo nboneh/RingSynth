@@ -444,7 +444,7 @@ static BOOL LOOPING;
             [self.fullScreenAdViewController dismissViewControllerAnimated:YES completion:NULL];
             MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
             [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
-            [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App %@ for iOS", self.name, [[[NSBundle mainBundle] infoDictionary]   objectForKey:@"CFBundleName"]] isHTML:NO];
+            [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App %@ for iOS. \n\r Check it out at: https://itunes.apple.com/app/id938020959", self.name, [[[NSBundle mainBundle] infoDictionary]   objectForKey:@"CFBundleName"]] isHTML:NO];
             NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
             [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.m4a", self.name]];
             mc.mailComposeDelegate = self;

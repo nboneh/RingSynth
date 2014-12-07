@@ -10,7 +10,6 @@
 		0B190B0A1A09CF0D0079A606 /* PurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B091A09CF0D0079A606 /* PurchaseView.m */; };
 		0B190B0E1A09D8490079A606 /* InstrumentPurchaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */; };
 		0B190B101A0ACB050079A606 /* Default(Test).m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B0F1A0AC7A30079A606 /* Default(Test).m4a */; };
-		0B190B141A0C31900079A606 /* Default(Test) in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B131A0C31900079A606 /* Default(Test) */; };
 		0B190B181A0E0A3B0079A606 /* Reverb Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B171A0E0A3B0079A606 /* Reverb Guitar.wav */; };
 		0B190B1C1A0E82200079A606 /* Ukulele.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B1B1A0E82200079A606 /* Ukulele.wav */; };
 		0B190B1E1A0E827A0079A606 /* Female Voice.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B1D1A0E827A0079A606 /* Female Voice.wav */; };
@@ -18,21 +17,22 @@
 		0B190B251A0ED0E90079A606 /* Shaker.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC7015D1A019167003E03F3 /* Shaker.wav */; };
 		0B190B2C1A11C4DF0079A606 /* Clarinet.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B2B1A11C4DF0079A606 /* Clarinet.wav */; };
 		0B190B301A11C8D40079A606 /* String Section.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B2F1A11C8D40079A606 /* String Section.wav */; };
-		0B190B361A11EEC10079A606 /* Funky Funk in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B351A11EEC10079A606 /* Funky Funk */; };
-		0B190B3B1A11EEED0079A606 /* Off The Beach.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B381A11EED30079A606 /* Off The Beach.m4a */; };
-		0B190B3C1A11EEF10079A606 /* Funky Funk.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B371A11EECA0079A606 /* Funky Funk.m4a */; };
 		0B190B4F1A12E5350079A606 /* Banjo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B4E1A12E5350079A606 /* Banjo.wav */; };
-		0B190B531A12EB390079A606 /* Off The Beach in Resources */ = {isa = PBXBuildFile; fileRef = 0B190B521A12EB390079A606 /* Off The Beach */; };
 		0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B213AF91A06CACC00F2255B /* libAxonixSDK.a */; };
 		0B213B111A06E67600F2255B /* Slap Bass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B101A06E67600F2255B /* Slap Bass.wav */; };
 		0B213B131A06E9D600F2255B /* Steel Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B121A06E9D600F2255B /* Steel Guitar.wav */; };
 		0B213B151A06ED6400F2255B /* Fiddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B141A06ED6400F2255B /* Fiddle.wav */; };
 		0B213B1D1A06F1B700F2255B /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B213B1C1A06F1B700F2255B /* ShopViewController.m */; };
 		0B213B241A0740B100F2255B /* Synth.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B213B231A0740B100F2255B /* Synth.wav */; };
+		0B32F1A91A2E9FCB0090572E /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 0B32F1A81A2E9FCB0090572E /* Default */; };
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
 		0B39A04C19F04601006B7EA5 /* Measure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Measure.m */; };
 		0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D64FB19FC5C5400C408D4 /* PitchShift.c */; };
 		0B5D654B19FC7FFF00C408D4 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88C19F3287D00F6C176 /* mach_timing.c */; };
+		0B6AE30C1A2A387000775079 /* Funky Funk in Resources */ = {isa = PBXBuildFile; fileRef = 0B6AE30B1A2A387000775079 /* Funky Funk */; };
+		0B6AE30E1A2A387900775079 /* Off The Beach in Resources */ = {isa = PBXBuildFile; fileRef = 0B6AE30D1A2A387900775079 /* Off The Beach */; };
+		0B6AE3101A2A393C00775079 /* Off The Beach.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0B6AE30F1A2A38D200775079 /* Off The Beach.m4a */; };
+		0B6AE3111A2A394200775079 /* Funky Funk.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0B6AE3091A2A385600775079 /* Funky Funk.m4a */; };
 		0B703EB419E70B5F00CED5B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB319E70B5F00CED5B4 /* main.m */; };
 		0B703EB719E70B5F00CED5B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB619E70B5F00CED5B4 /* AppDelegate.m */; };
 		0B703EBA19E70B5F00CED5B4 /* FilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB919E70B5F00CED5B4 /* FilesViewController.m */; };
@@ -162,7 +162,6 @@
 		0BC701D51A01F7B9003E03F3 /* Orchestra Hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */; };
 		0BC701D71A01FA56003E03F3 /* KettleDrum1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */; };
 		0BC701D91A0203EF003E03F3 /* Bass Guitar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */; };
-		0BC701DB1A0213D5003E03F3 /* Default in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701DA1A0213D5003E03F3 /* Default */; };
 		0BC701E01A033623003E03F3 /* BassDrum2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701DF1A033623003E03F3 /* BassDrum2.wav */; };
 		0BC701E31A0336E8003E03F3 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC701E21A0336E8003E03F3 /* HelpViewController.m */; };
 		0BC701E51A0337AA003E03F3 /* delete1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BC701E41A0337AA003E03F3 /* delete1.wav */; };
@@ -197,7 +196,6 @@
 		0B190B0C1A09D8490079A606 /* InstrumentPurchaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentPurchaseView.h; sourceTree = "<group>"; };
 		0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentPurchaseView.m; sourceTree = "<group>"; };
 		0B190B0F1A0AC7A30079A606 /* Default(Test).m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Default(Test).m4a"; path = "../../../Downloads/Default(Test).m4a"; sourceTree = "<group>"; };
-		0B190B131A0C31900079A606 /* Default(Test) */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = "Default(Test)"; path = "../../Default(Test)"; sourceTree = "<group>"; };
 		0B190B171A0E0A3B0079A606 /* Reverb Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Reverb Guitar.wav"; path = "../../../Downloads/Reverb Guitar.wav"; sourceTree = "<group>"; };
 		0B190B191A0E0C310079A606 /* Reverb Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Reverb Guitar.wav"; path = "../../../Downloads/Reverb Guitar.wav"; sourceTree = "<group>"; };
 		0B190B1B1A0E82200079A606 /* Ukulele.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Ukulele.wav; path = ../../../Downloads/Ukulele.wav; sourceTree = "<group>"; };
@@ -206,11 +204,7 @@
 		0B190B2B1A11C4DF0079A606 /* Clarinet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Clarinet.wav; path = ../../../Downloads/Clarinet.wav; sourceTree = "<group>"; };
 		0B190B2D1A11C8170079A606 /* String Section.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "String Section.wav"; path = "../../../Downloads/String Section.wav"; sourceTree = "<group>"; };
 		0B190B2F1A11C8D40079A606 /* String Section.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "String Section.wav"; path = "../../../Downloads/String Section.wav"; sourceTree = "<group>"; };
-		0B190B351A11EEC10079A606 /* Funky Funk */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Funky Funk"; sourceTree = "<group>"; };
-		0B190B371A11EECA0079A606 /* Funky Funk.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Funky Funk.m4a"; sourceTree = "<group>"; };
-		0B190B381A11EED30079A606 /* Off The Beach.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Off The Beach.m4a"; sourceTree = "<group>"; };
 		0B190B4E1A12E5350079A606 /* Banjo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Banjo.wav; sourceTree = "<group>"; };
-		0B190B521A12EB390079A606 /* Off The Beach */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Off The Beach"; sourceTree = "<group>"; };
 		0B213AF21A06CACC00F2255B /* AXNBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXNBrowserViewController.h; sourceTree = "<group>"; };
 		0B213AF31A06CACC00F2255B /* Axonix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Axonix.h; sourceTree = "<group>"; };
 		0B213AF41A06CACC00F2255B /* AxonixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxonixAds.h; sourceTree = "<group>"; };
@@ -230,12 +224,17 @@
 		0B213B141A06ED6400F2255B /* Fiddle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Fiddle.wav; path = ../../../Downloads/Fiddle.wav; sourceTree = "<group>"; };
 		0B213B1C1A06F1B700F2255B /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = RingSeq/ShopViewController.m; sourceTree = "<group>"; };
 		0B213B231A0740B100F2255B /* Synth.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Synth.wav; path = ../../../Downloads/Synth.wav; sourceTree = "<group>"; };
+		0B32F1A81A2E9FCB0090572E /* Default */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Default; sourceTree = "<group>"; };
 		0B39A04319EF24BB006B7EA5 /* FullGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullGrid.h; sourceTree = "<group>"; };
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
 		0B39A04A19F04601006B7EA5 /* Measure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measure.h; sourceTree = "<group>"; };
 		0B39A04B19F04601006B7EA5 /* Measure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measure.m; sourceTree = "<group>"; };
 		0B5D64FB19FC5C5400C408D4 /* PitchShift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PitchShift.c; sourceTree = "<group>"; };
 		0B5D64FC19FC5C5400C408D4 /* PitchShift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchShift.h; sourceTree = "<group>"; };
+		0B6AE3091A2A385600775079 /* Funky Funk.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Funky Funk.m4a"; sourceTree = "<group>"; };
+		0B6AE30B1A2A387000775079 /* Funky Funk */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Funky Funk"; sourceTree = "<group>"; };
+		0B6AE30D1A2A387900775079 /* Off The Beach */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Off The Beach"; sourceTree = "<group>"; };
+		0B6AE30F1A2A38D200775079 /* Off The Beach.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Off The Beach.m4a"; sourceTree = "<group>"; };
 		0B703EAE19E70B5F00CED5B4 /* RingSynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingSynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B703EB219E70B5F00CED5B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B703EB319E70B5F00CED5B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -423,7 +422,6 @@
 		0BC701D41A01F7B9003E03F3 /* Orchestra Hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Orchestra Hit.wav"; path = "../../../Downloads/Orchestra Hit.wav"; sourceTree = "<group>"; };
 		0BC701D61A01FA56003E03F3 /* KettleDrum1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = KettleDrum1.wav; path = ../../../Downloads/KettleDrum1.wav; sourceTree = "<group>"; };
 		0BC701D81A0203EF003E03F3 /* Bass Guitar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "Bass Guitar.wav"; path = "../../../Downloads/Bass Guitar.wav"; sourceTree = "<group>"; };
-		0BC701DA1A0213D5003E03F3 /* Default */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Default; path = ../../Default; sourceTree = "<group>"; };
 		0BC701DF1A033623003E03F3 /* BassDrum2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = BassDrum2.wav; path = ../../../Downloads/BassDrum2.wav; sourceTree = "<group>"; };
 		0BC701E11A0336DE003E03F3 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelpViewController.h; path = RingSeq/HelpViewController.h; sourceTree = "<group>"; };
 		0BC701E21A0336E8003E03F3 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelpViewController.m; path = RingSeq/HelpViewController.m; sourceTree = "<group>"; };
@@ -555,13 +553,12 @@
 				0BC701E61A0337D4003E03F3 /* delete3.wav */,
 				0BC701EE1A03392C003E03F3 /* delete2.wav */,
 				0BC701E41A0337AA003E03F3 /* delete1.wav */,
-				0B190B381A11EED30079A606 /* Off The Beach.m4a */,
-				0B190B371A11EECA0079A606 /* Funky Funk.m4a */,
+				0B6AE30F1A2A38D200775079 /* Off The Beach.m4a */,
+				0B6AE3091A2A385600775079 /* Funky Funk.m4a */,
 				0B213B141A06ED6400F2255B /* Fiddle.wav */,
-				0B190B521A12EB390079A606 /* Off The Beach */,
-				0B190B351A11EEC10079A606 /* Funky Funk */,
-				0B190B131A0C31900079A606 /* Default(Test) */,
-				0BC701DA1A0213D5003E03F3 /* Default */,
+				0B6AE30D1A2A387900775079 /* Off The Beach */,
+				0B6AE30B1A2A387000775079 /* Funky Funk */,
+				0B32F1A81A2E9FCB0090572E /* Default */,
 				0B703EB219E70B5F00CED5B4 /* Info.plist */,
 				0B703EB319E70B5F00CED5B4 /* main.m */,
 			);
@@ -961,11 +958,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B6AE3111A2A394200775079 /* Funky Funk.m4a in Resources */,
+				0B6AE3101A2A393C00775079 /* Off The Beach.m4a in Resources */,
 				0BC701C11A01B2B8003E03F3 /* Clacker.wav in Resources */,
 				0B190B301A11C8D40079A606 /* String Section.wav in Resources */,
 				0B190B181A0E0A3B0079A606 /* Reverb Guitar.wav in Resources */,
-				0B190B3C1A11EEF10079A606 /* Funky Funk.m4a in Resources */,
-				0B190B3B1A11EEED0079A606 /* Off The Beach.m4a in Resources */,
 				0B190B251A0ED0E90079A606 /* Shaker.wav in Resources */,
 				0B190B101A0ACB050079A606 /* Default(Test).m4a in Resources */,
 				0B9AF92A19F3287E00F6C176 /* .gitignore in Resources */,
@@ -984,7 +981,6 @@
 				0BC701B71A01B02C003E03F3 /* BikeBell.wav in Resources */,
 				0B9AF9CE19F33FCC00F6C176 /* Crash1.wav in Resources */,
 				0BC701D71A01FA56003E03F3 /* KettleDrum1.wav in Resources */,
-				0BC701DB1A0213D5003E03F3 /* Default in Resources */,
 				0B9AF93019F3287E00F6C176 /* ObjectAL-Overview2.png in Resources */,
 				0B9AF9E619F3417B00F6C176 /* KickDrum1.wav in Resources */,
 				0BC701821A01990B003E03F3 /* Tambourine.wav in Resources */,
@@ -997,6 +993,7 @@
 				0BC701C71A01B3B8003E03F3 /* Click.wav in Resources */,
 				0BC701601A0192E6003E03F3 /* Woodblock.wav in Resources */,
 				0BC701641A01939D003E03F3 /* Rimshot.wav in Resources */,
+				0B32F1A91A2E9FCB0090572E /* Default in Resources */,
 				0B703EC019E70B5F00CED5B4 /* Main.storyboard in Resources */,
 				0B213B131A06E9D600F2255B /* Steel Guitar.wav in Resources */,
 				0B9AF9C019F33AC900F6C176 /* Trumpet.wav in Resources */,
@@ -1009,7 +1006,6 @@
 				0B9AF9C619F33B9D00F6C176 /* Trombone.wav in Resources */,
 				0BC701621A019304003E03F3 /* China.wav in Resources */,
 				0BC701501A019077003E03F3 /* PedalHiHat.wav in Resources */,
-				0B190B531A12EB390079A606 /* Off The Beach in Resources */,
 				0BC701661A0193F9003E03F3 /* BassDrum.wav in Resources */,
 				0BC701701A0195B4003E03F3 /* MidTom2.wav in Resources */,
 				0B9AF92D19F3287E00F6C176 /* ObjectAL-Overview1.png in Resources */,
@@ -1021,6 +1017,7 @@
 				0B9AF9FC19F343D000F6C176 /* Snare.wav in Resources */,
 				0BC701B31A01AF8E003E03F3 /* Splash2.wav in Resources */,
 				0BC701A31A01ACB5003E03F3 /* Low-Synth-Tom.wav in Resources */,
+				0B6AE30C1A2A387000775079 /* Funky Funk in Resources */,
 				0BC701C51A01B350003E03F3 /* Snap.wav in Resources */,
 				0BC7015C1A01914F003E03F3 /* Hi-Bongo.wav in Resources */,
 				0B9AF9E819F3418D00F6C176 /* KickDrum2.wav in Resources */,
@@ -1037,7 +1034,6 @@
 				0BC7017A1A019714003E03F3 /* Triangle.wav in Resources */,
 				0BC7019B1A01AB9D003E03F3 /* Klank2.wav in Resources */,
 				0B9AF92F19F3287E00F6C176 /* ObjectAL-Overview2.eps in Resources */,
-				0B190B361A11EEC10079A606 /* Funky Funk in Resources */,
 				0B190B1E1A0E827A0079A606 /* Female Voice.wav in Resources */,
 				0BC701BD1A01B1D2003E03F3 /* Tambourine2.wav in Resources */,
 				0BC701EF1A03392C003E03F3 /* delete2.wav in Resources */,
@@ -1056,6 +1052,7 @@
 				0BC701E71A0337D4003E03F3 /* delete3.wav in Resources */,
 				0BC701901A01A98C003E03F3 /* HandDrum.wav in Resources */,
 				0B213B111A06E67600F2255B /* Slap Bass.wav in Resources */,
+				0B6AE30E1A2A387900775079 /* Off The Beach in Resources */,
 				0B9AF94E19F3287E00F6C176 /* ObjectAL (OSX)-Info.plist in Resources */,
 				0BC701A91A01AD7F003E03F3 /* Electro-Tom.wav in Resources */,
 				0B9AF9BA19F3389F00F6C176 /* Acoustic Guitar.wav in Resources */,
@@ -1074,7 +1071,6 @@
 				0B9AF9EA19F341E400F6C176 /* KickDrum3.wav in Resources */,
 				0BC701C91A01B451003E03F3 /* TriangleMute.wav in Resources */,
 				0BC701AD1A01ADCB003E03F3 /* Zill.wav in Resources */,
-				0B190B141A0C31900079A606 /* Default(Test) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

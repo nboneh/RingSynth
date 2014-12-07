@@ -9,6 +9,7 @@
 #import "NotesHolder.h"
 #import "Assets.h"
 #import "DetailViewController.h"
+#import "Drums.h"
 
 
 @interface NotesHolder()
@@ -114,7 +115,7 @@
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
     Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:[DetailViewController CURRENT_INSTRUMENT] andAccedintal:[DetailViewController CURRENT_ACCIDENTAL]];
     if([self insertNote:note])
-        [note playWithVolume:[_volumeSlider value] andChannel:channel];
+        [note playWithVolume:[_volumeSlider value]];
 }
 
 -(BOOL)insertNote:(Note *)note{
@@ -150,7 +151,7 @@
         note.accidental++;
     else
         note.accidental = 0;
-    [note playWithVolume:[_volumeSlider value] andChannel:channel];
+    [note playWithVolume:[_volumeSlider value]];
     
 }
 
@@ -167,9 +168,18 @@
     return [_notes count];
 }
 -(void)play{
+    if(_notes.count == 0)
+        return;
+    ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
+    [OALSimpleAudio sharedInstance].channel = channel;
+    Instrument * instrument = [(Note *)[_notes objectAtIndex:0] instrument];
+    //Drums is the only instrument that is allowed to bleed into itself
+    if( ![instrument isKindOfClass:[Drums class] ]|| _volumeSlider.value == 0 )
+    [[OALSimpleAudio sharedInstance] stopAllEffects];
     for(Note *note in _notes){
-        [note playWithVolume:[_volumeSlider value] andChannel:channel];
+        [note playWithVolume:[_volumeSlider value]];
     }
+    [OALSimpleAudio sharedInstance].channel = mainChannel;
 }
 
 -(void)sliderViewChange:(UISlider *)sender{

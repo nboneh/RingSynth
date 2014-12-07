@@ -81,15 +81,8 @@
     return  pow(2,((noteDesc.octave-_baseOctave)+ (noteNum/12.0f)));
     
 }
--(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel{
-    ALChannelSource *mainChannel = [[OALSimpleAudio sharedInstance] channel];
-    [OALSimpleAudio sharedInstance].channel = channel;
-    [channel setVolume:volume];
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume{
     [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name] volume:volume pitch:[self calcPitch:note] pan:0.0f loop:NO];
-    if(volume == 0.0f)
-        [[OALSimpleAudio sharedInstance] stopAllEffects];
-    
-    [OALSimpleAudio sharedInstance].channel = mainChannel;
     
 }
 
@@ -130,6 +123,6 @@
 -(void)playRandomNote{
     NoteDescription* note = [[NoteDescription alloc] initWithOctave: (arc4random_uniform(4) + _baseOctave -1) andChar:(arc4random_uniform(7) +'a')];
     note.accidental = arc4random_uniform(numOfAccedintals);
-    [self playNote:note withVolume:1.0f andChannel:[OALSimpleAudio sharedInstance].channel];
+    [self playNote:note withVolume:1.0f];
 }
 @end

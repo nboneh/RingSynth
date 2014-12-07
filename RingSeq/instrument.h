@@ -29,7 +29,7 @@ struct NoteData
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave andPurchased:(BOOL)purchased;
 
 
--(void) playNote: (NoteDescription *)note withVolume:(float)volume andChannel:(ALChannelSource *)channel;
+-(void) playNote: (NoteDescription *)note withVolume:(float)volume;
 -(void)play;
 -(float) duration;
 -(struct NoteData )getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume;

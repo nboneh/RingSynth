@@ -94,8 +94,8 @@
     return NO;
 }
 
--(void) playWithVolume:(float)volume andChannel:(ALChannelSource *)channel{
-    [self.instrument playNote:self.noteDescription withVolume:volume andChannel:channel];
+-(void) playWithVolume:(float)volume {
+[self.instrument playNote:self.noteDescription withVolume:volume];
 }
 
 @end
