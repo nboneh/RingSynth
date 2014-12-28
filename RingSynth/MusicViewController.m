@@ -216,6 +216,10 @@ static BOOL LOOPING;
         [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
         [_fullGrid loadSaveFile:[saveFile objectForKey:@"fullGrid"]];
         [self.view addSubview:_fullGrid];
+    } else {
+        helpAlert = [[UIAlertView alloc] initWithTitle:@"First time making ringtone?" message:@"It is highly recommended to view the help screen!" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [helpAlert show];
+
     }
 }
 
@@ -457,6 +461,12 @@ static BOOL LOOPING;
     else if(alertView == inAppPurchaseAlert){
         if(buttonIndex == 1){
             [self performSegueWithIdentifier: @"pushShopFromDetail" sender: self];
+        }
+    }
+    
+    else if(alertView == helpAlert){
+        if(buttonIndex == 1){
+            [self performSegueWithIdentifier: @"pushHelpFromDetail" sender: self];
         }
     }
     

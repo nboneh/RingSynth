@@ -148,6 +148,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="WVA-ar-AbZ">
                                 <rect key="frame" x="16" y="0.0" width="536" height="320"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinch to Enlarge Image!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dky-VB-yn0">
+                                <rect key="frame" x="129" y="142" width="310" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -156,13 +162,16 @@
                             <constraint firstAttribute="trailingMargin" secondItem="WVA-ar-AbZ" secondAttribute="trailing" id="DJv-xy-JW9"/>
                             <constraint firstItem="qGQ-r2-F0m" firstAttribute="bottom" secondItem="WVA-ar-AbZ" secondAttribute="bottom" id="RXE-rO-ilR"/>
                             <constraint firstAttribute="centerY" secondItem="WVA-ar-AbZ" secondAttribute="centerY" id="hV5-xA-3UT"/>
+                            <constraint firstAttribute="centerX" secondItem="dky-VB-yn0" secondAttribute="centerX" id="iLE-xa-kXR"/>
                             <constraint firstItem="WVA-ar-AbZ" firstAttribute="top" secondItem="A8J-nt-TC0" secondAttribute="topMargin" id="vjf-ls-YAp"/>
+                            <constraint firstAttribute="centerY" secondItem="dky-VB-yn0" secondAttribute="centerY" id="zJ7-pf-hOZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Help" id="YaV-IO-rNp"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="helpView" destination="WVA-ar-AbZ" id="j1U-EN-mMM"/>
+                        <outlet property="pinchHelp" destination="dky-VB-yn0" id="0LQ-wS-ZlK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="40g-vI-RYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -281,6 +290,7 @@
                         <outlet property="tempoField" destination="6kP-d4-Gfo" id="Z6Y-oT-U4A"/>
                         <outlet property="topBar" destination="mOI-FS-AaM" id="g2P-Z6-OC1"/>
                         <segue destination="Ynr-Kr-KuT" kind="push" identifier="pushShopFromDetail" id="wFY-Em-PXW"/>
+                        <segue destination="SKU-2H-yZw" kind="push" identifier="pushHelpFromDetail" id="oQp-E4-3gw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
@@ -371,6 +381,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="oQp-E4-3gw"/>
         <segue reference="wFY-Em-PXW"/>
     </inferredMetricsTieBreakers>
 </document>

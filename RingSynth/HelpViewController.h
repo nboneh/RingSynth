@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HelpViewController : UIViewController<UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *pinchHelp;
 @property (weak, nonatomic) IBOutlet UIImageView *helpView;
 
 @end
