@@ -9,7 +9,7 @@
 #import "FullGrid.h"
 #import "Assets.h"
 #import "NotesHolder.h"
-#import  "DetailViewController.h"
+#import "MusicViewController.h"
 #import "ObjectAL.h"
 #import "Drums.h"
 #include <limits.h>
@@ -21,7 +21,7 @@
 @implementation FullGrid
 @synthesize  isPlaying = _isPlaying;
 
-@synthesize  numOfMeasures = _numOfMeasures;
+@synthesize  numOfBeats = _numOfBeats;
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
@@ -93,7 +93,7 @@
 -(void)addLayer{
     if(!layers)
         layers = [[NSMutableArray alloc] init];
-    Layout * layer = [[Layout alloc] initWithStaff:staff andFrame:self.frame andNumOfMeasure:_numOfMeasures];
+    Layout * layer = [[Layout alloc] initWithStaff:staff andFrame:self.frame andNumOfBeat:_numOfBeats];
     [layers addObject:layer];
     [container addSubview:layer];
     if([layers count] == 1){
@@ -122,10 +122,10 @@
         [self setZoomScale:1.0f animated:NO];
         
         Layout *layer = [layers objectAtIndex:0];
-        Measure * measure =[layer findMeasureAtx:(self.contentOffset.x + layer.widthPerMeasure )];
+        Beat  * beat =[layer findBeatAtx:(self.contentOffset.x + layer.widthPerBeat  )];
         [self startAnimation];
         for(Layout * layer in layers){
-            [layer playWithTempo:bpm fromMeasure:measure.num];
+            [layer playWithTempo:bpm fromBeat:beat.num];
         }
         _isPlaying = YES;
         
@@ -163,13 +163,13 @@
 
 -(void)startAnimation{
     Layout *layer = [layers objectAtIndex:0];
-    Measure * measure =[layer findMeasureAtx:(self.contentOffset.x + layer.widthPerMeasure )];
+    Beat * beat =[layer findBeatAtx:(self.contentOffset.x + layer.widthPerBeat )];
     
     float dist = self.frame.size.width/3;
-    float offset = ((measure.frame.origin.x -self.contentOffset.x ) + dist);
-    float widthPerMeasure = layer.widthPerMeasure;
-    float delay = (offset/widthPerMeasure) *(60.0/bpm);
-    float time = (60.0/(bpm)) * (_numOfMeasures -measure.num);
+    float offset = ((beat.frame.origin.x -self.contentOffset.x ) + dist);
+    float widthPerBeat = layer.widthPerBeat;
+    float delay = (offset/widthPerBeat) *(60.0/bpm);
+    float time = (60.0/(bpm)) * (_numOfBeats -beat.num);
     
     stopPlayingTimer = [NSTimer scheduledTimerWithTimeInterval:time  target:self
                                                       selector:@selector(checkIfToStopPlaying)
@@ -178,9 +178,9 @@
     
     
     //The end goes beyond bound so we went to set a trigger to stop the animation when bound are out of reach
-    float end = (_numOfMeasures ) * widthPerMeasure;
+    float end = (_numOfBeats ) * widthPerBeat;
     
-    float timeToStopAnim =  time -((60.0/(bpm)) * (dist/layer.widthPerMeasure));
+    float timeToStopAnim =  time -((60.0/(bpm)) * (dist/layer.widthPerBeat));
     
     stopAnimTimer =[NSTimer scheduledTimerWithTimeInterval:timeToStopAnim
                                                     target:self
@@ -195,7 +195,7 @@
     
 }
 -(void)checkIfToStopPlaying{
-    if(![DetailViewController LOOPING]){
+    if(![MusicViewController LOOPING]){
         [self stop];
         [self replay];
     } else{
@@ -225,9 +225,9 @@
     //Global delete mode for all layers instead of a specific one
     if(!currentLayer){
         for(Layout * layer in layers){
-            Measure * measure = [layer findMeasureAtx:location.x];
-            if(measure){
-                NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
+            Beat * beat = [layer findBeatAtx:location.x];
+            if(beat){
+                NotesHolder *noteHolder = [beat findNoteHolderAtX:round(location.x - beat.frame.origin.x)];
                 if(noteHolder){
                     if([noteHolder deleteNoteIfExistsAtY:location.y])
                         return;
@@ -235,9 +235,9 @@
             }
         }
     } else {
-        Measure * measure = [currentLayer findMeasureAtx:location.x];
-        if(measure){
-            NotesHolder *noteHolder = [measure findNoteHolderAtX:round(location.x - measure.frame.origin.x)];
+        Beat * beat = [currentLayer findBeatAtx:location.x];
+        if(beat){
+            NotesHolder *noteHolder = [beat findNoteHolderAtX:round(location.x - beat.frame.origin.x)];
             if(noteHolder){
                 if([noteHolder deleteNoteIfExistsAtY:location.y])
                     return;
@@ -259,11 +259,11 @@
     [stopPlayingTimer invalidate];
     stopPlayingTimer = nil;
 }
--(void)setNumOfMeasures:(int)numOfMeasures{
-    _numOfMeasures = numOfMeasures;
+-(void)setNumOfBeats:(int)numOfBeats{
+    _numOfBeats = numOfBeats;
     BOOL firstLayer = YES;
     for(Layout * layer in layers){
-        [layer setNumOfMeasures:_numOfMeasures];
+        [layer setNumOfBeats:_numOfBeats];
         if(firstLayer){
             [self changeToWidth:layer.frame.size.width];
             firstLayer = NO;
@@ -298,7 +298,7 @@
         return;
     }
     
-    int numOfMeasures = self.numOfMeasures;
+    int numOfBeats = self.numOfBeats;
     
     //Creating a copy of saveData we will decode it into out giant wave file composition
     //This allows the user to mess with the grid as it encodes the wave file
@@ -309,11 +309,11 @@
         long sampleRate = 44100;
         int bytesPerSample = 2;
         int channels = 2;
-        float measuresPerSecond = 1.0f/bpm_ * 60;
-        int samplePerMeasure = (sampleRate * measuresPerSecond)  *bytesPerSample;
+        float beatsPerSecond = 1.0f/bpm_ * 60;
+        int samplePerBeat = (sampleRate * beatsPerSecond)  *bytesPerSample;
         
         //Extra two seconds after piece is over
-        long lengthOfPiece =(samplePerMeasure *numOfMeasures * bytesPerSample + 2*sampleRate);
+        long lengthOfPiece =(samplePerBeat *numOfBeats * bytesPerSample + 2*sampleRate);
         
         long totalLength = 44 + lengthOfPiece;
         
@@ -379,11 +379,11 @@
                 uncompLayer[i] = 0;
             }
             for(int i = 0; i < decodeLayer.count; i++){
-                NSDictionary *decodeMeasure = [decodeLayer objectAtIndex:i];
-                NSArray *notesHolders = [decodeMeasure objectForKey:@"notesholders"];
-                int subdivision = [[decodeMeasure objectForKey:@"subdivision"] intValue] +1;
+                NSDictionary *decodeBeat = [decodeLayer objectAtIndex:i];
+                NSArray *notesHolders = [decodeBeat objectForKey:@"notesholders"];
+                int subdivision = [[decodeBeat objectForKey:@"subdivision"] intValue] +1;
                 for(int j=0; j < notesHolders.count; j++){
-                    NSDictionary *notesHolder = [[decodeMeasure objectForKey:@"notesholders"] objectAtIndex:j];
+                    NSDictionary *notesHolder = [[decodeBeat objectForKey:@"notesholders"] objectAtIndex:j];
                     float volume = [[notesHolder objectForKey:@"volume"] floatValue];
                     if(notesHolder.count > 0){
                 
@@ -402,12 +402,12 @@
                             short int*noteShortData = noteData.noteData;
                             
                             if(  k == 0 &&( ![instrument isKindOfClass:[Drums class]]  || volume == 0)){
-                                 unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
+                                 unsigned long positionInPiece = i * samplePerBeat + (j * (samplePerBeat/ ((float)subdivision)));
                                 for(long l= positionInPiece; l < lengthOfPiece/2; l++)
                                     uncompLayer[l] = 0;
                             }
 
-                            unsigned long positionInPiece = i * samplePerMeasure + (j * (samplePerMeasure/ ((float)subdivision)));
+                            unsigned long positionInPiece = i * samplePerBeat + (j * (samplePerBeat/ ((float)subdivision)));
                             for(int l = 0; l < noteLength; l++){
                                 if(positionInPiece >= (totalLength/2))
                                     break;
@@ -528,9 +528,9 @@
 
 -(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex{
     [self changeLayer:layerIndex];
-    NSArray * measures = [currentLayer measures];
-    for(Measure *measure in measures){
-        for(NotesHolder *noteHolder in [measure noteHolders]){
+    NSArray * beats = [currentLayer beats];
+    for(Beat *beat in beats){
+        for(NotesHolder *noteHolder in [beat noteHolders]){
             for(Note*note in [noteHolder notes])
                 [note setInstrument:instrument];
         }

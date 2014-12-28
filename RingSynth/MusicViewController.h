@@ -1,5 +1,5 @@
 //
-//  DetailViewController.h
+//  MusicViewController.h
 //  RingSeq
 //
 //  Created by Nir Boneh on 10/9/14.
@@ -16,7 +16,7 @@
 
 
 
-@interface DetailViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate>{
+@interface MusicViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate>{
     BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;

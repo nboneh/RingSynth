@@ -8,25 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "Staff.h"
-#import "Measure.h"
+#import "Beat.h"
 #import "ObjectAL.h"
 
-@interface Layout  : UIView<MeasureDelegate>{
-    int prevMeasure;
+@interface Layout  : UIView{
+    int prevBeat;
     NSTimer *playTimer;
     int bpm;
     Staff *staff;
 }
 @property(readonly)ALChannelSource*channel;
-@property (readonly)NSMutableArray *measures;
-@property (readonly)int currentMeasurePlaying;
-@property (readonly)int widthFromFirstMeasure;
-@property(readonly) int widthPerMeasure;
-@property (nonatomic)int numOfMeasures;
--(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfMeasure:(int)numOfMeasures;
--(void)playWithTempo:(int)bpm fromMeasure:(int)measure;
+@property (readonly)NSMutableArray *beats;
+@property (readonly)int currentBeatPlaying;
+@property (readonly)int widthFromFirstBeat;
+@property(readonly) int widthPerBeat;
+@property (nonatomic)int numOfBeats;
+-(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfBeat:(int)numOfBeats;
+-(void)playWithTempo:(int)bpm fromBeat:(int)beat;
 -(void)stop;
--(Measure *)findMeasureAtx:(int)x;
+-(Beat *)findBeatAtx:(int)x;
 -(void)setMuted:(BOOL)abool;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;

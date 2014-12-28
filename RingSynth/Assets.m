@@ -48,8 +48,7 @@ static NSArray *IN_APP_PURCHASE_PACKS;
     //C5
     [instrumentMut addObject:[[Instrument alloc] initWithName:@"String Section" color:[UIColor brownColor]  andBaseOctave:5]];
     
-    
-    
+
     NSArray * packs =[Assets IN_APP_PURCHASE_PACKS];
     for(NSDictionary * pack in packs){
         NSArray * instruments = [pack objectForKey:@"instruments"];
@@ -58,6 +57,8 @@ static NSArray *IN_APP_PURCHASE_PACKS;
         }
     }
     
+    [instrumentMut addObject:[[Instrument alloc] initWithName:@"Voice" color:[UIColor grayColor]  andBaseOctave:5]];
+
     
     INSTRUMENTS  = [[NSArray alloc]initWithArray:instrumentMut];
     

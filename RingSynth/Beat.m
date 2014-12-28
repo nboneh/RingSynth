@@ -1,15 +1,15 @@
 //
-//  Measure.m
+//  Beat.m
 //  RingSeq
 //
 //  Created by Nir Boneh on 10/16/14.
 //  Copyright (c) 2014 Clouby. All rights reserved.
 //
 
-#import "Measure.h"
+#import "Beat.h"
 #import "NotesHolder.h"
 
-@implementation Measure
+@implementation Beat
 @synthesize delegate = _delegate;
 @synthesize num = _num;
 @synthesize noteHolders = _noteHolders;
@@ -23,8 +23,6 @@
         _num = num;
         _initialNotesHolder = [[NotesHolder alloc] initWithStaff:staff  andFrame:CGRectMake(0, 0, _widthPerNoteHolder, self.frame.size.height) andTitle:[@(num+ 1) stringValue] andChannel:channel];
         [self addSubview:_initialNotesHolder];
-        _currentSubdivision = quaters;
-        [self changeSubDivision:_currentSubdivision];
         _initialNotesHolder.titleView.userInteractionEnabled = YES;
         UITapGestureRecognizer *singleFingerTap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -32,6 +30,8 @@
         [_initialNotesHolder.titleView addGestureRecognizer:singleFingerTap];
         _noteHolders = [[NSMutableArray alloc] init];
         [_noteHolders addObject:_initialNotesHolder];
+        _currentSubdivision = sixteenths;
+        [self changeSubDivision:_currentSubdivision];
         
         
     }
@@ -59,56 +59,50 @@
     CGRect frame ;
     int height = self.frame.size.height;
     switch(subdivision){
-        case quaters:
-            break;
         case sixteenths:
-            
-        case eighths:
-            x1 = self.frame.size.width/2;
+            x1 = self.frame.size.width/4;
             if(!notesHolder1){
-                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"&" andChannel:channel];
-                [_noteHolders addObject:notesHolder1];
+                notesHolder1 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x1,0, _widthPerNoteHolder,height) andTitle:@"e" andChannel:channel];
+                [_noteHolders addObject:notesHolder1 ];
                 [self addSubview:notesHolder1];
             }
             else{
-                notesHolder1.titleView.text = @"&";
+                notesHolder1.titleView.text = @"e";
                 frame = notesHolder1.frame;
                 frame.origin.x = x1;
                 notesHolder1.frame = frame;
                 [notesHolder1 setHidden:NO];
             }
             
-            
-            if(_currentSubdivision == eighths)
-                break;
-            
-            x2 = 3*self.frame.size.width/4;
-            x3 = self.frame.size.width/4;
-            
+            x2 = self.frame.size.width/2;
             if(!notesHolder2){
-                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height)andTitle:@"a" andChannel:channel];
+                notesHolder2 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x2,0, _widthPerNoteHolder,height) andTitle:@"&" andChannel:channel];
                 [_noteHolders addObject:notesHolder2];
                 [self addSubview:notesHolder2];
             }
             else{
-                notesHolder2.titleView.text = @"a";
+                notesHolder2.titleView.text = @"&";
                 frame = notesHolder2.frame;
                 frame.origin.x = x2;
                 notesHolder2.frame = frame;
-                [notesHolder2 setHidden: NO];
+                [notesHolder2 setHidden:NO];
             }
             
+            
+            
+            x3 = 3*self.frame.size.width/4;
+            
             if(!notesHolder3){
-                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height) andTitle:@"e" andChannel:channel];
-                [_noteHolders addObject:notesHolder3 ];
+                notesHolder3 = [[NotesHolder alloc] initWithStaff:_staff andFrame: CGRectMake(x3,0, _widthPerNoteHolder,height)andTitle:@"a" andChannel:channel];
+                [_noteHolders addObject:notesHolder3];
                 [self addSubview:notesHolder3];
             }
             else{
-                notesHolder3.titleView.text = @"e";
+                notesHolder3.titleView.text = @"a";
                 frame = notesHolder3.frame;
                 frame.origin.x = x3;
                 notesHolder3.frame = frame;
-                [notesHolder3 setHidden:NO];
+                [notesHolder3 setHidden: NO];
             }
             
             break;
@@ -152,7 +146,7 @@
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     _currentSubdivision++;
     if(_currentSubdivision >= numOfSubdivisions)
-        _currentSubdivision = 0;
+        _currentSubdivision = triplets;
     [self changeSubDivision:_currentSubdivision];
     if(_delegate)
         [_delegate changeSubDivision:_currentSubdivision];
@@ -200,37 +194,18 @@
         [self stop];
         return;
     }
-    
-    if(_currentSubdivision == sixteenths){
-        switch(currentPlayingNoteHolder){
-            case 0:
-                currentPlayingNoteHolder = 3;
-                break;
-            case 3:
-                currentPlayingNoteHolder = 1;
-                break;
-            case 1:
-                currentPlayingNoteHolder = 2;
-                break;
-            case 2:
-                currentPlayingNoteHolder = 4;
-                break;
-        }
-    } else {
-        currentPlayingNoteHolder++;
-    }
-    
+    currentPlayingNoteHolder++;
 }
 
 -(void)stop{
     if(playTimer){
-    [playTimer invalidate];
-    playTimer = nil;
-    prevNoteHolder = nil;
-    for(NotesHolder * notesHolder in _noteHolders){
-        [notesHolder.titleView setTextColor:[UIColor blackColor]];
-        [notesHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
-    }
+        [playTimer invalidate];
+        playTimer = nil;
+        prevNoteHolder = nil;
+        for(NotesHolder * notesHolder in _noteHolders){
+            [notesHolder.titleView setTextColor:[UIColor blackColor]];
+            [notesHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
+        }
     }
 }
 
@@ -254,35 +229,36 @@
     NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
     [preSaveFile setValue:[NSNumber numberWithInt:self.currentSubdivision] forKey:@"subdivision"];
     NSMutableArray*preSaveNoteHolders = [[NSMutableArray alloc] init];
-    if(_currentSubdivision == sixteenths){
-        //We are going to align the sixteenth note array normally to make the encoding wav file process easier
-        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:0] createSaveFile] atIndex:0] ;
-        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:3] createSaveFile] atIndex:1] ;
-        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:1] createSaveFile] atIndex:2] ;
-        [preSaveNoteHolders insertObject:[[_noteHolders objectAtIndex:2] createSaveFile] atIndex:3] ;
-    }
-    else{
-        for(int i = 0; i<  (_currentSubdivision +1); i++){
-            [preSaveNoteHolders addObject:[[_noteHolders objectAtIndex:i] createSaveFile]];
-        }
+    
+    for(int i = 0; i<  (_currentSubdivision +1); i++){
+        [preSaveNoteHolders addObject:[[_noteHolders objectAtIndex:i] createSaveFile]];
     }
     [preSaveFile setValue:[[NSArray alloc] initWithArray:preSaveNoteHolders] forKey:@"notesholders"];
     return [[NSDictionary alloc] initWithDictionary:preSaveFile];
 }
 
 -(void)loadSaveFile:(NSDictionary *)saveFile{
-    [self changeSubDivision:[[saveFile objectForKey:@"subdivision"] intValue]];
+    int currentSubdivision =[[saveFile objectForKey:@"subdivision"] intValue];
+    BOOL wasEightNotes = NO;
+    //Out of range used to have quaters and eigth notes
+    if(currentSubdivision < triplets){
+        if(currentSubdivision == 1)
+            //For backward compatibility
+            wasEightNotes = YES;
+        currentSubdivision = sixteenths;
+    }
+    
+    
+    [self changeSubDivision:currentSubdivision];
     NSArray * loadNotesHolders = [saveFile objectForKey:@"notesholders"];
-    if(_currentSubdivision == sixteenths){
-        [[_noteHolders objectAtIndex:0] loadSaveFile:[loadNotesHolders objectAtIndex:0]];
-        [[_noteHolders objectAtIndex:3] loadSaveFile:[loadNotesHolders objectAtIndex:1]];
-        [[_noteHolders objectAtIndex:1] loadSaveFile:[loadNotesHolders objectAtIndex:2]];
-        [[_noteHolders objectAtIndex:2] loadSaveFile:[loadNotesHolders objectAtIndex:3]];
+    if(wasEightNotes){
+         [[_noteHolders objectAtIndex:0] loadSaveFile:[loadNotesHolders objectAtIndex:0]];
+        [[_noteHolders objectAtIndex:2] loadSaveFile:[loadNotesHolders objectAtIndex:1]];
     }
-    else{
-    for(int i =0; i < [loadNotesHolders count]; i++){
-        [[_noteHolders objectAtIndex:i] loadSaveFile:[loadNotesHolders objectAtIndex:i]];
+    else {
+        for(int i =0; i < [loadNotesHolders count]; i++){
+            [[_noteHolders objectAtIndex:i] loadSaveFile:[loadNotesHolders objectAtIndex:i]];
+        }
     }
-    }
-}
+} 
 @end

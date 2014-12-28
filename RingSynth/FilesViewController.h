@@ -1,5 +1,5 @@
 //
-//  MasterViewController.h
+//  FilesViewController.h
 //  RingSeq
 //
 //  Created by Nir Boneh on 10/9/14.

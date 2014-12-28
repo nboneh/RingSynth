@@ -21,7 +21,7 @@
     NSTimer *stopAnimTimer;
     NSTimer *stopPlayingTimer;
 }
-@property(nonatomic) int numOfMeasures;
+@property(nonatomic) int numOfBeats;
 @property BOOL isPlaying;
 -(void)replay;
 -(void)changeLayer:(int)index;

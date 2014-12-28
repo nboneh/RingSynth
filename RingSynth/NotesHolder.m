@@ -8,8 +8,8 @@
 
 #import "NotesHolder.h"
 #import "Assets.h"
-#import "DetailViewController.h"
 #import "Drums.h"
+#import "MusicViewController.h"
 
 
 @interface NotesHolder()
@@ -105,7 +105,7 @@
 
 -(void)placeNoteAtY:(int)y {
     
-    if(![DetailViewController CURRENT_INSTRUMENT]){
+    if(![MusicViewController CURRENT_INSTRUMENT]){
         return;
     }
     y -=_titleViewHeight;
@@ -113,7 +113,7 @@
     if(pos >=  [_staff.notePlacements count]  )
         return;
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
-    Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:[DetailViewController CURRENT_INSTRUMENT] andAccedintal:[DetailViewController CURRENT_ACCIDENTAL]];
+    Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:[MusicViewController CURRENT_INSTRUMENT] andAccedintal:[MusicViewController CURRENT_ACCIDENTAL]];
     if([self insertNote:note])
         [note playWithVolume:[_volumeSlider value]];
 }

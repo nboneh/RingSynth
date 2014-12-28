@@ -1,5 +1,5 @@
 //
-//  Measure.h
+//  Beat.h
 //  RingSeq
 //
 //  Created by Nir Boneh on 10/16/14.
@@ -11,17 +11,15 @@
 #import "ObjectAL.h"
 
 typedef enum {
-    quaters = 0,
-    eighths =1,
     triplets = 2,
     sixteenths = 3,
     numOfSubdivisions = 4
 } Subdivision;
-@protocol MeasureDelegate
+@protocol BeatDelegate
 @optional
 -(void)changeSubDivision:(Subdivision)subdivision;
 @end
-@interface Measure : UIView{
+@interface Beat : UIView{
     int currentPlayingNoteHolder;
     NSTimer *playTimer;
     ALChannelSource *channel;

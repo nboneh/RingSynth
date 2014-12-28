@@ -1,23 +1,23 @@
 
 //
-//  DetailViewController.m
+//  MusicViewController.m
 //  RingSeq
 //
 //  Created by Nir Boneh on 10/9/14.
 //  Copyright (c) 2014 Clouby. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "MusicViewController.h"
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
 
-@interface DetailViewController ()
+@interface MusicViewController ()
 -(void)fixSegements;
 -(void)addInstrument:(Instrument *)instrument fromLoad:(BOOL)load;
 @end
 
-@implementation DetailViewController
+@implementation MusicViewController
 
 @synthesize bottomBar = _bottomBar;
 static const int MIN_TEMPO =11;
@@ -109,7 +109,7 @@ static BOOL LOOPING;
     if(firstTimeLoadingSubView){
         CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
         _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
-        [_fullGrid setNumOfMeasures:[_beatsTextField.text intValue]];
+        [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
         [self.view addSubview:_fullGrid];
         [self.view bringSubviewToFront: _instrumentController];
         [self.view bringSubviewToFront: _bottomBar];
@@ -213,7 +213,7 @@ static BOOL LOOPING;
             [self addInstrument:instrument fromLoad:YES];
         }
         [_instrumentController setSelectedSegmentIndex:0];
-        [_fullGrid setNumOfMeasures:[_beatsTextField.text intValue]];
+        [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
         [_fullGrid loadSaveFile:[saveFile objectForKey:@"fullGrid"]];
         [self.view addSubview:_fullGrid];
     }
@@ -410,7 +410,7 @@ static BOOL LOOPING;
         _tempoField.text =  [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
     else if(alertView == beatAlert){
         _beatsTextField.text = [NSString stringWithFormat:@"%d", [[alertView textFieldAtIndex:0].text intValue]];
-        [_fullGrid setNumOfMeasures: [_beatsTextField.text intValue]];
+        [_fullGrid setNumOfBeats: [_beatsTextField.text intValue]];
     }
     else if(alertView == sucessAlert){
         if(!emailAlert)
@@ -494,7 +494,7 @@ static BOOL LOOPING;
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
     [self.fullScreenAdViewController requestAndDisplayAdFromViewController:self];
     self.navigationItem.hidesBackButton = YES;
-    //Saving as Saftey measure
+    //Saving for saftey
     [self save];
     
     UIBarButtonItem* _createButton =  self.navigationItem.rightBarButtonItem;
