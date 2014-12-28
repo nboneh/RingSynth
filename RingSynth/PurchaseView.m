@@ -8,6 +8,8 @@
 
 #import "PurchaseView.h"
 #import "Assets.h"
+#import "MusicFilesViewController.h"
+#import "Util.h"
 
 @implementation PurchaseView
 @synthesize identifier = _identifier;
@@ -182,10 +184,7 @@
     }
     
     //Adding sample song
-    NSMutableArray *ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RING_TONE_LIST_FILE_NAME]];
-    if(ringtones == nil){
-        ringtones = [[NSMutableArray alloc] init];
-    }
+    NSMutableArray *ringtones =   [MusicFilesViewController RINGTONE_LIST];
     
     
     NSString *musicPath  =[[NSBundle mainBundle] pathForResource:sampleName ofType:@""];
@@ -205,14 +204,9 @@
     }
     
     [ringtones insertObject:useName atIndex:0];
-    [data writeToFile:[self getPath:useName] atomically:YES];
-    [NSKeyedArchiver archiveRootObject:ringtones toFile:[self getPath:(id) RING_TONE_LIST_FILE_NAME]];
+    [data writeToFile:[Util getRingtonePath:useName] atomically:YES];
+     [MusicFilesViewController SAVE_RINGTONE_LIST];
     
-}
-- (NSString *) getPath:(NSString *)fileName
-{
-    NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    return [path stringByAppendingPathComponent:fileName];
 }
 
 @end

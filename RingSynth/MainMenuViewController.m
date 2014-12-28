@@ -7,9 +7,10 @@
 //
 
 #import "MainMenuViewController.h"
-#import "FilesViewController.h"
 #import "Assets.h"
 #import "Instrument.h"
+#import "MusicFilesViewController.h"
+#import "Util.h"
 
 @implementation MainMenuViewController
 
@@ -18,6 +19,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
     
+    [self updateApp];
     
     //Not allowed to go back using slide from nested view controllers 
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
@@ -70,7 +72,7 @@
                                                           toItem:nil
                                                        attribute:NSLayoutAttributeNotAnAttribute
                                                       multiplier:0
-                                                        constant:(textSize.width + dimensionAdd.width)];
+                                                        constant:(textSize.width + dimensionAdd.width*2)];
         
         
         
@@ -80,14 +82,34 @@
                                                            toItem:nil
                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                        multiplier:0
-                                                         constant:(textSize.height + dimensionAdd.height/2)];
+                                                         constant:(textSize.height + dimensionAdd.height*.7f)];
         
     
     [button addConstraint:constraintHeight];
     [button addConstraint:constraintWidth];
     [button setBackgroundImage:[UIImage imageNamed:@"buttonbackground"] forState:UIControlStateNormal];
     
+}
 
+-(void) updateApp{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    if([userDefaults boolForKey:@"updatedApp"])
+        return;
+   //All ringtone files will now have .rin extension
+    NSArray * ringtones = [MusicFilesViewController RINGTONE_LIST];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    for(NSString * ringtone in ringtones){
+        NSString * path = [Util getPath:ringtone];
+        if([fm fileExistsAtPath:path] ){
+            NSString *newPath = [Util getRingtonePath:ringtone];
+            NSString *copyContent = [NSKeyedUnarchiver unarchiveObjectWithFile: path];
+            [NSKeyedArchiver archiveRootObject:copyContent toFile:newPath];
+            [fm removeItemAtPath:path error:nil];
+            
+        }
+    }
     
+    [userDefaults setBool:YES forKey:@"updatedApp"];
+    [userDefaults synchronize];
 }
 @end

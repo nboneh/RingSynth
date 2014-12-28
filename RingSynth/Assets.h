@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#define RING_TONE_LIST_FILE_NAME @"ringtones.dat"
 
 @interface Assets : NSObject
 

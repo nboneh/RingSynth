@@ -20,25 +20,93 @@
             </objects>
             <point key="canvasLocation" x="-508" y="-849"/>
         </scene>
-        <!--Instrument Creator-->
-        <scene sceneID="yih-2Y-487">
+        <!--Instrument-->
+        <scene sceneID="ad3-FY-oAm">
             <objects>
-                <viewController id="mRz-Ho-CCs" customClass="InstrumentsViewController" sceneMemberID="viewController">
+                <viewController id="tBr-5c-qe6" customClass="InstrumentViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="v2d-9g-kyG"/>
-                        <viewControllerLayoutGuide type="bottom" id="VCb-yb-Tl2"/>
+                        <viewControllerLayoutGuide type="top" id="4Wb-ld-UOF"/>
+                        <viewControllerLayoutGuide type="bottom" id="JTZ-fb-GcW"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="09E-0t-Fm7">
+                    <view key="view" contentMode="scaleToFill" id="gDN-kW-Uqc">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Instrument Creator" id="JCa-rz-eP3"/>
+                    <navigationItem key="navigationItem" title="Instrument" id="bhz-e1-mEi"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tas-e2-Lmi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="loW-ih-BuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-165" y="-1436"/>
+            <point key="canvasLocation" x="-289" y="-1771"/>
+        </scene>
+        <!--Instruments-->
+        <scene sceneID="Rvf-6h-9Vl">
+            <objects>
+                <tableViewController id="23M-2c-PVp" customClass="InstrumentFilesViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LLV-Uo-7Pa">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="gZi-Yl-M82">
+                            <rect key="frame" x="0.0" y="64" width="568" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="23M-2c-PVp" id="Ml0-uy-Rgk"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="S59-K6-4QU" imageView="nOB-xd-gpM" style="IBUITableViewCellStyleDefault" id="pTE-nS-rm3">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pTE-nS-rm3" id="9Yd-9T-fvB">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="S59-K6-4QU">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Acoustic Guitar" id="nOB-xd-gpM">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="tBr-5c-qe6" kind="push" identifier="showInstrument" id="Xhx-5S-WDA"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="23M-2c-PVp" id="qWj-bw-qHG"/>
+                            <outlet property="delegate" destination="23M-2c-PVp" id="3PO-Hq-O9t"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Instruments" id="bhA-pi-YT1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ajc-jP-oEG">
+                            <connections>
+                                <action selector="addItem" destination="23M-2c-PVp" id="XkB-dI-AKw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="hfg-ch-NS5" id="7SA-UA-tmH"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sa8-AQ-av2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="hfg-ch-NS5">
+                    <connections>
+                        <outlet property="delegate" destination="23M-2c-PVp" id="QRy-iA-5nN"/>
+                        <outlet property="searchBar" destination="gZi-Yl-M82" id="P9V-wx-fxY"/>
+                        <outlet property="searchContentsController" destination="23M-2c-PVp" id="4On-9R-SB1"/>
+                        <outlet property="searchResultsDataSource" destination="23M-2c-PVp" id="KHr-jp-hyw"/>
+                        <outlet property="searchResultsDelegate" destination="23M-2c-PVp" id="OeH-l7-CSK"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="-195" y="-1447"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="vmo-vj-wsd">
@@ -111,7 +179,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="mRz-Ho-CCs" kind="push" id="HuC-Oy-FfW"/>
+                                    <segue destination="23M-2c-PVp" kind="push" id="0vf-VK-aHQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -308,7 +376,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
+                    <navigationItem key="navigationItem" title="Ringtone" id="mOI-FS-AaM">
                         <barButtonItem key="rightBarButtonItem" image="download" id="dar-5b-x6U">
                             <connections>
                                 <action selector="exportMusic:" destination="JEX-9P-axG" id="OBs-qe-t9R"/>
@@ -334,7 +402,7 @@
         <!--Master-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
-                <tableViewController title="Master" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="FilesViewController" sceneMemberID="viewController">
+                <tableViewController title="Master" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="MusicFilesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r7i-6Z-zg0">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -366,7 +434,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="JEX-9P-axG" kind="push" identifier="showDetail" id="Zvd-z6-5SI"/>
+                                    <segue destination="JEX-9P-axG" kind="push" identifier="showMusic" id="Zvd-z6-5SI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -403,6 +471,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Acoustic Guitar" width="22" height="22"/>
         <image name="background" width="1600" height="613"/>
         <image name="download" width="22" height="22"/>
         <image name="help" width="1114" height="679"/>
@@ -415,7 +484,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ilo-pb-Fjj"/>
-        <segue reference="cuI-jf-v9C"/>
+        <segue reference="oQp-E4-3gw"/>
+        <segue reference="wFY-Em-PXW"/>
     </inferredMetricsTieBreakers>
 </document>

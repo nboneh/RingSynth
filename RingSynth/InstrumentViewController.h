@@ -1,5 +1,5 @@
 //
-//  InstrumentsViewController.h
+//  InstrumentViewController.h
 //  RingSynth
 //
 //  Created by Nir Boneh on 12/27/14.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InstrumentsViewController : UIViewController
+@interface InstrumentViewController : UIViewController
 
+
+@property (strong, nonatomic) id name;
 @end

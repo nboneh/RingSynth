@@ -166,11 +166,13 @@
 		0BD0CF1D1A3BA8BF0045C76A /* Off The Beach.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0BD0CE5E1A3BA7FC0045C76A /* Off The Beach.m4a */; };
 		0BD0CF261A3BABE50045C76A /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF251A3BABE50045C76A /* HelpViewController.m */; };
 		0BD0CF2C1A3BABF50045C76A /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF2B1A3BABF50045C76A /* MainMenuViewController.m */; };
-		0BD0CF2F1A3BAC500045C76A /* FilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF2E1A3BAC500045C76A /* FilesViewController.m */; };
+		0BD0CF2F1A3BAC500045C76A /* MusicFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF2E1A3BAC500045C76A /* MusicFilesViewController.m */; };
 		0BD0CF321A3BAC630045C76A /* MusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF311A3BAC630045C76A /* MusicViewController.m */; };
 		0BD0CF351A3BAC720045C76A /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF341A3BAC720045C76A /* ShopViewController.m */; };
 		0BD0CF371A47BBB60045C76A /* Voice.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BD0CF361A47BBB60045C76A /* Voice.wav */; };
-		0BD0CF421A4FB0FE0045C76A /* InstrumentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF411A4FB0FE0045C76A /* InstrumentsViewController.m */; };
+		0BD0CF421A4FB0FE0045C76A /* InstrumentFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF411A4FB0FE0045C76A /* InstrumentFilesViewController.m */; };
+		0BD0CF451A4FD1080045C76A /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF441A4FD1080045C76A /* Util.m */; };
+		0BD0CF481A4FE19E0045C76A /* InstrumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF471A4FE19E0045C76A /* InstrumentViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -421,15 +423,19 @@
 		0BD0CF251A3BABE50045C76A /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelpViewController.m; path = RingSynth/HelpViewController.m; sourceTree = "<group>"; };
 		0BD0CF2A1A3BABF50045C76A /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuViewController.h; path = RingSynth/MainMenuViewController.h; sourceTree = "<group>"; };
 		0BD0CF2B1A3BABF50045C76A /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuViewController.m; path = RingSynth/MainMenuViewController.m; sourceTree = "<group>"; };
-		0BD0CF2D1A3BAC500045C76A /* FilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilesViewController.h; path = RingSynth/FilesViewController.h; sourceTree = "<group>"; };
-		0BD0CF2E1A3BAC500045C76A /* FilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilesViewController.m; path = RingSynth/FilesViewController.m; sourceTree = "<group>"; };
+		0BD0CF2D1A3BAC500045C76A /* MusicFilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicFilesViewController.h; path = RingSynth/MusicFilesViewController.h; sourceTree = "<group>"; };
+		0BD0CF2E1A3BAC500045C76A /* MusicFilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MusicFilesViewController.m; path = RingSynth/MusicFilesViewController.m; sourceTree = "<group>"; };
 		0BD0CF301A3BAC630045C76A /* MusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicViewController.h; path = RingSynth/MusicViewController.h; sourceTree = "<group>"; };
 		0BD0CF311A3BAC630045C76A /* MusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MusicViewController.m; path = RingSynth/MusicViewController.m; sourceTree = "<group>"; };
 		0BD0CF331A3BAC720045C76A /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopViewController.h; path = RingSynth/ShopViewController.h; sourceTree = "<group>"; };
 		0BD0CF341A3BAC720045C76A /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = RingSynth/ShopViewController.m; sourceTree = "<group>"; };
 		0BD0CF361A47BBB60045C76A /* Voice.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Voice.wav; sourceTree = "<group>"; };
-		0BD0CF401A4FB0FE0045C76A /* InstrumentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstrumentsViewController.h; path = RingSynth/InstrumentsViewController.h; sourceTree = "<group>"; };
-		0BD0CF411A4FB0FE0045C76A /* InstrumentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstrumentsViewController.m; path = RingSynth/InstrumentsViewController.m; sourceTree = "<group>"; };
+		0BD0CF401A4FB0FE0045C76A /* InstrumentFilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstrumentFilesViewController.h; path = RingSynth/InstrumentFilesViewController.h; sourceTree = "<group>"; };
+		0BD0CF411A4FB0FE0045C76A /* InstrumentFilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstrumentFilesViewController.m; path = RingSynth/InstrumentFilesViewController.m; sourceTree = "<group>"; };
+		0BD0CF431A4FD1080045C76A /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		0BD0CF441A4FD1080045C76A /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		0BD0CF461A4FE19E0045C76A /* InstrumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstrumentViewController.h; path = RingSynth/InstrumentViewController.h; sourceTree = "<group>"; };
+		0BD0CF471A4FE19E0045C76A /* InstrumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InstrumentViewController.m; path = RingSynth/InstrumentViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -480,6 +486,8 @@
 				0B190B091A09CF0D0079A606 /* PurchaseView.m */,
 				0B190B0C1A09D8490079A606 /* InstrumentPurchaseView.h */,
 				0B190B0D1A09D8490079A606 /* InstrumentPurchaseView.m */,
+				0BD0CF431A4FD1080045C76A /* Util.h */,
+				0BD0CF441A4FD1080045C76A /* Util.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -745,14 +753,16 @@
 				0BD0CF251A3BABE50045C76A /* HelpViewController.m */,
 				0BD0CF2A1A3BABF50045C76A /* MainMenuViewController.h */,
 				0BD0CF2B1A3BABF50045C76A /* MainMenuViewController.m */,
-				0BD0CF2D1A3BAC500045C76A /* FilesViewController.h */,
-				0BD0CF2E1A3BAC500045C76A /* FilesViewController.m */,
+				0BD0CF2D1A3BAC500045C76A /* MusicFilesViewController.h */,
+				0BD0CF2E1A3BAC500045C76A /* MusicFilesViewController.m */,
 				0BD0CF301A3BAC630045C76A /* MusicViewController.h */,
 				0BD0CF311A3BAC630045C76A /* MusicViewController.m */,
 				0BD0CF331A3BAC720045C76A /* ShopViewController.h */,
 				0BD0CF341A3BAC720045C76A /* ShopViewController.m */,
-				0BD0CF401A4FB0FE0045C76A /* InstrumentsViewController.h */,
-				0BD0CF411A4FB0FE0045C76A /* InstrumentsViewController.m */,
+				0BD0CF401A4FB0FE0045C76A /* InstrumentFilesViewController.h */,
+				0BD0CF411A4FB0FE0045C76A /* InstrumentFilesViewController.m */,
+				0BD0CF461A4FE19E0045C76A /* InstrumentViewController.h */,
+				0BD0CF471A4FE19E0045C76A /* InstrumentViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -1094,7 +1104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B5D654B19FC7FFF00C408D4 /* mach_timing.c in Sources */,
-				0BD0CF421A4FB0FE0045C76A /* InstrumentsViewController.m in Sources */,
+				0BD0CF421A4FB0FE0045C76A /* InstrumentFilesViewController.m in Sources */,
 				0B9AFA0319F3455E00F6C176 /* Drums.m in Sources */,
 				0B9AF93619F3287E00F6C176 /* OALUtilityActions.m in Sources */,
 				0B9AF94A19F3287E00F6C176 /* NSMutableDictionary+WeakReferences.m in Sources */,
@@ -1104,7 +1114,8 @@
 				0BD0CF351A3BAC720045C76A /* ShopViewController.m in Sources */,
 				0B74953419EC5C570078296B /* NoteDescription.m in Sources */,
 				0B9AF93919F3287E00F6C176 /* OALAudioTracks.m in Sources */,
-				0BD0CF2F1A3BAC500045C76A /* FilesViewController.m in Sources */,
+				0BD0CF2F1A3BAC500045C76A /* MusicFilesViewController.m in Sources */,
+				0BD0CF481A4FE19E0045C76A /* InstrumentViewController.m in Sources */,
 				0B9AF93419F3287E00F6C176 /* OALActionManager.m in Sources */,
 				0B9AF93A19F3287E00F6C176 /* OALSimpleAudio.m in Sources */,
 				0B9AF94119F3287E00F6C176 /* ALSoundSourcePool.m in Sources */,
@@ -1128,6 +1139,7 @@
 				0B190B0A1A09CF0D0079A606 /* PurchaseView.m in Sources */,
 				0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */,
 				0B9AF94319F3287E00F6C176 /* ALWrapper.m in Sources */,
+				0BD0CF451A4FD1080045C76A /* Util.m in Sources */,
 				0BD0CF321A3BAC630045C76A /* MusicViewController.m in Sources */,
 				0BD0CF2C1A3BABF50045C76A /* MainMenuViewController.m in Sources */,
 				0B39A04C19F04601006B7EA5 /* Beat.m in Sources */,

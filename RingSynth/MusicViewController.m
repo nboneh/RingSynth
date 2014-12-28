@@ -11,6 +11,7 @@
 #import "Assets.h"
 #import "Staff.h"
 #import "Layout.h"
+#import "Util.h"
 
 @interface MusicViewController ()
 -(void)fixSegements;
@@ -22,6 +23,8 @@
 @synthesize bottomBar = _bottomBar;
 static const int MIN_TEMPO =11;
 static const int MAX_TEMPO = 500;
+
+static  NSString *SHOWED_HELP = @"showedHelp";
 
 static const int MIN_BEATS =4;
 static const int MAX_BEATS = 99;
@@ -151,7 +154,7 @@ static BOOL LOOPING;
     [self changeInstruments];
     [[OALSimpleAudio sharedInstance] stopAllEffects];
     [[OALSimpleAudio sharedInstance] setMuted:NO];
-
+    
 }
 
 -(void)becameActive:(NSNotification *)notification{
@@ -195,11 +198,11 @@ static BOOL LOOPING;
     [preSaveFile setValue:[[NSArray alloc] initWithArray:saveInstruments] forKey:@"instruments"];
     [preSaveFile setValue:[_fullGrid createSaveFile] forKey:@"fullGrid"];
     NSDictionary *saveFile = [[NSDictionary alloc] initWithDictionary:preSaveFile];
-    [NSKeyedArchiver archiveRootObject:saveFile toFile:[self getPath:(id) _name]];
+    [NSKeyedArchiver archiveRootObject:saveFile toFile:[Util getRingtonePath:(id) _name]];
 }
 
 -(void)load{
-    NSDictionary *saveFile =[NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id) _name]];
+    NSDictionary *saveFile =[NSKeyedUnarchiver unarchiveObjectWithFile: [Util getRingtonePath:(id) _name]];
     if(saveFile){
         _tempoField.text =[saveFile objectForKey:@"tempo"];
         _beatsTextField.text = [saveFile objectForKey:@"beats"];
@@ -216,9 +219,12 @@ static BOOL LOOPING;
         [_fullGrid loadSaveFile:[saveFile objectForKey:@"fullGrid"]];
         [self.view addSubview:_fullGrid];
     } else {
-        helpAlert = [[UIAlertView alloc] initWithTitle:@"First time making ringtone?" message:@"It is highly recommended to view the help screen!" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-        [helpAlert show];
-
+        BOOL showedHelp = [[NSUserDefaults standardUserDefaults] boolForKey:SHOWED_HELP];
+        if(!showedHelp){
+            helpAlert = [[UIAlertView alloc] initWithTitle:@"First time making ringtone?" message:@"It is highly recommended to view the help screen!" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            [helpAlert show];
+        }
+        
     }
 }
 
@@ -286,8 +292,8 @@ static BOOL LOOPING;
 }
 - (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-
-
+    
+    
     if(buttonIndex ==popup.cancelButtonIndex){
         [_instrumentController setSelectedSegmentIndex:prevSelect];
         [_fullGrid changeLayer:prevSelect -1];
@@ -332,7 +338,7 @@ static BOOL LOOPING;
                 [_fullGrid changeLayer:prevSelect -1];
                 return;
             }
-
+            
             NSInteger pos = [_instrumentController selectedSegmentIndex];
             [instruments removeObjectAtIndex:([_instrumentController selectedSegmentIndex] -1)];
             [instruments insertObject:instrument atIndex:(pos-1)];
@@ -448,7 +454,7 @@ static BOOL LOOPING;
             MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
             [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
             [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App %@ for iOS. \n\r Check it out at: https://itunes.apple.com/app/id938020959", self.name, [[[NSBundle mainBundle] infoDictionary]   objectForKey:@"CFBundleName"]] isHTML:NO];
-            NSData *content = [[NSData alloc] initWithContentsOfFile:[self getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
+            NSData *content = [[NSData alloc] initWithContentsOfFile:[Util getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
             [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.m4a", self.name]];
             mc.mailComposeDelegate = self;
             // Present mail view controller on screen
@@ -467,14 +473,13 @@ static BOOL LOOPING;
         if(buttonIndex == 1){
             [self performSegueWithIdentifier: @"pushHelpFromDetail" sender: self];
         }
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
+        [userDefaults setBool:YES forKey:SHOWED_HELP];
+        [userDefaults synchronize];
     }
     
 }
-- (NSString *) getPath:(NSString *)fileName
-{
-    NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    return [path stringByAppendingPathComponent:fileName];
-}
+
 -(void)fixSegements{
     _instrumentController.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - _instrumentController.frame.size.width/2, [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.toolbar.frame.size.height
                                              , _instrumentController.frame.size.width, _instrumentController.frame.size.height);
@@ -544,7 +549,7 @@ static BOOL LOOPING;
 
 
 - (void)fullScreenAdViewController:(AxonixFullScreenAdViewController*)fullScreenAdViewController didFailToLoadWithError:(NSError*)error {
-    NSLog(@"Failed to load full screen ad"); 
+    NSLog(@"Failed to load full screen ad");
 }
 - (void)fullScreenAdViewControllerDidFinishLoad:(AxonixFullScreenAdViewController*)fullScreenAdViewController {
     NSLog(@"Full screen ad was loaded");

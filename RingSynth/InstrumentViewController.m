@@ -1,23 +1,39 @@
 //
-//  InstrumentsViewController.m
+//  InstrumentViewController.m
 //  RingSynth
 //
 //  Created by Nir Boneh on 12/27/14.
 //  Copyright (c) 2014 Clouby. All rights reserved.
 //
 
-#import "InstrumentsViewController.h"
+#import "InstrumentViewController.h"
 
-@interface InstrumentsViewController ()
+@interface InstrumentViewController ()
 
 @end
 
-@implementation InstrumentsViewController
+@implementation InstrumentViewController
 
+#pragma mark - Managing the detail item
+
+- (void)setName:(id)newDetailItem {
+    if (_name != newDetailItem) {
+        _name = newDetailItem;
+        
+        // Update the view.
+        [self configureView];
+    }
+}
+
+- (void)configureView {
+    // Update the user interface for the detail item.
+    if (self.name) {
+        self.navigationItem.title = _name;
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.hidden = NO;
-
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
