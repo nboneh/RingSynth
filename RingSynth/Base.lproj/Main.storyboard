@@ -20,6 +20,26 @@
             </objects>
             <point key="canvasLocation" x="-508" y="-849"/>
         </scene>
+        <!--Instrument Creator-->
+        <scene sceneID="yih-2Y-487">
+            <objects>
+                <viewController id="mRz-Ho-CCs" customClass="InstrumentsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v2d-9g-kyG"/>
+                        <viewControllerLayoutGuide type="bottom" id="VCb-yb-Tl2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="09E-0t-Fm7">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Instrument Creator" id="JCa-rz-eP3"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tas-e2-Lmi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-165" y="-1436"/>
+        </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="vmo-vj-wsd">
             <objects>
@@ -51,9 +71,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHV-p2-NmD">
-                                <rect key="frame" x="259" y="165" width="51" height="33"/>
+                                <rect key="frame" x="247" y="144" width="75" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Create">
+                                <state key="normal" title="Compose">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -62,7 +82,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W57-3C-7su">
-                                <rect key="frame" x="266" y="206" width="36" height="33"/>
+                                <rect key="frame" x="266" y="226" width="36" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Help">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,7 +93,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJV-bz-hQ6">
-                                <rect key="frame" x="264" y="247" width="41" height="33"/>
+                                <rect key="frame" x="264" y="267" width="41" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Shop">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -83,20 +103,33 @@
                                     <segue destination="Ynr-Kr-KuT" kind="push" identifier="showShop" id="Ilo-pb-Fjj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYM-RT-aCb">
+                                <rect key="frame" x="215" y="185" width="138" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Make Instruments">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="mRz-Ho-CCs" kind="push" id="HuC-Oy-FfW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Srs-VQ-nPt" secondAttribute="trailing" constant="-30" id="6UI-Ad-fb9"/>
+                            <constraint firstItem="VYM-RT-aCb" firstAttribute="top" secondItem="gHV-p2-NmD" secondAttribute="bottom" constant="8" id="A2n-Rd-mYq"/>
                             <constraint firstAttribute="centerX" secondItem="Bgb-pm-rJf" secondAttribute="centerX" id="Dj8-MW-crN"/>
-                            <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="pJV-bz-hQ6" secondAttribute="bottom" constant="40" id="JVY-k7-vdB"/>
+                            <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="pJV-bz-hQ6" secondAttribute="bottom" constant="20" id="JVY-k7-vdB"/>
                             <constraint firstAttribute="centerX" secondItem="pJV-bz-hQ6" secondAttribute="centerX" id="MiC-2q-khN"/>
+                            <constraint firstItem="W57-3C-7su" firstAttribute="top" secondItem="VYM-RT-aCb" secondAttribute="bottom" constant="8" id="NmQ-h2-3yR"/>
                             <constraint firstAttribute="centerX" secondItem="W57-3C-7su" secondAttribute="centerX" id="UWb-uG-IBd"/>
+                            <constraint firstAttribute="centerX" secondItem="VYM-RT-aCb" secondAttribute="centerX" id="Xdx-Vu-4gs"/>
                             <constraint firstItem="pJV-bz-hQ6" firstAttribute="top" secondItem="W57-3C-7su" secondAttribute="bottom" constant="8" id="cUF-6Q-jnK"/>
                             <constraint firstItem="SSY-Vh-UxS" firstAttribute="top" secondItem="Srs-VQ-nPt" secondAttribute="bottom" id="dVg-of-HMT"/>
                             <constraint firstItem="Srs-VQ-nPt" firstAttribute="top" secondItem="ClE-xV-l0s" secondAttribute="topMargin" id="fLw-x2-Mjg"/>
                             <constraint firstItem="Bgb-pm-rJf" firstAttribute="top" secondItem="TNb-Gk-sJJ" secondAttribute="bottom" constant="21" id="fqW-gt-aIY"/>
                             <constraint firstItem="Srs-VQ-nPt" firstAttribute="leading" secondItem="ClE-xV-l0s" secondAttribute="leadingMargin" constant="-30" id="lTM-sI-ikK"/>
-                            <constraint firstItem="W57-3C-7su" firstAttribute="top" secondItem="gHV-p2-NmD" secondAttribute="bottom" constant="8" id="rWr-nV-i47"/>
                             <constraint firstAttribute="centerX" secondItem="gHV-p2-NmD" secondAttribute="centerX" id="z0L-Ib-rz2"/>
                         </constraints>
                     </view>
@@ -106,12 +139,13 @@
                         <outlet property="createButton" destination="gHV-p2-NmD" id="WXx-2D-Avi"/>
                         <outlet property="helpButton" destination="W57-3C-7su" id="qNE-Bk-pdD"/>
                         <outlet property="mainTitle" destination="Bgb-pm-rJf" id="XHk-zb-gZY"/>
+                        <outlet property="makeButton" destination="VYM-RT-aCb" id="HNj-bk-rJB"/>
                         <outlet property="shopButton" destination="pJV-bz-hQ6" id="C2S-ar-FYr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6a1-Ky-2xp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="76" y="-1168"/>
+            <point key="canvasLocation" x="-28" y="-1043"/>
         </scene>
         <!--Shop-->
         <scene sceneID="Lro-b1-S7d">
@@ -381,7 +415,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="oQp-E4-3gw"/>
-        <segue reference="wFY-Em-PXW"/>
+        <segue reference="Ilo-pb-Fjj"/>
+        <segue reference="cuI-jf-v9C"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -170,6 +170,7 @@
 		0BD0CF321A3BAC630045C76A /* MusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF311A3BAC630045C76A /* MusicViewController.m */; };
 		0BD0CF351A3BAC720045C76A /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF341A3BAC720045C76A /* ShopViewController.m */; };
 		0BD0CF371A47BBB60045C76A /* Voice.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0BD0CF361A47BBB60045C76A /* Voice.wav */; };
+		0BD0CF3F1A4FAF470045C76A /* InstrumentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0CF3E1A4FAF470045C76A /* InstrumentsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -427,6 +428,8 @@
 		0BD0CF331A3BAC720045C76A /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopViewController.h; path = RingSynth/ShopViewController.h; sourceTree = "<group>"; };
 		0BD0CF341A3BAC720045C76A /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = RingSynth/ShopViewController.m; sourceTree = "<group>"; };
 		0BD0CF361A47BBB60045C76A /* Voice.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Voice.wav; sourceTree = "<group>"; };
+		0BD0CF3D1A4FAF470045C76A /* InstrumentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentsViewController.h; sourceTree = "<group>"; };
+		0BD0CF3E1A4FAF470045C76A /* InstrumentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -748,6 +751,8 @@
 				0BD0CF311A3BAC630045C76A /* MusicViewController.m */,
 				0BD0CF331A3BAC720045C76A /* ShopViewController.h */,
 				0BD0CF341A3BAC720045C76A /* ShopViewController.m */,
+				0BD0CF3D1A4FAF470045C76A /* InstrumentsViewController.h */,
+				0BD0CF3E1A4FAF470045C76A /* InstrumentsViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -1134,6 +1139,7 @@
 				0B190B0E1A09D8490079A606 /* InstrumentPurchaseView.m in Sources */,
 				0B7AB60519F21C0D0092F808 /* SlidingSegment.m in Sources */,
 				0B74953119EC553C0078296B /* Staff.m in Sources */,
+				0BD0CF3F1A4FAF470045C76A /* InstrumentsViewController.m in Sources */,
 				0BD0CF261A3BABE50045C76A /* HelpViewController.m in Sources */,
 				0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */,
 			);

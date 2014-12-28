@@ -53,8 +53,8 @@
         }
     }
     
-   if([text isEqualToString:RING_TONE_LIST_FILE_NAME])
-       return NO;
+    if([text isEqualToString:RING_TONE_LIST_FILE_NAME])
+        return NO;
     return YES;
     
 }
@@ -90,10 +90,10 @@
             [fm removeItemAtPath:fileToBeDeleted error:nil];
         
         //Also delete the ringtone file if it exists
-        /*NSString* ringPath = [NSString stringWithFormat:@"%@%@", fileToBeDeleted, @".m4r"];
-         exists = [fm fileExistsAtPath:ringPath];
-         if(exists == YES)
-         [fm removeItemAtPath:ringPath error:nil];*/
+        NSString* ringPath = [NSString stringWithFormat:@"%@%@", fileToBeDeleted, @".m4r"];
+        exists = [fm fileExistsAtPath:ringPath];
+        if(exists == YES)
+            [fm removeItemAtPath:ringPath error:nil];
         
     }
     fileToBeDeleted =nil;
@@ -217,10 +217,10 @@
     _ringtones = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPath:(id)RING_TONE_LIST_FILE_NAME]];
     if(_ringtones == nil)
         _ringtones = [[NSMutableArray alloc] init];
-        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
-
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
+    
     if(![userDefaults boolForKey:@"loadedDefaults"]){
-           NSString * name = @"Opening (Default) Mix";
+        NSString * name = @"Opening (Default) Mix";
         //Loading defaults
         if(![_ringtones containsObject:name]){
             
