@@ -233,6 +233,7 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
         }
         [userDefaults setBool:YES forKey:@"loadedDefaults"];
         [userDefaults synchronize];
+        [MusicFilesViewController SAVE_RINGTONE_LIST];
     }
     return RINGTONE_LIST;
 

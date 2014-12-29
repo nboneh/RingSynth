@@ -79,7 +79,8 @@
     
     [_recordButton setTitle:@"Stop" forState:UIControlStateNormal];
     NSError *err = nil;
-    [audioSession setCategory :AVAudioSessionCategoryPlayAndRecord error:&err];
+    [audioSession setCategory :AVAudioSessionCategoryRecord error:&err];
+
     if(err){
         NSLog(@"audioSession: %@ %ld %@", [err domain], (long)[err code], [[err userInfo] description]);
         return;
@@ -115,10 +116,23 @@
         return;
     }
 
+
+
     recorder.delegate = self;
     recorder.meteringEnabled = YES;
+    
     [recorder prepareToRecord];
     [self.playButton setEnabled:NO];
+    if(audioSession.recordPermission == AVAudioSessionRecordPermissionUndetermined){
+        //If undecided don't record just prompt
+        [audioSession setActive:NO error:nil];
+        //Delete the file
+        NSFileManager *fm = [NSFileManager defaultManager];
+        [fm removeItemAtPath:waveFilePath error:nil];
+        return;
+    }
+
+    
     [recorder recordForDuration:(NSTimeInterval) 5];
     
 }
@@ -132,6 +146,7 @@
     [_recordButton setTitle:@"Record" forState:UIControlStateNormal];
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:NO error:nil];
+      [audioSession setCategory :AVAudioSessionCategoryPlayback error:nil];
     
     if([self recordingExists])
         [_playButton setEnabled:YES];
@@ -168,5 +183,10 @@
     [self stopPlaying];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self resignActive];
+    
+}
 
 @end
