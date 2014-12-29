@@ -210,9 +210,6 @@ static BOOL LOOPING;
         for(NSNumber * num in loadInstruments){
             Instrument* instrument =[[Assets INSTRUMENTS] objectAtIndex:[num intValue]];
             [self addInstrument:instrument fromLoad:YES];
-            
-            //This will load the sound to avoid latency when playing the ringtone for the first time
-            [[OALSimpleAudio sharedInstance] playBg:[NSString stringWithFormat:@"%@.wav", instrument.name] volume:0.0f pan:0 loop:NO];
         }
         [_instrumentController setSelectedSegmentIndex:0];
         [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];

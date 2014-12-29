@@ -7,6 +7,7 @@
 //
 
 #import "Layout.h"
+#import "Assets.h"
 
 
 @implementation Layout
@@ -37,6 +38,8 @@
         self.frame = CGRectMake(0, 0,  _widthPerBeat * numOfBeats + _widthFromFirstBeat,frame.size.height);
         _currentBeatPlaying = 0;
         self.clipsToBounds = YES;
+        
+
     }
     return self;
 }
@@ -51,14 +54,14 @@
                                               selector:@selector(playBeat:)
                                               userInfo:nil
                                                repeats:YES];
-     [playTimer fire];
-
+    [playTimer fire];
+    
     
 }
 -(void)playBeat:(NSTimer *)target{
     if(_currentBeatPlaying >= _numOfBeats){
-            [self stop];
-            return;
+        [self stop];
+        return;
     }
     
     
@@ -70,7 +73,7 @@
 
 -(void)stop{
     [playTimer invalidate];
-     playTimer = nil;
+    playTimer = nil;
     for(Beat * beat in _beats){
         [beat stop];
     }
@@ -91,7 +94,7 @@
         delX += _widthPerBeat;
         [beat setDelegate:self];
     }
-        
+    
 }
 
 -(Beat *)findBeatAtx:(int)x{

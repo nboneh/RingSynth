@@ -83,7 +83,7 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
         if(fileToBeDeleted){
             //Copy content to new renamed file
             NSString *copyContent = [NSKeyedUnarchiver unarchiveObjectWithFile: fileToBeDeleted];
-            [NSKeyedArchiver archiveRootObject:copyContent toFile:[Util getInstrumentPath:(id) newInst]];
+            [NSKeyedArchiver archiveRootObject:copyContent toFile:[Util getInstrumentPath :(id) newInst]];
             
         }
         

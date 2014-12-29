@@ -7,9 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface InstrumentViewController : UIViewController
+@interface InstrumentViewController : UIViewController<AVAudioRecorderDelegate,UIAlertViewDelegate, AVAudioPlayerDelegate>{
+    AVAudioRecorder *recorder;
+    NSString *waveFilePath;
+    AVAudioPlayer *player;
+}
 
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+
+-(IBAction) record;
+-(IBAction) play;
 
 @property (strong, nonatomic) id name;
 @end

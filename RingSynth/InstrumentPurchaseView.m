@@ -13,11 +13,16 @@
 -(id)initWitInstrument:(Instrument *) instrument_ andX:(int)x{
     self = [super initWithImage:instrument_.image];
     if(self){
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(stopSample)
+                                                     name: @"stopPurchasePlayer"
+                                                   object: nil];
+        
         instrument = instrument_;
         CGRect frame = self.frame;
         frame.origin.x = x;
         self.frame = frame;
-        origFrame = self.frame;
+        origFrame = frame;
         self.tintColor = instrument.color;
         [self setUserInteractionEnabled:YES];
         UITapGestureRecognizer *singleFingerTap =
@@ -25,19 +30,22 @@
                                                 action:@selector(handleSingleTap:)];
         [self addGestureRecognizer:singleFingerTap];
         
-        
     }
     return self;
 }
 
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    [self stopSample];
+}
+
+
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    [self stopAnimation];
-    [instrument play];
-    stopAnimationTimer =[NSTimer scheduledTimerWithTimeInterval:instrument.duration
-                                                target:self
-                                              selector:@selector(stopAnimation)
-                                              userInfo:nil
-                                               repeats:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"stopPurchasePlayer"
+                                                        object: nil
+                                                      userInfo: nil];
+      player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:instrument.name ofType:@"wav"]]  error:nil];
+    player.delegate = self;
+    [player play];
 
     UIView *view = recognizer.view;
     [UIView animateKeyframesWithDuration:0.2 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -50,10 +58,9 @@
         view.frame = frame;
     }completion:nil];
 }
--(void)stopAnimation{
+-(void)stopSample{
+    [player stop];
     [self.layer removeAllAnimations];
-    [stopAnimationTimer invalidate];
-    stopAnimationTimer = nil;
     self.frame = origFrame;
 }
 

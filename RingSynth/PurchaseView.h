@@ -11,17 +11,20 @@
 #import "InstrumentPurchaseView.h"
 #import "OALSimpleAudio.h"
 #import <StoreKit/StoreKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface PurchaseView : UIView<SKProductsRequestDelegate>{
+@interface PurchaseView : UIView<SKProductsRequestDelegate, AVAudioPlayerDelegate>{
     NSString *bundleName;
     NSString *sampleName;
     UIButton *playSampleButton;
-    NSTimer *stopSampleTimer;
     float price;
+       AVAudioPlayer *player;
     UIButton * purchaseButton ;
     NSArray * instruments;
+    NSMutableArray *instrViews;
 }
 @property NSString * identifier;
 @property (nonatomic)BOOL purchased;
 -(id)initWithFrame:(CGRect)frame packInfo:(NSDictionary *)packInfo;
+-(void) removeAllNotifications;
 @end

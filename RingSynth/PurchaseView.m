@@ -19,7 +19,7 @@
     if(self){
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(stopSample)
-                                                     name: @"backgroundMusicStopped"
+                                                     name: @"stopPurchasePlayer"
                                                    object: nil];
         
         int nameWidth = self.frame.size.width/4 + 4;
@@ -39,12 +39,11 @@
         }
         
         instruments = [packInfo objectForKey:@"instruments"];
+        instrViews = [[NSMutableArray alloc] init];
         for(int i = 0; i < instruments.count; i++){
             InstrumentPurchaseView* instrView = [[InstrumentPurchaseView alloc] initWitInstrument:[instruments objectAtIndex:i] andX:i*instDistance + nameWidth+ 10];
-            CGRect instrFrame = instrView.frame;
-            instrFrame.origin.y = self.frame.size.height/2 - instrFrame.size.height/2;
-            instrView.frame = instrFrame;
             [self addSubview:instrView];
+            [instrViews addObject:instrView];
         }
         int playWidth = self.frame.size.width/5;
         int xOfSample = (int)instruments.count * instDistance + nameWidth ;
@@ -104,33 +103,27 @@
 
 -(void)playSample:(UIButton *)button{
     if([button.titleLabel.text isEqualToString:@"Play Sample"]){
-        [[OALSimpleAudio sharedInstance] stopBg];
-        stopSampleTimer =[NSTimer scheduledTimerWithTimeInterval:[self durationOfSample]
-                                                          target:self
-                                                        selector:@selector(stopSample)
-                                                        userInfo:nil
-                                                         repeats:NO];
-        
-        [button setTitle:@"Stop Sample" forState:UIControlStateNormal];
-        [[OALSimpleAudio sharedInstance] playBg:[NSString stringWithFormat:@"%@.m4a", sampleName]];
+        //Stopping any other purchase players
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"stopPurchasePlayer"
+                                                            object: nil
+                                                          userInfo: nil];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:sampleName ofType:@"m4a"]]  error:nil];
+        [player setDelegate:self];
+        [player play];
+           [button setTitle:@"Stop Sample" forState:UIControlStateNormal];
     } else{
-        [[OALSimpleAudio sharedInstance] stopBg];
+        [self stopSample];
     }
     
 }
 
--(void)stopSample{
-    [playSampleButton setTitle:@"Play Sample" forState:UIControlStateNormal];
-    [stopSampleTimer  invalidate];
-    stopSampleTimer = nil;
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    [self stopSample];
 }
 
--(float) durationOfSample{
-    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:sampleName ofType:@"m4a"];
-    AVURLAsset* audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:musicPaths]  options:nil];
-    CMTime audioDuration = audioAsset.duration;
-    float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
-    return  audioDurationSeconds;
+-(void)stopSample{
+    [playSampleButton setTitle:@"Play Sample" forState:UIControlStateNormal];
+    [player stop];
 }
 
 -(void)requestPurchase{
@@ -209,4 +202,11 @@
     
 }
 
+-(void) removeAllNotifications{
+       [[NSNotificationCenter defaultCenter] removeObserver:self];
+    for(UIView *instrView in instrViews){
+        [[NSNotificationCenter defaultCenter] removeObserver:instrView];
+
+    }
+}
 @end

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "InstrumentViewController.h"
 
+@class InstrumentViewController;
+
 @interface InstrumentFilesViewController : UITableViewController<UIAlertViewDelegate, UITextFieldDelegate>{
     int addOrigHeight;
     NSArray *searchResults;

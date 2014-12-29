@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Instrument.h"
 
-@interface InstrumentPurchaseView : UIImageView{
+@interface InstrumentPurchaseView : UIImageView<AVAudioPlayerDelegate>{
     Instrument * instrument;
-    NSTimer* stopAnimationTimer;
     CGRect origFrame;
+    AVAudioPlayer *player;
 }
 -(id)initWitInstrument:(Instrument *) instrument andX:(int)x;
 

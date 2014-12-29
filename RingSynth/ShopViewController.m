@@ -77,6 +77,11 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self resignActive];
+    
+    for(PurchaseView * purchaseView in purchaseViews){
+        
+        [purchaseView removeAllNotifications];
+    }
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -95,12 +100,11 @@
 
 -(void)resignActive{
     [self.bannerView pauseAdAutoRefresh];
-    [[OALSimpleAudio sharedInstance] stopBg];
-    for(PurchaseView * purchaseView in purchaseViews){
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:purchaseView];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"stopPurchasePlayer"
+                                                        object: nil
+                                                      userInfo: nil];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+
 }
 
 -(void)restorePurchases{
