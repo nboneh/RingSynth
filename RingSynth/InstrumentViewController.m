@@ -8,6 +8,9 @@
 
 #import "InstrumentViewController.h"
 #import "Util.h"
+#import "PitchShift.h"
+#import "OALSimpleAudio.h"
+#import "NoteDescription.h"
 
 @interface InstrumentViewController ()
 -(void)startRecording;
@@ -103,7 +106,9 @@
     [recordSetting setValue :[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
     [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
     [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    [recordSetting setValue:[NSNumber numberWithInt:(kAudioFormatLinearPCM | kLinearPCMFormatFlagIsPacked)] forKey:AVFormatIDKey];
     recorder = [[ AVAudioRecorder alloc] initWithURL: [NSURL fileURLWithPath:waveFilePath]  settings:recordSetting error:&err];
+    
     if(!recorder){
         NSLog(@"recorder: %@ %ld %@", [err domain], (long)[err code], [[err userInfo] description]);
         UIAlertView *alert =
@@ -123,17 +128,8 @@
     
     [recorder prepareToRecord];
     [self.playButton setEnabled:NO];
-    if(audioSession.recordPermission == AVAudioSessionRecordPermissionUndetermined){
-        //If undecided don't record just prompt
-        [audioSession setActive:NO error:nil];
-        //Delete the file
-        NSFileManager *fm = [NSFileManager defaultManager];
-        [fm removeItemAtPath:waveFilePath error:nil];
-        return;
-    }
-
-    
-    [recorder recordForDuration:(NSTimeInterval) 5];
+  
+   [recorder recordForDuration:(NSTimeInterval) 5];
     
 }
 
@@ -143,16 +139,30 @@
     
 }
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
+    
+    
     [_recordButton setTitle:@"Record" forState:UIControlStateNormal];
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:NO error:nil];
-      [audioSession setCategory :AVAudioSessionCategoryPlayback error:nil];
+    [audioSession setCategory :AVAudioSessionCategoryPlayback error:nil];
     
-    if([self recordingExists])
-        [_playButton setEnabled:YES];
+
+    NSData * data = [[NSData alloc] initWithContentsOfFile:waveFilePath];
+    //Get rid of useless data, 4096 bytes including headers and zeroes
+    NSUInteger length = [data length] -4096 ;
+   
+    if(length <= 0){
+        NSFileManager *fm = [NSFileManager defaultManager];
+        [fm removeItemAtPath:waveFilePath error:nil];
+        return;
+    }
+
+    [_playButton setEnabled:YES];
 }
 
 -(IBAction)play{
+    
+   // [[OALSimpleAudio sharedInstance] playEffect:waveFilePath];
     if([_playButton.titleLabel.text isEqualToString:@"Play"]){
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:waveFilePath]  error:nil];
         [player setDelegate:self];
@@ -181,12 +191,21 @@
 -(void)resignActive{
     [recorder stop];
     [self stopPlaying];
+
+    //Saving information and overwriting the current instrument in user instruments with this one
+    NSMutableDictionary * instrumentInfo = [[NSMutableDictionary alloc] init];
+    [instrumentInfo setValue:[UIColor redColor] forKey:@"color"];
+    [instrumentInfo setValue: @"Note" forKey:@"imageName"];
+    [instrumentInfo setValue: [[NoteDescription alloc] initWithOctave:5 andChar:'c'] forKey:@"baseNote"];
+    [NSKeyedArchiver archiveRootObject:instrumentInfo toFile:[Util getInstrumentPath:self.name]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self resignActive];
-    
 }
+
+
+
 
 @end

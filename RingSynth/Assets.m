@@ -11,21 +11,27 @@
 #include <stdlib.h>
 #import "ObjectAL.h"
 #import "Drums.h"
+#import "InstrumentFilesViewController.h"
+#import "Util.h"
 
 @implementation Assets
 static NSArray* ERASE_SOUNDS;
 static NSArray *INSTRUMENTS;
 static NSArray *IN_APP_PURCHASE_PACKS;
+static NSMutableDictionary* USER_INSTRUMENTS;
+//Incase user deletes instrument
+static Instrument * NULL_INSTRUMENT;
+
 +(void) load{
-    // Mute all audio if the silent switch is turned on.
-    [OALSimpleAudio sharedInstance].honorSilentSwitch = YES;
+    // Do not honor silent switch this is a music app 
+    [OALSimpleAudio sharedInstance].honorSilentSwitch = NO;
     NSMutableArray *instrumentMut = [[NSMutableArray alloc] init];
     //Some of the more bassy instruments are tuned to different octaves to let them play bass sounds in treble cleft
     //C4
     [instrumentMut addObject:[[Instrument alloc] initWithName:@"Acoustic Guitar" color: [UIColor redColor] andBaseOctave:4]];
     //C4
     [instrumentMut addObject:[[Instrument alloc] initWithName:@"Electric Guitar" color: [UIColor blueColor] andBaseOctave:4]];
-    [instrumentMut addObject:[[Drums alloc] initWithName:@"Drums" color:[UIColor brownColor] andBaseOctave:4]];
+    [instrumentMut addObject:[[Drums alloc] initWithName:@"Drums" color:[UIColor brownColor]]];
     //C4
     [instrumentMut addObject:[[Instrument alloc] initWithName:@"Bass Guitar" color:[UIColor greenColor] andBaseOctave:4 ]];
     //C5
@@ -64,7 +70,18 @@ static NSArray *IN_APP_PURCHASE_PACKS;
     
     ERASE_SOUNDS = [[NSArray alloc] initWithObjects:@"delete1.wav", @"delete2.wav", @"delete3.wav",@"delete4.wav", nil];
 
+    //Loading user instruments
+    USER_INSTRUMENTS = [[NSMutableDictionary alloc] init];
+    NSArray* user_instruments_data = [InstrumentFilesViewController INSTRUMENT_LIST];
+    for(NSString * name in user_instruments_data){
+        NSDictionary * instrument_data = [NSKeyedUnarchiver unarchiveObjectWithFile: [Util getInstrumentPath:(id) name]];
+        if(instrument_data != nil){
+            [USER_INSTRUMENTS setValue:[[Instrument alloc]
+                                        initWithName:name color:[instrument_data objectForKey:@"color"] andBaseNote:[instrument_data objectForKey:@"baseNote"] andImageTitle:[instrument_data objectForKey:@"imageName" ]andWavPath:[NSString stringWithFormat: @"%@.wav", name]] forKey:name];
+        }
+    }
     
+    NULL_INSTRUMENT = [[Instrument alloc] initWithName:@"No Instrument" color: [UIColor redColor]];
 }
 
 +(NSArray *)INSTRUMENTS{
@@ -131,5 +148,9 @@ static NSArray *IN_APP_PURCHASE_PACKS;
 {
     NSString* path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     return [path stringByAppendingPathComponent:fileName];
+}
+
++(NSMutableDictionary *) USER_INSTRUMENTS{
+    return USER_INSTRUMENTS;
 }
 @end

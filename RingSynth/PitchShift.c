@@ -66,6 +66,13 @@
 
 #include <math.h>
 #include <limits.h>
+#include <Accelerate/Accelerate.h>
+//Assuming the sample is in 44100 hz .2 secs is 8820 samples to calculate
+#define PITCH_DETECT_INTERVAL 8820
+
+#define PI	M_PI	/* pi to machine precision, defined in math.h */
+#define TWOPI	(2.0*PI)
+
  static float InterpolateHermite4pt3oX(float x0, float x1, float x2, float x3, float t)
 {
     float a0, a1, a2, a3;
@@ -87,4 +94,82 @@ void smb_pitch_shift(short int *origData, short int *outData, long origDataLengt
             outData[i] = 0;
         }
     }}
+static float autocorr(long size,short *data,float *result)
+{
+    long i,j,k;
+    float temp,norm;
+    
+    for (i=0;i<size/2;i++)      {
+        result[i] = 0.0;
+        for (j=0;j<size-i-1;j++)	{
+            result[i] += data[i+j] * data[j];
+        }
+    }
+    temp = result[0];
+    j = (long) size*0.02;
+    while (result[j]<temp && j < size/2)	{
+        temp = result[j];
+        j += 1;
+    }
+    temp = 0.0;
+    for (i=j;i<size*0.5;i++) {
+        if (result[i]>temp) {
+            j = i;
+            temp = result[i];
+        }
+    }
+    norm = 1.0 / size;
+    k = size/2;
+    for (i=0;i<size/2;i++)
+        result[i] *=  (k - i) * norm;
+    if (result[j] == 0) j = 0;
+    else if ((result[j] / result[0]) < 0.4) j = 0;
+    else if (j > size/4) j = 0;
+    return (float) j;
+}
+
+
+float pitchdetect(int size,short int*data)
+{
+    //Finding max value
+    short int maxValue = 0;
+    int sizeInShort = size/2;
+    for(int i = 0; i < sizeInShort; i++){
+       short int val =abs(data[i]) ;
+        if(val > maxValue)
+            maxValue = val;
+    }
+    
+    int startIndex = 0;
+    //Our starting point to detect the pitch would be the first time the amplitude reached over half
+    int testVal = maxValue/2;
+    for(int i = 0; i < sizeInShort; i++){
+        short int val = abs(data[i]);
+        if(val > testVal)
+            startIndex = i;
+    }
+    
+    int finishedIndex = startIndex + PITCH_DETECT_INTERVAL;
+    if(finishedIndex > sizeInShort)
+        finishedIndex = sizeInShort;
+
+    int sizeToComputeInShorts = finishedIndex - startIndex;
+    if(sizeToComputeInShorts < 500)
+        //Very bad sample, the user recorded bad and he should feel bad.
+        //We will just return frequency of C4 and not tune instrument to staff
+        return 261.63;
+    
+   
+    short int *floatdata  = malloc(sizeToComputeInShorts *2 );
+
+    float *outdata = malloc(sizeToComputeInShorts *4);
+    
+    for(int i = startIndex; i < finishedIndex; i++){
+        floatdata[i] = data[i];
+    }
+   return (44100/autocorr(sizeToComputeInShorts*2,floatdata,outdata));
+   
+    //Perform fft
+    //vDSP_ctoz((COMPLEX*)outdata, 2, floatdata, 1, sizeToComputeInShorts/2);
+}
 

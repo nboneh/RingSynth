@@ -11,6 +11,7 @@
 @interface Assets : NSObject
 
 +(NSArray *)INSTRUMENTS;
++(NSMutableDictionary *) USER_INSTRUMENTS;
 +(NSArray *)IN_APP_PURCHASE_PACKS;
 +(void) playEraseSound;
 

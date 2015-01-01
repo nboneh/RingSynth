@@ -19,14 +19,19 @@ struct NoteData
 };
 
 @property BOOL purchased;
+@property (readonly)NoteDescription *baseNote;
 @property (readonly)NSString *name;
+@property (readonly)NSString *imageName;
+@property(readonly)NSString *wavFilePath;
 @property(readonly) UIImage *image;
 @property(readonly) UIColor *color;
 @property NSDictionary *notes;
-@property int baseOctave;
 
+-(id)initWithName:(NSString *)name color: (UIColor *)color;
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave;
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave andPurchased:(BOOL)purchased;
+-(id)initWithName:(NSString *)name color:(UIColor *)color andBaseNote:(NoteDescription *)noteDesc
+    andImageTitle:(NSString *)imageName andWavPath:(NSString *)wavFilePath;
 
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume;

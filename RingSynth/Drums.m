@@ -87,7 +87,7 @@
 -(void)playRandomNote{
     NoteDescription* note;
     do{
-        note = [[NoteDescription alloc] initWithOctave: (arc4random_uniform(4) + self.baseOctave -1) andChar:(arc4random_uniform(7) + 'a')];
+        //note = [[NoteDescription alloc] initWithOctave: (arc4random_uniform(4) + _baseNote.octave-1) andChar:(arc4random_uniform(7) + 'a')];
         
     }while(![self getDrumWithNoteDescription:note]);
     

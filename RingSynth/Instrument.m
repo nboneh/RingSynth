@@ -16,13 +16,22 @@
 @synthesize name = _name;
 @synthesize image = _image;
 @synthesize  purchased = _purchased;
--(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave{
+-(id)initWithName:(NSString *)name color: (UIColor *)color{
     self = [super init];
     if(self){
         _name = name;
         _color = color;
-        _baseOctave = octave;
+        _baseNote = [[NoteDescription alloc] initWithOctave:4 andChar:'c'];
         _purchased = YES;
+        _imageName = name;
+    }
+    return self;
+    
+}
+-(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave{
+    self = [self initWithName:name color: color];
+    if(self){
+        _baseNote.octave = octave;
     }
     return self;
 }
@@ -35,16 +44,27 @@
     return self;
 }
 
+-(id)initWithName:(NSString *)name color:(UIColor *)color andBaseNote:(NoteDescription *)noteDesc
+    andImageTitle:(NSString *)imageName andWavPath:(NSString *)wavFilePath{
+    self = [self initWithName:name color:color ];
+    if(self){
+        _baseNote = noteDesc;
+        _imageName = imageName;
+        _wavFilePath = wavFilePath;
+    }
+    return self;
+}
+
 -(UIImage *)image{
     if(_image == nil) {
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
         {
-            _image = [[UIImage imageNamed:[NSString stringWithFormat:@"%@-ipad",self.name]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-
+            _image = [[UIImage imageNamed:[NSString stringWithFormat:@"%@-ipad",_imageName]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            
         } else{
-              _image = [[UIImage imageNamed:self.name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            _image = [[UIImage imageNamed:_imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         }
-
+        
     }
     return _image;
 }
@@ -74,31 +94,81 @@
             noteNum = 11;
             break;
     }
+    
+    switch(_baseNote.character){
+        case 'c':
+            noteNum+=0;
+            break;
+        case 'd':
+            noteNum -= 2;
+            break;
+        case 'e':
+            noteNum -= 4;
+            break;
+        case 'f':
+            noteNum -=5;
+            break;
+        case 'g':
+            noteNum -= 7;
+            break;
+        case 'a':
+            noteNum -= 9;
+            break;
+        case 'b':
+            noteNum -= 11;
+            break;
+            
+    }
     if(noteDesc.accidental == sharp)
         noteNum++;
     else if(noteDesc.accidental == flat)
         noteNum--;
-    return  pow(2,((noteDesc.octave-_baseOctave)+ (noteNum/12.0f)));
+    
+    if(_baseNote.accidental == sharp)
+        noteNum--;
+    else if(_baseNote.accidental == flat)
+        noteNum++;
+    
+    return  pow(2,((noteDesc.octave-  _baseNote.octave)+ (noteNum/12.0f)));
     
 }
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume{
-    [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name] volume:volume pitch:[self calcPitch:note] pan:0.0f loop:NO];
+    NSString*path;
+    if(_wavFilePath)
+        path = _wavFilePath;
+    else
+        path =[NSString stringWithFormat:@"%@.wav", self.name];
+    [[OALSimpleAudio sharedInstance] playEffect:path volume:volume pitch:[self calcPitch:note] pan:0.0f loop:NO];
     
 }
 
 -(void)play{
-    [[OALSimpleAudio sharedInstance] playEffect:[NSString stringWithFormat:@"%@.wav", self.name]];
+    NSString*path;
+    if(_wavFilePath)
+        path = _wavFilePath;
+    else
+        path =[NSString stringWithFormat:@"%@.wav", self.name];
+    [[OALSimpleAudio sharedInstance] playEffect:path];
 }
 
 -(float) duration{
-    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
+    NSString* musicPaths;
+    if(_wavFilePath)
+        musicPaths = _wavFilePath;
+    else
+        musicPaths =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
     AVURLAsset* audioAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:musicPaths]  options:nil];
     CMTime audioDuration = audioAsset.duration;
     float audioDurationSeconds = CMTimeGetSeconds(audioDuration);
     return  audioDurationSeconds;
 }
 -(struct NoteData  )getDataNoteDescription:(NoteDescription *)note andVolume:(float)volume{
-    NSString *musicPaths  =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
+    NSString* musicPaths;
+    if(_wavFilePath)
+        musicPaths = _wavFilePath;
+    else
+        musicPaths =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
+
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
     //Get rid of header file 44 bytes
     NSUInteger length = [data length] -44;
@@ -121,7 +191,7 @@
 }
 
 -(void)playRandomNote{
-    NoteDescription* note = [[NoteDescription alloc] initWithOctave: (arc4random_uniform(4) + _baseOctave -1) andChar:(arc4random_uniform(7) +'a')];
+    NoteDescription* note = [[NoteDescription alloc] initWithOctave: (arc4random_uniform(4) + _baseNote.octave -1) andChar:(arc4random_uniform(7) +'a')];
     note.accidental = arc4random_uniform(numOfAccedintals);
     [self playNote:note withVolume:1.0f];
 }
