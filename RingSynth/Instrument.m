@@ -72,50 +72,50 @@
 -(double)calcPitch:(NoteDescription *)noteDesc{
     int noteNum = 0;
     switch(noteDesc.character){
-        case 'c':
+        case 'a':
             noteNum =0;
             break;
-        case 'd':
+        case 'b':
             noteNum =2;
             break;
-        case 'e':
-            noteNum = 4;
+        case 'c':
+            noteNum = 3;
             break;
-        case 'f':
+        case 'd':
             noteNum =5;
             break;
-        case 'g':
+        case 'e':
             noteNum =7;
             break;
-        case 'a':
-            noteNum = 9;
+        case 'f':
+            noteNum = 8;
             break;
-        case 'b':
-            noteNum = 11;
+        case 'g':
+            noteNum = 10;
             break;
     }
     
     switch(_baseNote.character){
-        case 'c':
+        case 'a':
             noteNum+=0;
             break;
-        case 'd':
+        case 'b':
             noteNum -= 2;
             break;
-        case 'e':
-            noteNum -= 4;
+        case 'c':
+            noteNum -= 3;
             break;
-        case 'f':
+        case 'd':
             noteNum -=5;
             break;
-        case 'g':
+        case 'e':
             noteNum -= 7;
             break;
-        case 'a':
-            noteNum -= 9;
+        case 'f':
+            noteNum -= 8;
             break;
-        case 'b':
-            noteNum -= 11;
+        case 'g':
+            noteNum -= 10;
             break;
             
     }

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NoteDescription : NSObject
+@interface NoteDescription : NSData
 
 typedef enum {
     natural = 0,
