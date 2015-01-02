@@ -78,7 +78,7 @@
         return[_beats objectAtIndex:pos];
     return nil;
 }
--(int)findBeatNumAtx:(int)x{
+-(int)findBeatIndexAtx:(int)x{
     int pos = (x -_widthFromFirstBeat)/( _widthPerBeat);
     if(pos < [_beats count])
         return pos;
@@ -105,5 +105,62 @@
     for(int i = 0; i < size; i++){
         [(Beat  *)[_beats objectAtIndex:i] loadSaveFile:[saveFile objectAtIndex:i]];
     }
+}
+-(Beat *)findBeatAtIndex:(int)ind{
+    return [_beats objectAtIndex:ind];
+}
+
+
+-(void)setState:(LayerState)state{
+    float alpha;
+    if(state == active || state == all_mode){
+        [self setMuted:NO];
+        alpha = 1.0f;
+    }
+    else if(state == not_active){
+        [self setMuted:YES];
+        alpha = 0.4f;
+    }
+    
+    if(state == not_active || state == all_mode)
+        [self setUserInteractionEnabled:NO];
+    else if(state == active)
+        [self setUserInteractionEnabled:YES];
+    
+    [self setAlpha:alpha];
+    for(Beat * beat in _beats){
+        for(NotesHolder * noteHolder in beat.noteHolders){
+            if(state == active || state == all_mode){
+                [noteHolder.volumeSlider setHidden:NO];
+                if(state == all_mode)
+                    [noteHolder.volumeSlider setAlpha:0.4f];
+                else
+                    [noteHolder.volumeSlider setAlpha:1.0f];
+            }
+            else if(state == not_active){
+                
+                [noteHolder.volumeSlider setHidden:YES];
+            }
+            
+            for(Note * note in noteHolder.notes){
+                [note setAlpha:alpha];
+                if(state == active)
+                    [note.superview bringSubviewToFront:note];
+            }
+        }
+    }
+}
+
+
+-(void)remove{
+    [self removeFromSuperview];
+    for(Beat * beat in _beats){
+        for(NotesHolder * noteHolder in beat.noteHolders){
+            for(Note * note in noteHolder.notes){
+                [note removeFromSuperview];
+            }
+        }
+    }
+
 }
 @end

@@ -18,10 +18,12 @@
     Staff* staff;
     Layout *currentLayer;
     int bpm;
-    NSTimer *stopAnimTimer;
     NSTimer *playTimer;
     int currentBeatPlaying;
     int currentTic;
+    float timePerTic;
+    float widthToAnimatePerTic;
+    int endAnimateX;
 }
 @property(nonatomic) int numOfBeats;
 @property BOOL isPlaying;

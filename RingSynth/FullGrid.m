@@ -15,8 +15,7 @@
 #include <limits.h>
 
 @interface FullGrid()
--(void)stopAnimation;
--(void)startAnimation;
+
 @end
 @implementation FullGrid
 @synthesize  isPlaying = _isPlaying;
@@ -43,8 +42,15 @@ const int TICS_PER_BEAT  =12;
                                                       action:@selector(handleLongPress:)];
         
         [container addGestureRecognizer:longPress];
+        
+        UITapGestureRecognizer *tapPress =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(handleTap:)];
+        
+        [container addGestureRecognizer:tapPress];
         _isPlaying = NO;
         currentBeatPlaying = -1;
+        
     }
     return self;
 }
@@ -56,13 +62,12 @@ const int TICS_PER_BEAT  =12;
 -(void)replay{
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     
-        for(Layout * layer in layers){
-            [layer stopBeat];
-        }
+    for(Layout * layer in layers){
+        [layer stopBeat];
+    }
     
-
+    
     if(_isPlaying){
-        [self stopAnimation];
         [self setZoomScale:1.0f animated:NO];
         [self scrollRectToVisible:frame animated:NO];
         [self playWithTempo:bpm];
@@ -76,22 +81,21 @@ const int TICS_PER_BEAT  =12;
 -(void)changeLayer:(int)index{
     if(index < 0){
         for(Layout * layer in layers){
-            [layer setAlpha: 1.0f];
-            layer.userInteractionEnabled =NO;
-            [layer setMuted:NO];
+            [layer setState:all_mode];
         }
         currentLayer = nil;
     }
     else{
         for(Layout * layer in layers){
-            [layer setAlpha: 0.2f];
-            layer.userInteractionEnabled =NO;
-            [layer setMuted:YES];
+            [layer setState: not_active];
+            
         }
         currentLayer = [layers objectAtIndex:index];
-        [currentLayer setAlpha:1.0f];
-        currentLayer.userInteractionEnabled = YES;
-        [currentLayer setMuted:NO];
+        [currentLayer setState:active];
+        
+        //Bringing subview in the front of all other layers but not in front of all the notes
+        [currentLayer removeFromSuperview];
+        [container insertSubview:currentLayer atIndex:[layers count]];
     }
     
 }
@@ -109,7 +113,7 @@ const int TICS_PER_BEAT  =12;
 }
 -(void)deleteLayerAt:(int)index{
     Layout * layer=  [layers objectAtIndex:index];
-    [layer removeFromSuperview];
+    [layer remove];
     [layers removeObject:layer];
     if([layers count] == 0){
         [self changeToWidth:self.frame.size.width];
@@ -129,26 +133,31 @@ const int TICS_PER_BEAT  =12;
         [self setZoomScale:1.0f animated:NO];
         
         Layout *layer = [layers objectAtIndex:0];
-        currentBeatPlaying = [layer findBeatNumAtx:(self.contentOffset.x + layer.widthPerBeat  )] -1;
+        currentBeatPlaying = [layer findBeatIndexAtx:(self.contentOffset.x + layer.widthPerBeat  )] -1;
         if(currentBeatPlaying < -1){
             [self stop];
             return;
         }
         currentTic = TICS_PER_BEAT -1;
         
-        [self startAnimation];
-        
         if(playTimer)
             [self stop];
         bpm = bpm_;
-        playTimer =[NSTimer scheduledTimerWithTimeInterval:((60.0f/bpm)/TICS_PER_BEAT)
-                                                    target:self
+        
+        timePerTic= ((60.0f/bpm)/(TICS_PER_BEAT));
+            _isPlaying = YES;
+        
+        
+        widthToAnimatePerTic = layer.widthPerBeat/(TICS_PER_BEAT -1);
+        playTimer =[NSTimer scheduledTimerWithTimeInterval:timePerTic                                                    target:self
                                                   selector:@selector(playBeat:)
                                                   userInfo:nil
                                                    repeats:YES];
         [playTimer fire];
         
-        _isPlaying = YES;
+        
+        
+        endAnimateX =container.frame.size.width- self.frame.size.width;
         
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
@@ -168,13 +177,29 @@ const int TICS_PER_BEAT  =12;
         [self checkIfToStopPlaying];
         return;
     }
-  
-    if(currentLayer)
-        [currentLayer playWithTempo:bpm beat:currentBeatPlaying tic:currentTic andTicDivision:TICS_PER_BEAT];
-    else {
-        for(Layout * layer in layers){
-             [layer playWithTempo:bpm beat:currentBeatPlaying tic:currentTic andTicDivision:TICS_PER_BEAT];
-        }
+
+   
+    
+    BOOL animate;
+    int midX =  self.contentOffset.x + self.frame.size.width/2;
+    Layout * layer= [layers objectAtIndex:0];
+    int currentXPlaying =  [layer findBeatAtIndex:currentBeatPlaying].frame.origin.x + (layer.widthPerBeat * currentTic)/TICS_PER_BEAT;
+    if(midX <= currentXPlaying)
+        animate = YES;
+
+    if(animate){
+        int newX = self.contentOffset.x + widthToAnimatePerTic;
+        if(newX > endAnimateX)
+            newX = endAnimateX;
+        [self.layer removeAllAnimations];
+        [UIView animateWithDuration:timePerTic delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.contentOffset = CGPointMake(newX, 0);
+        } completion:NULL];
+    }
+    
+    
+    for(Layout * layer in layers){
+        [layer playWithTempo:bpm beat:currentBeatPlaying tic:currentTic andTicDivision:TICS_PER_BEAT];
     }
     
 }
@@ -182,13 +207,12 @@ const int TICS_PER_BEAT  =12;
 -(void)stop{
     [self stopTimers];
     [self setUserInteractionEnabled:YES];
-    [self stopAnimation];
     _isPlaying = NO;
     
     for(Layout * layer in layers){
         [layer stopBeat];
     }
-
+    
     
     [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
                                                         object: nil
@@ -196,45 +220,7 @@ const int TICS_PER_BEAT  =12;
     
 }
 
--(void)stopAnimation{
-    [stopAnimTimer invalidate];
-    stopAnimTimer = nil;
-    if([layers count] >0){
-        CGPoint offset = [self.layer.presentationLayer bounds].origin;
-        [self.layer removeAllAnimations];
-        self.contentOffset = CGPointMake(offset.x, 0);
-    }
-}
 
--(void)startAnimation{
-    Layout *layer = [layers objectAtIndex:0];
-    Beat * beat =[layer findBeatAtx:(self.contentOffset.x + layer.widthPerBeat )];
-    
-    float dist = self.frame.size.width/3;
-    float offset = ((beat.frame.origin.x -self.contentOffset.x ) + dist);
-    float widthPerBeat = layer.widthPerBeat;
-    float delay = (offset/widthPerBeat) *(60.0/bpm);
-    float time = (60.0/(bpm)) * (_numOfBeats -beat.num);
-    
-    
-    
-    //The end goes beyond bound so we went to set a trigger to stop the animation when bound are out of reach
-    float end = (_numOfBeats ) * widthPerBeat;
-    
-    float timeToStopAnim =  time -((60.0/(bpm)) * (dist/layer.widthPerBeat));
-    
-    stopAnimTimer =[NSTimer scheduledTimerWithTimeInterval:timeToStopAnim
-                                                    target:self
-                                                  selector:@selector(stopAnimation)
-                                                  userInfo:nil
-                                                   repeats:NO];
-    
-    
-    [UIView animateWithDuration:time delay:delay options:UIViewAnimationOptionCurveLinear animations:^{
-        self.contentOffset = CGPointMake(end, 0);
-    } completion:NULL];
-    
-}
 -(void)checkIfToStopPlaying{
     if(![MusicViewController LOOPING])
         [self stop];
@@ -256,34 +242,51 @@ const int TICS_PER_BEAT  =12;
 - (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:container];
     [self deleteNoteAtLocation:location];
-    
+}
+
+-(void)handleTap:(UITapGestureRecognizer *) recognizer{
+    CGPoint location = [recognizer locationInView:container];
+    [self insertNoteAtLocation:location];
 }
 
 -(void)deleteNoteAtLocation:(CGPoint)location{
-    //Global delete mode for all layers instead of a specific one
     if(!currentLayer){
         for(Layout * layer in layers){
-            Beat * beat = [layer findBeatAtx:location.x];
-            if(beat){
-                NotesHolder *noteHolder = [beat findNoteHolderAtX:round(location.x - beat.frame.origin.x)];
-                if(noteHolder){
-                    if([noteHolder deleteNoteIfExistsAtY:location.y])
-                        return;
-                }
-            }
+            NotesHolder * notesholder = [self findNoteHolderAtLocation:location andLayer:layer];
+            if(notesholder)
+                if([notesholder deleteNoteIfExistsAtY:location.y])
+                    return;
         }
     } else {
-        Beat * beat = [currentLayer findBeatAtx:location.x];
-        if(beat){
-            NotesHolder *noteHolder = [beat findNoteHolderAtX:round(location.x - beat.frame.origin.x)];
-            if(noteHolder){
-                if([noteHolder deleteNoteIfExistsAtY:location.y])
-                    return;
-            }
+        NotesHolder *noteHolder = [self findNoteHolderAtLocation:location andLayer:currentLayer];
+        if(noteHolder){
+            [noteHolder deleteNoteIfExistsAtY:location.y];
+        }
+    }
+}
+
+-(void)insertNoteAtLocation:(CGPoint)location{
+    if(currentLayer){
+        NotesHolder *noteHolder = [self findNoteHolderAtLocation:location andLayer:currentLayer];
+        if(noteHolder){
+            [noteHolder placeNoteAtY:location.y];
         }
     }
     
 }
+
+-(NotesHolder *)findNoteHolderAtLocation:(CGPoint)location andLayer:(Layout *)layer{
+    Beat * beat = [layer findBeatAtx:location.x];
+    if(beat){
+        NotesHolder *noteHolder = [beat findNoteHolderAtX:round(location.x - beat.frame.origin.x)];
+        return noteHolder;
+    }
+    else{
+        return nil;
+    }
+}
+
+
 -(void)silence{
     [self stopTimers];
     [[OALSimpleAudio sharedInstance] stopAllEffects];
@@ -292,8 +295,8 @@ const int TICS_PER_BEAT  =12;
     }
 }
 -(void)stopTimers{
-    [stopAnimTimer invalidate];
-    stopAnimTimer = nil;
+    //[stopAnimTimer invalidate];
+    // stopAnimTimer = nil;
     [playTimer invalidate];
     playTimer = nil;
 }

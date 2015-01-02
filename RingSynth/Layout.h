@@ -11,6 +11,11 @@
 #import "Beat.h"
 #import "ObjectAL.h"
 
+typedef enum {
+    all_mode = 0,
+    active =1,
+    not_active =2
+} LayerState;
 @interface Layout  : UIView{
     Staff *staff;
 }
@@ -22,9 +27,12 @@
 -(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfBeat:(int)numOfBeats;
 -(void)playWithTempo:(int)bpm beat:(int)index tic:(int)tic andTicDivision:(int)ticDivision;
 -(Beat *)findBeatAtx:(int)x;
--(int)findBeatNumAtx:(int)x;
+-(int)findBeatIndexAtx:(int)x;
+-(Beat *)findBeatAtIndex:(int)ind;
 -(void)stopBeat;
 -(void)setMuted:(BOOL)abool;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
+-(void)remove;
+-(void)setState:(LayerState)state;
 @end

@@ -17,6 +17,7 @@
 
 @interface NotesHolder: UIView {
     ALChannelSource * channel;
+    BOOL bold;
 }
 
 @property UISlider *volumeSlider;
@@ -33,4 +34,6 @@
 -(BOOL)anyNotesInNoteHolder;
 -(NSDictionary*)createSaveFile;
 -(void)loadSaveFile:(NSDictionary *)saveFile;
+-(void)lightUp;
+-(void)unLightUp;
 @end

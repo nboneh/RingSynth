@@ -173,8 +173,7 @@
         [self stopHolder];
         _currentlyPlayingHolder  = [_noteHolders objectAtIndex:index];
         [ _currentlyPlayingHolder  play];
-        [ _currentlyPlayingHolder .titleView setTextColor:self.tintColor];
-        [ _currentlyPlayingHolder .lineView setBackgroundColor:self.tintColor];
+        [_currentlyPlayingHolder lightUp];
     }
     
     
@@ -183,8 +182,7 @@
 
 -(void)stopHolder{
     if(_currentlyPlayingHolder){
-        [_currentlyPlayingHolder.titleView setTextColor:[UIColor blackColor]];
-        [_currentlyPlayingHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
+        [_currentlyPlayingHolder unLightUp];
     }
     
 }

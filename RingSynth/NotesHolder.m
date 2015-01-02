@@ -33,23 +33,12 @@
         _titleView.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleView];
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, _titleViewHeight, 2,  _staff.frame.size.height -staff.spacePerNote *2)];
-        
-        
-        [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
         NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
         NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:title];
-        if([alphaNums isSupersetOfSet:inStringSet] ){
-            [_lineView setAlpha:0.8f];
-            [_titleView setAlpha: 0.8f];
-        } else{
-            [_lineView setAlpha:0.2f];
-            [_titleView setAlpha: 0.2f];
-        }
+        bold = [alphaNums isSupersetOfSet:inStringSet];
+        [self unLightUp];
         [self addSubview:_lineView];
-        UITapGestureRecognizer *singleFingerTap =
-        [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                action:@selector(handleSingleTap:)];
-        [self addGestureRecognizer:singleFingerTap];
+
         
     }
     return self;
@@ -77,12 +66,6 @@
         [_volumeSlider setHidden:NO];
     else
         [_volumeSlider setHidden:YES];
-}
-
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:self];
-    int y = location.y;
-    [self placeNoteAtY:y];
 }
 
 
@@ -130,11 +113,11 @@
     }
     CGRect frame = note.frame;
     frame.origin.y += _volumeMeterHeight;
-    frame.origin.x = self.frame.size.width/2 - frame.size.width/2;
+    frame.origin.x = self.frame.size.width/2 - frame.size.width/2 + self.superview.frame.origin.x + self.frame.origin.x;
     note.frame = frame;
     [_notes  addObject: note];
     [self checkViews];
-    [self addSubview:note];
+    [_staff.superview addSubview:note];
     UITapGestureRecognizer *doubleFingerTap =
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(handleDoubleTap:)];
@@ -144,7 +127,6 @@
     return YES;
 
 }
-
 - (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
     Note * note = (Note *)recognizer.view;
     if(note.accidental < (numOfAccedintals -1))
@@ -155,14 +137,7 @@
     
 }
 
-- (void)longPress:(UITapGestureRecognizer *)recognizer {
-    Note * note = (Note *)recognizer.view;
-    [note removeFromSuperview];
-    [_notes removeObject:note];
-    [self checkViews];
-    [Assets playEraseSound];
-    
-}
+
 
 -(BOOL)anyNotesInNoteHolder{
     return [_notes count];
@@ -217,6 +192,44 @@
         [self checkViews];
 
          _volumeSlider.value = [[saveFile objectForKey:@"volume"] floatValue];
+    }
+}
+
+-(void)unLightUp{
+    if(bold ){
+        [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Dashed Dark"] ]];
+
+        [_titleView setTextColor:[UIColor blackColor]];
+    } else{
+        [_lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Dashed Light"] ]];
+        [_titleView setTextColor:[UIColor lightGrayColor]];
+    }
+}
+
+-(void)lightUp{
+    [_lineView setAlpha:1];
+    [_titleView setAlpha:1];
+    [ _titleView setTextColor:self.tintColor];
+    [ _lineView setBackgroundColor:self.tintColor];
+
+}
+
+-(void)setHidden:(BOOL)hidden{
+    [super setHidden:hidden];
+    for(Note *note in _notes){
+        [note setHidden:hidden];
+        
+    }
+
+}
+-(void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    //Updating notes frames
+    for(Note *note in _notes){
+        CGRect frame = note.frame;
+        frame.origin.x = self.frame.size.width/2 - frame.size.width/2 + self.superview.frame.origin.x + self.frame.origin.x;
+        note.frame = frame;
+
     }
 }
 @end
