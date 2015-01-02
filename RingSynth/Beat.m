@@ -166,47 +166,27 @@
     return [self anyNotesInsubdivision] && [_initialNotesHolder anyNotesInNoteHolder];
 }
 
--(void)playWithTempo:(int)bpm{
-    float time = (60.0f/bpm)/(_currentSubdivision+1);
-    currentPlayingNoteHolder =0;
-    playTimer =[NSTimer scheduledTimerWithTimeInterval:time
-                                                target:self
-                                              selector:@selector(playNoteHolder:)
-                                              userInfo:nil
-                                               repeats:YES];
-    [playTimer fire];
-}
-
--(void)playNoteHolder:(NSTimer *)target{
-    if(prevNoteHolder){
-        [prevNoteHolder.titleView setTextColor:[UIColor blackColor]];
-        [prevNoteHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
+-(void)playWithTempo:(int)bpm tic:(int) tic andTicDivision:(int)ticDivision{
+    int beatsInSubdivision = ticDivision/(_currentSubdivision +1);
+    if(tic % beatsInSubdivision == 0 ){
+        int index  = tic/beatsInSubdivision;
+        [self stopHolder];
+        _currentlyPlayingHolder  = [_noteHolders objectAtIndex:index];
+        [ _currentlyPlayingHolder  play];
+        [ _currentlyPlayingHolder .titleView setTextColor:self.tintColor];
+        [ _currentlyPlayingHolder .lineView setBackgroundColor:self.tintColor];
     }
     
-    NotesHolder* notesHolder;
-    if(currentPlayingNoteHolder < (_currentSubdivision +1)){
-        notesHolder = [_noteHolders objectAtIndex:currentPlayingNoteHolder];
-        [ notesHolder play];
-        [notesHolder.titleView setTextColor:self.tintColor];
-        [notesHolder.lineView setBackgroundColor:self.tintColor];
-        prevNoteHolder = notesHolder;
-    } else{
-        [self stop];
-        return;
-    }
-    currentPlayingNoteHolder++;
+    
 }
 
--(void)stop{
-    if(playTimer){
-        [playTimer invalidate];
-        playTimer = nil;
-        prevNoteHolder = nil;
-        for(NotesHolder * notesHolder in _noteHolders){
-            [notesHolder.titleView setTextColor:[UIColor blackColor]];
-            [notesHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
-        }
+
+-(void)stopHolder{
+    if(_currentlyPlayingHolder){
+        [_currentlyPlayingHolder.titleView setTextColor:[UIColor blackColor]];
+        [_currentlyPlayingHolder.lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"dashed"]]];
     }
+    
 }
 
 -(NotesHolder *)findNoteHolderAtX:(int)x{
@@ -252,7 +232,7 @@
     [self changeSubDivision:currentSubdivision];
     NSArray * loadNotesHolders = [saveFile objectForKey:@"notesholders"];
     if(wasEightNotes){
-         [[_noteHolders objectAtIndex:0] loadSaveFile:[loadNotesHolders objectAtIndex:0]];
+        [[_noteHolders objectAtIndex:0] loadSaveFile:[loadNotesHolders objectAtIndex:0]];
         [[_noteHolders objectAtIndex:2] loadSaveFile:[loadNotesHolders objectAtIndex:1]];
     }
     else {

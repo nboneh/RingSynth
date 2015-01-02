@@ -8,7 +8,7 @@
 
 #import "NoteDescription.h"
 
-@implementation NoteDescription : NSData
+@implementation NoteDescription : NSObject
 
 @synthesize accidental = _accedintal;
 @synthesize character = _character;
@@ -54,4 +54,21 @@
         self.character--;
 }
 
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeInt:self.octave forKey:@"octave"];
+    [aCoder encodeInt:self.character forKey:@"character"];
+    [aCoder encodeInt:self.accidental forKey:@"accidental"];
+
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super init]) {
+        self.octave = [aDecoder decodeIntForKey:@"octave"];
+        self.character = [aDecoder decodeIntForKey:@"character"];
+        self.accidental = [aDecoder decodeIntForKey:@"accidental"];
+    }
+    return self;
+}
 @end

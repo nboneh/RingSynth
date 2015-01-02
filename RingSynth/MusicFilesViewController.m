@@ -79,14 +79,19 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
             cell = [self.tableView dequeueReusableCellWithIdentifier:newRing];
         }
         if(fileToBeDeleted){
-            //Copy content to new renamed file
-            NSString *copyContent = [NSKeyedUnarchiver unarchiveObjectWithFile: fileToBeDeleted];
-            [NSKeyedArchiver archiveRootObject:copyContent toFile:[Util getRingtonePath:(id) newRing]];
+            //Rename the file
+            NSFileManager *fm = [NSFileManager defaultManager];
+            [fm moveItemAtPath: fileToBeDeleted toPath:[Util getRingtonePath: newRing] error: nil];
             
+            //Also delete the ringtone file if it exists
+            NSString* ringPath = [fileToBeDeleted stringByReplacingOccurrencesOfString: @ ".rin" withString: @ ".m4r"];
+            BOOL exists = [fm fileExistsAtPath:ringPath];
+            if(exists == YES)
+                [fm removeItemAtPath:ringPath error:nil];
         }
         
     }
-    if(fileToBeDeleted){
+    if(buttonIndex == 0 && fileToBeDeleted){
         //Delete the file
         NSFileManager *fm = [NSFileManager defaultManager];
         BOOL exists = [fm fileExistsAtPath:fileToBeDeleted];
@@ -198,6 +203,7 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
     //Saving ringtones list
     [super viewDidDisappear:YES];
     [MusicFilesViewController SAVE_RINGTONE_LIST];
+    [Assets UPDATE_USER_INSTRUMENTS];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

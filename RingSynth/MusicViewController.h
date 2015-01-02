@@ -27,7 +27,9 @@
     UIAlertView* deleteAlert;
     UIAlertView* inAppPurchaseAlert;
     UIAlertView* helpAlert;
-    UIActionSheet *changeInstrumentSheet;    
+    UIActionSheet *changeRegularInstrumentSheet;
+    UIActionSheet *changeUserInstrumentSheet;
+    UIActionSheet *typeOfInstrumentsSheet;
 }
 @property (strong, nonatomic) AxonixFullScreenAdViewController *fullScreenAdViewController;
 @property (weak, nonatomic) IBOutlet UITextField *beatsTextField;

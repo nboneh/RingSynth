@@ -22,6 +22,7 @@
 @synthesize  isPlaying = _isPlaying;
 
 @synthesize  numOfBeats = _numOfBeats;
+const int TICS_PER_BEAT  =12;
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
@@ -43,7 +44,7 @@
         
         [container addGestureRecognizer:longPress];
         _isPlaying = NO;
-        
+        currentBeatPlaying = -1;
     }
     return self;
 }
@@ -53,9 +54,13 @@
 }
 
 -(void)replay{
-    [self stopTimers];
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    [self stopAnimation];
+    
+        for(Layout * layer in layers){
+            [layer stopBeat];
+        }
+    
+
     if(_isPlaying){
         [self stopAnimation];
         [self setZoomScale:1.0f animated:NO];
@@ -118,15 +123,31 @@
     
     bpm = bpm_;
     if([layers count] >0  && ![self isZooming] && ![self isDragging] && ![self isDecelerating]){
+        [self stopTimers];
+        
         [self setUserInteractionEnabled:NO];
         [self setZoomScale:1.0f animated:NO];
         
         Layout *layer = [layers objectAtIndex:0];
-        Beat  * beat =[layer findBeatAtx:(self.contentOffset.x + layer.widthPerBeat  )];
-        [self startAnimation];
-        for(Layout * layer in layers){
-            [layer playWithTempo:bpm fromBeat:beat.num];
+        currentBeatPlaying = [layer findBeatNumAtx:(self.contentOffset.x + layer.widthPerBeat  )] -1;
+        if(currentBeatPlaying < -1){
+            [self stop];
+            return;
         }
+        currentTic = TICS_PER_BEAT -1;
+        
+        [self startAnimation];
+        
+        if(playTimer)
+            [self stop];
+        bpm = bpm_;
+        playTimer =[NSTimer scheduledTimerWithTimeInterval:((60.0f/bpm)/TICS_PER_BEAT)
+                                                    target:self
+                                                  selector:@selector(playBeat:)
+                                                  userInfo:nil
+                                                   repeats:YES];
+        [playTimer fire];
+        
         _isPlaying = YES;
         
     } else {
@@ -135,22 +156,46 @@
                                                           userInfo: nil];
     }
 }
+
+-(void)playBeat:(NSTimer *)target{
+    currentTic++;
+    if(currentTic >= TICS_PER_BEAT){
+        currentTic = 0;
+        currentBeatPlaying++;
+    }
+    
+    if(currentBeatPlaying >= _numOfBeats){
+        [self checkIfToStopPlaying];
+        return;
+    }
+  
+    if(currentLayer)
+        [currentLayer playWithTempo:bpm beat:currentBeatPlaying tic:currentTic andTicDivision:TICS_PER_BEAT];
+    else {
+        for(Layout * layer in layers){
+             [layer playWithTempo:bpm beat:currentBeatPlaying tic:currentTic andTicDivision:TICS_PER_BEAT];
+        }
+    }
+    
+}
+
 -(void)stop{
     [self stopTimers];
     [self setUserInteractionEnabled:YES];
-    
-    
-    for(Layout * layer in layers){
-        [layer stop];
-    }
     [self stopAnimation];
     _isPlaying = NO;
+    
+    for(Layout * layer in layers){
+        [layer stopBeat];
+    }
+
+    
     [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
                                                         object: nil
                                                       userInfo: nil];
     
-    
 }
+
 -(void)stopAnimation{
     [stopAnimTimer invalidate];
     stopAnimTimer = nil;
@@ -171,10 +216,6 @@
     float delay = (offset/widthPerBeat) *(60.0/bpm);
     float time = (60.0/(bpm)) * (_numOfBeats -beat.num);
     
-    stopPlayingTimer = [NSTimer scheduledTimerWithTimeInterval:time  target:self
-                                                      selector:@selector(checkIfToStopPlaying)
-                                                      userInfo:nil
-                                                       repeats:NO];
     
     
     //The end goes beyond bound so we went to set a trigger to stop the animation when bound are out of reach
@@ -195,12 +236,9 @@
     
 }
 -(void)checkIfToStopPlaying{
-    if(![MusicViewController LOOPING]){
+    if(![MusicViewController LOOPING])
         [self stop];
-        [self replay];
-    } else{
-        [self replay];
-    }
+    [self replay];
     
 }
 
@@ -256,8 +294,8 @@
 -(void)stopTimers{
     [stopAnimTimer invalidate];
     stopAnimTimer = nil;
-    [stopPlayingTimer invalidate];
-    stopPlayingTimer = nil;
+    [playTimer invalidate];
+    playTimer = nil;
 }
 -(void)setNumOfBeats:(int)numOfBeats{
     _numOfBeats = numOfBeats;
@@ -386,13 +424,13 @@
                     NSDictionary *notesHolder = [[decodeBeat objectForKey:@"notesholders"] objectAtIndex:j];
                     float volume = [[notesHolder objectForKey:@"volume"] floatValue];
                     if(notesHolder.count > 0){
-                
+                        
                         
                         NSArray *notes = [notesHolder objectForKey:@"notes"];
                         for(int k = 0;k <notes.count; k++){
                             
                             NSDictionary *decodeNote=[notes objectAtIndex:k];
-                            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex:[[decodeNote objectForKey:@"instrument"] intValue]];
+                            Instrument * instrument = [Assets instForObject:[decodeNote objectForKey:@"instrument"]];
                             Accidental accidental = [[decodeNote objectForKey:@"accidental"] intValue];
                             NotePlacement * notePlacement =[staff.notePlacements objectAtIndex:[[decodeNote objectForKey:@"noteplacement"] intValue]];
                             NoteDescription* noteDescription = [[notePlacement noteDescs] objectAtIndex:accidental];
@@ -402,11 +440,11 @@
                             short int*noteShortData = noteData.noteData;
                             
                             if(  k == 0 &&( ![instrument isKindOfClass:[Drums class]]  || volume == 0)){
-                                 unsigned long positionInPiece = i * samplePerBeat + (j * (samplePerBeat/ ((float)subdivision)));
+                                unsigned long positionInPiece = i * samplePerBeat + (j * (samplePerBeat/ ((float)subdivision)));
                                 for(long l= positionInPiece; l < lengthOfPiece/2; l++)
                                     uncompLayer[l] = 0;
                             }
-
+                            
                             unsigned long positionInPiece = i * samplePerBeat + (j * (samplePerBeat/ ((float)subdivision)));
                             for(int l = 0; l < noteLength; l++){
                                 if(positionInPiece >= (totalLength/2))

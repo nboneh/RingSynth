@@ -31,7 +31,7 @@ struct NoteData
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave;
 -(id)initWithName:(NSString *)name color: (UIColor *)color  andBaseOctave:(int)octave andPurchased:(BOOL)purchased;
 -(id)initWithName:(NSString *)name color:(UIColor *)color andBaseNote:(NoteDescription *)noteDesc
-    andImageTitle:(NSString *)imageName andWavPath:(NSString *)wavFilePath;
+    andImageName:(NSString *)imageName andWavPath:(NSString *)wavFilePath;
 
 
 -(void) playNote: (NoteDescription *)note withVolume:(float)volume;

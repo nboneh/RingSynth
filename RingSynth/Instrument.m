@@ -45,7 +45,7 @@
 }
 
 -(id)initWithName:(NSString *)name color:(UIColor *)color andBaseNote:(NoteDescription *)noteDesc
-    andImageTitle:(NSString *)imageName andWavPath:(NSString *)wavFilePath{
+    andImageName:(NSString *)imageName andWavPath:(NSString *)wavFilePath{
     self = [self initWithName:name color:color ];
     if(self){
         _baseNote = noteDesc;
@@ -170,6 +170,14 @@
         musicPaths =[[NSBundle mainBundle] pathForResource:self.name ofType:@"wav"];
 
     NSData * data = [[NSData alloc] initWithContentsOfFile:musicPaths];
+    if(data == nil){
+        struct NoteData noteData;
+        noteData.length = 0;
+        noteData.noteData = malloc(0);
+        return noteData;
+
+    }
+
     //Get rid of header file 44 bytes
     NSUInteger length = [data length] -44;
     short int*cdata = (  short int*)malloc(length);
@@ -195,4 +203,6 @@
     note.accidental = arc4random_uniform(numOfAccedintals);
     [self playNote:note withVolume:1.0f];
 }
+
+
 @end

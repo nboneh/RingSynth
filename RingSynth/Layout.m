@@ -14,7 +14,6 @@
 @synthesize channel= _channel;
 @synthesize widthFromFirstBeat = _widthFromFirstBeat;
 @synthesize widthPerBeat = _widthPerBeat;
-@synthesize currentBeatPlaying = _currentBeatPlaying;
 @synthesize numOfBeats = _numOfBeats;
 @synthesize beats =_beats;
 -(id) initWithStaff:(Staff *)staff_ andFrame:(CGRect)frame andNumOfBeat:(int)numOfBeats{
@@ -36,50 +35,21 @@
             
         }
         self.frame = CGRectMake(0, 0,  _widthPerBeat * numOfBeats + _widthFromFirstBeat,frame.size.height);
-        _currentBeatPlaying = 0;
         self.clipsToBounds = YES;
         
-
+        
     }
     return self;
 }
 
--(void)playWithTempo:(int)bpm_ fromBeat:(int)beat{
-    if(playTimer)
-        [self stop];
-    _currentBeatPlaying = beat ;
-    bpm = bpm_;
-    playTimer =[NSTimer scheduledTimerWithTimeInterval:(60.0f/bpm)
-                                                target:self
-                                              selector:@selector(playBeat:)
-                                              userInfo:nil
-                                               repeats:YES];
-    [playTimer fire];
-    
-    
-}
--(void)playBeat:(NSTimer *)target{
-    if(_currentBeatPlaying >= _numOfBeats){
-        [self stop];
-        return;
+-(void)playWithTempo:(int)bpm beat:(int)index tic:(int)tic andTicDivision:(int)ticDivision{
+    Beat * beat = [_beats objectAtIndex:index];
+    [beat playWithTempo:bpm tic:tic andTicDivision:ticDivision];
+    if(tic == 0 && index > 0){
+        Beat* prevBeat =  [_beats objectAtIndex:(index-1)];
+        [prevBeat stopHolder];
     }
-    
-    
-    Beat * beat = [_beats objectAtIndex:_currentBeatPlaying];
-    [beat playWithTempo:bpm];
-    
-    _currentBeatPlaying++;
 }
-
--(void)stop{
-    [playTimer invalidate];
-    playTimer = nil;
-    for(Beat * beat in _beats){
-        [beat stop];
-    }
-    _currentBeatPlaying = 0;
-}
-
 
 -(void)setNumOfBeats:(int)numOfBeats{
     _numOfBeats= numOfBeats;
@@ -96,12 +66,23 @@
     }
     
 }
-
+-(void)stopBeat{
+    for(int i = 0; i < _numOfBeats; i++){
+        Beat * beat = [_beats objectAtIndex:i];
+        [beat stopHolder];
+    }
+}
 -(Beat *)findBeatAtx:(int)x{
     int pos = (x -_widthFromFirstBeat)/( _widthPerBeat);
     if(pos < [_beats count])
         return[_beats objectAtIndex:pos];
     return nil;
+}
+-(int)findBeatNumAtx:(int)x{
+    int pos = (x -_widthFromFirstBeat)/( _widthPerBeat);
+    if(pos < [_beats count])
+        return pos;
+    return -1;
 }
 
 -(void)setMuted:(BOOL)abool{

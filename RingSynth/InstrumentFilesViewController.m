@@ -81,19 +81,29 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
             cell = [self.tableView dequeueReusableCellWithIdentifier:newInst];
         }
         if(fileToBeDeleted){
-            //Copy content to new renamed file
-            NSString *copyContent = [NSKeyedUnarchiver unarchiveObjectWithFile: fileToBeDeleted];
-            [NSKeyedArchiver archiveRootObject:copyContent toFile:[Util getInstrumentPath :(id) newInst]];
+            //Replace the file
+             NSFileManager *fm = [NSFileManager defaultManager];
+            [fm moveItemAtPath: fileToBeDeleted toPath:[Util getInstrumentPath: newInst] error: nil];
+            
+            NSString* wavPath = [fileToBeDeleted stringByReplacingOccurrencesOfString: @ ".ins" withString: @ ".wav"];
+            [fm moveItemAtPath: wavPath toPath:[Util getPath: [NSString stringWithFormat:@"%@.wav", newInst]] error: nil];
+
             
         }
         
     }
-    if(fileToBeDeleted){
+    if( buttonIndex == 0  && fileToBeDeleted){
         //Delete the file
         NSFileManager *fm = [NSFileManager defaultManager];
         BOOL exists = [fm fileExistsAtPath:fileToBeDeleted];
         if(exists)
             [fm removeItemAtPath:fileToBeDeleted error:nil];
+        
+        //Also delete recording
+        NSString* wavPath = [fileToBeDeleted stringByReplacingOccurrencesOfString: @ ".ins" withString: @ ".wav"];
+        exists = [fm fileExistsAtPath:wavPath];
+        if(exists == YES)
+            [fm removeItemAtPath:wavPath error:nil];
         
     }
     fileToBeDeleted =nil;

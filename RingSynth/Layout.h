@@ -12,21 +12,18 @@
 #import "ObjectAL.h"
 
 @interface Layout  : UIView{
-    int prevBeat;
-    NSTimer *playTimer;
-    int bpm;
     Staff *staff;
 }
 @property(readonly)ALChannelSource*channel;
 @property (readonly)NSMutableArray *beats;
-@property (readonly)int currentBeatPlaying;
 @property (readonly)int widthFromFirstBeat;
 @property(readonly) int widthPerBeat;
 @property (nonatomic)int numOfBeats;
 -(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfBeat:(int)numOfBeats;
--(void)playWithTempo:(int)bpm fromBeat:(int)beat;
--(void)stop;
+-(void)playWithTempo:(int)bpm beat:(int)index tic:(int)tic andTicDivision:(int)ticDivision;
 -(Beat *)findBeatAtx:(int)x;
+-(int)findBeatNumAtx:(int)x;
+-(void)stopBeat;
 -(void)setMuted:(BOOL)abool;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;

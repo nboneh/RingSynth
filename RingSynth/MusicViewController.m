@@ -193,7 +193,7 @@ static BOOL LOOPING;
     [preSaveFile setValue: _beatsTextField.text forKey:@"beats"];
     NSMutableArray *saveInstruments = [[NSMutableArray alloc] init];
     for(Instrument * instrument in instruments){
-        [saveInstruments addObject:[NSNumber numberWithInt:(int)[[Assets INSTRUMENTS] indexOfObject:instrument]]];
+        [saveInstruments addObject:[Assets objectForInst:instrument]];
     }
     [preSaveFile setValue:[[NSArray alloc] initWithArray:saveInstruments] forKey:@"instruments"];
     [preSaveFile setValue:[_fullGrid createSaveFile] forKey:@"fullGrid"];
@@ -207,9 +207,8 @@ static BOOL LOOPING;
         _tempoField.text =[saveFile objectForKey:@"tempo"];
         _beatsTextField.text = [saveFile objectForKey:@"beats"];
         NSArray *loadInstruments= [saveFile objectForKey:@"instruments"];
-        for(NSNumber * num in loadInstruments){
-            Instrument* instrument =[[Assets INSTRUMENTS] objectAtIndex:[num intValue]];
-            [self addInstrument:instrument fromLoad:YES];
+        for(NSObject * object in loadInstruments){
+            [self addInstrument:[Assets instForObject:object] fromLoad:YES];
         }
         [_instrumentController setSelectedSegmentIndex:0];
         [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
@@ -232,8 +231,7 @@ static BOOL LOOPING;
     if(selectedIndex > 0 && selectedIndex < ([_instrumentController numberOfSegments]  -1)){
         
         [_instrumentController setSelectedSegmentIndex:selectedIndex];
-        UIActionSheet *instrumentSheet = [self getInstrumentSheetWithInstrument:(Instrument *)[instruments objectAtIndex:(selectedIndex -1)] ];
-        [instrumentSheet showInView:self.view];
+        [self presentInstrumentSheet];
     }
     
 }
@@ -248,29 +246,70 @@ static BOOL LOOPING;
 }
 
 
--(UIActionSheet *)getInstrumentSheetWithInstrument:(Instrument *)instrument{
-    UIActionSheet * instrumentSheet = [[UIActionSheet alloc] initWithTitle:@"New instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+-(void)presentInstrumentSheet{
+    if([[Assets USER_INSTRUMENTS] count] > 0 ){
+        typeOfInstrumentsSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Instrument Set" delegate: self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Regular Instruments", @"User Instruments", nil];
+        
+        int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
+        
+        if(pos  <([_instrumentController numberOfSegments] -2) ){
+            Instrument * instrument = [instruments objectAtIndex:pos];
+            typeOfInstrumentsSheet.destructiveButtonIndex = [typeOfInstrumentsSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
+        }
+        [typeOfInstrumentsSheet showInView:self.view];
+        
+    }
+    
+    else
+        [self presentRegularInstrumentSheet];
+    
+}
+
+-(void)presentRegularInstrumentSheet{
+    changeRegularInstrumentSheet = [[UIActionSheet alloc] initWithTitle:@"New Regular Instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [_fullGrid stop];
-    if(instrument){
-        instrumentSheet.title = [NSString stringWithFormat:@"Editing %@", instrument.name];
-        instrumentSheet.destructiveButtonIndex = [instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
+    int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
+    if(pos  <([_instrumentController numberOfSegments] -2) ){
+        Instrument * instrument = [instruments objectAtIndex:pos];
+        changeRegularInstrumentSheet.title = [NSString stringWithFormat:@"Editing %@", instrument.name];
+        changeRegularInstrumentSheet.destructiveButtonIndex = [changeRegularInstrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
     }
     for (Instrument *inst in [Assets INSTRUMENTS]) {
         //Checking if instrument is purchased to add it to the list of instruments
         if(inst.purchased)
-            [instrumentSheet addButtonWithTitle:inst.name ];
+            [changeRegularInstrumentSheet addButtonWithTitle:inst.name ];
         else
-            [instrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"\u26A0%@", inst.name] ];
+            [changeRegularInstrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"\u26A0%@", inst.name] ];
         
     }
-    instrumentSheet.cancelButtonIndex = [instrumentSheet addButtonWithTitle:@"Cancel"];
-    return instrumentSheet;
+    changeRegularInstrumentSheet.cancelButtonIndex = [changeRegularInstrumentSheet addButtonWithTitle:@"Cancel"];
+    
+    [changeRegularInstrumentSheet showInView:self.view];
+}
+
+-(void)presentUserInstrumentSheet{
+    changeUserInstrumentSheet = [[UIActionSheet alloc] initWithTitle:@"New Custom Instrument" delegate: self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    [_fullGrid stop];
+    int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
+    if(pos  <([_instrumentController numberOfSegments] -2) ){
+        Instrument * instrument = [instruments objectAtIndex:pos];
+        changeUserInstrumentSheet.title = [NSString stringWithFormat:@"Editing %@", instrument.name];
+        changeUserInstrumentSheet.destructiveButtonIndex = [changeUserInstrumentSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
+    }
+    for (NSString *key in [Assets USER_INSTRUMENTS_KEYS]) {
+        Instrument * inst = [[Assets USER_INSTRUMENTS] objectForKey:key];
+        [changeUserInstrumentSheet addButtonWithTitle: inst.name];
+        
+    }
+    changeUserInstrumentSheet.cancelButtonIndex = [changeUserInstrumentSheet addButtonWithTitle:@"Cancel"];
+    
+    [changeUserInstrumentSheet showInView:self.view];
 }
 
 -(void)changeInstruments{
     int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
     if(pos == ([_instrumentController numberOfSegments] -2)){
-        [[self getInstrumentSheetWithInstrument:nil ]  showInView:self.view];
+        [self presentInstrumentSheet];
     }
     else{
         [_fullGrid changeLayer:(pos)];
@@ -287,28 +326,66 @@ static BOOL LOOPING;
     }
     
 }
-- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
     
     
+    //Called twice bug
+    if(actionSheet.tag != 0)
+        return;
     
-    if(buttonIndex ==popup.cancelButtonIndex){
+    actionSheet.tag = -1;
+    if(buttonIndex ==actionSheet.cancelButtonIndex){
+        [_instrumentController setSelectedSegmentIndex:prevSelect];
+        [_fullGrid changeLayer:prevSelect -1];
+        return;
+    }
+    
+    else if(buttonIndex == actionSheet.destructiveButtonIndex){
+        if(!deleteAlert){
+            deleteAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        }
+        Instrument* instrument = [instruments objectAtIndex:[_instrumentController selectedSegmentIndex]- 1];
+        [deleteAlert setTitle:[NSString stringWithFormat:@"Delete %@",instrument.name ]];
+        [deleteAlert show];
+        return;
+        
+    }
+    
+    else if(actionSheet == typeOfInstrumentsSheet){
+        if(buttonIndex == 0)
+            [self presentRegularInstrumentSheet];
+        else if(buttonIndex ==1)
+            [self presentUserInstrumentSheet];
+        return;
+    }
+    
+    BOOL addInstrument = [_instrumentController selectedSegmentIndex] == ([_instrumentController numberOfSegments] -1);
+    
+    Instrument * instrument;
+    long index = buttonIndex;
+    if(!addInstrument)
+        index--;
+    
+    if(actionSheet == changeRegularInstrumentSheet)
+        instrument = [[Assets INSTRUMENTS] objectAtIndex: index];
+    else if(actionSheet == changeUserInstrumentSheet)
+        instrument = [[Assets USER_INSTRUMENTS] objectForKey:[[Assets USER_INSTRUMENTS_KEYS] objectAtIndex: index]];
+    
+    if(!instrument.purchased ){
+        inAppPurchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is in app purchase", instrument.name ] message:@"Would you like to check out the shop?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [inAppPurchaseAlert show];
         [_instrumentController setSelectedSegmentIndex:prevSelect];
         [_fullGrid changeLayer:prevSelect -1];
         return;
     }
     
     
-    if([_instrumentController selectedSegmentIndex] == ([_instrumentController numberOfSegments] -1)){
+    
+    
+    
+    
+    if(addInstrument){
         //Add new Instrumenet
-        
-        Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: buttonIndex];
-        if(!instrument.purchased ){
-            inAppPurchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is in app purchase", instrument.name ] message:@"Would you like to check out the shop?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-            [inAppPurchaseAlert show];
-            [_instrumentController setSelectedSegmentIndex:prevSelect];
-            [_fullGrid changeLayer:prevSelect -1];
-            return;
-        }
         [self addInstrument:instrument fromLoad:NO];
         [_fullGrid addLayer];
         
@@ -317,36 +394,17 @@ static BOOL LOOPING;
         [self changeInstruments];
     }
     else{
-        //Replace or delete current instrument
-        if(buttonIndex == popup.destructiveButtonIndex){
-            if(!deleteAlert){
-                deleteAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-            }
-            Instrument* instrument = [instruments objectAtIndex:[_instrumentController selectedSegmentIndex]- 1];
-            [deleteAlert setTitle:[NSString stringWithFormat:@"Delete %@",instrument.name ]];
-            [deleteAlert show];
-            
-        } else {
-            Instrument * instrument = [[Assets INSTRUMENTS] objectAtIndex: (buttonIndex- 1)];
-            if(!instrument.purchased ){
-                inAppPurchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is in app purchase", instrument.name ] message:@"Would you like to check out the shop?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-                [inAppPurchaseAlert show];
-                [_instrumentController setSelectedSegmentIndex:prevSelect];
-                [_fullGrid changeLayer:prevSelect -1];
-                return;
-            }
-            
-            NSInteger pos = [_instrumentController selectedSegmentIndex];
-            [instruments removeObjectAtIndex:([_instrumentController selectedSegmentIndex] -1)];
-            [instruments insertObject:instrument atIndex:(pos-1)];
-            [_instrumentController removeSegmentAtIndex:[_instrumentController selectedSegmentIndex] animated:YES];
-            [_instrumentController insertSegmentWithImage:instrument.image atIndex:pos animated:YES];
-            [[[_instrumentController subviews] objectAtIndex:(([_instrumentController numberOfSegments]) -pos -1)] setTintColor:instrument.color];
-            [_instrumentController setSelectedSegmentIndex:pos];
-            [_fullGrid changeInstrumentTo:instrument forLayer:((int)(pos- 1))];
-            CURRENT_INSTRUMENT = instrument;
-            [instrument play];
-        }
+        //Replace current instrument
+        NSInteger pos = [_instrumentController selectedSegmentIndex];
+        [instruments removeObjectAtIndex:([_instrumentController selectedSegmentIndex] -1)];
+        [instruments insertObject:instrument atIndex:(pos-1)];
+        [_instrumentController removeSegmentAtIndex:[_instrumentController selectedSegmentIndex] animated:YES];
+        [_instrumentController insertSegmentWithImage:instrument.image atIndex:pos animated:YES];
+        [[[_instrumentController subviews] objectAtIndex:(([_instrumentController numberOfSegments]) -pos -1)] setTintColor:instrument.color];
+        [_instrumentController setSelectedSegmentIndex:pos];
+        [_fullGrid changeInstrumentTo:instrument forLayer:((int)(pos- 1))];
+        CURRENT_INSTRUMENT = instrument;
+        [instrument play];
     }
 }
 

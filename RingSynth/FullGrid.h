@@ -19,7 +19,9 @@
     Layout *currentLayer;
     int bpm;
     NSTimer *stopAnimTimer;
-    NSTimer *stopPlayingTimer;
+    NSTimer *playTimer;
+    int currentBeatPlaying;
+    int currentTic;
 }
 @property(nonatomic) int numOfBeats;
 @property BOOL isPlaying;
@@ -34,4 +36,5 @@
 -(void)loadSaveFile:(NSArray *)saveFile;
 -(void) encodeWithBpm:(int)bpm andName:(NSString *)name andCompletionBlock:(void (^)( BOOL)) block;
 -(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex;
+-(void)playBeat:(NSTimer *)target;
 @end

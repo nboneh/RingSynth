@@ -21,34 +21,36 @@
     if(!_sounds){
         NSDictionary *octave1 = @{@"e":@[@"Gong", @"Synth-Cowbell",@"DameSon"],
                                   @"f":@[@"Shaker", @"Kick-Snare", @"Zill"],
-                                  @"g": @[@"Clap",@"Clap2", @"Snap"],
-                                  @"a" : @[@"Low-Bongo",@"Kalimba",@"CrazyKalimba"],
-                                  @"b" :@[@"Hi-Bongo",@"BikeBell",@"LowTimp"]
+                                  @"g": @[@"Clap",@"Clap2", @"Snap"]
                                   };
         
         
         NSDictionary *octave2 =@{
+                                 @"a" : @[@"Low-Bongo",@"Kalimba",@"CrazyKalimba"],
+                                 @"b" :@[@"Hi-Bongo",@"BikeBell",@"LowTimp"],
                                  @"c" :@[@"KickDrum2", @"SlapNoise",@"Timpani"],
                                  @"d":  @[@"PedalHiHat",@"KickDrum3", @"Side-Stick"],
                                  @"e": @[@"BassDrum", @"HandDrum", @"KettleDrum1"],
                                  @"f": @[@"BassDrum2", @"DoumbekTek", @"Click"],
-                                 @"g": @[@"FloorTom1", @"OpenRimShot", @"Clacker"],
-                                 @"a" : @[@"FloorTom2",@"Electro-Tom",@"Tambourine2"],
-                                 @"b" :@[@"LowTom", @"Tambourine", @"Low-Synth-Tom"]
-                                 
+                                 @"g": @[@"FloorTom1", @"OpenRimShot", @"Clacker"]
+                            
                                  
                                  };
         NSDictionary *octave3 = @{
+                                  @"a" : @[@"FloorTom2",@"Electro-Tom",@"Tambourine2"],
+                                  @"b" :@[@"LowTom", @"Tambourine", @"Low-Synth-Tom"],
+
                                   @"c" :@[@"Snare", @"Rimshot", @"BuzzSnare"],
                                   @"d":  @[@"RideCymbal1",@"MidTom1",@"Woodblock"],
                                   @"e":  @[@"MidTom2", @"Cowbell",@"HalfOpenHiHat"],
                                   @"f": @[@"RideCymbal2", @"HiTom",@"Hi-Synth-Tom"],
                                   @"g": @[@"ClosedHiHat",@"OpenHiHat", @"ClosedHiHat2"],
-                                  @"a" : @[@"Crash1", @"Triangle", @"TriangleMute"],
-                                  @"b" :@[@"Splash", @"Splash2", @"Crash2"]
+            
                                   };
         
         NSDictionary *octave4 = @{
+                                  @"a" : @[@"Crash1", @"Triangle", @"TriangleMute"],
+                                  @"b" :@[@"Splash", @"Splash2", @"Crash2"],
                                   @"c" :@[@"China",@"Sizzle",@"Crash3"],
                                   @"d": @[@"Klank",@"TurnDown",@"Klank2"]
                                   };
@@ -95,6 +97,4 @@
     
     [self playNote:note withVolume:1.0f];
 }
-
-
 @end

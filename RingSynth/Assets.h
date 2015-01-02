@@ -7,11 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Instrument.h"
 
 @interface Assets : NSObject
 
 +(NSArray *)INSTRUMENTS;
-+(NSMutableDictionary *) USER_INSTRUMENTS;
+
++(NSDictionary *) USER_INSTRUMENTS;
++(NSArray *)USER_INSTRUMENTS_KEYS;
+
++(void) UPDATE_USER_INSTRUMENTS;
+
+//Helps with saving instruments
++(NSObject *) objectForInst:(Instrument *)instrument;
++(Instrument *) instForObject:(NSObject *) object;
+
+
 +(NSArray *)IN_APP_PURCHASE_PACKS;
 +(void) playEraseSound;
 

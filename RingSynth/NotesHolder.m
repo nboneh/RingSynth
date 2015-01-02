@@ -195,7 +195,7 @@
         NSMutableArray*preSaveNotes = [[NSMutableArray alloc] init];
         for(Note*note in _notes ){
             NSMutableDictionary *preSaveNote = [[NSMutableDictionary alloc] init];
-            [preSaveNote setValue:[NSNumber numberWithInt:(int)[[Assets INSTRUMENTS] indexOfObject:note.instrument]] forKey:@"instrument"];
+            [preSaveNote setValue:[Assets objectForInst:note.instrument] forKey:@"instrument"];
             [preSaveNote setValue:[NSNumber numberWithInt:(int)[_staff.notePlacements indexOfObject:note.notePlacement]] forKey:@"noteplacement"];
             [preSaveNote setValue:[NSNumber numberWithInt: note.accidental] forKey:@"accidental"];
             [preSaveNotes addObject:preSaveNote];
@@ -210,7 +210,7 @@
         NSArray *loadNotes = [saveFile objectForKey:@"notes"];
         for(NSDictionary * noteDict in loadNotes){
             Note*note = [[Note alloc] initWithNotePlacement:[_staff.notePlacements objectAtIndex:[[noteDict objectForKey:@"noteplacement"] intValue]]
-                                             withInstrument:[[Assets INSTRUMENTS] objectAtIndex:[[noteDict objectForKey:@"instrument"] intValue]] andAccedintal:[[noteDict  objectForKey:@"accidental"] intValue]];
+                                             withInstrument:[Assets instForObject:[noteDict objectForKey:@"instrument"]]  andAccedintal:[[noteDict  objectForKey:@"accidental"] intValue]];
             [self insertNote:note];
 
         }

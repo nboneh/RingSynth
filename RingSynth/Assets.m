@@ -7,7 +7,6 @@
 //
 
 #import "Assets.h"
-#import "Instrument.h"
 #include <stdlib.h>
 #import "ObjectAL.h"
 #import "Drums.h"
@@ -18,7 +17,8 @@
 static NSArray* ERASE_SOUNDS;
 static NSArray *INSTRUMENTS;
 static NSArray *IN_APP_PURCHASE_PACKS;
-static NSMutableDictionary* USER_INSTRUMENTS;
+static NSDictionary* USER_INSTRUMENTS;
+static NSArray *USER_INSTRUMENTS_KEYS;
 //Incase user deletes instrument
 static Instrument * NULL_INSTRUMENT;
 
@@ -62,25 +62,13 @@ static Instrument * NULL_INSTRUMENT;
             [instrumentMut addObject:instrument];
         }
     }
-    
-    [instrumentMut addObject:[[Instrument alloc] initWithName:@"Voice" color:[UIColor grayColor]  andBaseOctave:5]];
+    [Assets UPDATE_USER_INSTRUMENTS];
 
     
     INSTRUMENTS  = [[NSArray alloc]initWithArray:instrumentMut];
     
     ERASE_SOUNDS = [[NSArray alloc] initWithObjects:@"delete1.wav", @"delete2.wav", @"delete3.wav",@"delete4.wav", nil];
 
-    //Loading user instruments
-    USER_INSTRUMENTS = [[NSMutableDictionary alloc] init];
-    NSArray* user_instruments_data = [InstrumentFilesViewController INSTRUMENT_LIST];
-    for(NSString * name in user_instruments_data){
-        NSDictionary * instrument_data = [NSKeyedUnarchiver unarchiveObjectWithFile: [Util getInstrumentPath:(id) name]];
-        if(instrument_data != nil){
-            [USER_INSTRUMENTS setValue:[[Instrument alloc]
-                                        initWithName:name color:[instrument_data objectForKey:@"color"] andBaseNote:[instrument_data objectForKey:@"baseNote"] andImageTitle:[instrument_data objectForKey:@"imageName" ]andWavPath:[NSString stringWithFormat: @"%@.wav", name]] forKey:name];
-        }
-    }
-    
     NULL_INSTRUMENT = [[Instrument alloc] initWithName:@"No Instrument" color: [UIColor redColor]];
 }
 
@@ -150,7 +138,60 @@ static Instrument * NULL_INSTRUMENT;
     return [path stringByAppendingPathComponent:fileName];
 }
 
-+(NSMutableDictionary *) USER_INSTRUMENTS{
++(NSDictionary *) USER_INSTRUMENTS{
     return USER_INSTRUMENTS;
+}
+
++(NSObject *) objectForInst:(Instrument *)instrument{
+    if([[Assets INSTRUMENTS] containsObject:instrument])
+        //Regular instrument
+        return [NSNumber numberWithInt:(int)[[Assets INSTRUMENTS] indexOfObject:instrument]];
+    else {
+        //User Instrument
+        NSArray * keysForObj = [[Assets USER_INSTRUMENTS] allKeysForObject:instrument];
+        if([keysForObj count] > 0){
+            return[keysForObj objectAtIndex:0];
+        } else {
+            return @"";
+        }
+    }
+
+}
+
++(Instrument *) instForObject:(NSObject *) object{
+    if([object isKindOfClass:[NSNumber class]]){
+         return [[Assets INSTRUMENTS] objectAtIndex:[(NSNumber *)object intValue]];
+    } else{
+         Instrument * instrument;
+        instrument = [[Assets USER_INSTRUMENTS] objectForKey:object];
+        if(instrument == nil)
+            return NULL_INSTRUMENT;
+        else
+            return instrument;
+    }
+}
+
++(NSArray *)USER_INSTRUMENTS_KEYS{
+    return USER_INSTRUMENTS_KEYS;
+}
+
++(void) UPDATE_USER_INSTRUMENTS{
+    //Loading user instruments
+    NSMutableDictionary *userInstrumentsMut = [[NSMutableDictionary alloc] init];
+    NSMutableArray *userInstrumentsKeyMut = [[NSMutableArray alloc] init];
+    NSArray* user_instruments_data = [InstrumentFilesViewController INSTRUMENT_LIST];
+    for(NSString * name in user_instruments_data){
+        NSDictionary * instrument_data = [NSKeyedUnarchiver unarchiveObjectWithFile: [Util getInstrumentPath:(id) name]];
+        if(instrument_data != nil){
+            NSString * key = [instrument_data objectForKey:@"uuid"];
+            [userInstrumentsMut setValue:[[Instrument alloc]
+                                        initWithName:name color:[instrument_data objectForKey:@"color"] andBaseNote:[instrument_data objectForKey:@"baseNote"] andImageName:[instrument_data objectForKey:@"imageName" ]andWavPath:[Util getPath:[NSString stringWithFormat: @"%@.wav", name]]] forKey:key];
+            [userInstrumentsKeyMut addObject:key];
+            
+        }
+    }
+    USER_INSTRUMENTS = [[NSDictionary alloc] initWithDictionary:userInstrumentsMut];
+    USER_INSTRUMENTS_KEYS = [[NSMutableArray alloc] initWithArray:userInstrumentsKeyMut];
+
 }
 @end

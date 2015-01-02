@@ -20,10 +20,7 @@ typedef enum {
 -(void)changeSubDivision:(Subdivision)subdivision;
 @end
 @interface Beat : UIView{
-    int currentPlayingNoteHolder;
-    NSTimer *playTimer;
     ALChannelSource *channel;
-    NotesHolder *prevNoteHolder;
 }
 
 @property int num;
@@ -32,6 +29,7 @@ typedef enum {
 @property int widthPerNoteHolder;
 @property (readonly)NSMutableArray *noteHolders;
 @property NotesHolder *initialNotesHolder;
+@property NotesHolder * currentlyPlayingHolder;
 @property(nonatomic,assign)id delegate;
 
 -(id) initWithStaff:(Staff *)staff  andFrame:(CGRect)frame andNum:(int)num andChannel:(ALChannelSource *)channel;
@@ -40,8 +38,8 @@ typedef enum {
 -(BOOL)anyNotesInsubdivision;
 
 -(BOOL)anyNotes;
--(void)playWithTempo:(int)bpm;
--(void)stop;
+-(void)playWithTempo:(int)bpm tic:(int) tic andTicDivision:(int)ticDivision;
+-(void)stopHolder;
 -(NotesHolder *)findNoteHolderAtX:(int)x;
 
 -(NSDictionary*)createSaveFile;
