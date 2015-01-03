@@ -12,6 +12,8 @@
 		0B213B011A06CACC00F2255B /* libAxonixSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B213AF91A06CACC00F2255B /* libAxonixSDK.a */; };
 		0B39A04519EF24BB006B7EA5 /* FullGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04419EF24BB006B7EA5 /* FullGrid.m */; };
 		0B39A04C19F04601006B7EA5 /* Beat.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B39A04B19F04601006B7EA5 /* Beat.m */; };
+		0B3A63D71A57557800A192BC /* Editor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3A63D61A57557800A192BC /* Editor.xib */; };
+		0B3A63DD1A575BD800A192BC /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3A63DC1A575BD800A192BC /* EditorViewController.m */; };
 		0B5D64FD19FC5C5400C408D4 /* PitchShift.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D64FB19FC5C5400C408D4 /* PitchShift.c */; };
 		0B5D654B19FC7FFF00C408D4 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B9AF88C19F3287D00F6C176 /* mach_timing.c */; };
 		0B703EB419E70B5F00CED5B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B703EB319E70B5F00CED5B4 /* main.m */; };
@@ -215,6 +217,9 @@
 		0B39A04419EF24BB006B7EA5 /* FullGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullGrid.m; sourceTree = "<group>"; };
 		0B39A04A19F04601006B7EA5 /* Beat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beat.h; sourceTree = "<group>"; };
 		0B39A04B19F04601006B7EA5 /* Beat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beat.m; sourceTree = "<group>"; };
+		0B3A63D61A57557800A192BC /* Editor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Editor.xib; sourceTree = "<group>"; };
+		0B3A63DB1A575BD800A192BC /* EditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditorViewController.h; path = RingSynth/EditorViewController.h; sourceTree = "<group>"; };
+		0B3A63DC1A575BD800A192BC /* EditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditorViewController.m; path = RingSynth/EditorViewController.m; sourceTree = "<group>"; };
 		0B5D64FB19FC5C5400C408D4 /* PitchShift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PitchShift.c; sourceTree = "<group>"; };
 		0B5D64FC19FC5C5400C408D4 /* PitchShift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchShift.h; sourceTree = "<group>"; };
 		0B703EAE19E70B5F00CED5B4 /* RingSynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RingSynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -521,6 +526,7 @@
 				0B703EB519E70B5F00CED5B4 /* AppDelegate.h */,
 				0B703EB619E70B5F00CED5B4 /* AppDelegate.m */,
 				0B703EBE19E70B5F00CED5B4 /* Main.storyboard */,
+				0B3A63D61A57557800A192BC /* Editor.xib */,
 				0B703EC119E70B5F00CED5B4 /* Images.xcassets */,
 				0B703EC319E70B5F00CED5B4 /* LaunchScreen.xib */,
 				0B703EB119E70B5F00CED5B4 /* Supporting Files */,
@@ -763,6 +769,8 @@
 				0BD0CF411A4FB0FE0045C76A /* InstrumentFilesViewController.m */,
 				0BD0CF461A4FE19E0045C76A /* InstrumentViewController.h */,
 				0BD0CF471A4FE19E0045C76A /* InstrumentViewController.m */,
+				0B3A63DB1A575BD800A192BC /* EditorViewController.h */,
+				0B3A63DC1A575BD800A192BC /* EditorViewController.m */,
 			);
 			name = ViewControllers;
 			path = ..;
@@ -1020,6 +1028,7 @@
 				0BD0CED41A3BA7FC0045C76A /* Crash2.wav in Resources */,
 				0BD0CF191A3BA7FC0045C76A /* Ukulele.wav in Resources */,
 				0B703EC519E70B5F00CED5B4 /* LaunchScreen.xib in Resources */,
+				0B3A63D71A57557800A192BC /* Editor.xib in Resources */,
 				0BD0CEDA1A3BA7FC0045C76A /* FloorTom1.wav in Resources */,
 				0BD0CEC61A3BA7FC0045C76A /* Clarinet.wav in Resources */,
 				0BD0CEF01A3BA7FC0045C76A /* OpenHiHat.wav in Resources */,
@@ -1142,6 +1151,7 @@
 				0BD0CF451A4FD1080045C76A /* Util.m in Sources */,
 				0BD0CF321A3BAC630045C76A /* MusicViewController.m in Sources */,
 				0BD0CF2C1A3BABF50045C76A /* MainMenuViewController.m in Sources */,
+				0B3A63DD1A575BD800A192BC /* EditorViewController.m in Sources */,
 				0B39A04C19F04601006B7EA5 /* Beat.m in Sources */,
 				0B74953719EDAE000078296B /* Note.m in Sources */,
 				0B703EB419E70B5F00CED5B4 /* main.m in Sources */,

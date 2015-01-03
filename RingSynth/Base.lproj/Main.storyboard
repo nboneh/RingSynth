@@ -354,6 +354,7 @@
                                             <action selector="loop:" destination="JEX-9P-axG" id="ZBl-D5-STj"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="aQ3-v0-3on"/>
                                     <barButtonItem title="Tempo:" id="obm-cR-TkX">
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -386,6 +387,13 @@
                                                 <action selector="changeBeat" destination="JEX-9P-axG" eventType="editingDidBegin" id="lGK-PL-w5W"/>
                                             </connections>
                                         </textField>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xkg-uX-Ts4"/>
+                                    <barButtonItem image="Editor" id="5OR-sW-AHd">
+                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="openEditor:" destination="JEX-9P-axG" id="19f-E0-zjp"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HCu-AN-fmA"/>
                                     <barButtonItem width="88" style="plain" id="G3s-2d-sVH">
@@ -510,6 +518,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Editor" width="22" height="22"/>
         <image name="Null Note" width="22" height="22"/>
         <image name="background" width="1600" height="613"/>
         <image name="download" width="22" height="22"/>

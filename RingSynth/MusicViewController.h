@@ -13,6 +13,7 @@
 #import "SlidingSegment.h"
 #import <MessageUI/MessageUI.h>
 #import "AxonixFullScreenAdViewController.h"
+#import "EditorViewController.h"
 
 
 
@@ -20,6 +21,7 @@
     BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;
+    EditorViewController * editViewController;
     UIAlertView * tempoAlert;
     UIAlertView *beatAlert;
     UIAlertView *sucessAlert;
@@ -50,6 +52,7 @@
 -(IBAction)loop:(UIBarButtonItem*)sender;
 -(IBAction)changeBeat;
 -(IBAction)exportMusic:(UIBarButtonItem *) button;
+-(IBAction)openEditor:(id)sender;
 @property (weak, nonatomic) IBOutlet UINavigationItem *topBar;
 
 +(Instrument *)CURRENT_INSTRUMENT;

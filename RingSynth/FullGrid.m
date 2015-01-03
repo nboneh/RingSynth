@@ -180,7 +180,7 @@ const int TICS_PER_BEAT  =12;
 
    
     
-    BOOL animate;
+    BOOL animate = NO;
     int midX =  self.contentOffset.x + self.frame.size.width/2;
     Layout * layer= [layers objectAtIndex:0];
     int currentXPlaying =  [layer findBeatAtIndex:currentBeatPlaying].frame.origin.x + (layer.widthPerBeat * currentTic)/TICS_PER_BEAT;

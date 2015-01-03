@@ -101,6 +101,8 @@ static BOOL LOOPING;
     [_instrumentController addGestureRecognizer:doubleTap];
     [self.view addSubview:_instrumentController];
     [self fixSegements];
+    
+    editViewController = [[EditorViewController alloc] initWithNibName:@"Editor" bundle:nil];
 }
 
 -(void) viewDidLayoutSubviews{
@@ -593,6 +595,11 @@ static BOOL LOOPING;
 
 +(BOOL)LOOPING{
     return LOOPING;
+}
+
+-(IBAction)openEditor:(id)sender{
+    [_fullGrid stop];
+    [editViewController displayPopup];
 }
 
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
