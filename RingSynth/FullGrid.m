@@ -70,7 +70,13 @@ const int TICS_PER_BEAT  =12;
     if(_isPlaying){
         [self setZoomScale:1.0f animated:NO];
         [self scrollRectToVisible:frame animated:NO];
-        [self playWithTempo:bpm];
+        if([layers count] == 0){
+            [self stop];
+            return;
+        }
+        Layout * layer =  [layers objectAtIndex:0];
+        currentBeatPlaying =[layer findBeatIndexAtx:(self.contentOffset.x + layer.widthPerBeat  )] -1;
+        currentTic = TICS_PER_BEAT -1;
     }else{
         [self setZoomScale:1.0f animated:YES];
         [self scrollRectToVisible:frame animated:YES];
@@ -127,8 +133,8 @@ const int TICS_PER_BEAT  =12;
     
     bpm = bpm_;
     if([layers count] >0  && ![self isZooming] && ![self isDragging] && ![self isDecelerating]){
-        [self stopTimers];
-        
+        [playTimer invalidate];
+        playTimer = nil;
         [self setUserInteractionEnabled:NO];
         [self setZoomScale:1.0f animated:NO];
         
@@ -142,7 +148,6 @@ const int TICS_PER_BEAT  =12;
         
         if(playTimer)
             [self stop];
-        bpm = bpm_;
         
         timePerTic= ((60.0f/bpm)/(TICS_PER_BEAT));
             _isPlaying = YES;
@@ -205,13 +210,19 @@ const int TICS_PER_BEAT  =12;
 }
 
 -(void)stop{
-    [self stopTimers];
+    [playTimer invalidate];
+    playTimer = nil;
     [self setUserInteractionEnabled:YES];
     _isPlaying = NO;
     
+    ALChannelSource * mainChannel = [[OALSimpleAudio sharedInstance] channel];
     for(Layout * layer in layers){
         [layer stopBeat];
+        [OALSimpleAudio sharedInstance].channel = layer.channel;
+        [[OALSimpleAudio sharedInstance] stopAllEffects];
+
     }
+    [OALSimpleAudio sharedInstance].channel = mainChannel;
     
     
     [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
@@ -224,7 +235,8 @@ const int TICS_PER_BEAT  =12;
 -(void)checkIfToStopPlaying{
     if(![MusicViewController LOOPING])
         [self stop];
-    [self replay];
+    else
+        [self replay];
     
 }
 
@@ -287,19 +299,6 @@ const int TICS_PER_BEAT  =12;
 }
 
 
--(void)silence{
-    [self stopTimers];
-    [[OALSimpleAudio sharedInstance] stopAllEffects];
-    for(Layout * layer in layers){
-        [layer setMuted:YES];
-    }
-}
--(void)stopTimers{
-    //[stopAnimTimer invalidate];
-    // stopAnimTimer = nil;
-    [playTimer invalidate];
-    playTimer = nil;
-}
 -(void)setNumOfBeats:(int)numOfBeats{
     _numOfBeats = numOfBeats;
     BOOL firstLayer = YES;

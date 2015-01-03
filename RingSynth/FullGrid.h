@@ -33,7 +33,6 @@
 -(void)deleteLayerAt:(int)index;
 -(void)playWithTempo:(int)bpm;
 -(void)stop;
--(void)silence;
 -(NSArray*)createSaveFile;
 -(void)loadSaveFile:(NSArray *)saveFile;
 -(void) encodeWithBpm:(int)bpm andName:(NSString *)name andCompletionBlock:(void (^)( BOOL)) block;

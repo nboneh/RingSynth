@@ -72,10 +72,6 @@ static BOOL LOOPING;
                  object: nil];
     
     [center addObserver: self
-               selector: @selector(becameActive:)
-                   name: @"becameActive"
-                 object: nil];
-    [center addObserver: self
                selector: @selector(musicStopped:)
                    name: @"musicStopped"
                  object: nil];
@@ -129,9 +125,7 @@ static BOOL LOOPING;
     
     //Stoping sound
     [_fullGrid stop];
-    [_fullGrid silence];
-    [_playButton setImage:[UIImage imageNamed:@"play"]];
-    
+
     //Saving file
     [self save];
 }
@@ -144,25 +138,12 @@ static BOOL LOOPING;
 {
     //View will disappear save music
     [_fullGrid stop];
-    [_fullGrid silence];
     [self save];
     [super viewWillDisappear:animated];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    //Unsilence the grid
-    [[OALSimpleAudio sharedInstance] setMuted:YES];
-    [self changeInstruments];
-    [[OALSimpleAudio sharedInstance] stopAllEffects];
-    [[OALSimpleAudio sharedInstance] setMuted:NO];
-    
-}
-
--(void)becameActive:(NSNotification *)notification{
-    //Unsilence the grid
-    
-    [_fullGrid changeLayer:(int)(_instrumentController.selectedSegmentIndex -1)];
     
 }
 
