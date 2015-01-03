@@ -203,7 +203,6 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
     //Saving ringtones list
     [super viewDidDisappear:YES];
     [MusicFilesViewController SAVE_RINGTONE_LIST];
-    [Assets UPDATE_USER_INSTRUMENTS];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

@@ -8,7 +8,7 @@
 
 #import "InstrumentFilesViewController.h"
 #import "Util.h"
-
+#import "Assets.h"
 @interface InstrumentFilesViewController ()
 
 @end
@@ -29,6 +29,7 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
                                                  name: @"applicationWillResignActive"
                                                object: nil];
     self.navigationController.navigationBar.hidden = NO;
+    self.navigationItem.leftItemsSupplementBackButton = YES;
     
     //This will load instrument list
     [InstrumentFilesViewController INSTRUMENT_LIST];
@@ -204,6 +205,7 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
     //Saving instruments list
     [super viewDidDisappear:YES];
     [InstrumentFilesViewController SAVE_INSTRUMENT_LIST];
+    [Assets UPDATE_USER_INSTRUMENTS];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

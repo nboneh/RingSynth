@@ -438,8 +438,9 @@
                         <outlet property="playButton" destination="kYS-aI-kCl" id="PUn-zU-XAH"/>
                         <outlet property="tempoField" destination="6kP-d4-Gfo" id="Z6Y-oT-U4A"/>
                         <outlet property="topBar" destination="mOI-FS-AaM" id="g2P-Z6-OC1"/>
-                        <segue destination="Ynr-Kr-KuT" kind="push" identifier="pushShopFromDetail" id="wFY-Em-PXW"/>
-                        <segue destination="SKU-2H-yZw" kind="push" identifier="pushHelpFromDetail" id="oQp-E4-3gw"/>
+                        <segue destination="Ynr-Kr-KuT" kind="push" identifier="pushShopFromMusic" id="wFY-Em-PXW"/>
+                        <segue destination="SKU-2H-yZw" kind="push" identifier="pushHelpFromMusic" id="oQp-E4-3gw"/>
+                        <segue destination="23M-2c-PVp" kind="push" identifier="pushInstrumentsFromMusic" id="ed3-2Y-Kex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
@@ -534,5 +535,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="oQp-E4-3gw"/>
         <segue reference="wFY-Em-PXW"/>
+        <segue reference="ed3-2Y-Kex"/>
     </inferredMetricsTieBreakers>
 </document>

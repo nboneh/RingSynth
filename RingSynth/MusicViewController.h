@@ -18,7 +18,6 @@
 
 
 @interface MusicViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate>{
-    BOOL firstTimeLoadingSubView;
     NSMutableArray *instruments;
     int prevSelect;
     EditorViewController * editViewController;

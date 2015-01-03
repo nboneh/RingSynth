@@ -56,12 +56,10 @@ static BOOL LOOPING;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
     //Put view infront of popup
     
     
     
-    firstTimeLoadingSubView = YES;
     self.fullScreenAdViewController = [[AxonixFullScreenAdViewController alloc] init];
     self.fullScreenAdViewController.delegate = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -75,44 +73,13 @@ static BOOL LOOPING;
                selector: @selector(musicStopped:)
                    name: @"musicStopped"
                  object: nil];
-    firstTimeLoadingSubView = YES;
     CURRENT_INSTRUMENT = nil;
     CURRENT_ACCIDENTAL = natural;
     LOOPING = NO;
     
-    int width = [[UIScreen mainScreen] bounds].size.width/10 ;
-    _instrumentController = [[SlidingSegment alloc] initWithFrame:CGRectMake(0,0,width,30)];
-    [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
-    [_instrumentController insertSegmentWithTitle:@"+" atIndex:1 animated:NO];
-    [_instrumentController setSelectedSegmentIndex:0];
-    UITapGestureRecognizer *quicktap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(quickTap:)];
-    [_instrumentController addGestureRecognizer:quicktap];
-    
-    UITapGestureRecognizer *doubleTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(doubleTap:)];
-    [doubleTap setNumberOfTapsRequired:2];
-    [_instrumentController addGestureRecognizer:doubleTap];
-    [self.view addSubview:_instrumentController];
-    [self fixSegements];
-    
     editViewController = [[EditorViewController alloc] initWithNibName:@"Editor" bundle:nil];
 }
 
--(void) viewDidLayoutSubviews{
-    if(firstTimeLoadingSubView){
-        CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
-        _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
-        [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
-        [self.view addSubview:_fullGrid];
-        [self.view bringSubviewToFront: _instrumentController];
-        [self.view bringSubviewToFront: _bottomBar];
-        [self load];
-    }
-    firstTimeLoadingSubView = NO;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -125,7 +92,7 @@ static BOOL LOOPING;
     
     //Stoping sound
     [_fullGrid stop];
-
+    
     //Saving file
     [self save];
 }
@@ -134,6 +101,49 @@ static BOOL LOOPING;
     [_playButton setImage:[UIImage imageNamed:@"play"]];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    if(_instrumentController != nil)
+        [_instrumentController removeFromSuperview];
+    if(_fullGrid != nil)
+        [_fullGrid removeFromSuperview];
+    
+    [ instruments removeAllObjects];
+    
+    int width = [[UIScreen mainScreen] bounds].size.width/10 ;
+    _instrumentController = [[SlidingSegment alloc] initWithFrame:CGRectMake(0,0,width,30)];
+    
+    UITapGestureRecognizer *quicktap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(quickTap:)];
+    [_instrumentController addGestureRecognizer:quicktap];
+    
+    UITapGestureRecognizer *doubleTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(doubleTap:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [_instrumentController addGestureRecognizer:doubleTap];
+    [self.view addSubview:_instrumentController];
+    
+    [_instrumentController removeAllSegments];
+    [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
+    [_instrumentController insertSegmentWithTitle:@"+" atIndex:1 animated:NO];
+    [_instrumentController setSelectedSegmentIndex:0];
+    [self fixSegements];
+    
+    
+    
+    
+    CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
+    _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
+    [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
+    [self.view addSubview:_fullGrid];
+    [self.view bringSubviewToFront: _instrumentController];
+    [self.view bringSubviewToFront: _bottomBar];
+    [self load];
+    
+}
 -(void) viewWillDisappear:(BOOL)animated
 {
     //View will disappear save music
@@ -142,10 +152,6 @@ static BOOL LOOPING;
     [super viewWillDisappear:animated];
 }
 
--(void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-}
 
 
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
@@ -230,21 +236,22 @@ static BOOL LOOPING;
 
 
 -(void)presentInstrumentSheet{
-    if([[Assets USER_INSTRUMENTS] count] > 0 ){
+    if([[Assets USER_INSTRUMENTS_KEYS] count] > 0 ){
         typeOfInstrumentsSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Instrument Set" delegate: self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Regular Instruments", @"User Instruments", nil];
-        
-        int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
-        
-        if(pos  <([_instrumentController numberOfSegments] -2) ){
-            Instrument * instrument = [instruments objectAtIndex:pos];
-            typeOfInstrumentsSheet.destructiveButtonIndex = [typeOfInstrumentsSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
-        }
-        [typeOfInstrumentsSheet showInView:self.view];
+    }
+    else{
+        typeOfInstrumentsSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Instrument Set" delegate: self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Regular Instruments", @"Make User Instruments", nil];
         
     }
     
-    else
-        [self presentRegularInstrumentSheet];
+    int pos = (int)[_instrumentController selectedSegmentIndex] -1 ;
+    
+    if(pos  <([_instrumentController numberOfSegments] -2) ){
+        Instrument * instrument = [instruments objectAtIndex:pos];
+        typeOfInstrumentsSheet.destructiveButtonIndex = [typeOfInstrumentsSheet addButtonWithTitle:[NSString stringWithFormat:@"Delete %@ ",instrument.name]];
+    }
+    [typeOfInstrumentsSheet showInView:self.view];
+    
     
 }
 
@@ -284,6 +291,7 @@ static BOOL LOOPING;
         [changeUserInstrumentSheet addButtonWithTitle: inst.name];
         
     }
+    [changeUserInstrumentSheet  addButtonWithTitle:@"Make more"];
     changeUserInstrumentSheet.cancelButtonIndex = [changeUserInstrumentSheet addButtonWithTitle:@"Cancel"];
     
     [changeUserInstrumentSheet showInView:self.view];
@@ -337,8 +345,13 @@ static BOOL LOOPING;
     else if(actionSheet == typeOfInstrumentsSheet){
         if(buttonIndex == 0)
             [self presentRegularInstrumentSheet];
-        else if(buttonIndex ==1)
-            [self presentUserInstrumentSheet];
+        else if(buttonIndex ==1){
+            if([Assets USER_INSTRUMENTS_KEYS].count == 0){
+                [self performSegueWithIdentifier: @"pushInstrumentsFromMusic" sender: self];
+            }
+            else
+                [self presentUserInstrumentSheet];
+        }
         return;
     }
     
@@ -351,8 +364,14 @@ static BOOL LOOPING;
     
     if(actionSheet == changeRegularInstrumentSheet)
         instrument = [[Assets INSTRUMENTS] objectAtIndex: index];
-    else if(actionSheet == changeUserInstrumentSheet)
+    else if(actionSheet == changeUserInstrumentSheet){
+        
+        if(index == [Assets USER_INSTRUMENTS_KEYS].count){
+             [self performSegueWithIdentifier: @"pushInstrumentsFromMusic" sender: self];
+            return;
+        }
         instrument = [[Assets USER_INSTRUMENTS] objectForKey:[[Assets USER_INSTRUMENTS_KEYS] objectAtIndex: index]];
+    }
     
     if(!instrument.purchased ){
         inAppPurchaseAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is in app purchase", instrument.name ] message:@"Would you like to check out the shop?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
@@ -503,13 +522,13 @@ static BOOL LOOPING;
     }
     else if(alertView == inAppPurchaseAlert){
         if(buttonIndex == 1){
-            [self performSegueWithIdentifier: @"pushShopFromDetail" sender: self];
+            [self performSegueWithIdentifier: @"pushShopFromMusic" sender: self];
         }
     }
     
     else if(alertView == helpAlert){
         if(buttonIndex == 1){
-            [self performSegueWithIdentifier: @"pushHelpFromDetail" sender: self];
+            [self performSegueWithIdentifier: @"pushHelpFromMusic" sender: self];
         }
         NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
         [userDefaults setBool:YES forKey:SHOWED_HELP];
