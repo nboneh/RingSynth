@@ -12,8 +12,9 @@
 
 @end
 
-@implementation EditorViewController
 
+@implementation EditorViewController
+@synthesize totalPossibleBeats = _totalPossibleBeats;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -30,7 +31,7 @@
     self.supportViewPopupAction.alpha = 0.0f;
     
 }
-- (void)displayPopup;
+- (void)displayPopup:(NSString *) title totalBeats:(int)totalBeats startingValue:(int)num
 {
     // Support View
     UIView * mainView = [[[UIApplication sharedApplication] delegate] window] ;
@@ -42,6 +43,20 @@
                      animations:^{
                          self.supportViewPopupAction.alpha = 1.0f;
                      }  ];
+    
+    _fromStepper.maximumValue = totalBeats;
+    _toStepper.maximumValue = totalBeats +1;
+    
+    _fromStepper.value = num;
+    int toValue = num + 4;
+    if(toValue > _fromStepper.maximumValue)
+        toValue =  _fromStepper.maximumValue;
+    
+    _toStepper.value = toValue;
+    _insertStepper.value = toValue;
+    _labelDescription.text = title;
+    [self fixLabels];
+    
 }
 
 - (void)dismissModal
@@ -59,6 +74,23 @@
 
 -(IBAction)cancelClicked{
     [self dismissModal];
+}
+
+-(IBAction)incrementChanged:(id)sender{
+    [self fixLabels];
+}
+
+-(void)fixLabels{
+    _toStepper.minimumValue = _fromStepper.value  + 1;
+    _insertStepper.maximumValue = _totalPossibleBeats - (_toStepper.value - _fromStepper.value) +1 ;
+    
+    [_toLabel setText:[NSString stringWithFormat:@"%d", (int)_toStepper.value]];
+    
+    [_fromLabel setText:[NSString stringWithFormat:@"%d",  (int)_fromStepper.value]];
+    
+    [_insertLabel setText:[NSString stringWithFormat:@"%d", (int)_insertStepper.value]];
+
+    
 }
 
 -(IBAction)editModeChanged:(id)sender{

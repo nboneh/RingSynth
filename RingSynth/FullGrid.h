@@ -38,4 +38,6 @@
 -(void) encodeWithBpm:(int)bpm andName:(NSString *)name andCompletionBlock:(void (^)( BOOL)) block;
 -(void)changeInstrumentTo:(Instrument *) instrument forLayer:(int)layerIndex;
 -(void)playBeat:(NSTimer *)target;
+
+-(int)currentBeatNumber;
 @end

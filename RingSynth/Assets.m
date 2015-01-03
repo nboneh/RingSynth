@@ -69,7 +69,7 @@ static Instrument * NULL_INSTRUMENT;
     
     ERASE_SOUNDS = [[NSArray alloc] initWithObjects:@"delete1.wav", @"delete2.wav", @"delete3.wav",@"delete4.wav", nil];
 
-    NULL_INSTRUMENT = [[Instrument alloc] initWithName:@"No Instrument" color: [UIColor redColor]];
+    NULL_INSTRUMENT = [[Instrument alloc] initWithName:@"Deleted Instrument" color: [UIColor redColor]];
 }
 
 +(NSArray *)INSTRUMENTS{

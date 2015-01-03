@@ -17,6 +17,15 @@ typedef enum {
     eraset = 2
 } EditingMode;
 
+@property (weak, nonatomic) IBOutlet UIStepper *fromStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *toStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *insertStepper;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *fromLabel;
+@property (weak, nonatomic) IBOutlet UILabel *toLabel;
+@property (weak, nonatomic) IBOutlet UILabel *insertLabel;
+
 @property (weak, nonatomic) IBOutlet UIView *insertView;
 @property (weak, nonatomic) IBOutlet UIView *acceptView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *editModeControl;
@@ -27,13 +36,16 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *buttonCancel;
 @property (nonatomic, weak) IBOutlet UILabel *labelDescription;
 
+@property int totalPossibleBeats;
 
-- (void)displayPopup;
-- (void)dismissModal;
+
+- (void)displayPopup:(NSString *) title totalBeats:(int)totalBeats startingValue:(int)num;
 
 -(IBAction)okClicked;
 
 -(IBAction)cancelClicked;
 
 -(IBAction)editModeChanged:(id)sender;
+
+-(IBAction)incrementChanged:(id)sender;
 @end

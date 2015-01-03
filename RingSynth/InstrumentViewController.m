@@ -253,14 +253,14 @@
     long startIndex = 0;
     for(int i = 0; i < sizeInShort; i++){
         short int val =abs(cdata[i]) ;
-        if(val > cutOffValue){
+        if(val >= cutOffValue){
             startIndex = i;
             break;
         }
     }
     
     //Go back just a little bit so sound does not start "too Immediate"
-    startIndex -= 2000;
+    startIndex -= 1000;
     if(startIndex < 0)
         startIndex = 0;
     long newLength = length - startIndex*2;
@@ -316,7 +316,7 @@
     newWaveFile[42] = (Byte) ((newLength >> 16) & 0xff);
     newWaveFile[43] = (Byte) ((newLength >> 24) & 0xff);
     
-    long j = 44;
+    long j = 22;
    
     short int*newWaveFileShorts = (short int*)&newWaveFile[j];
     for(long i = startIndex; i <  sizeInShort; i++){

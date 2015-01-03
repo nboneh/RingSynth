@@ -78,6 +78,7 @@ static BOOL LOOPING;
     LOOPING = NO;
     
     editViewController = [[EditorViewController alloc] initWithNibName:@"Editor" bundle:nil];
+    editViewController.totalPossibleBeats = MAX_BEATS;
 }
 
 
@@ -240,7 +241,7 @@ static BOOL LOOPING;
         typeOfInstrumentsSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Instrument Set" delegate: self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Regular Instruments", @"User Instruments", nil];
     }
     else{
-        typeOfInstrumentsSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Instrument Set" delegate: self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Regular Instruments", @"Make User Instruments", nil];
+        typeOfInstrumentsSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Instrument Set" delegate: self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Regular Instruments", @"Modulate your Voice! Make Instruments!", nil];
         
     }
     
@@ -291,7 +292,7 @@ static BOOL LOOPING;
         [changeUserInstrumentSheet addButtonWithTitle: inst.name];
         
     }
-    [changeUserInstrumentSheet  addButtonWithTitle:@"Make more"];
+    [changeUserInstrumentSheet  addButtonWithTitle:@"Make More!"];
     changeUserInstrumentSheet.cancelButtonIndex = [changeUserInstrumentSheet addButtonWithTitle:@"Cancel"];
     
     [changeUserInstrumentSheet showInView:self.view];
@@ -599,7 +600,21 @@ static BOOL LOOPING;
 
 -(IBAction)openEditor:(id)sender{
     [_fullGrid stop];
-    [editViewController displayPopup];
+    if(instruments.count == 0){
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Nothing to Edit!" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    NSString * title;
+    long index = [_instrumentController selectedSegmentIndex] -1;
+    if(index < 0)
+        title = @"Editing All Instruments";
+    else{
+        Instrument * instrument = [instruments objectAtIndex:index];
+        title = [NSString stringWithFormat:@"Editing %@",instrument.name];
+    }
+        
+    [editViewController displayPopup:title totalBeats:_beatsTextField.text.intValue startingValue:[_fullGrid currentBeatNumber]];
 }
 
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error

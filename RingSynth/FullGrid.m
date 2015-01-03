@@ -210,33 +210,37 @@ const int TICS_PER_BEAT  =12;
 }
 
 -(void)stop{
+    [self stopWithoutSilence];
+    [self silence];
+}
+
+-(void)stopWithoutSilence{
     [playTimer invalidate];
     playTimer = nil;
     [self setUserInteractionEnabled:YES];
     _isPlaying = NO;
     
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
+                                                        object: nil
+                                                      userInfo: nil];
+}
+
+-(void)silence{
     ALChannelSource * mainChannel = [[OALSimpleAudio sharedInstance] channel];
     for(Layout * layer in layers){
         [layer stopBeat];
         [OALSimpleAudio sharedInstance].channel = layer.channel;
         [[OALSimpleAudio sharedInstance] stopAllEffects];
-
+        
     }
     [OALSimpleAudio sharedInstance].channel = mainChannel;
-    
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
-                                                        object: nil
-                                                      userInfo: nil];
-    
 }
 
 
 -(void)checkIfToStopPlaying{
     if(![MusicViewController LOOPING])
-        [self stop];
-    else
-        [self replay];
+        [self stopWithoutSilence];
+    [self replay];
     
 }
 
@@ -297,7 +301,6 @@ const int TICS_PER_BEAT  =12;
         return nil;
     }
 }
-
 
 -(void)setNumOfBeats:(int)numOfBeats{
     _numOfBeats = numOfBeats;
@@ -577,5 +580,12 @@ const int TICS_PER_BEAT  =12;
     }
 }
 
+-(int)currentBeatNumber{
+    if(layers.count == 0)
+        return 0;
+    Layout * layer =  [layers objectAtIndex:0];
+   return [layer findBeatIndexAtx:(self.contentOffset.x + layer.widthPerBeat  )] +1;
+
+}
 
 @end
