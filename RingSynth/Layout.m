@@ -131,7 +131,8 @@
     for(Beat * beat in _beats){
         for(NotesHolder * noteHolder in beat.noteHolders){
             if(state == active || state == all_mode){
-                [noteHolder.volumeSlider setHidden:NO];
+                
+                [noteHolder checkViews];
                 if(state == all_mode)
                     [noteHolder.volumeSlider setAlpha:0.4f];
                 else
