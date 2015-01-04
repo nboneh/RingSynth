@@ -63,12 +63,34 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-lB-XTl">
+                                <rect key="frame" x="70" y="138" width="120" height="162"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="tBr-5c-qe6" id="Cdt-CH-9mp"/>
+                                    <outlet property="delegate" destination="tBr-5c-qe6" id="sQv-tR-hiQ"/>
+                                </connections>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Icon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elF-Bt-SKC">
+                                <rect key="frame" x="281" y="209" width="38" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsa-Hc-BwC">
+                                <rect key="frame" x="318" y="139" width="120" height="162"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="tBr-5c-qe6" id="98S-Bt-4GI"/>
+                                    <outlet property="delegate" destination="tBr-5c-qe6" id="FRF-X3-G3z"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Instrument" id="bhz-e1-mEi"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="colorPicker" destination="Zad-lB-XTl" id="rbC-qL-YmB"/>
+                        <outlet property="iconPicker" destination="rsa-Hc-BwC" id="NeY-Bl-H5Z"/>
                         <outlet property="playButton" destination="okk-Iz-tgq" id="UqU-TN-iRJ"/>
                         <outlet property="recordButton" destination="Bya-vf-bEF" id="Ric-Wo-luh"/>
                     </connections>
@@ -523,7 +545,7 @@
         <image name="Null Note" width="22" height="22"/>
         <image name="background" width="1600" height="613"/>
         <image name="download" width="22" height="22"/>
-        <image name="help" width="1114" height="679"/>
+        <image name="help" width="1106" height="712"/>
         <image name="noloop" width="22" height="22"/>
         <image name="play" width="22" height="22"/>
     </resources>

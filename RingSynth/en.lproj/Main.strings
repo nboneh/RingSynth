@@ -1,0 +1,90 @@
+
+/* Class = "IBUILabel"; text = "Color: "; ObjectID = "5uO-gF-dRm"; */
+"5uO-gF-dRm.text" = "Color: ";
+
+/* Class = "IBUITextField"; text = "100"; ObjectID = "6kP-d4-Gfo"; */
+"6kP-d4-Gfo.text" = "100";
+
+/* Class = "IBUITableViewController"; title = "Master"; ObjectID = "7bK-jq-Zjz"; */
+"7bK-jq-Zjz.title" = "Master";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "Arm-wq-HPj"; */
+"Arm-wq-HPj.text" = "Title";
+
+/* Class = "IBUIButton"; normalTitle = "Record"; ObjectID = "Bya-vf-bEF"; */
+"Bya-vf-bEF.normalTitle" = "Record";
+
+/* Class = "IBUITextField"; text = "10"; ObjectID = "EH4-Y8-tu7"; */
+"EH4-Y8-tu7.text" = "10";
+
+/* Class = "IBUIViewController"; title = "Detail"; ObjectID = "JEX-9P-axG"; */
+"JEX-9P-axG.title" = "Detail";
+
+/* Class = "IBUIBarButtonItem"; title = "Beats:"; ObjectID = "Lsq-Qq-ORK"; */
+"Lsq-Qq-ORK.title" = "Beats:";
+
+/* Class = "IBUILabel"; text = "Note:"; ObjectID = "NJ0-Ke-18G"; */
+"NJ0-Ke-18G.text" = "Note:";
+
+/* Class = "IBUINavigationItem"; title = "Ringtones"; ObjectID = "POK-3g-v7Q"; */
+"POK-3g-v7Q.title" = "Ringtones";
+
+/* Class = "IBUINavigationController"; title = "Master"; ObjectID = "RMx-3f-FxP"; */
+"RMx-3f-FxP.title" = "Master";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "S59-K6-4QU"; */
+"S59-K6-4QU.text" = "Title";
+
+/* Class = "IBUIButton"; normalTitle = "Make Instruments"; ObjectID = "VYM-RT-aCb"; */
+"VYM-RT-aCb.normalTitle" = "Make Instruments";
+
+/* Class = "IBUIButton"; normalTitle = "Help"; ObjectID = "W57-3C-7su"; */
+"W57-3C-7su.normalTitle" = "Help";
+
+/* Class = "IBUINavigationItem"; title = "Help"; ObjectID = "YaV-IO-rNp"; */
+"YaV-IO-rNp.title" = "Help";
+
+/* Class = "IBUIViewController"; title = "Shop"; ObjectID = "Ynr-Kr-KuT"; */
+"Ynr-Kr-KuT.title" = "Shop";
+
+/* Class = "IBUINavigationItem"; title = "Instruments"; ObjectID = "bhA-pi-YT1"; */
+"bhA-pi-YT1.title" = "Instruments";
+
+/* Class = "IBUINavigationItem"; title = "Instrument"; ObjectID = "bhz-e1-mEi"; */
+"bhz-e1-mEi.title" = "Instrument";
+
+/* Class = "IBUILabel"; text = "Pinch to Enlarge Image!"; ObjectID = "dky-VB-yn0"; */
+"dky-VB-yn0.text" = "Pinch to Enlarge Image!";
+
+/* Class = "IBUIButton"; normalTitle = "Compose"; ObjectID = "gHV-p2-NmD"; */
+"gHV-p2-NmD.normalTitle" = "Compose";
+
+/* Class = "IBUISegmentedControl"; hG6-gh-sVt.segmentTitles[0] = "♮"; ObjectID = "hG6-gh-sVt"; */
+"hG6-gh-sVt.segmentTitles[0]" = "♮";
+
+/* Class = "IBUISegmentedControl"; hG6-gh-sVt.segmentTitles[1] = "♯"; ObjectID = "hG6-gh-sVt"; */
+"hG6-gh-sVt.segmentTitles[1]" = "♯";
+
+/* Class = "IBUISegmentedControl"; hG6-gh-sVt.segmentTitles[2] = "♭"; ObjectID = "hG6-gh-sVt"; */
+"hG6-gh-sVt.segmentTitles[2]" = "♭";
+
+/* Class = "IBUILabel"; text = "Audio:"; ObjectID = "htl-Pa-bNV"; */
+"htl-Pa-bNV.text" = "Audio:";
+
+/* Class = "IBUINavigationItem"; title = "Ringtone"; ObjectID = "mOI-FS-AaM"; */
+"mOI-FS-AaM.title" = "Ringtone";
+
+/* Class = "IBUILabel"; text = "Icon:"; ObjectID = "nW7-Tm-ZMq"; */
+"nW7-Tm-ZMq.text" = "Icon:";
+
+/* Class = "IBUIBarButtonItem"; title = "Tempo:"; ObjectID = "obm-cR-TkX"; */
+"obm-cR-TkX.title" = "Tempo:";
+
+/* Class = "IBUIButton"; normalTitle = "Play"; ObjectID = "okk-Iz-tgq"; */
+"okk-Iz-tgq.normalTitle" = "Play";
+
+/* Class = "IBUIButton"; normalTitle = "Shop"; ObjectID = "pJV-bz-hQ6"; */
+"pJV-bz-hQ6.normalTitle" = "Shop";
+
+/* Class = "IBUINavigationItem"; title = "Shop"; ObjectID = "psB-R4-a9A"; */
+"psB-R4-a9A.title" = "Shop";

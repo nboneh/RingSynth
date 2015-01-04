@@ -31,6 +31,7 @@
     UIActionSheet *changeRegularInstrumentSheet;
     UIActionSheet *changeUserInstrumentSheet;
     UIActionSheet *typeOfInstrumentsSheet;
+    BOOL firstTimeLoadingSubviews;
 }
 @property (strong, nonatomic) AxonixFullScreenAdViewController *fullScreenAdViewController;
 @property (weak, nonatomic) IBOutlet UITextField *beatsTextField;

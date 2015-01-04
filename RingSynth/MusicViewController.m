@@ -103,48 +103,55 @@ static BOOL LOOPING;
     [_playButton setImage:[UIImage imageNamed:@"play"]];
 }
 
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    if(firstTimeLoadingSubviews){
+        if(_instrumentController != nil)
+            [_instrumentController removeFromSuperview];
+        if(_fullGrid != nil)
+            [_fullGrid removeFromSuperview];
+        
+        [ instruments removeAllObjects];
+        
+        int width = [[UIScreen mainScreen] bounds].size.width/10 ;
+        _instrumentController = [[SlidingSegment alloc] initWithFrame:CGRectMake(0,0,width,30)];
+        
+        UITapGestureRecognizer *quicktap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(quickTap:)];
+        [_instrumentController addGestureRecognizer:quicktap];
+        
+        UITapGestureRecognizer *doubleTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(doubleTap:)];
+        [doubleTap setNumberOfTapsRequired:2];
+        [_instrumentController addGestureRecognizer:doubleTap];
+        [self.view addSubview:_instrumentController];
+        
+        [_instrumentController removeAllSegments];
+        [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
+        [_instrumentController insertSegmentWithTitle:@"+" atIndex:1 animated:NO];
+        [_instrumentController setSelectedSegmentIndex:0];
+        [self fixSegements];
+        
+        
+        
+        
+        CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
+        _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
+        [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
+        [self.view addSubview:_fullGrid];
+        [self.view bringSubviewToFront: _instrumentController];
+        [self.view bringSubviewToFront: _bottomBar];
+        [self load];
+
+    }
+    firstTimeLoadingSubviews = NO;
+}
+
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    
-    if(_instrumentController != nil)
-        [_instrumentController removeFromSuperview];
-    if(_fullGrid != nil)
-        [_fullGrid removeFromSuperview];
-    
-    [ instruments removeAllObjects];
-    
-    int width = [[UIScreen mainScreen] bounds].size.width/10 ;
-    _instrumentController = [[SlidingSegment alloc] initWithFrame:CGRectMake(0,0,width,30)];
-    
-    UITapGestureRecognizer *quicktap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(quickTap:)];
-    [_instrumentController addGestureRecognizer:quicktap];
-    
-    UITapGestureRecognizer *doubleTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(doubleTap:)];
-    [doubleTap setNumberOfTapsRequired:2];
-    [_instrumentController addGestureRecognizer:doubleTap];
-    [self.view addSubview:_instrumentController];
-    
-    [_instrumentController removeAllSegments];
-    [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
-    [_instrumentController insertSegmentWithTitle:@"+" atIndex:1 animated:NO];
-    [_instrumentController setSelectedSegmentIndex:0];
-    [self fixSegements];
-    
-    
-    
-    
-    CGRect gridFrame = CGRectMake(0,  _instrumentController.frame.origin.y + _instrumentController.frame.size.height, self.view.frame.size.width, _bottomBar.frame.origin.y - (_instrumentController.frame.origin.y + _instrumentController.frame.size.height));
-    _fullGrid = [[FullGrid alloc] initWithFrame:gridFrame];
-    [_fullGrid setNumOfBeats:[_beatsTextField.text intValue]];
-    [self.view addSubview:_fullGrid];
-    [self.view bringSubviewToFront: _instrumentController];
-    [self.view bringSubviewToFront: _bottomBar];
-    [self load];
-    
+    [super viewWillAppear:animated];
+    firstTimeLoadingSubviews= YES;
 }
 -(void) viewWillDisappear:(BOOL)animated
 {
@@ -350,6 +357,7 @@ static BOOL LOOPING;
         else if(buttonIndex ==1){
             if([Assets USER_INSTRUMENTS_KEYS].count == 0){
                 [self performSegueWithIdentifier: @"pushInstrumentsFromMusic" sender: self];
+    
             }
             else
                 [self presentUserInstrumentSheet];

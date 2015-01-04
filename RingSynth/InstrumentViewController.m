@@ -12,6 +12,19 @@
 #import "Assets.h"
 #import "Instrument.h"
 
+@implementation ColorSelection
+@synthesize color = _color;
+@synthesize name = _name;
+-(id) initWithName:(NSString *)name andColor:(UIColor *)color{
+    self = [super init];
+    if(self){
+        _name = name;
+        _color = color;
+    }
+    return self;
+}
+@end
+
 @interface InstrumentViewController ()
 -(void)startRecording;
 -(void)stopRecording;
@@ -41,19 +54,57 @@
     [super viewDidLoad];
     [self load];
     waveFilePath = [Util getPath:[NSString stringWithFormat:@"%@.wav", _name]];
-
+    
     if(![self recordingExists])
         [self.playButton setEnabled:NO];
     [[NSNotificationCenter defaultCenter]  addObserver: self
-               selector: @selector(resignActive)
-                   name: @"applicationWillResignActive"
-                 object: nil];
+                                              selector: @selector(resignActive)
+                                                  name: @"applicationWillResignActive"
+                                                object: nil];
+    
+    colors = @[[[ColorSelection alloc] initWithName:@"Red" andColor:[UIColor redColor]],
+               [[ColorSelection alloc] initWithName:@"Purple" andColor:[UIColor purpleColor]],
+               [[ColorSelection alloc] initWithName:@"Blue" andColor:[UIColor blueColor]],
+               [[ColorSelection alloc] initWithName:@"Green" andColor:[UIColor greenColor]],
+               [[ColorSelection alloc] initWithName:@"Yellow" andColor:[UIColor yellowColor]],
+               [[ColorSelection alloc] initWithName:@"Orange" andColor:[UIColor orangeColor]],
+               [[ColorSelection alloc] initWithName:@"Pink" andColor:[UIColor magentaColor]],
+               [[ColorSelection alloc] initWithName:@"Light Blue" andColor:[UIColor cyanColor]],
+               [[ColorSelection alloc] initWithName:@"Brown" andColor:[UIColor brownColor]],
+               [[ColorSelection alloc] initWithName:@"Gray" andColor:[UIColor grayColor]],
+               [[ColorSelection alloc] initWithName:@"Black" andColor:[UIColor blackColor]]
+               ];
+    for(int i = 0; i < colors.count; i++){
+        ColorSelection * colorSelect = [colors objectAtIndex:i];
+        if(color == colorSelect.color){
+            [_colorPicker selectRow:i inComponent:0 animated:NO];
+            break;
+        }
+    }
+    
+    NSMutableArray * preIcons = [[NSMutableArray alloc] init];
+    
+    [preIcons addObject:@"Note"];
+    for(Instrument * inst in [Assets INSTRUMENTS]){
+        if(inst.purchased)
+            [preIcons addObject:inst.name];
+    }
+    icons = [[NSArray alloc] initWithArray:preIcons];
+    
+
+    if([icons containsObject:iconName])
+        [_iconPicker selectRow:[icons indexOfObject:iconName] inComponent:0 animated:NO];
+    
+    chars =@[@"a", @"b", @"c", @"d", @"e", @"f", @"g"];
+    accidentals = @[@"♮",@"♯",@"♭"];
+    
+    
 }
 
 
 -(IBAction) record{
     if([_recordButton.titleLabel.text isEqualToString:@"Record"]){
-            [self stopPlaying];
+        [self stopPlaying];
         if([self recordingExists]){
             UIAlertView * recordAlert = [[UIAlertView alloc] initWithTitle:@"Recoding already exists!" message:@"Do you want to overwrite it" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
             [recordAlert show];
@@ -77,14 +128,14 @@
     if(audioSession.recordPermission ==  AVAudioSessionRecordPermissionDenied ){
         UIAlertView * recordAlert = [[UIAlertView alloc] initWithTitle:@"Microphone settings disabled" message:@"Please allow app to use microphone in the settings" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [recordAlert show];
-
+        
         return;
     }
     
     [_recordButton setTitle:@"Stop" forState:UIControlStateNormal];
     NSError *err = nil;
     [audioSession setCategory :AVAudioSessionCategoryRecord error:&err];
-
+    
     if(err){
         NSLog(@"audioSession: %@ %ld %@", [err domain], (long)[err code], [[err userInfo] description]);
         return;
@@ -121,16 +172,16 @@
         [alert show];
         return;
     }
-
-
-
+    
+    
+    
     recorder.delegate = self;
     recorder.meteringEnabled = YES;
     
     [recorder prepareToRecord];
     [self.playButton setEnabled:NO];
-  
-   [recorder recordForDuration:(NSTimeInterval) 5];
+    
+    [recorder recordForDuration:(NSTimeInterval) 5];
     
 }
 
@@ -147,7 +198,7 @@
     [audioSession setActive:NO error:nil];
     [audioSession setCategory :AVAudioSessionCategoryPlayback error:nil];
     
-
+    
     [self processWavFile];
     if([self recordingExists])
         [_playButton setEnabled:YES];
@@ -155,7 +206,7 @@
 
 -(IBAction)play{
     
-   // [[OALSimpleAudio sharedInstance] playEffect:waveFilePath];
+    // [[OALSimpleAudio sharedInstance] playEffect:waveFilePath];
     if([_playButton.titleLabel.text isEqualToString:@"Play"]){
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:waveFilePath]  error:nil];
         [player setDelegate:self];
@@ -185,7 +236,7 @@
     [recorder stop];
     [self stopPlaying];
     [self save];
-
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -197,7 +248,7 @@
     //Saving information and overwriting the current instrument in user instruments with this one
     NSMutableDictionary * instrumentInfo = [[NSMutableDictionary alloc] init];
     [instrumentInfo setValue:color forKey:@"color"];
-    [instrumentInfo setValue: imageName forKey:@"imageName"];
+    [instrumentInfo setValue: iconName forKey:@"imageName"];
     [instrumentInfo setValue:baseNote forKey:@"baseNote"];
     [instrumentInfo setValue:UUID forKey:@"uuid"];
     
@@ -215,16 +266,16 @@
         
         //Loading defaults
         color = [UIColor redColor];
-        imageName = @"Note";
+        iconName = @"Note";
         baseNote = [[NoteDescription alloc] initWithOctave:5 andChar:'c'] ;
         
     } else {
         color = [instrumentInfo objectForKey:@"color"];
         UUID = [instrumentInfo objectForKey:@"uuid"];
-        imageName = [instrumentInfo objectForKey:@"imageName"];
+        iconName = [instrumentInfo objectForKey:@"imageName"];
         baseNote = [instrumentInfo objectForKey: @"baseNote"];
     }
-
+    
 }
 
 -(void)processWavFile{
@@ -239,7 +290,7 @@
     }
     
     //We will truncate the quite begginning for better quality notes
-     short int*cdata = (  short int*)malloc(length);
+    short int*cdata = (  short int*)malloc(length);
     [data getBytes:(  short int*)cdata range:NSMakeRange(4096,length)];
     short int maxValue = 0;
     long sizeInShort = length/2;
@@ -317,27 +368,92 @@
     newWaveFile[43] = (Byte) ((newLength >> 24) & 0xff);
     
     long j = 22;
-   
+    
     short int*newWaveFileShorts = (short int*)&newWaveFile[j];
     for(long i = startIndex; i <  sizeInShort; i++){
         newWaveFileShorts[j] = cdata[i];
         j++;
     }
     free(cdata);
-
+    
     NSData *newdata = [NSData dataWithBytes:(const void *)newWaveFile length:(totalNewLength)];
     [[NSFileManager defaultManager] createFileAtPath:waveFilePath
                                             contents:newdata
                                           attributes:nil];
-
+    
     
     free(newWaveFile);
     
     
     [[OALSimpleAudio sharedInstance] unloadEffect:waveFilePath];
     
-
-
+    
+    
 }
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if(pickerView == _colorPicker)
+        return colors.count;
+    else if(pickerView == _iconPicker)
+        return icons.count;
+    return 0;
+}
+
+
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    if(pickerView == _colorPicker){
+        UILabel *label = nil;
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        {
+            label.font = [UIFont systemFontOfSize:34];
+            label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 88)];
+        } else {
+            label.font = [UIFont systemFontOfSize:18];
+            label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
+        }
+        
+        ColorSelection * colorSelection = [colors objectAtIndex:row];
+        label.textColor = colorSelection.color;
+        label.text = colorSelection.name;
+        return label;
+    } else if (pickerView == _iconPicker){
+
+        NSString * imageName = [icons objectAtIndex:row];
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        {
+            imageName = [NSString stringWithFormat:@"%@-ipad",imageName];
+        }
+        UIImageView * imageView= [[UIImageView alloc] initWithImage: [[UIImage imageNamed:imageName]
+                        imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        imageView.tintColor = color;
+        
+        return imageView;
+        
+    }
+    return nil;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if(pickerView == _colorPicker){
+        ColorSelection * colorSelection = [colors objectAtIndex:row];
+        color = colorSelection.color;
+        [_iconPicker reloadAllComponents];
+    }
+    else if(pickerView == _iconPicker){
+        iconName = [icons objectAtIndex:row];
+    }
+    // This method is triggered whenever the user makes a change to the picker selection.
+    // The parameter named row and component represents what was selected.
+}
+
 
 @end
