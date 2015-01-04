@@ -64,23 +64,36 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-lB-XTl">
-                                <rect key="frame" x="70" y="138" width="120" height="162"/>
+                                <rect key="frame" x="60" y="115" width="120" height="216"/>
                                 <connections>
                                     <outlet property="dataSource" destination="tBr-5c-qe6" id="Cdt-CH-9mp"/>
                                     <outlet property="delegate" destination="tBr-5c-qe6" id="sQv-tR-hiQ"/>
                                 </connections>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Icon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elF-Bt-SKC">
-                                <rect key="frame" x="281" y="209" width="38" height="21"/>
+                                <rect key="frame" x="206" y="209" width="38" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsa-Hc-BwC">
-                                <rect key="frame" x="318" y="139" width="120" height="162"/>
+                                <rect key="frame" x="247" y="138" width="120" height="162"/>
                                 <connections>
                                     <outlet property="dataSource" destination="tBr-5c-qe6" id="98S-Bt-4GI"/>
                                     <outlet property="delegate" destination="tBr-5c-qe6" id="FRF-X3-G3z"/>
+                                </connections>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Note:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2b-sN-oSq">
+                                <rect key="frame" x="279" y="87" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2h-aq-ULQ">
+                                <rect key="frame" x="353" y="17" width="179" height="162"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="tBr-5c-qe6" id="4uS-f5-cSk"/>
+                                    <outlet property="delegate" destination="tBr-5c-qe6" id="B9V-gk-bQG"/>
                                 </connections>
                             </pickerView>
                         </subviews>
@@ -91,13 +104,14 @@
                     <connections>
                         <outlet property="colorPicker" destination="Zad-lB-XTl" id="rbC-qL-YmB"/>
                         <outlet property="iconPicker" destination="rsa-Hc-BwC" id="NeY-Bl-H5Z"/>
+                        <outlet property="notePicker" destination="T2h-aq-ULQ" id="dOA-tB-bFK"/>
                         <outlet property="playButton" destination="okk-Iz-tgq" id="UqU-TN-iRJ"/>
                         <outlet property="recordButton" destination="Bya-vf-bEF" id="Ric-Wo-luh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="loW-ih-BuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-333" y="-1845"/>
+            <point key="canvasLocation" x="-348" y="-1908"/>
         </scene>
         <!--Instruments-->
         <scene sceneID="Rvf-6h-9Vl">
@@ -311,8 +325,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="WVA-ar-AbZ">
                                 <rect key="frame" x="16" y="0.0" width="536" height="320"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinch to Enlarge Image!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dky-VB-yn0">
-                                <rect key="frame" x="129" y="142" width="310" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinch to Enlarge!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dky-VB-yn0">
+                                <rect key="frame" x="174" y="142" width="221" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

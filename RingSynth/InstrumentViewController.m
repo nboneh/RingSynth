@@ -91,12 +91,32 @@
     }
     icons = [[NSArray alloc] initWithArray:preIcons];
     
-
+    
     if([icons containsObject:iconName])
         [_iconPicker selectRow:[icons indexOfObject:iconName] inComponent:0 animated:NO];
     
     chars =@[@"a", @"b", @"c", @"d", @"e", @"f", @"g"];
-    accidentals = @[@"♮",@"♯",@"♭"];
+    accidentals = @[@"♮",@" ♯",@" ♭"];
+    octaves = @[@"3",@"4",@"5",@"6"];
+    
+    char baseNoteChar = baseNote.character;
+    for(int i = 0; i < chars.count; i++){
+        if(baseNoteChar == [[chars objectAtIndex:i] characterAtIndex:0]){
+            [_notePicker selectRow:i inComponent:0 animated:NO];
+            break;
+        }
+    }
+    
+    [_notePicker selectRow:baseNote.accidental inComponent:1 animated:NO];
+    int baseNoteOctave = baseNote.octave;
+    for(int i = 0; i < chars.count; i++){
+        if(baseNoteOctave == [[octaves objectAtIndex:i] intValue]){
+            [_notePicker selectRow:i inComponent:2 animated:NO];
+            break;
+        }
+    }
+    
+
     
     
 }
@@ -393,6 +413,8 @@
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
+    if(pickerView == _notePicker)
+        return 3;
     return 1;
 }
 
@@ -403,39 +425,68 @@
         return colors.count;
     else if(pickerView == _iconPicker)
         return icons.count;
+    else if(pickerView == _notePicker){
+        switch(component){
+            case 0:
+                return chars.count;
+            case 1:
+                return accidentals.count;
+            case 2:
+                return octaves.count;
+        }
+    }
     return 0;
 }
 
 
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    if(pickerView == _colorPicker){
-        UILabel *label = nil;
-        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-        {
-            label.font = [UIFont systemFontOfSize:34];
-            label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 88)];
-        } else {
-            label.font = [UIFont systemFontOfSize:18];
-            label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
-        }
+    if (pickerView == _iconPicker){
         
-        ColorSelection * colorSelection = [colors objectAtIndex:row];
-        label.textColor = colorSelection.color;
-        label.text = colorSelection.name;
-        return label;
-    } else if (pickerView == _iconPicker){
-
         NSString * imageName = [icons objectAtIndex:row];
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
         {
             imageName = [NSString stringWithFormat:@"%@-ipad",imageName];
         }
         UIImageView * imageView= [[UIImageView alloc] initWithImage: [[UIImage imageNamed:imageName]
-                        imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+                                                                      imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         imageView.tintColor = color;
         
         return imageView;
+        
+    }
+    UILabel *label = nil;
+
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        
+        label = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, pickerView.frame.size.width/pickerView.numberOfComponents, 88)];
+        label.font = [UIFont systemFontOfSize:34];
+    } else {
+        label = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, pickerView.frame.size.width/pickerView.numberOfComponents, 44)];
+        label.font = [UIFont systemFontOfSize:18];
+        
+    }
+    if(pickerView == _colorPicker){
+        ColorSelection * colorSelection = [colors objectAtIndex:row];
+        label.textColor = colorSelection.color;
+        label.text = colorSelection.name;
+        return label;
+    }
+    
+    else if (pickerView == _notePicker){
+        switch(component){
+            case 0:
+                label.text = [chars objectAtIndex:row];
+                break;
+            case 1:
+                label.text = [accidentals objectAtIndex:row];
+                break;
+            case 2:
+                label.text = [octaves objectAtIndex:row];
+                break;
+        }
+        return label;
         
     }
     return nil;
@@ -443,6 +494,9 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    
+    // This method is triggered whenever the user makes a change to the picker selection.
+    // The parameter named row and component represents what was selected.
     if(pickerView == _colorPicker){
         ColorSelection * colorSelection = [colors objectAtIndex:row];
         color = colorSelection.color;
@@ -451,8 +505,20 @@
     else if(pickerView == _iconPicker){
         iconName = [icons objectAtIndex:row];
     }
-    // This method is triggered whenever the user makes a change to the picker selection.
-    // The parameter named row and component represents what was selected.
+    else if(pickerView == _notePicker){
+        switch(component){
+            case 0:
+                baseNote.character = [[chars objectAtIndex:row] characterAtIndex:0];
+                break;
+            case 1:
+                baseNote.accidental = (Accidental)row;
+                break;
+            case 2:
+                baseNote.octave = [[octaves objectAtIndex:row] intValue];
+                break;
+                
+        }
+    }
 }
 
 
