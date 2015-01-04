@@ -79,6 +79,7 @@ static BOOL LOOPING;
     
     editViewController = [[EditorViewController alloc] initWithNibName:@"Editor" bundle:nil];
     editViewController.totalPossibleBeats = MAX_BEATS;
+    editViewController.delegate = self;
 }
 
 
@@ -653,5 +654,28 @@ static BOOL LOOPING;
     fullScreenAdViewController.view.window.windowLevel = UIWindowLevelAlert-100;
 }
 
+-(void)exitedWithStartBeat:(int) startBeat endBeat:(int)endBeat insertBeat:(int) insertBeat EditingMode:(EditingMode)editingMode{
+    if(editingMode != eraset){
+        int totalBeatsRequired = insertBeat + (endBeat - startBeat) ;
+        int beatsCurrently = _beatsTextField.text.intValue;
+        if(totalBeatsRequired > beatsCurrently){
+            [_fullGrid setNumOfBeats:totalBeatsRequired];
+            _beatsTextField.text = [NSString stringWithFormat:@"%d", totalBeatsRequired];
+        }
+    }
+    
+    switch(editingMode){
+        case duplicatet:
+            [_fullGrid duplicateBeat:startBeat to:endBeat insert:insertBeat];
+            break;
+        case movet:
+            [_fullGrid moveBeat:startBeat to:endBeat insert:insertBeat];
+            break;
+        case eraset:
+            [_fullGrid clearBeat:startBeat to:endBeat];
+            break;
+    }
+    
+}
 @end
 

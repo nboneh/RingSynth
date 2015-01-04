@@ -585,7 +585,37 @@ const int TICS_PER_BEAT  =12;
         return 0;
     Layout * layer =  [layers objectAtIndex:0];
    return [layer findBeatIndexAtx:(self.contentOffset.x + layer.widthPerBeat  )] +1;
+}
+
+-(void)clearBeat:(int)startBeat to:(int)endBeat{
+    if(currentLayer){
+        [currentLayer clearBeat:startBeat to:endBeat];
+    } else{
+        for(Layout * layer in layers){
+            [layer clearBeat:startBeat to:endBeat];
+        }
+    }
+}
+
+-(void)duplicateBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat{
+    if(currentLayer){
+        [currentLayer duplicateBeat:startBeat to:endBeat insert:insertBeat];
+    } else{
+        for(Layout * layer in layers){
+            [layer duplicateBeat:startBeat to:endBeat insert:insertBeat];
+        }
+    }
 
 }
 
+-(void)moveBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat{
+    if(currentLayer){
+        [currentLayer moveBeat:startBeat to:endBeat insert:insertBeat];
+    } else{
+        for(Layout * layer in layers){
+            [layer moveBeat:startBeat to:endBeat insert:insertBeat];
+        }
+    }
+
+}
 @end

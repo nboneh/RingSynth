@@ -30,6 +30,8 @@
     
     self.supportViewPopupAction.alpha = 0.0f;
     
+    addBeatAmount = 4;
+    
 }
 - (void)displayPopup:(NSString *) title totalBeats:(int)totalBeats startingValue:(int)num
 {
@@ -46,14 +48,24 @@
     
     _fromStepper.maximumValue = totalBeats;
     _toStepper.maximumValue = totalBeats +1;
-    
     _fromStepper.value = num;
-    int toValue = num + 4;
-    if(toValue > _fromStepper.maximumValue)
-        toValue =  _fromStepper.maximumValue;
+    
+    _toStepper.minimumValue = num  + 1;
+    
+    int toValue = num + addBeatAmount;
+    if(toValue > _toStepper.maximumValue)
+        toValue =  _toStepper.maximumValue;
     
     _toStepper.value = toValue;
-    _insertStepper.value = toValue;
+
+    _insertStepper.maximumValue = _totalPossibleBeats - (_toStepper.value - _fromStepper.value) +1 ;
+
+    int insertValue = toValue;
+    if(insertValue > _insertStepper.maximumValue)
+        insertValue = 1;
+   
+    _insertStepper.value = insertValue;
+    
     _labelDescription.text = title;
     [self fixLabels];
     
@@ -61,6 +73,8 @@
 
 - (void)dismissModal
 {
+    
+    addBeatAmount = _toStepper.value - _fromStepper.value ;
     // Animation
     [UIView animateWithDuration:0.5f
                      animations:^{
@@ -70,6 +84,11 @@
 
 -(IBAction)okClicked{
     [self dismissModal];
+    if(_delegate){
+        //Converting back to programming land where zero is start
+        [_delegate  exitedWithStartBeat:(_fromStepper.value -1) endBeat:(_toStepper.value -1) insertBeat:(_insertStepper.value -1) EditingMode:(EditingMode)[_editModeControl selectedSegmentIndex]];
+    }
+
 }
 
 -(IBAction)cancelClicked{

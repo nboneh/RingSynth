@@ -8,14 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EditorViewController : UIViewController
-
 
 typedef enum {
     duplicatet = 0,
     movet = 1,
     eraset = 2
 } EditingMode;
+
+@protocol EditorViewDelegate
+@optional
+-(void)exitedWithStartBeat:(int) startBeat endBeat:(int)endBeat insertBeat:(int) insertBeat EditingMode:(EditingMode)editingMode;
+@end
+
+
+@interface EditorViewController : UIViewController{
+    int addBeatAmount;
+}
 
 @property (weak, nonatomic) IBOutlet UIStepper *fromStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *toStepper;
@@ -37,7 +45,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UILabel *labelDescription;
 
 @property int totalPossibleBeats;
-
+@property(nonatomic,assign)id delegate;
 
 - (void)displayPopup:(NSString *) title totalBeats:(int)totalBeats startingValue:(int)num;
 

@@ -35,4 +35,9 @@ typedef enum {
 -(void)loadSaveFile:(NSArray *)saveFile;
 -(void)remove;
 -(void)setState:(LayerState)state;
+
+-(void)clearBeat:(int)startBeat to:(int)endBeat;
+-(void)duplicateBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat;
+-(void)moveBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat;
+
 @end

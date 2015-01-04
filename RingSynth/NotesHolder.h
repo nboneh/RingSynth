@@ -37,4 +37,6 @@
 -(void)loadSaveFile:(NSDictionary *)saveFile;
 -(void)lightUp;
 -(void)unLightUp;
+
+-(void)clear;
 @end

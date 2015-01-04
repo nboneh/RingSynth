@@ -238,5 +238,11 @@
             [[_noteHolders objectAtIndex:i] loadSaveFile:[loadNotesHolders objectAtIndex:i]];
         }
     }
-} 
+}
+
+-(void)clear{
+    for(NotesHolder * holder in _noteHolders){
+        [holder clear];
+    }
+}
 @end

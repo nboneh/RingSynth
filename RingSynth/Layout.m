@@ -162,6 +162,47 @@
             }
         }
     }
+}
+
+-(void)clearBeat:(int)startBeat to:(int)endBeat{
+    for(int i = startBeat; i < endBeat; i++){
+        Beat * beat = [_beats objectAtIndex:i];
+        [beat clear];
+    }
+}
+
+-(void)duplicateBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat{
+    NSMutableArray* saveFiles = [[NSMutableArray alloc] init];
+    for(int i = startBeat; i < endBeat; i++){
+        NSDictionary * saveFile = [[_beats objectAtIndex:i] createSaveFile];
+        [saveFiles addObject:saveFile];
+    }
+    long end = insertBeat + [saveFiles count];
+    int j = 0;
+    for(int i = insertBeat; i <  end; i++){
+        Beat * beat = [_beats objectAtIndex:i];
+        [beat clear];
+        [beat loadSaveFile:[saveFiles objectAtIndex:j]];
+        j++;
+    }
+}
+
+-(void)moveBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat{
+    NSMutableArray* saveFiles = [[NSMutableArray alloc] init];
+    for(int i = startBeat; i < endBeat; i++){
+        Beat * beat = [_beats objectAtIndex:i];
+        NSDictionary * saveFile = [beat createSaveFile];
+        [saveFiles addObject:saveFile];
+        [beat clear];
+    }
+    long end = insertBeat + [saveFiles count];
+    int j = 0;
+    for(int i = insertBeat; i <  end; i++){
+        Beat * beat = [_beats objectAtIndex:i];
+        [beat clear];
+        [beat loadSaveFile:[saveFiles objectAtIndex:j]];
+        j++;
+    }
 
 }
 @end

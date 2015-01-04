@@ -17,7 +17,7 @@
 
 
 
-@interface MusicViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate>{
+@interface MusicViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate, EditorViewDelegate>{
     NSMutableArray *instruments;
     int prevSelect;
     EditorViewController * editViewController;

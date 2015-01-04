@@ -232,4 +232,13 @@
 
     }
 }
+
+-(void)clear{
+    for(Note *note in _notes){
+        [note removeFromSuperview];
+    }
+    [_notes removeAllObjects];
+    [self checkViews];
+
+}
 @end

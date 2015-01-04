@@ -45,4 +45,5 @@ typedef enum {
 -(NSDictionary*)createSaveFile;
 -(void)loadSaveFile:(NSDictionary *)saveFile;
 
+-(void)clear;
 @end
