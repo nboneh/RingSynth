@@ -50,6 +50,7 @@ const int TICS_PER_BEAT  =12;
         [container addGestureRecognizer:tapPress];
         _isPlaying = NO;
         currentBeatPlaying = -1;
+        ticsPerBeatInv = 1.0f/TICS_PER_BEAT;
         
     }
     return self;
@@ -188,15 +189,15 @@ const int TICS_PER_BEAT  =12;
     BOOL animate = NO;
     int midX =  self.contentOffset.x + self.frame.size.width/2;
     Layout * layer= [layers objectAtIndex:0];
-    int currentXPlaying =  [layer findBeatAtIndex:currentBeatPlaying].frame.origin.x + (layer.widthPerBeat * currentTic)/TICS_PER_BEAT;
+    int currentXPlaying =  [layer findBeatAtIndex:currentBeatPlaying].frame.origin.x + (layer.widthPerBeat * currentTic) * ticsPerBeatInv;
     if(midX <= currentXPlaying)
         animate = YES;
-
+    
+    [self.layer removeAllAnimations];
     if(animate){
         int newX = self.contentOffset.x + widthToAnimatePerTic;
         if(newX > endAnimateX)
             newX = endAnimateX;
-        [self.layer removeAllAnimations];
         [UIView animateWithDuration:timePerTic delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.contentOffset = CGPointMake(newX, 0);
         } completion:NULL];

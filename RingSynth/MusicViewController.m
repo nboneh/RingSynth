@@ -80,6 +80,7 @@ static BOOL LOOPING;
     editViewController = [[EditorViewController alloc] initWithNibName:@"Editor" bundle:nil];
     editViewController.totalPossibleBeats = MAX_BEATS;
     editViewController.delegate = self;
+        firstTimeLoadingSubviews= YES;
 }
 
 
@@ -144,14 +145,32 @@ static BOOL LOOPING;
         [self.view bringSubviewToFront: _instrumentController];
         [self.view bringSubviewToFront: _bottomBar];
         [self load];
-
+        
     }
     firstTimeLoadingSubviews = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    firstTimeLoadingSubviews= YES;
+    //Reloading user Instruments in case they were changed
+    
+    int j = 0;
+    for(NSObject * object in  savedInstruments){
+        if([object isKindOfClass:[NSString class]]){
+            [_instrumentController setSelectedSegmentIndex:(j+1)];
+            Instrument * instrument =  [Assets instForObject:object];
+            [instruments removeObjectAtIndex:j];
+            [instruments insertObject:instrument atIndex:j];
+            [_instrumentController removeSegmentAtIndex:(j+1) animated:NO];
+            [_instrumentController insertSegmentWithImage:instrument.image atIndex:(j+1) animated:NO];
+            [[[_instrumentController subviews] objectAtIndex:(j+1)] setTintColor:instrument.color];
+
+            [_fullGrid changeInstrumentTo:instrument forLayer:((int)(j))];
+        }
+        j++;
+    }
+    [_instrumentController setSelectedSegmentIndex:0];
+    [_fullGrid changeLayer:-1];
 }
 -(void) viewWillDisappear:(BOOL)animated
 {
@@ -189,11 +208,11 @@ static BOOL LOOPING;
     NSMutableDictionary *preSaveFile = [[NSMutableDictionary alloc] init];
     [preSaveFile setValue:_tempoField.text  forKey:@"tempo"];
     [preSaveFile setValue: _beatsTextField.text forKey:@"beats"];
-    NSMutableArray *saveInstruments = [[NSMutableArray alloc] init];
+     savedInstruments = [[NSMutableArray alloc] init];
     for(Instrument * instrument in instruments){
-        [saveInstruments addObject:[Assets objectForInst:instrument]];
+        [savedInstruments addObject:[Assets objectForInst:instrument]];
     }
-    [preSaveFile setValue:[[NSArray alloc] initWithArray:saveInstruments] forKey:@"instruments"];
+    [preSaveFile setValue:[[NSArray alloc] initWithArray:savedInstruments] forKey:@"instruments"];
     [preSaveFile setValue:[_fullGrid createSaveFile] forKey:@"fullGrid"];
     NSDictionary *saveFile = [[NSDictionary alloc] initWithDictionary:preSaveFile];
     [NSKeyedArchiver archiveRootObject:saveFile toFile:[Util getRingtonePath:(id) _name]];
@@ -334,6 +353,50 @@ static BOOL LOOPING;
         return;
     
     actionSheet.tag = -1;
+    
+    if(actionSheet == sharingSheet){
+        if(buttonIndex == actionSheet.cancelButtonIndex)
+            return;
+        [self.fullScreenAdViewController dismissViewControllerAnimated:YES completion:NULL];
+        NSData *content = [[NSData alloc] initWithContentsOfFile:[Util getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
+        NSString * message = [NSString stringWithFormat:@"%@ is a neat ringtone I made in the App RingSynth for iOS. \n\r Check it out at: https://itunes.apple.com/app/id938020959", self.name];
+        NSString * fileName = [NSString stringWithFormat:@"%@.m4a", self.name];
+
+        
+        if(buttonIndex == 0){
+
+            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+            [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
+            [mc setMessageBody:message isHTML:NO];
+            
+            [mc addAttachmentData:content mimeType:@"audio/wav" fileName:fileName];
+            mc.mailComposeDelegate = self;
+            // Present mail view controller on screen
+            
+            [self presentViewController:mc animated:YES completion:NULL];
+            return;
+        }
+        else if(buttonIndex == 1){
+             MFMessageComposeViewController *mc = [[MFMessageComposeViewController alloc] init];
+            [mc setBody:message];
+            [mc addAttachmentData:content typeIdentifier:@"audio/wav" filename:fileName];
+            mc.messageComposeDelegate = self;
+             [self presentViewController:mc animated:YES completion:nil];
+            return;
+            
+        }
+        SLComposeViewController *controllerSLC = nil;
+        if(buttonIndex == 2){
+            SLComposeViewController *controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        } else if (buttonIndex ==3){
+            SLComposeViewController *controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        }
+        [controllerSLC setInitialText:@"First post from my iPhone app"];
+        
+        [controllerSLC addURL:[NSURL URLWithString:@"https://itunes.apple.com/app/id938020959"]];
+
+        [self presentViewController:controllerSLC animated:YES completion:Nil];
+    }
     if(buttonIndex ==actionSheet.cancelButtonIndex){
         [_instrumentController setSelectedSegmentIndex:prevSelect];
         [_fullGrid changeLayer:prevSelect -1];
@@ -357,7 +420,7 @@ static BOOL LOOPING;
         else if(buttonIndex ==1){
             if([Assets USER_INSTRUMENTS_KEYS].count == 0){
                 [self performSegueWithIdentifier: @"pushInstrumentsFromMusic" sender: self];
-    
+                
             }
             else
                 [self presentUserInstrumentSheet];
@@ -377,7 +440,7 @@ static BOOL LOOPING;
     else if(actionSheet == changeUserInstrumentSheet){
         
         if(index == [Assets USER_INSTRUMENTS_KEYS].count){
-             [self performSegueWithIdentifier: @"pushInstrumentsFromMusic" sender: self];
+            [self performSegueWithIdentifier: @"pushInstrumentsFromMusic" sender: self];
             return;
         }
         instrument = [[Assets USER_INSTRUMENTS] objectForKey:[[Assets USER_INSTRUMENTS_KEYS] objectAtIndex: index]];
@@ -408,7 +471,7 @@ static BOOL LOOPING;
     else{
         //Replace current instrument
         NSInteger pos = [_instrumentController selectedSegmentIndex];
-        [instruments removeObjectAtIndex:([_instrumentController selectedSegmentIndex] -1)];
+        [instruments removeObjectAtIndex:(pos -1)];
         [instruments insertObject:instrument atIndex:(pos-1)];
         [_instrumentController removeSegmentAtIndex:[_instrumentController selectedSegmentIndex] animated:YES];
         [_instrumentController insertSegmentWithImage:instrument.image atIndex:pos animated:YES];
@@ -489,9 +552,8 @@ static BOOL LOOPING;
         [_fullGrid setNumOfBeats: [_beatsTextField.text intValue]];
     }
     else if(alertView == sucessAlert){
-        if(!emailAlert)
-            emailAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Would you like to email %@?", self.name] message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-        [emailAlert show];
+        sharingSheet= [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Share Ringtone %@?", self.name] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Text", @"Facebook", @"Twitter", nil];
+        [sharingSheet showInView:self.view];
         [_fullGrid stop];
     }
     else if(alertView == deleteAlert){
@@ -512,21 +574,6 @@ static BOOL LOOPING;
             
             [self fixSegements];
             prevSelect = 0;
-            
-        }
-    }
-    else if(alertView == emailAlert){
-        if(buttonIndex == 1){
-            [self.fullScreenAdViewController dismissViewControllerAnimated:YES completion:NULL];
-            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-            [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
-            [mc setMessageBody:[NSString stringWithFormat:@"%@ is a neat ringtone I made in the App %@ for iOS. \n\r Check it out at: https://itunes.apple.com/app/id938020959", self.name, [[[NSBundle mainBundle] infoDictionary]   objectForKey:@"CFBundleName"]] isHTML:NO];
-            NSData *content = [[NSData alloc] initWithContentsOfFile:[Util getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
-            [mc addAttachmentData:content mimeType:@"audio/wav" fileName:[NSString stringWithFormat:@"%@.m4a", self.name]];
-            mc.mailComposeDelegate = self;
-            // Present mail view controller on screen
-            
-            [self presentViewController:mc animated:YES completion:NULL];
             
         }
     }
@@ -622,7 +669,7 @@ static BOOL LOOPING;
         Instrument * instrument = [instruments objectAtIndex:index];
         title = [NSString stringWithFormat:@"Editing %@",instrument.name];
     }
-        
+    
     [editViewController displayPopup:title totalBeats:_beatsTextField.text.intValue startingValue:[_fullGrid currentBeatNumber]];
 }
 
@@ -631,6 +678,29 @@ static BOOL LOOPING;
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
     
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send Text!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

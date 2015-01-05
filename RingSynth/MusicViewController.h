@@ -14,23 +14,25 @@
 #import <MessageUI/MessageUI.h>
 #import "AxonixFullScreenAdViewController.h"
 #import "EditorViewController.h"
+#import <Social/Social.h>
 
 
 
-@interface MusicViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate, EditorViewDelegate>{
+@interface MusicViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate, EditorViewDelegate, MFMessageComposeViewControllerDelegate>{
     NSMutableArray *instruments;
+    NSMutableArray * savedInstruments;
     int prevSelect;
     EditorViewController * editViewController;
     UIAlertView * tempoAlert;
     UIAlertView *beatAlert;
     UIAlertView *sucessAlert;
-    UIAlertView* emailAlert;
     UIAlertView* deleteAlert;
     UIAlertView* inAppPurchaseAlert;
     UIAlertView* helpAlert;
     UIActionSheet *changeRegularInstrumentSheet;
     UIActionSheet *changeUserInstrumentSheet;
     UIActionSheet *typeOfInstrumentsSheet;
+    UIActionSheet *sharingSheet;
     BOOL firstTimeLoadingSubviews;
 }
 @property (strong, nonatomic) AxonixFullScreenAdViewController *fullScreenAdViewController;

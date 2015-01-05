@@ -23,6 +23,7 @@
     int currentTic;
     float timePerTic;
     float widthToAnimatePerTic;
+    float ticsPerBeatInv;
     int endAnimateX;
 }
 @property(nonatomic) int numOfBeats;
