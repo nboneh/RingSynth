@@ -93,16 +93,14 @@ const int TICS_PER_BEAT  =12;
         currentLayer = nil;
     }
     else{
-        for(Layout * layer in layers){
-            [layer setState: not_active];
-            
-        }
         currentLayer = [layers objectAtIndex:index];
-        [currentLayer setState:active];
-        
-        //Bringing subview in the front of all other layers but not in front of all the notes
-        [currentLayer removeFromSuperview];
-        [container insertSubview:currentLayer atIndex:[layers count]];
+        for(Layout * layer in layers){
+            if(layer ==currentLayer)
+                [currentLayer setState:active];
+            else
+                [layer setState: not_active];
+        }
+
     }
     
 }

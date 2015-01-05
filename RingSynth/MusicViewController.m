@@ -331,7 +331,6 @@ static BOOL LOOPING;
         [self presentInstrumentSheet];
     }
     else{
-        [_fullGrid changeLayer:(pos)];
         if(pos >=  0){
             CURRENT_INSTRUMENT = [instruments objectAtIndex:pos];
             if(![_fullGrid isPlaying])
@@ -341,6 +340,7 @@ static BOOL LOOPING;
             CURRENT_INSTRUMENT = nil;
         }
         prevSelect = pos+1;
+        [_fullGrid changeLayer:(pos)];
         
     }
     
@@ -387,9 +387,9 @@ static BOOL LOOPING;
         }
         SLComposeViewController *controllerSLC = nil;
         if(buttonIndex == 2){
-            SLComposeViewController *controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+            controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         } else if (buttonIndex ==3){
-            SLComposeViewController *controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+           controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         }
         [controllerSLC setInitialText:@"First post from my iPhone app"];
         
