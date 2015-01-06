@@ -16,7 +16,11 @@ typedef enum {
     active =1,
     not_active =2
 } LayerState;
-@interface Layout  : UIView{
+@protocol LayoutDelegate
+@optional
+-(void)changeSubDivision:(Subdivision)subdivision forBeatNum:(int)num;
+@end
+@interface Layout  : UIView<BeatDelegate>{
     Staff *staff;
 }
 @property(readonly)ALChannelSource*channel;
@@ -24,6 +28,8 @@ typedef enum {
 @property (readonly)int widthFromFirstBeat;
 @property(readonly) int widthPerBeat;
 @property (nonatomic)int numOfBeats;
+@property(nonatomic,assign)id delegate;
+
 -(id) initWithStaff:(Staff *)staff andFrame:(CGRect)frame andNumOfBeat:(int)numOfBeats;
 -(void)playWithTempo:(int)bpm beat:(int)index tic:(int)tic andTicDivision:(int)ticDivision;
 -(Beat *)findBeatAtx:(int)x;

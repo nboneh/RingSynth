@@ -16,6 +16,8 @@
 @synthesize widthPerBeat = _widthPerBeat;
 @synthesize numOfBeats = _numOfBeats;
 @synthesize beats =_beats;
+@synthesize delegate = _delegate;
+
 -(id) initWithStaff:(Staff *)staff_ andFrame:(CGRect)frame andNumOfBeat:(int)numOfBeats{
     self = [super init];
     if(self){
@@ -32,6 +34,7 @@
             [_beats addObject:beat];
             delX += _widthPerBeat;
             [self addSubview:beat];
+            beat.delegate = self;
             
         }
         self.frame = CGRectMake(0, 0,  _widthPerBeat * numOfBeats + _widthFromFirstBeat,frame.size.height);
@@ -131,12 +134,16 @@
     for(Beat * beat in _beats){
         for(NotesHolder * noteHolder in beat.noteHolders){
             if(state == active || state == all_mode){
-                
                 [noteHolder checkViews];
-                if(state == all_mode)
-                    [noteHolder.volumeSlider setAlpha:0.4f];
-                else
-                    [noteHolder.volumeSlider setAlpha:1.0f];
+            }
+            
+            if(state == all_mode){
+                [noteHolder.volumeSlider setAlpha:0.4f];
+                [noteHolder.volumeSlider setUserInteractionEnabled:NO];
+            }
+            else if(state == active){
+                [noteHolder.volumeSlider setAlpha:1.0f];
+                [noteHolder.volumeSlider setUserInteractionEnabled:YES];
             }
             else if(state == not_active){
                 
@@ -160,6 +167,7 @@
             for(Note * note in noteHolder.notes){
                 [note removeFromSuperview];
             }
+            [noteHolder.volumeSlider removeFromSuperview];
         }
     }
 }
@@ -204,5 +212,11 @@
         j++;
     }
 
+}
+
+-(void)changeSubDivision:(Subdivision)subdivision andBeat:(id)beat{
+    if(_delegate){
+        [_delegate changeSubDivision:subdivision forBeatNum:(int)[_beats indexOfObject:beat]];
+    }
 }
 @end

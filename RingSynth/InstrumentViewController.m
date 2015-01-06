@@ -160,12 +160,7 @@
         NSLog(@"audioSession: %@ %ld %@", [err domain], (long)[err code], [[err userInfo] description]);
         return;
     }
-    [audioSession setActive:YES error:&err];
-    err = nil;
-    if(err){
-        NSLog(@"audioSession: %@ %ld %@", [err domain], (long)[err code], [[err userInfo] description]);
-        return;
-    }
+
     
     NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
     
@@ -215,10 +210,8 @@
     
     [_recordButton setTitle:@"Record" forState:UIControlStateNormal];
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:NO error:nil];
     [audioSession setCategory :AVAudioSessionCategoryPlayback error:nil];
-    
-    
+
     [self processWavFile];
     if([self recordingExists])
         [_playButton setEnabled:YES];

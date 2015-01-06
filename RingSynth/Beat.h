@@ -17,7 +17,7 @@ typedef enum {
 } Subdivision;
 @protocol BeatDelegate
 @optional
--(void)changeSubDivision:(Subdivision)subdivision;
+-(void)changeSubDivision:(Subdivision)subdivision andBeat:(id)beat;
 @end
 @interface Beat : UIView{
     ALChannelSource *channel;

@@ -10,13 +10,14 @@
 #import "Layout.h"
 #import "Instrument.h"
 
-@interface FullGrid : UIScrollView<UIScrollViewDelegate>{
+@interface FullGrid : UIScrollView<UIScrollViewDelegate, LayoutDelegate>{
     NSMutableArray *layers;
     UIView *container;
     UIActionSheet *newColors;
     UISegmentedControl* instrumentsController;
     Staff* staff;
     Layout *currentLayer;
+    Layout*presentationLayer;
     int bpm;
     NSTimer *playTimer;
     int currentBeatPlaying;

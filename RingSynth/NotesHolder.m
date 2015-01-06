@@ -52,7 +52,7 @@
         int pushDown = 15;
         if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
             pushDown = 40;
-        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2+1 , _titleViewHeight + _lineView.frame.size.height +pushDown, _volumeMeterHeight-2  , _volumeMeterHeight);
+        _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2+1 + self.superview.frame.origin.x + self.frame.origin.x , _titleViewHeight + _lineView.frame.size.height +pushDown, _volumeMeterHeight-2  , _volumeMeterHeight);
         _volumeSlider.transform=CGAffineTransformRotate(_volumeSlider.transform,270.0/180*M_PI);
         [_volumeSlider  setThumbImage:[UIImage imageNamed:@"handle"] forState:UIControlStateNormal];
         [_volumeSlider setValue:0.75f];
@@ -60,9 +60,9 @@
         [_volumeSlider addTarget:self
                           action:@selector(sliderViewChange:)
                 forControlEvents:UIControlEventValueChanged];
-        [self addSubview:_volumeSlider];
+        [_staff.superview addSubview:_volumeSlider];
     }
-    if(_notes.count >0)
+    if(_notes.count >0 && !self.isHidden)
         [_volumeSlider setHidden:NO];
     else
         [_volumeSlider setHidden:YES];
@@ -220,6 +220,10 @@
         [note setHidden:hidden];
         
     }
+    if(hidden == YES)
+        [_volumeSlider setHidden:YES];
+    else
+        [self checkViews];
 
 }
 -(void)setFrame:(CGRect)frame{
@@ -231,6 +235,10 @@
         note.frame = frame;
 
     }
+    int pushDown = 15;
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        pushDown = 40;
+     _volumeSlider.frame = CGRectMake(self.frame.size.width/2 -_volumeMeterHeight/2+1 + self.superview.frame.origin.x + self.frame.origin.x , _titleViewHeight + _lineView.frame.size.height +pushDown, _volumeMeterHeight-2  , _volumeMeterHeight);
 }
 
 -(void)clear{

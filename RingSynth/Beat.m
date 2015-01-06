@@ -149,7 +149,7 @@
         _currentSubdivision = triplets;
     [self changeSubDivision:_currentSubdivision];
     if(_delegate)
-        [_delegate changeSubDivision:_currentSubdivision];
+        [_delegate changeSubDivision:_currentSubdivision andBeat:self];
     
 }
 -(BOOL)anyNotesInsubdivision{

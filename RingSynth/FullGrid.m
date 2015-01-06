@@ -63,10 +63,8 @@ const int TICS_PER_BEAT  =12;
 -(void)replay{
     CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     
-    for(Layout * layer in layers){
-        [layer stopBeat];
-    }
     
+    [presentationLayer stopBeat];
     
     if(_isPlaying){
         [self setZoomScale:1.0f animated:NO];
@@ -100,7 +98,7 @@ const int TICS_PER_BEAT  =12;
             else
                 [layer setState: not_active];
         }
-
+        
     }
     
 }
@@ -109,21 +107,19 @@ const int TICS_PER_BEAT  =12;
         layers = [[NSMutableArray alloc] init];
     Layout * layer = [[Layout alloc] initWithStaff:staff andFrame:self.frame andNumOfBeat:_numOfBeats];
     [layers addObject:layer];
-    [container addSubview:layer];
-    if([layers count] == 1){
-        [self changeToWidth:layer.frame.size.width];
+    
+    NSArray * beats = presentationLayer.beats;
+    for(int i = 0; i < beats.count; i++){
+        //Changing all subdivision to be the same as presentation layer subdivision
+        [[[layer beats] objectAtIndex:i] changeSubDivision:[[beats objectAtIndex:i] currentSubdivision]];
     }
     [self changeLayer:((int)[layers count] -1)];
-    
 }
+
 -(void)deleteLayerAt:(int)index{
     Layout * layer=  [layers objectAtIndex:index];
     [layer remove];
     [layers removeObject:layer];
-    if([layers count] == 0){
-        [self changeToWidth:self.frame.size.width];
-        
-    }
     
     [Assets playEraseSound];
 }
@@ -149,7 +145,7 @@ const int TICS_PER_BEAT  =12;
             [self stop];
         
         timePerTic= ((60.0f/bpm)/(TICS_PER_BEAT));
-            _isPlaying = YES;
+        _isPlaying = YES;
         
         
         widthToAnimatePerTic = layer.widthPerBeat/(TICS_PER_BEAT -1);
@@ -181,8 +177,8 @@ const int TICS_PER_BEAT  =12;
         [self checkIfToStopPlaying];
         return;
     }
-
-   
+    
+    
     
     BOOL animate = NO;
     int midX =  self.contentOffset.x + self.frame.size.width/2;
@@ -205,6 +201,8 @@ const int TICS_PER_BEAT  =12;
     for(Layout * layer in layers){
         [layer playWithTempo:bpm beat:currentBeatPlaying tic:currentTic andTicDivision:TICS_PER_BEAT];
     }
+    [presentationLayer playWithTempo:bpm beat:currentBeatPlaying tic:currentTic andTicDivision:TICS_PER_BEAT];
+    presentationLayer.delegate = self;
     
 }
 
@@ -219,6 +217,8 @@ const int TICS_PER_BEAT  =12;
     [self setUserInteractionEnabled:YES];
     _isPlaying = NO;
     
+    [presentationLayer stopBeat];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName: @"musicStopped"
                                                         object: nil
                                                       userInfo: nil];
@@ -227,7 +227,6 @@ const int TICS_PER_BEAT  =12;
 -(void)silence{
     ALChannelSource * mainChannel = [[OALSimpleAudio sharedInstance] channel];
     for(Layout * layer in layers){
-        [layer stopBeat];
         [OALSimpleAudio sharedInstance].channel = layer.channel;
         [[OALSimpleAudio sharedInstance] stopAllEffects];
         
@@ -303,14 +302,16 @@ const int TICS_PER_BEAT  =12;
 
 -(void)setNumOfBeats:(int)numOfBeats{
     _numOfBeats = numOfBeats;
-    BOOL firstLayer = YES;
+    if(presentationLayer == nil){
+        presentationLayer = [[Layout alloc] initWithStaff:staff andFrame:self.frame andNumOfBeat:_numOfBeats];
+        [container addSubview:presentationLayer];
+        presentationLayer.delegate = self;
+    }
+    [presentationLayer setNumOfBeats:numOfBeats];
+    [self changeToWidth:presentationLayer.frame.size.width];
+    
     for(Layout * layer in layers){
         [layer setNumOfBeats:_numOfBeats];
-        if(firstLayer){
-            [self changeToWidth:layer.frame.size.width];
-            firstLayer = NO;
-        }
-        
     }
 }
 
@@ -331,6 +332,13 @@ const int TICS_PER_BEAT  =12;
         [self addLayer];
         Layout *layer = [layers objectAtIndex:i];
         [layer loadSaveFile:[saveFile objectAtIndex:i]];
+        if(i == 0){
+            for(int j = 0; j < layer.beats.count; j++){
+                //Setting presentation layer subdivision
+                [[presentationLayer.beats objectAtIndex:j] changeSubDivision:((Beat *)[layer.beats objectAtIndex:j]).currentSubdivision];
+
+            }
+        }
     }
     [self changeLayer:-1];
 }
@@ -583,7 +591,7 @@ const int TICS_PER_BEAT  =12;
     if(layers.count == 0)
         return 0;
     Layout * layer =  [layers objectAtIndex:0];
-   return [layer findBeatIndexAtx:(self.contentOffset.x + layer.widthPerBeat  )] +1;
+    return [layer findBeatIndexAtx:(self.contentOffset.x + layer.widthPerBeat  )] +1;
 }
 
 -(void)clearBeat:(int)startBeat to:(int)endBeat{
@@ -597,24 +605,52 @@ const int TICS_PER_BEAT  =12;
 }
 
 -(void)duplicateBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat{
+    [presentationLayer duplicateBeat:startBeat to:endBeat insert:insertBeat];
     if(currentLayer){
         [currentLayer duplicateBeat:startBeat to:endBeat insert:insertBeat];
+        
+        //Updating all subdivisions to have the same subdivisions
+        int end = insertBeat +(endBeat - startBeat);
+        for(Layout * layer in layers){
+            for(int i = insertBeat; i < end; i++){
+                [[layer.beats objectAtIndex:i] changeSubDivision:((Beat *)[presentationLayer.beats objectAtIndex:i ]).currentSubdivision];
+            }
+        }
+
     } else{
         for(Layout * layer in layers){
             [layer duplicateBeat:startBeat to:endBeat insert:insertBeat];
         }
     }
-
+    
 }
 
 -(void)moveBeat:(int)startBeat to:(int)endBeat insert:(int)insertBeat{
+    [presentationLayer moveBeat:startBeat to:endBeat insert:insertBeat];
     if(currentLayer){
         [currentLayer moveBeat:startBeat to:endBeat insert:insertBeat];
+        
+        //Updating all subdivisions to have the same subdivisions
+        int end = insertBeat +(endBeat - startBeat);
+        for(Layout * layer in layers){
+            for(int i = insertBeat; i < end; i++){
+                [[layer.beats objectAtIndex:i] changeSubDivision:((Beat *)[presentationLayer.beats objectAtIndex:i ]).currentSubdivision];
+            }
+        }
+        
+        
     } else{
         for(Layout * layer in layers){
             [layer moveBeat:startBeat to:endBeat insert:insertBeat];
         }
     }
+    
+}
 
+-(void)changeSubDivision:(Subdivision)subdivision forBeatNum:(int)num{
+    for(Layout * layer in layers){
+        [[layer.beats objectAtIndex:num] changeSubDivision:subdivision];
+    }
+    
 }
 @end
