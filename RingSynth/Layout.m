@@ -133,10 +133,7 @@
     [self setAlpha:alpha];
     for(Beat * beat in _beats){
         for(NotesHolder * noteHolder in beat.noteHolders){
-            if(state == active || state == all_mode){
-                [noteHolder checkViews];
-            }
-            
+        
             if(state == all_mode){
                 [noteHolder.volumeSlider setAlpha:0.4f];
                 [noteHolder.volumeSlider setUserInteractionEnabled:NO];
@@ -146,8 +143,8 @@
                 [noteHolder.volumeSlider setUserInteractionEnabled:YES];
             }
             else if(state == not_active){
-                
-                [noteHolder.volumeSlider setHidden:YES];
+                [noteHolder.volumeSlider setAlpha:0.0f];
+                [noteHolder.volumeSlider setUserInteractionEnabled:NO];
             }
             
             for(Note * note in noteHolder.notes){
