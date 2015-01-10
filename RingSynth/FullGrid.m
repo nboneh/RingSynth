@@ -620,6 +620,7 @@ const int TICS_PER_BEAT  =12;
     } else{
         for(Layout * layer in layers){
             [layer duplicateBeat:startBeat to:endBeat insert:insertBeat];
+             [layer setState:all_mode];
         }
     }
     
@@ -642,6 +643,7 @@ const int TICS_PER_BEAT  =12;
     } else{
         for(Layout * layer in layers){
             [layer moveBeat:startBeat to:endBeat insert:insertBeat];
+            [layer setState:all_mode];
         }
     }
     
