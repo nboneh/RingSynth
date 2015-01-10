@@ -186,7 +186,6 @@
     int j = 0;
     for(int i = insertBeat; i <  end; i++){
         Beat * beat = [_beats objectAtIndex:i];
-        [beat clear];
         [beat loadSaveFile:[saveFiles objectAtIndex:j]];
         j++;
     }
@@ -204,7 +203,6 @@
     int j = 0;
     for(int i = insertBeat; i <  end; i++){
         Beat * beat = [_beats objectAtIndex:i];
-        [beat clear];
         [beat loadSaveFile:[saveFiles objectAtIndex:j]];
         j++;
     }
