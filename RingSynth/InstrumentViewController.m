@@ -101,7 +101,7 @@
     
     char baseNoteChar = baseNote.character;
     for(int i = 0; i < chars.count; i++){
-        if(baseNoteChar == [[chars objectAtIndex:i] characterAtIndex:0]){
+        if(baseNoteChar == [[chars objectAtIndex:i]   characterAtIndex:0]){
             [_notePicker selectRow:i inComponent:0 animated:NO];
             break;
         }
@@ -470,7 +470,7 @@
     else if (pickerView == _notePicker){
         switch(component){
             case 0:
-                label.text = [chars objectAtIndex:row];
+                label.text = [[chars objectAtIndex:row] uppercaseString];
                 break;
             case 1:
                 label.text = [accidentals objectAtIndex:row];

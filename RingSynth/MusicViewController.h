@@ -14,9 +14,6 @@
 #import <MessageUI/MessageUI.h>
 #import "AxonixFullScreenAdViewController.h"
 #import "EditorViewController.h"
-#import <Social/Social.h>
-
-
 
 @interface MusicViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UITextFieldDelegate, AxonixFullScreenAdDelegate, EditorViewDelegate, MFMessageComposeViewControllerDelegate>{
     NSMutableArray *instruments;

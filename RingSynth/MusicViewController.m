@@ -12,6 +12,8 @@
 #import "Staff.h"
 #import "Layout.h"
 #import "Util.h"
+#import <Social/Social.h>
+
 
 @interface MusicViewController ()
 -(void)fixSegements;
@@ -62,6 +64,7 @@ static BOOL LOOPING;
     
     self.fullScreenAdViewController = [[AxonixFullScreenAdViewController alloc] init];
     self.fullScreenAdViewController.delegate = self;
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
@@ -361,12 +364,12 @@ static BOOL LOOPING;
         NSData *content = [[NSData alloc] initWithContentsOfFile:[Util getPath:[NSString stringWithFormat:@"%@.m4r", self.name]]];
         NSString * message = [NSString stringWithFormat:@"%@ is a neat ringtone I made in the App RingSynth for iOS. \n\r Check it out at: https://itunes.apple.com/app/id938020959", self.name];
         NSString * fileName = [NSString stringWithFormat:@"%@.m4a", self.name];
-
+        NSString * title =[NSString stringWithFormat:@"Check out my ringtone %@", self.name];
         
         if(buttonIndex == 0){
 
             MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-            [mc setSubject: [NSString stringWithFormat:@"Check out my ringtone %@", self.name]];
+            [mc setSubject: title];
             [mc setMessageBody:message isHTML:NO];
             
             [mc addAttachmentData:content mimeType:@"audio/wav" fileName:fileName];
@@ -385,17 +388,6 @@ static BOOL LOOPING;
             return;
             
         }
-        SLComposeViewController *controllerSLC = nil;
-        if(buttonIndex == 2){
-            controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        } else if (buttonIndex ==3){
-           controllerSLC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        }
-        [controllerSLC setInitialText:@"First post from my iPhone app"];
-        
-        [controllerSLC addURL:[NSURL URLWithString:@"https://itunes.apple.com/app/id938020959"]];
-
-        [self presentViewController:controllerSLC animated:YES completion:Nil];
     }
     if(buttonIndex ==actionSheet.cancelButtonIndex){
         [_instrumentController setSelectedSegmentIndex:prevSelect];
@@ -552,9 +544,8 @@ static BOOL LOOPING;
         [_fullGrid setNumOfBeats: [_beatsTextField.text intValue]];
     }
     else if(alertView == sucessAlert){
-        sharingSheet= [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Share Ringtone %@?", self.name] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Text", @"Facebook", @"Twitter", nil];
+        sharingSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Share ringtone %@?", self.name] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Text", nil];
         [sharingSheet showInView:self.view];
-        [_fullGrid stop];
     }
     else if(alertView == deleteAlert){
         if(buttonIndex == 1){
@@ -620,7 +611,7 @@ static BOOL LOOPING;
 }
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
-    [self.fullScreenAdViewController requestAndDisplayAdFromViewController:self];
+    [self.fullScreenAdViewController requestAndDisplayAdFromViewController:self.navigationController];
     self.navigationItem.hidesBackButton = YES;
     //Saving for saftey
     [self save];
