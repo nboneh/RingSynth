@@ -38,7 +38,7 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
 }
 
 - (void)addItem{
-    UIAlertView * addAlert = [[UIAlertView alloc] initWithTitle:@"New Ringtone" message:@""   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
+        UIAlertView * addAlert = [[UIAlertView alloc] initWithTitle:@"New Ringtone" message:@""   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
     addAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [[addAlert textFieldAtIndex:0] setDelegate:self];
     [addAlert show];
@@ -85,9 +85,7 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
             
             //Also delete the ringtone file if it exists
             NSString* ringPath = [fileToBeDeleted stringByReplacingOccurrencesOfString: @ ".rin" withString: @ ".m4r"];
-            BOOL exists = [fm fileExistsAtPath:ringPath];
-            if(exists == YES)
-                [fm removeItemAtPath:ringPath error:nil];
+            [fm moveItemAtPath: ringPath toPath:[Util getPath: [NSString stringWithFormat:@"%@.m4r", newRing]] error: nil];
         }
         
     }

@@ -168,6 +168,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="hfg-ch-NS5" id="7SA-UA-tmH"/>
+                        <segue destination="Ynr-Kr-KuT" kind="push" identifier="pushShopFromInstruments" id="XQB-qJ-Tiz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sa8-AQ-av2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -559,7 +560,7 @@
         <image name="Null Note" width="22" height="22"/>
         <image name="background" width="1600" height="613"/>
         <image name="download" width="22" height="22"/>
-        <image name="help" width="1106" height="712"/>
+        <image name="help" width="1135" height="746"/>
         <image name="noloop" width="22" height="22"/>
         <image name="play" width="22" height="22"/>
     </resources>
@@ -569,8 +570,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="oQp-E4-3gw"/>
-        <segue reference="wFY-Em-PXW"/>
         <segue reference="ed3-2Y-Kex"/>
+        <segue reference="oQp-E4-3gw"/>
+        <segue reference="XQB-qJ-Tiz"/>
     </inferredMetricsTieBreakers>
 </document>

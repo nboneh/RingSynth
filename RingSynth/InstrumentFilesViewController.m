@@ -41,6 +41,13 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
 }
 
 - (void)addItem{
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"com.clouby.ios.RingSynth.UnlimitedUserPack"]  && INSTRUMENT_LIST.count >=2){
+        inAppPurchaseAlert =[[UIAlertView alloc] initWithTitle:@"Purchase of Unlimited User Instruments Required!" message:@"Would you like to visit the shop?"   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+        [inAppPurchaseAlert show];
+        return;
+    }
+    
+
     UIAlertView * addAlert = [[UIAlertView alloc] initWithTitle:@"New Instrument" message:@""   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
     addAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [[addAlert textFieldAtIndex:0] setDelegate:self];
@@ -66,10 +73,21 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
     
 }
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView{
+    if(alertView == inAppPurchaseAlert)
+        return YES;
     return [self checkTextField:[alertView textFieldAtIndex:0]];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if(alertView == inAppPurchaseAlert){
+        if(buttonIndex == 1){
+            
+             [self performSegueWithIdentifier: @"pushShopFromInstruments" sender: self];
+        }
+        return;
+    }
+
     if(buttonIndex == 1){
         NSString *newInst = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
                              [NSCharacterSet whitespaceCharacterSet]];

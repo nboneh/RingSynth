@@ -16,6 +16,7 @@
     NSArray *searchResults;
     NSString *fileToBeDeleted;
     BOOL performSegueOnce;
+      UIAlertView * inAppPurchaseAlert;
 }
 @property (strong, nonatomic) InstrumentViewController *instrumentViewController;
 -(IBAction) addItem;
