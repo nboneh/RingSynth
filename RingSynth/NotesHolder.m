@@ -97,19 +97,26 @@
         return;
     NotePlacement * placement =[[_staff notePlacements] objectAtIndex:pos];
     Note *note = [[Note alloc] initWithNotePlacement:placement withInstrument:[MusicViewController CURRENT_INSTRUMENT] andAccedintal:[MusicViewController CURRENT_ACCIDENTAL]];
-    if([self insertNote:note])
+    if([self insertNote:note fromLoad:NO])
         [note playWithVolume:[_volumeSlider value]];
 }
 
--(BOOL)insertNote:(Note *)note{
+-(BOOL)insertNote:(Note *)note fromLoad:(BOOL)load{
     if(!_notes)
         _notes = [[NSMutableArray alloc] init];
     //If equals a note that exists do not add
     NSInteger size =  _notes.count;
     for(int i = 0; i < size; i++){
         Note *note2 = [_notes objectAtIndex:i];
-        if([note2 equals:note])
-            return NO;
+        if([note2 equals:note]){
+            if(!load)
+                return NO;
+           else if(load){
+                note2.accidental = note.accidental;
+                return NO;
+            }
+                
+        }
     }
     CGRect frame = note.frame;
     frame.origin.y += _volumeMeterHeight;
@@ -186,7 +193,8 @@
         for(NSDictionary * noteDict in loadNotes){
             Note*note = [[Note alloc] initWithNotePlacement:[_staff.notePlacements objectAtIndex:[[noteDict objectForKey:@"noteplacement"] intValue]]
                                              withInstrument:[Assets instForObject:[noteDict objectForKey:@"instrument"]]  andAccedintal:[[noteDict  objectForKey:@"accidental"] intValue]];
-            [self insertNote:note];
+            
+                [self insertNote:note fromLoad:YES];
 
         }
         [self checkViews];
