@@ -7,6 +7,7 @@
 //
 
 #import "ShopViewController.h"
+#import "Util.h"
 
 @implementation ShopViewController
 
@@ -14,15 +15,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = NO;
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-        self.bannerView = [[AxonixAdViewiPad_728x90 alloc] init];
-    else
-        self.bannerView = [[AxonixAdViewiPhone_320x50 alloc] init];
-    CGRect bannerFrame = self.bannerView.frame;
-    bannerFrame.origin.y = self.view.frame.size.height - bannerFrame.size.height;
-    bannerFrame.origin.x = self.view.frame.size.width/2 - bannerFrame.size.width/2;
-    self.bannerView.frame = bannerFrame;
-    [self.view addSubview:self.bannerView];
+    if([Util showAds]){
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+            self.bannerView = [[AxonixAdViewiPad_728x90 alloc] init];
+        else
+            self.bannerView = [[AxonixAdViewiPhone_320x50 alloc] init];
+        CGRect bannerFrame = self.bannerView.frame;
+        bannerFrame.origin.y = self.view.frame.size.height - bannerFrame.size.height;
+        bannerFrame.origin.x = self.view.frame.size.width/2 - bannerFrame.size.width/2;
+        self.bannerView.frame = bannerFrame;
+        
+        [self.view addSubview:self.bannerView];
+    }
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver: self
@@ -49,8 +53,15 @@
         [purchaseViews addObject:pView];
         i++;
     }
+    NSDictionary *unlimetedUserInstrumentsPack =  @{@"name":@"Unlimited User Instruments",
+                                                    @"price":[[NSNumber alloc] initWithFloat:0.99f],
+                                                    @"identifier":@"com.clouby.ios.RingSynth.UnlimitedUserPack"};
+    PurchaseView* pView = [[PurchaseView alloc] initWithFrame:CGRectMake(0, ydist*i +heightStart, frame.size.width, ydist/2) packInfo:unlimetedUserInstrumentsPack];
+    [self.view addSubview: pView];
+    [purchaseViews addObject:pView];
+    
     UIButton * restorePurchases =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    restorePurchases.frame= CGRectMake(0, ydist*i + heightStart, self.view.frame.size.width,frame.size.height/6);
+    restorePurchases.frame= CGRectMake(0, ydist*i + heightStart + ydist/2, self.view.frame.size.width,frame.size.height/6);
     [restorePurchases setTitle:@"Restore purchases" forState:UIControlStateNormal];
     [restorePurchases addTarget:self
                          action:@selector(restorePurchases)
@@ -64,6 +75,19 @@
         [restorePurchases.titleLabel  setFont:[UIFont systemFontOfSize:13]];
     }
     [self.view addSubview:restorePurchases];
+    
+    UILabel * adDisclaimer =   [[UILabel alloc] initWithFrame: CGRectMake(0, ydist*i + heightStart + ydist, self.view.frame.size.width,frame.size.height/6)];
+    [adDisclaimer setText:@"*Purchase of any paid in-app-purchase will remove all ads"];
+    [adDisclaimer setTextAlignment:NSTextAlignmentCenter];
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        //Increasing size of font if on ipad
+        [adDisclaimer  setFont:[UIFont systemFontOfSize:13]];
+        
+    } else{
+        [adDisclaimer  setFont:[UIFont systemFontOfSize:9]];
+    }
+    [self.view addSubview:adDisclaimer];
     
 }
 
@@ -88,14 +112,15 @@
     [self becameActive];
 }
 -(void)becameActive{
-    [self.bannerView resumeAdAutoRefresh];
-
+    if([Util showAds])
+        [self.bannerView resumeAdAutoRefresh];
+    
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     //Just in case the user exited the screen somewhere in the process, we will check back for any on going purchases
     if (SKPaymentQueue.defaultQueue.transactions.count > 0) {
         [self paymentQueue:SKPaymentQueue.defaultQueue updatedTransactions:SKPaymentQueue.defaultQueue.transactions];
     }
-
+    
 }
 
 -(void)resignActive{
@@ -104,7 +129,7 @@
                                                         object: nil
                                                       userInfo: nil];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-
+    
 }
 
 -(void)restorePurchases{
@@ -153,7 +178,7 @@
                     NSLog(@"Transaction state -> Cancelled");
                     //the user cancelled the payment ;(
                 }
-                  [self validatePurchaseTransaction:transaction validated:NO];
+                [self validatePurchaseTransaction:transaction validated:NO];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case  SKPaymentTransactionStateDeferred:
@@ -168,6 +193,10 @@
     for(PurchaseView * pView in purchaseViews){
         if([pView.identifier isEqualToString:identifier]){
             [pView setPurchased:valid];
+            if(![Util showAds]){
+                [self.bannerView pauseAdAutoRefresh];
+                [self.bannerView removeFromSuperview];
+            }
             break;
         }
     }

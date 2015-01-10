@@ -119,12 +119,37 @@ static Instrument * NULL_INSTRUMENT;
                                      
                                      @"samplename": @"Off The Beach",
                                      @"price":[[NSNumber alloc] initWithFloat:0.99f],
-                                     @"identifier":@"com.clouby.ios.RingSynth.BeachPack"
+                                     @"identifier":identifier
 
                                      
                                      };
         
         [prePacks addObject:beachPack];
+        
+        
+        identifier=@"com.clouby.ios.RingSynth.FunPack";
+        
+        purchased = [[NSUserDefaults standardUserDefaults] boolForKey:identifier];
+        
+        NSDictionary *funPack =  @{@"name":@"Fun Pack",
+                                     @"instruments":@[
+                                             //C4
+                                             [[Instrument alloc] initWithName:@"Air Horn" color:[UIColor redColor] andBaseOctave:4 andPurchased:purchased],
+                                             
+                                             //C5
+                                             [[Instrument alloc] initWithName:@"Cat" color:[UIColor orangeColor] andBaseOctave:5 andPurchased:purchased],
+                                             
+                                             //C4
+                                             [[Instrument alloc] initWithName:@"Dog" color:[UIColor brownColor] andBaseOctave:4 andPurchased:purchased]],
+                                     
+                                     @"samplename": @"Fun Time",
+                                     @"price":[[NSNumber alloc] initWithFloat:0.00f],
+                                     @"identifier":identifier
+                                     
+                                     
+                                     };
+        
+        [prePacks addObject:funPack];
         IN_APP_PURCHASE_PACKS = [[NSArray alloc] initWithArray:prePacks];
         
         

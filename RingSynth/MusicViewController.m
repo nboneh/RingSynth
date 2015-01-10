@@ -611,7 +611,8 @@ static BOOL LOOPING;
 }
 
 -(IBAction)exportMusic:(UIBarButtonItem *) button{
-    [self.fullScreenAdViewController requestAndDisplayAdFromViewController:self.navigationController];
+    if([Util showAds])
+        [self.fullScreenAdViewController requestAndDisplayAdFromViewController:self.navigationController];
     self.navigationItem.hidesBackButton = YES;
     //Saving for saftey
     [self save];

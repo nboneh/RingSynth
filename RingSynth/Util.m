@@ -24,4 +24,14 @@
 +(NSString *)getInstrumentPath:(NSString *)fileName{
     return [Util getPath:[NSString stringWithFormat:@"%@.ins",(id) fileName]];
 }
+
++(BOOL)showAds{
+
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
+    return !([userDefaults boolForKey:@"com.clouby.ios.RingSynth.UnlimitedUserPack"]
+     || [userDefaults boolForKey:@"com.clouby.ios.RingSynth.BeachPack"]
+    || [userDefaults boolForKey:@"com.clouby.ios.RingSynth.FunkPack"]);
+}
+
+
 @end

@@ -39,36 +39,40 @@
         }
         
         instruments = [packInfo objectForKey:@"instruments"];
-        instrViews = [[NSMutableArray alloc] init];
-        for(int i = 0; i < instruments.count; i++){
-            InstrumentPurchaseView* instrView = [[InstrumentPurchaseView alloc] initWitInstrument:[instruments objectAtIndex:i] andX:i*instDistance + nameWidth+ 10];
-            [self addSubview:instrView];
-            [instrViews addObject:instrView];
+        if(instruments != nil){
+            instrViews = [[NSMutableArray alloc] init];
+            for(int i = 0; i < instruments.count; i++){
+                InstrumentPurchaseView* instrView = [[InstrumentPurchaseView alloc] initWitInstrument:[instruments objectAtIndex:i] andX:i*instDistance + nameWidth+ 10];
+                [self addSubview:instrView];
+                [instrViews addObject:instrView];
+            }
         }
         int playWidth = self.frame.size.width/5;
-        int xOfSample = (int)instruments.count * instDistance + nameWidth ;
-        playSampleButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        playSampleButton.frame= CGRectMake(xOfSample, 0, playWidth, self.frame.size.height);
-        playSampleButton.titleLabel.textColor = self.tintColor;
-        [playSampleButton setTitle:@"Play Sample" forState:UIControlStateNormal];
-        [playSampleButton addTarget:self
-                             action:@selector(playSample:)
-                   forControlEvents:UIControlEventTouchUpInside];
-        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-        {
-            //Increasing size of font if on ipad
-            [playSampleButton.titleLabel  setFont:[UIFont systemFontOfSize:25]];
-            
-        } else{
-            [playSampleButton.titleLabel  setFont:[UIFont systemFontOfSize:13]];
+        int xOfSample = (int)3 * instDistance + nameWidth ;
+        if([packInfo objectForKey:@"samplename"] != nil){
+            playSampleButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            playSampleButton.frame= CGRectMake(xOfSample, 0, playWidth, self.frame.size.height);
+            playSampleButton.titleLabel.textColor = self.tintColor;
+            [playSampleButton setTitle:@"Play Sample" forState:UIControlStateNormal];
+            [playSampleButton addTarget:self
+                                 action:@selector(playSample:)
+                       forControlEvents:UIControlEventTouchUpInside];
+            if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+            {
+                //Increasing size of font if on ipad
+                [playSampleButton.titleLabel  setFont:[UIFont systemFontOfSize:25]];
+                
+            } else{
+                [playSampleButton.titleLabel  setFont:[UIFont systemFontOfSize:13]];
+            }
+            sampleName= [packInfo objectForKey:@"samplename"];
+            [self addSubview:playSampleButton];
         }
-        sampleName= [packInfo objectForKey:@"samplename"];
-        [self addSubview:playSampleButton];
         
         
         _identifier = [packInfo objectForKey:@"identifier"];
-    
-        _purchased =[[instruments objectAtIndex:0] purchased];
+        
+        _purchased =[[NSUserDefaults standardUserDefaults] boolForKey:_identifier];
         
         purchaseButton =   [UIButton buttonWithType:UIButtonTypeRoundedRect];
         purchaseButton.frame= CGRectMake(xOfSample + playWidth , 0, playWidth, self.frame.size.height);
@@ -87,7 +91,11 @@
         [self checkPurchaseButton];
         [self addSubview:purchaseButton];
         
-        
+        if(instruments == nil){
+            CGRect frame = labelName.frame;
+            frame.size.width = frame.size.width * 2;
+            labelName.frame = frame;
+        }
     }
     return self;
 }
@@ -110,7 +118,7 @@
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:sampleName ofType:@"m4a"]]  error:nil];
         [player setDelegate:self];
         [player play];
-           [button setTitle:@"Stop Sample" forState:UIControlStateNormal];
+        [button setTitle:@"Stop Sample" forState:UIControlStateNormal];
     } else{
         [self stopSample];
     }
@@ -129,11 +137,11 @@
 -(void)requestPurchase{
     [purchaseButton setTitle:@"Buying..." forState:UIControlStateNormal];
     [purchaseButton setEnabled:NO];
-
+    
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:_identifier]];
     productsRequest.delegate = self;
     [productsRequest start];
-
+    
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
@@ -171,42 +179,45 @@
         return;
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults] ;
     [userDefaults setBool:YES forKey:_identifier];
+
+        
     [userDefaults synchronize];
-    for(Instrument * instrument in instruments){
-        instrument.purchased = YES;
-    }
-    
-    //Adding sample song
-    NSMutableArray *ringtones =   [MusicFilesViewController RINGTONE_LIST];
-    
-    
-    NSString *musicPath  =[[NSBundle mainBundle] pathForResource:sampleName ofType:@""];
-    NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
-    
-    NSString *useName = sampleName;
-    NSInteger size = [ringtones count];
-    int k = 1;
-    for(int i = 0; i < size; i++){
-        NSString *ring = [ringtones objectAtIndex:i];
-        if ([useName caseInsensitiveCompare:ring] == NSOrderedSame){
-            //Can't have two ringtones with the same name if exists change the name
-            useName = [NSString stringWithFormat:@"%@ (%d)",sampleName,k ];
-            i = -1;
-            k++;
+    if(instruments){
+        for(Instrument * instrument in instruments){
+            instrument.purchased = YES;
         }
+        
+        //Adding sample song
+        NSMutableArray *ringtones =   [MusicFilesViewController RINGTONE_LIST];
+        
+        
+        NSString *musicPath  =[[NSBundle mainBundle] pathForResource:sampleName ofType:@""];
+        NSData * data = [[NSData alloc] initWithContentsOfFile:musicPath];
+        
+        NSString *useName = sampleName;
+        NSInteger size = [ringtones count];
+        int k = 1;
+        for(int i = 0; i < size; i++){
+            NSString *ring = [ringtones objectAtIndex:i];
+            if ([useName caseInsensitiveCompare:ring] == NSOrderedSame){
+                //Can't have two ringtones with the same name if exists change the name
+                useName = [NSString stringWithFormat:@"%@ (%d)",sampleName,k ];
+                i = -1;
+                k++;
+            }
+        }
+        
+        [ringtones insertObject:useName atIndex:0];
+        [data writeToFile:[Util getRingtonePath:useName] atomically:YES];
+        [MusicFilesViewController SAVE_RINGTONE_LIST];
     }
-    
-    [ringtones insertObject:useName atIndex:0];
-    [data writeToFile:[Util getRingtonePath:useName] atomically:YES];
-     [MusicFilesViewController SAVE_RINGTONE_LIST];
-    
 }
 
 -(void) removeAllNotifications{
-       [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     for(UIView *instrView in instrViews){
         [[NSNotificationCenter defaultCenter] removeObserver:instrView];
-
+        
     }
 }
 @end

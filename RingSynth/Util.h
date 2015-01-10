@@ -13,5 +13,6 @@
 +(NSString *) getPath:(NSString *)fileName;
 +(NSString *)getRingtonePath:(NSString *)fileName;
 +(NSString *)getInstrumentPath:(NSString *)fileName;
++(BOOL)showAds;
 
 @end
