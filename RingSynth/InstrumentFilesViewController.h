@@ -21,7 +21,7 @@
 @property (strong, nonatomic) InstrumentViewController *instrumentViewController;
 -(IBAction) addItem;
 
-+(NSDictionary *)INSTRUMENT_LIST;
++(NSMutableArray *)INSTRUMENT_LIST;
 +(void)SAVE_INSTRUMENT_LIST;
 
 

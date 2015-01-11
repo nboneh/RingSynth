@@ -32,72 +32,110 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Audio:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htl-Pa-bNV">
-                                <rect key="frame" x="16" y="83" width="70" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okk-Iz-tgq">
-                                <rect key="frame" x="88" y="83" width="46" height="30"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="play" destination="tBr-5c-qe6" eventType="touchUpInside" id="rsx-o0-H7F"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bya-vf-bEF">
-                                <rect key="frame" x="155" y="83" width="59" height="30"/>
-                                <state key="normal" title="Record">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="record" destination="tBr-5c-qe6" eventType="touchUpInside" id="ioV-0b-4zN"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Color: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uO-gF-dRm">
-                                <rect key="frame" x="16" y="209" width="70" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-lB-XTl">
-                                <rect key="frame" x="60" y="115" width="120" height="216"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="tBr-5c-qe6" id="Cdt-CH-9mp"/>
-                                    <outlet property="delegate" destination="tBr-5c-qe6" id="sQv-tR-hiQ"/>
-                                </connections>
-                            </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Icon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elF-Bt-SKC">
-                                <rect key="frame" x="206" y="209" width="38" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsa-Hc-BwC">
-                                <rect key="frame" x="247" y="138" width="120" height="162"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="tBr-5c-qe6" id="98S-Bt-4GI"/>
-                                    <outlet property="delegate" destination="tBr-5c-qe6" id="FRF-X3-G3z"/>
-                                </connections>
-                            </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Note:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2b-sN-oSq">
-                                <rect key="frame" x="279" y="87" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2h-aq-ULQ">
-                                <rect key="frame" x="353" y="17" width="179" height="162"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="tBr-5c-qe6" id="4uS-f5-cSk"/>
-                                    <outlet property="delegate" destination="tBr-5c-qe6" id="B9V-gk-bQG"/>
-                                </connections>
-                            </pickerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roD-Tl-O8x">
+                                <rect key="frame" x="177" y="84" width="214" height="49"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okk-Iz-tgq">
+                                        <rect key="frame" x="81" y="10" width="46" height="30"/>
+                                        <state key="normal" title="Play">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="play" destination="tBr-5c-qe6" eventType="touchUpInside" id="rsx-o0-H7F"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Audio:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htl-Pa-bNV">
+                                        <rect key="frame" x="15" y="8" width="70" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bya-vf-bEF">
+                                        <rect key="frame" x="135" y="10" width="59" height="30"/>
+                                        <state key="normal" title="Record">
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="record" destination="tBr-5c-qe6" eventType="touchUpInside" id="ioV-0b-4zN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="frc-Eq-kzl"/>
+                                    <constraint firstAttribute="width" constant="214" id="mAt-7k-WVy"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fha-hm-Uho">
+                                <rect key="frame" x="44" y="153" width="480" height="154"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Color: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uO-gF-dRm">
+                                        <rect key="frame" x="8" y="62" width="57" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-lB-XTl">
+                                        <rect key="frame" x="59" y="-8" width="94" height="162"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="tBr-5c-qe6" id="Cdt-CH-9mp"/>
+                                            <outlet property="delegate" destination="tBr-5c-qe6" id="sQv-tR-hiQ"/>
+                                        </connections>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Icon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elF-Bt-SKC">
+                                        <rect key="frame" x="166" y="62" width="38" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2h-aq-ULQ">
+                                        <rect key="frame" x="351" y="-8" width="80" height="162"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="tBr-5c-qe6" id="4uS-f5-cSk"/>
+                                            <outlet property="delegate" destination="tBr-5c-qe6" id="B9V-gk-bQG"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsa-Hc-BwC">
+                                        <rect key="frame" x="212" y="-8" width="73" height="162"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="tBr-5c-qe6" id="98S-Bt-4GI"/>
+                                            <outlet property="delegate" destination="tBr-5c-qe6" id="FRF-X3-G3z"/>
+                                        </connections>
+                                    </pickerView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="*The note where the original recording will play" translatesAutoresizingMaskIntoConstraints="NO" id="jZn-8d-UN8">
+                                        <rect key="frame" x="301" y="77" width="53" height="69"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="*The note where the original recording will play" translatesAutoresizingMaskIntoConstraints="NO" id="Q21-4I-HmF">
+                                        <rect key="frame" x="301" y="72" width="53" height="69"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Note:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2b-sN-oSq">
+                                        <rect key="frame" x="306" y="62" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="154" id="eQI-KL-KWe"/>
+                                    <constraint firstAttribute="width" constant="480" id="lae-dV-6gf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="roD-Tl-O8x" firstAttribute="top" secondItem="4Wb-ld-UOF" secondAttribute="bottom" constant="20" id="ZDk-D3-5Fv"/>
+                            <constraint firstAttribute="centerX" secondItem="roD-Tl-O8x" secondAttribute="centerX" id="fgK-eI-pj7"/>
+                            <constraint firstItem="Fha-hm-Uho" firstAttribute="top" secondItem="roD-Tl-O8x" secondAttribute="bottom" constant="20" id="pJc-b4-Rnq"/>
+                            <constraint firstAttribute="centerX" secondItem="Fha-hm-Uho" secondAttribute="centerX" id="ydQ-Jj-onI"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Instrument" id="bhz-e1-mEi"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -111,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="loW-ih-BuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-348" y="-1908"/>
+            <point key="canvasLocation" x="-348" y="-1906"/>
         </scene>
         <!--Instruments-->
         <scene sceneID="Rvf-6h-9Vl">

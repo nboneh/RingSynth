@@ -68,7 +68,7 @@
                [[ColorSelection alloc] initWithName:@"Green" andColor:[UIColor greenColor]],
                [[ColorSelection alloc] initWithName:@"Yellow" andColor:[UIColor yellowColor]],
                [[ColorSelection alloc] initWithName:@"Orange" andColor:[UIColor orangeColor]],
-               [[ColorSelection alloc] initWithName:@"Pink" andColor:[UIColor magentaColor]],
+               [[ColorSelection alloc] initWithName:@"Pink" andColor:[UIColor colorWithRed:(255/255.0) green:(105/255.0) blue:(180/255.0) alpha:1.0]],
                [[ColorSelection alloc] initWithName:@"Light Blue" andColor:[UIColor cyanColor]],
                [[ColorSelection alloc] initWithName:@"Brown" andColor:[UIColor brownColor]],
                [[ColorSelection alloc] initWithName:@"Gray" andColor:[UIColor grayColor]],
@@ -85,6 +85,8 @@
     NSMutableArray * preIcons = [[NSMutableArray alloc] init];
     
     [preIcons addObject:@"Note"];
+    [preIcons addObject:@"Micro"];
+    [preIcons addObject:@"Micro2"];
     for(Instrument * inst in [Assets INSTRUMENTS]){
         if(inst.purchased)
             [preIcons addObject:inst.name];
@@ -94,14 +96,16 @@
     
     if([icons containsObject:iconName])
         [_iconPicker selectRow:[icons indexOfObject:iconName] inComponent:0 animated:NO];
+    else
+        iconName = [icons objectAtIndex:[_iconPicker selectedRowInComponent:0]];
     
-    chars =@[@"a", @"b", @"c", @"d", @"e", @"f", @"g"];
+    chars =@[@" a", @" b", @" c", @" d", @" e", @" f", @" g"];
     accidentals = @[@"♮",@" ♯",@" ♭"];
     octaves = @[@"6",@"5",@"4",@"3"];
     
     char baseNoteChar = baseNote.character;
     for(int i = 0; i < chars.count; i++){
-        if(baseNoteChar == [[chars objectAtIndex:i]   characterAtIndex:0]){
+        if(baseNoteChar == [[chars objectAtIndex:i]   characterAtIndex:1]){
             [_notePicker selectRow:i inComponent:0 animated:NO];
             break;
         }
@@ -154,7 +158,7 @@
     
     [_recordButton setTitle:@"Stop" forState:UIControlStateNormal];
     NSError *err = nil;
-    [audioSession setCategory :AVAudioSessionCategoryRecord error:&err];
+    [audioSession setCategory :AVAudioSessionCategoryPlayAndRecord error:&err];
     
     if(err){
         NSLog(@"audioSession: %@ %ld %@", [err domain], (long)[err code], [[err userInfo] description]);
@@ -419,10 +423,6 @@
     if (pickerView == _iconPicker){
         
         NSString * imageName = [icons objectAtIndex:row];
-        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-        {
-            imageName = [NSString stringWithFormat:@"%@-ipad",imageName];
-        }
         UIImageView * imageView= [[UIImageView alloc] initWithImage: [[UIImage imageNamed:imageName]
                                                                       imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         imageView.tintColor = color;
@@ -432,16 +432,10 @@
     }
     UILabel *label = nil;
 
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
-    {
-        
-        label = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, pickerView.frame.size.width/pickerView.numberOfComponents, 88)];
-        label.font = [UIFont systemFontOfSize:34];
-    } else {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, pickerView.frame.size.width/pickerView.numberOfComponents, 44)];
-        label.font = [UIFont systemFontOfSize:18];
-        
-    }
+    int width =pickerView.frame.size.width/pickerView.numberOfComponents;
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 44)];
+        label.font = [UIFont systemFontOfSize:17];
+    
     if(pickerView == _colorPicker){
         ColorSelection * colorSelection = [colors objectAtIndex:row];
         label.textColor = colorSelection.color;
@@ -467,6 +461,7 @@
     return nil;
 }
 
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     
@@ -483,7 +478,7 @@
     else if(pickerView == _notePicker){
         switch(component){
             case 0:
-                baseNote.character = [[chars objectAtIndex:row] characterAtIndex:0];
+                baseNote.character = [[chars objectAtIndex:row] characterAtIndex:1];
                 break;
             case 1:
                 baseNote.accidental = (Accidental)row;

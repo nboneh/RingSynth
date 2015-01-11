@@ -114,6 +114,16 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
         }
         
     }
+    
+    if(buttonIndex == 0 && fileToBeDeleted){
+        //Also delete the wav file
+        NSString * wavFilePath = [Util getPath:[NSString stringWithFormat:@"%@.wav", [fileToBeDeleted objectForKey:@"uuid"]]];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        BOOL exists = [fm fileExistsAtPath:wavFilePath];
+        if(exists)
+            [fm removeItemAtPath:wavFilePath error:nil];
+                    
+    }
     fileToBeDeleted =nil;
 }
 

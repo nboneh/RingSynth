@@ -83,7 +83,7 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
             NSFileManager *fm = [NSFileManager defaultManager];
             [fm moveItemAtPath: fileToBeDeleted toPath:[Util getRingtonePath: newRing] error: nil];
             
-            //Also delete the ringtone file if it exists
+            //Also rename the ringtone file if it exists
             NSString* ringPath = [fileToBeDeleted stringByReplacingOccurrencesOfString: @ ".rin" withString: @ ".m4r"];
             [fm moveItemAtPath: ringPath toPath:[Util getPath: [NSString stringWithFormat:@"%@.m4r", newRing]] error: nil];
         }

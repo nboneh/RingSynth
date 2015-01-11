@@ -204,7 +204,7 @@ static Instrument * NULL_INSTRUMENT;
     //Loading user instruments
     NSMutableDictionary *userInstrumentsMut = [[NSMutableDictionary alloc] init];
     NSMutableArray *userInstrumentsKeyMut = [[NSMutableArray alloc] init];
-    NSArray* user_instruments_data = [InstrumentFilesViewController INSTRUMENT_LIST];
+    NSMutableArray* user_instruments_data = [InstrumentFilesViewController INSTRUMENT_LIST];
     for(NSDictionary * instrumentData in user_instruments_data){
         if(instrumentData != nil){
             NSString * key = [instrumentData objectForKey:@"uuid"];
