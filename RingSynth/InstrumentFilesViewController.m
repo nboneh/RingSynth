@@ -9,6 +9,7 @@
 #import "InstrumentFilesViewController.h"
 #import "Util.h"
 #import "Assets.h"
+#import "NoteDescription.h"
 @interface InstrumentFilesViewController ()
 
 @end
@@ -47,7 +48,7 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
         return;
     }
     
-
+    
     UIAlertView * addAlert = [[UIAlertView alloc] initWithTitle:@"New Instrument" message:@""   delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
     addAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [[addAlert textFieldAtIndex:0] setDelegate:self];
@@ -63,7 +64,7 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
         return NO;
     NSInteger size = [INSTRUMENT_LIST count];
     for(int i = 0; i < size; i++){
-        NSString *inst = [INSTRUMENT_LIST objectAtIndex:i];
+        NSString *inst = [[INSTRUMENT_LIST objectAtIndex:i] objectForKey:@"name"];
         if ([text caseInsensitiveCompare:inst] == NSOrderedSame){
             return NO;
         }
@@ -83,46 +84,34 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
     if(alertView == inAppPurchaseAlert){
         if(buttonIndex == 1){
             
-             [self performSegueWithIdentifier: @"pushShopFromInstruments" sender: self];
+            [self performSegueWithIdentifier: @"pushShopFromInstruments" sender: self];
         }
         return;
     }
-
+    
     if(buttonIndex == 1){
-        NSString *newInst = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
-                             [NSCharacterSet whitespaceCharacterSet]];
+        NSString *newInstName = [[alertView textFieldAtIndex:0].text stringByTrimmingCharactersInSet:
+                                 [NSCharacterSet whitespaceCharacterSet]];
+        NSMutableDictionary * newInst = nil;
+        if(fileToBeDeleted){
+            newInst = fileToBeDeleted;
+            [newInst setObject: newInstName forKey:@"name"];
+        } else{
+            newInst = [[NSMutableDictionary alloc] init];
+            [newInst setValue:newInstName forKey:@"name"];
+            [newInst setValue:[UIColor redColor] forKey:@"color"];
+            [newInst setValue: @"Deleted Instrument" forKey:@"imageName"];
+            [newInst setValue:[[NoteDescription alloc] initWithOctave:5 andChar:'c'] forKey:@"baseNote"];
+            [newInst setValue:[[NSUUID UUID] UUIDString] forKey:@"uuid"];
+        }
         
         [INSTRUMENT_LIST insertObject:newInst atIndex:0];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:newInst];
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:newInstName];
         if (cell == nil && self.tableView != self.tableView) {
-            cell = [self.tableView dequeueReusableCellWithIdentifier:newInst];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:newInstName];
         }
-        if(fileToBeDeleted){
-            //Replace the file
-             NSFileManager *fm = [NSFileManager defaultManager];
-            [fm moveItemAtPath: fileToBeDeleted toPath:[Util getInstrumentPath: newInst] error: nil];
-            
-            NSString* wavPath = [fileToBeDeleted stringByReplacingOccurrencesOfString: @ ".ins" withString: @ ".wav"];
-            [fm moveItemAtPath: wavPath toPath:[Util getPath: [NSString stringWithFormat:@"%@.wav", newInst]] error: nil];
-
-            
-        }
-        
-    }
-    if( buttonIndex == 0  && fileToBeDeleted){
-        //Delete the file
-        NSFileManager *fm = [NSFileManager defaultManager];
-        BOOL exists = [fm fileExistsAtPath:fileToBeDeleted];
-        if(exists)
-            [fm removeItemAtPath:fileToBeDeleted error:nil];
-        
-        //Also delete recording
-        NSString* wavPath = [fileToBeDeleted stringByReplacingOccurrencesOfString: @ ".ins" withString: @ ".wav"];
-        exists = [fm fileExistsAtPath:wavPath];
-        if(exists == YES)
-            [fm removeItemAtPath:wavPath error:nil];
         
     }
     fileToBeDeleted =nil;
@@ -134,9 +123,15 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
     performSegueOnce = NO;
     if ([[segue identifier] isEqualToString:@"showInstrument"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSString *instrument = INSTRUMENT_LIST[indexPath.row];
+        NSDictionary *instrument = nil;
+        if(self.searchDisplayController.active) {
+            instrument =  searchResults[indexPath.row];
+        }
+        else {
+               instrument = INSTRUMENT_LIST[indexPath.row];
+        }
         InstrumentViewController *controller = (InstrumentViewController *)[segue destinationViewController];
-        [controller setName:instrument];
+        [controller setInstrumentData:instrument];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
@@ -158,11 +153,21 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    NSDictionary *instrumentData = nil;
     if(tableView==self.searchDisplayController.searchResultsTableView)
-        cell.textLabel.text = searchResults[indexPath.row];
+        instrumentData = searchResults[indexPath.row];
     else
-        cell.textLabel.text = INSTRUMENT_LIST[indexPath.row];
+        instrumentData = INSTRUMENT_LIST[indexPath.row];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+  
+    
+    
+    cell.textLabel.text = [instrumentData objectForKey:@"name"];
+    cell.contentView.tintColor = [instrumentData objectForKey:@"color"];
+
+    NSString * imageName = [instrumentData objectForKey:@"imageName"];
+ 
+    cell.image =[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     return cell;
 }
 
@@ -181,8 +186,8 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
         
         UIAlertView * editAlert = [[UIAlertView alloc] initWithTitle:@"Edit" message:@""   delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Rename", nil];
         editAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        NSString *text =[INSTRUMENT_LIST objectAtIndex:indexPath.row];
-        fileToBeDeleted =[Util getInstrumentPath:[INSTRUMENT_LIST objectAtIndex:indexPath.row]];
+        NSString *text =[[INSTRUMENT_LIST objectAtIndex:indexPath.row] objectForKey:@"name"];
+        fileToBeDeleted =[INSTRUMENT_LIST objectAtIndex:indexPath.row];
         
         [INSTRUMENT_LIST removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -199,7 +204,8 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"self beginswith [c] %@", searchText];
+
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(name beginswith [c] %@)" , searchText];
     searchResults = [INSTRUMENT_LIST filteredArrayUsingPredicate:resultPredicate];
 }
 
@@ -228,6 +234,7 @@ static const NSString * INSTRUMENT_LIST_FILE_NAME  =@"instruments.dat";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     performSegueOnce = YES;
+    [self.tableView reloadData];
 }
 
 

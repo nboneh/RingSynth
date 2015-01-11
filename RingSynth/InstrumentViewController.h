@@ -40,5 +40,5 @@
 -(IBAction) record;
 -(IBAction) play;
 
-@property (strong, nonatomic) id name;
+@property ( nonatomic) NSDictionary* instrumentData;
 @end

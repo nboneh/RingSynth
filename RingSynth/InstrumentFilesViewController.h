@@ -14,14 +14,14 @@
 @interface InstrumentFilesViewController : UITableViewController<UIAlertViewDelegate, UITextFieldDelegate>{
     int addOrigHeight;
     NSArray *searchResults;
-    NSString *fileToBeDeleted;
+    NSMutableDictionary *fileToBeDeleted;
     BOOL performSegueOnce;
       UIAlertView * inAppPurchaseAlert;
 }
 @property (strong, nonatomic) InstrumentViewController *instrumentViewController;
 -(IBAction) addItem;
 
-+(NSMutableArray *)INSTRUMENT_LIST;
++(NSDictionary *)INSTRUMENT_LIST;
 +(void)SAVE_INSTRUMENT_LIST;
 
 

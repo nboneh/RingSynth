@@ -205,12 +205,11 @@ static Instrument * NULL_INSTRUMENT;
     NSMutableDictionary *userInstrumentsMut = [[NSMutableDictionary alloc] init];
     NSMutableArray *userInstrumentsKeyMut = [[NSMutableArray alloc] init];
     NSArray* user_instruments_data = [InstrumentFilesViewController INSTRUMENT_LIST];
-    for(NSString * name in user_instruments_data){
-        NSDictionary * instrument_data = [NSKeyedUnarchiver unarchiveObjectWithFile: [Util getInstrumentPath:(id) name]];
-        if(instrument_data != nil){
-            NSString * key = [instrument_data objectForKey:@"uuid"];
+    for(NSDictionary * instrumentData in user_instruments_data){
+        if(instrumentData != nil){
+            NSString * key = [instrumentData objectForKey:@"uuid"];
             [userInstrumentsMut setValue:[[Instrument alloc]
-                                        initWithName:name color:[instrument_data objectForKey:@"color"] andBaseNote:[instrument_data objectForKey:@"baseNote"] andImageName:[instrument_data objectForKey:@"imageName" ]andWavPath:[Util getPath:[NSString stringWithFormat: @"%@.wav", name]]] forKey:key];
+                                        initWithName:[instrumentData objectForKey:@"name"] color:[instrumentData objectForKey:@"color"] andBaseNote:[instrumentData objectForKey:@"baseNote"] andImageName:[instrumentData objectForKey:@"imageName" ]andWavPath:[Util getPath:[NSString stringWithFormat: @"%@.wav", key]]] forKey:key];
             [userInstrumentsKeyMut addObject:key];
             
         }

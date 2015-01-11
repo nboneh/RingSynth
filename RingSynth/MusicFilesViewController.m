@@ -112,7 +112,13 @@ static const NSString * RING_TONE_LIST_FILE_NAME  =@"ringtones.dat";
     performSegueOnce = NO;
     if ([[segue identifier] isEqualToString:@"showMusic"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSString *ringtone = RINGTONE_LIST[indexPath.row];
+        NSString *ringtone = nil;
+        if(self.searchDisplayController.active) {
+            ringtone =  searchResults[indexPath.row];
+        }
+        else{
+            ringtone = RINGTONE_LIST[indexPath.row];
+        }
         MusicViewController *controller = (MusicViewController *)[segue destinationViewController];
         [controller setName:ringtone];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;

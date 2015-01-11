@@ -141,13 +141,13 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Null Note" id="nOB-xd-gpM">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Steel Guitar" id="nOB-xd-gpM">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
                                     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
-                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.0" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="tBr-5c-qe6" kind="push" identifier="showInstrument" id="Xhx-5S-WDA"/>
                                 </connections>
@@ -557,7 +557,7 @@
     </scenes>
     <resources>
         <image name="Editor" width="22" height="22"/>
-        <image name="Null Note" width="22" height="22"/>
+        <image name="Steel Guitar" width="22" height="22"/>
         <image name="background" width="1600" height="613"/>
         <image name="download" width="22" height="22"/>
         <image name="help" width="1135" height="746"/>

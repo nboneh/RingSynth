@@ -34,9 +34,9 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setName:(id)newDetailItem {
-    if (_name != newDetailItem) {
-        _name = newDetailItem;
+- (void)setInstrumentData:(NSDictionary*)newDetailItem {
+    if (_instrumentData != newDetailItem) {
+        _instrumentData = newDetailItem;
         
         // Update the view.
         [self configureView];
@@ -45,15 +45,15 @@
 
 - (void)configureView {
     // Update the user interface for the detail item.
-    if (self.name) {
-        self.navigationItem.title = _name;
+    if (self.instrumentData) {
+        self.navigationItem.title = [_instrumentData objectForKey:@"name"];
         
     }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self load];
-    waveFilePath = [Util getPath:[NSString stringWithFormat:@"%@.wav", _name]];
+    waveFilePath = [Util getPath:[NSString stringWithFormat:@"%@.wav", UUID]];
     
     if(![self recordingExists])
         [self.playButton setEnabled:NO];
@@ -97,7 +97,7 @@
     
     chars =@[@"a", @"b", @"c", @"d", @"e", @"f", @"g"];
     accidentals = @[@"♮",@" ♯",@" ♭"];
-    octaves = @[@"3",@"4",@"5",@"6"];
+    octaves = @[@"6",@"5",@"4",@"3"];
     
     char baseNoteChar = baseNote.character;
     for(int i = 0; i < chars.count; i++){
@@ -258,36 +258,18 @@
 }
 
 -(void) save{
-    //Saving information and overwriting the current instrument in user instruments with this one
-    NSMutableDictionary * instrumentInfo = [[NSMutableDictionary alloc] init];
-    [instrumentInfo setValue:color forKey:@"color"];
-    [instrumentInfo setValue: iconName forKey:@"imageName"];
-    [instrumentInfo setValue:baseNote forKey:@"baseNote"];
-    [instrumentInfo setValue:UUID forKey:@"uuid"];
-    
-    [NSKeyedArchiver archiveRootObject:instrumentInfo toFile:[Util getInstrumentPath:self.name]];
+    //Saving information and overwriting the current instrument in user instruments with this on
+    [_instrumentData setValue:color forKey:@"color"];
+    [_instrumentData setValue: iconName forKey:@"imageName"];
+    [_instrumentData setValue:baseNote forKey:@"baseNote"];
 }
 
 -(void) load{
-    NSDictionary *instrumentInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:[Util getInstrumentPath:self.name]];
-    
-    if(instrumentInfo == nil){
-        //Generate a unique identifier, because user can rename the instrument therefore, the name of the instrument can't be used as its identifier
-        
-        UUID =  [[NSUUID UUID] UUIDString];
-        
-        
-        //Loading defaults
-        color = [UIColor redColor];
-        iconName = @"Note";
-        baseNote = [[NoteDescription alloc] initWithOctave:5 andChar:'c'] ;
-        
-    } else {
-        color = [instrumentInfo objectForKey:@"color"];
-        UUID = [instrumentInfo objectForKey:@"uuid"];
-        iconName = [instrumentInfo objectForKey:@"imageName"];
-        baseNote = [instrumentInfo objectForKey: @"baseNote"];
-    }
+  
+        color = [_instrumentData objectForKey:@"color"];
+        UUID = [_instrumentData objectForKey:@"uuid"];
+        iconName = [_instrumentData objectForKey:@"imageName"];
+        baseNote = [_instrumentData objectForKey: @"baseNote"];
     
 }
 
