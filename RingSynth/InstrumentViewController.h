@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "NoteDescription.h"
+#import "AxonixAdView.h"
 
 @interface ColorSelection : NSObject 
 @property UIColor * color;
@@ -36,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIPickerView *iconPicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *colorPicker;
+@property AxonixAdView *bannerView;
 
 -(IBAction) record;
 -(IBAction) play;

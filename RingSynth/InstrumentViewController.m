@@ -50,9 +50,24 @@
         
     }
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self load];
+    
+    if([Util showAds]){
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+            self.bannerView = [[AxonixAdViewiPad_728x90 alloc] init];
+        else
+            self.bannerView = [[AxonixAdViewiPhone_320x50 alloc] init];
+        CGRect bannerFrame = self.bannerView.frame;
+        bannerFrame.origin.y = self.view.frame.size.height - bannerFrame.size.height;
+        bannerFrame.origin.x = self.view.frame.size.width/2 - bannerFrame.size.width/2;
+        self.bannerView.frame = bannerFrame;
+        
+        [self.view addSubview:self.bannerView];
+    }
+
     waveFilePath = [Util getPath:[NSString stringWithFormat:@"%@.wav", UUID]];
     
     if(![self recordingExists])
@@ -126,6 +141,11 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if([Util showAds])
+        [self.bannerView resumeAdAutoRefresh];
+}
 -(IBAction) record{
     if([_recordButton.titleLabel.text isEqualToString:@"Record"]){
         [self stopPlaying];
@@ -253,6 +273,7 @@
     [recorder stop];
     [self stopPlaying];
     [self save];
+    [self.bannerView pauseAdAutoRefresh];
     
 }
 
@@ -418,11 +439,19 @@
 }
 
 
-
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return 44;
+    else
+        return 22;
+}
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     if (pickerView == _iconPicker){
         
         NSString * imageName = [icons objectAtIndex:row];
+        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
+            imageName = [NSString stringWithFormat:@"%@-ipad", imageName];
+        }
         UIImageView * imageView= [[UIImageView alloc] initWithImage: [[UIImage imageNamed:imageName]
                                                                       imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         imageView.tintColor = color;
@@ -434,6 +463,13 @@
 
     int width =pickerView.frame.size.width/pickerView.numberOfComponents;
         label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 44)];
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
+        label.font = [UIFont systemFontOfSize:23];
+        CGRect frame = label.frame;
+        frame.size.height = frame.size.height*2;
+        label.frame = frame;
+    }
+    else
         label.font = [UIFont systemFontOfSize:17];
     
     if(pickerView == _colorPicker){
