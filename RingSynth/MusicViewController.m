@@ -119,7 +119,7 @@ static BOOL LOOPING;
         
         int width = [[UIScreen mainScreen] bounds].size.width/10 ;
         _instrumentController = [[SlidingSegment alloc] initWithFrame:CGRectMake(0,0,width,30)];
-        
+ 
         UITapGestureRecognizer *quicktap =
         [[UITapGestureRecognizer alloc] initWithTarget:self
                                                 action:@selector(quickTap:)];
@@ -133,8 +133,7 @@ static BOOL LOOPING;
         [self.view addSubview:_instrumentController];
         
         [_instrumentController removeAllSegments];
-        [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];
-        [_instrumentController insertSegmentWithTitle:@"+" atIndex:1 animated:NO];
+        [_instrumentController insertSegmentWithTitle:@"All" atIndex:0 animated:NO];              [_instrumentController insertSegmentWithTitle:@"+" atIndex:1 animated:NO];
         [_instrumentController setSelectedSegmentIndex:0];
         [self fixSegements];
         

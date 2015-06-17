@@ -34,7 +34,8 @@
     {
         [self.mainTitle setFont:[self.mainTitle.font fontWithSize:70]];
     }
-    
+    [ self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"FontName" size:17], NSFontAttributeName, nil]];
+     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     [self.view  setNeedsDisplay];
     
     

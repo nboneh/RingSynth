@@ -10,19 +10,103 @@
 	<string>RingSynth</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>084B8B66B431AB2CE56EF29B6ABDC4A6230348BA</key>
+		<string>git://github.com/bufferapp/buffer-ios-sdk.git</string>
+		<key>09CB9FE0086C719D9651282A3ABB8F5A2B7E1EF3</key>
+		<string>https://github.com/evernote/evernote-sdk-ios.git</string>
+		<key>0BBB7C39514722930913C7C88E5E37E60BBCEE85</key>
+		<string>https://github.com/JJSaccolo/UIActivityIndicator-for-SDWebImage.git</string>
+		<key>210019CBE105A1FC457ED95DB960DAD2B36507BC</key>
+		<string>git://github.com/Pocket/Pocket-ObjC-SDK.git</string>
+		<key>272F684BDB48C12FB82F63EFB90FF2436BBA2473</key>
+		<string>http://git.chromium.org/webm/libwebp.git</string>
+		<key>2F16ABB5253C8A53BD834DD2135B7E534A667AC1</key>
+		<string>git://github.com/soundcloud/CocoaSoundCloudUI.git</string>
+		<key>303ADB51C1AA751B94919C244515192B57F79D74</key>
+		<string>https://github.com/adinardi/google-toolbox-for-mac.git</string>
+		<key>346E86F1A54428F8B3EDD72E38D761EB192E2EBB</key>
+		<string>git://github.com/ShareKit/ShareKit.git</string>
+		<key>40F6B1A92FCBAE8B13261A386147ED1C95003F60</key>
+		<string>https://github.com/GoogleChrome/OpenInChrome.git</string>
+		<key>45E4FE657A78EE4C3029D56A3C00E475C18414E6</key>
+		<string>https://github.com/boredzo/iso-8601-date-formatter.git</string>
+		<key>48734AC5978E47BCAB24F1E9699B65204C5FF04A</key>
+		<string>git://github.com/nxtbgthng/OHAttributedLabel.git</string>
+		<key>4DFCCBAAFC97C65D80F81B0E4894DA70B64A77E3</key>
+		<string>git://github.com/soundcloud/CocoaSoundCloudAPI.git</string>
 		<key>5ED147B1BF61121EE0FE5D77B609DA1DE1B39392</key>
 		<string>https://github.com/nboneh/ringseq.git</string>
+		<key>753F406819D6B488A34E475EDD79CABA66B07973</key>
+		<string>https://github.com/pyke369/PKMultipartInputStream.git</string>
+		<key>A20D666FF4B08EFE53F147818C2D4D17E2242912</key>
+		<string>git://github.com/facebook/facebook-ios-sdk.git</string>
 		<key>A21E964CF35F95307B1FB121F2B5F3025ACF2ED9</key>
 		<string>http://github.com/kstenerud/ObjectAL-for-iPhone.git</string>
+		<key>A890578383E3DB663F7805E7374F935F780CBAD4</key>
+		<string>git://github.com/jakemdunn/google-api-objectivec-client.git</string>
+		<key>C16576B571172538D95183F9515DC5DB064EAF7F</key>
+		<string>https://github.com/soffes/sskeychain.git</string>
+		<key>E28E36D423EC87798E52E2BF482E9F7A1E6479D6</key>
+		<string>https://github.com/rs/SDWebImage.git</string>
+		<key>E6ED3CB6BB070917312B0E7D16CDDE6AC88A8357</key>
+		<string>https://github.com/soffes/SAMTextView.git</string>
+		<key>EB5674475998A0DD33CD59076628ED3B93CBE9CA</key>
+		<string>git://github.com/nxtbgthng/OAuth2Client.git</string>
+		<key>EF51387A5AF28E4351AFB0302884600583A438B5</key>
+		<string>git://github.com/nxtbgthng/JSONKit.git</string>
+		<key>FC9D6C164E93B2B43577086DC8197109F85309D5</key>
+		<string>https://github.com/apportable/ApportableFacebookSDK</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RingSynth.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>084B8B66B431AB2CE56EF29B6ABDC4A6230348BA</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/buffer-ios-sdk</string>
+		<key>09CB9FE0086C719D9651282A3ABB8F5A2B7E1EF3</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/evernote-ios-sdk</string>
+		<key>0BBB7C39514722930913C7C88E5E37E60BBCEE85</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/UIActivityIndicator-for-SDWebImage</string>
+		<key>210019CBE105A1FC457ED95DB960DAD2B36507BC</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/Pocket-ObjC-SDK</string>
+		<key>272F684BDB48C12FB82F63EFB90FF2436BBA2473</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/SDWebImage/Vendors/libwebp</string>
+		<key>2F16ABB5253C8A53BD834DD2135B7E534A667AC1</key>
+		<string>../../../RingSynth/CocoaSoundCloudUI</string>
+		<key>303ADB51C1AA751B94919C244515192B57F79D74</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/google-toolbox-for-mac</string>
+		<key>346E86F1A54428F8B3EDD72E38D761EB192E2EBB</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit</string>
+		<key>40F6B1A92FCBAE8B13261A386147ED1C95003F60</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/OpenInChrome</string>
+		<key>45E4FE657A78EE4C3029D56A3C00E475C18414E6</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/iso-8601-date-formatter</string>
+		<key>48734AC5978E47BCAB24F1E9699B65204C5FF04A</key>
+		<string>../../../RingSynth/OHAttributedLabel</string>
+		<key>4DFCCBAAFC97C65D80F81B0E4894DA70B64A77E3</key>
+		<string>../../../RingSynth/CocoaSoundCloudAPI</string>
 		<key>5ED147B1BF61121EE0FE5D77B609DA1DE1B39392</key>
 		<string>../..</string>
+		<key>753F406819D6B488A34E475EDD79CABA66B07973</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/PKMultipartInputStream</string>
+		<key>A20D666FF4B08EFE53F147818C2D4D17E2242912</key>
+		<string>../../../RingSynth/RingSynth/facebook-ios-sdk</string>
 		<key>A21E964CF35F95307B1FB121F2B5F3025ACF2ED9</key>
 		<string>../..RingSeq/ObjectAL-for-iPhone</string>
+		<key>A890578383E3DB663F7805E7374F935F780CBAD4</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/google-api-objectivec</string>
+		<key>C16576B571172538D95183F9515DC5DB064EAF7F</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/sskeychain</string>
+		<key>E28E36D423EC87798E52E2BF482E9F7A1E6479D6</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/SDWebImage</string>
+		<key>E6ED3CB6BB070917312B0E7D16CDDE6AC88A8357</key>
+		<string>../../../RingSynth/RingSynth/Submodules/ShareKit/Submodules/samtextview</string>
+		<key>EB5674475998A0DD33CD59076628ED3B93CBE9CA</key>
+		<string>../../../RingSynth/OAuth2Client</string>
+		<key>EF51387A5AF28E4351AFB0302884600583A438B5</key>
+		<string>../../../RingSynth/JSONKit</string>
+		<key>FC9D6C164E93B2B43577086DC8197109F85309D5</key>
+		<string>../../../RingSynth/RingSynth/ApportableFacebookSDK</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/nboneh/ringseq.git</string>
@@ -36,6 +120,102 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FC9D6C164E93B2B43577086DC8197109F85309D5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ApportableFacebookSDK</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>084B8B66B431AB2CE56EF29B6ABDC4A6230348BA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>buffer-ios-sdk</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4DFCCBAAFC97C65D80F81B0E4894DA70B64A77E3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CocoaSoundCloudAPI</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2F16ABB5253C8A53BD834DD2135B7E534A667AC1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CocoaSoundCloudUI</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>09CB9FE0086C719D9651282A3ABB8F5A2B7E1EF3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>evernote-ios-sdk</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A20D666FF4B08EFE53F147818C2D4D17E2242912</string>
+			<key>IDESourceControlWCCName</key>
+			<string>facebook-ios-sdk</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A890578383E3DB663F7805E7374F935F780CBAD4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>google-api-objectivec</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>303ADB51C1AA751B94919C244515192B57F79D74</string>
+			<key>IDESourceControlWCCName</key>
+			<string>google-toolbox-for-mac</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>45E4FE657A78EE4C3029D56A3C00E475C18414E6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iso-8601-date-formatter</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EF51387A5AF28E4351AFB0302884600583A438B5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JSONKit</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>272F684BDB48C12FB82F63EFB90FF2436BBA2473</string>
+			<key>IDESourceControlWCCName</key>
+			<string>libwebp</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EB5674475998A0DD33CD59076628ED3B93CBE9CA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>OAuth2Client</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>A21E964CF35F95307B1FB121F2B5F3025ACF2ED9</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ObjectAL-for-iPhone</string>
@@ -44,9 +224,81 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>48734AC5978E47BCAB24F1E9699B65204C5FF04A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>OHAttributedLabel</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>40F6B1A92FCBAE8B13261A386147ED1C95003F60</string>
+			<key>IDESourceControlWCCName</key>
+			<string>OpenInChrome</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>753F406819D6B488A34E475EDD79CABA66B07973</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PKMultipartInputStream</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>210019CBE105A1FC457ED95DB960DAD2B36507BC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Pocket-ObjC-SDK</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>5ED147B1BF61121EE0FE5D77B609DA1DE1B39392</string>
 			<key>IDESourceControlWCCName</key>
 			<string>RingSeq</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E6ED3CB6BB070917312B0E7D16CDDE6AC88A8357</string>
+			<key>IDESourceControlWCCName</key>
+			<string>samtextview</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E28E36D423EC87798E52E2BF482E9F7A1E6479D6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDWebImage</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>346E86F1A54428F8B3EDD72E38D761EB192E2EBB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ShareKit</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C16576B571172538D95183F9515DC5DB064EAF7F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>sskeychain</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0BBB7C39514722930913C7C88E5E37E60BBCEE85</string>
+			<key>IDESourceControlWCCName</key>
+			<string>UIActivityIndicator-for-SDWebImage</string>
 		</dict>
 	</array>
 </dict>

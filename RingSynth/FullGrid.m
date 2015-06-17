@@ -109,7 +109,7 @@ const int TICS_PER_BEAT  =12;
     [layers addObject:layer];
     
     NSArray * beats = presentationLayer.beats;
-    for(int i = 0; i < beats.count; i++){
+    for(int i = 0; i < _numOfBeats; i++){
         //Changing all subdivision to be the same as presentation layer subdivision
         [[[layer beats] objectAtIndex:i] changeSubDivision:[[beats objectAtIndex:i] currentSubdivision]];
     }
