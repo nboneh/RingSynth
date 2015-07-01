@@ -161,7 +161,6 @@
                 break;
             case SKPaymentTransactionStatePurchased:
                 //this is called when the user has successfully purchased the package (Cha-Ching!)
-                // [self doRemoveAds]; //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
                 [self validatePurchaseTransaction:transaction validated:YES];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 NSLog(@"Transaction state -> Purchased");
